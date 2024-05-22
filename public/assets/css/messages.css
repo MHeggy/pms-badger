@@ -1,0 +1,150 @@
+/* Reset default browser styles */
+body, h1, h2, h3, p, ul, li, button, textarea {
+    margin: 0;
+    padding: 0;
+    font-family: Roboto, sans-serif;
+}
+
+/* Container styles */
+#header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+}
+
+main {
+    max-width: 800px; /* Adjust the max-width as needed */
+    margin: 20px auto;
+    padding: 20px;
+}
+
+/* Message card styles */
+.message-card {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.message-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.author {
+    font-weight: bold;
+}
+
+.timestamp {
+    color: #888;
+}
+
+.message-content p {
+    margin-bottom: 10px;
+}
+
+/* Form styles */
+#message-form {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#message-input {
+    width: calc(100% - 100px); /* Adjust the width as needed */
+    height: 100px; /* Adjust the height as needed */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+button[type="submit"] {
+    width: 100px; /* Adjust the width as needed */
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #333;
+    color: #fff;
+    cursor: pointer;
+}
+
+button[type="submit"]:hover {
+    background-color: #555;
+}
+/* Edit Message Button */
+.edit-message {
+    padding: 5px 10px; /* Add padding */
+    background-color: #007bff; /* Blue color, you can change it as needed */
+    color: #fff; /* Text color */
+    border: none; /* Remove default button border */
+    border-radius: 5px; /* Add border radius for rounded corners */
+    transition: background-color 0.3s; /* Smooth transition for hover effect */
+}
+
+/* Adjust the position and size of action buttons */
+.action-buttons {
+    display: flex;
+    justify-content: flex-end; /* Align buttons to the right */
+    gap: 10px; /* Add some space between buttons */
+}
+
+/* Style for both delete and edit buttons */
+.action-buttons button {
+    padding: 5px 10px; /* Add padding */
+    background-color: #dc3545; /* Red color for delete button */
+    color: #fff; /* Text color */
+    border: none; /* Remove default button border */
+    border-radius: 5px; /* Add border radius for rounded corners */
+    transition: background-color 0.3s; /* Smooth transition for hover effect */
+}
+
+/* Style for the edit button */
+.action-buttons .edit-message {
+    background-color: #007bff; /* Blue color for edit button */
+}
+
+/* Hover effect */
+.action-buttons button:hover {
+    background-color: #c82333; /* Darker red color on hover for delete button */
+}
+
+.action-buttons .edit-message:hover {
+    background-color: #0056b3; /* Darker blue color on hover for edit button */
+}
+/* Adjust spacing and emphasize the title */
+.message-card {
+    /* Your existing styles */
+}
+
+.user-info {
+    /* Keep the username less prominent */
+    font-size: 0.9em; /* Decrease font size */
+    color: #888; /* Lighter color */
+}
+
+.author {
+    font-weight: normal; /* Remove bold */
+}
+
+.timestamp {
+    color: #888; /* Lighter color */
+}
+
+.message-content {
+    margin-top: 10px; /* Add some spacing between user info and message content */
+}
+
+.message-content h5 {
+    font-weight: bold; /* Emphasize the title */
+    color: #333; /* Darken the title color */
+    margin-bottom: 5px; /* Add some spacing between title and message text */
+}
+
+.message-content p {
+    /* Your existing styles */
+}

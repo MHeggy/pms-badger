@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "fullcalendar": "^6.1.11",
+    "handsontable": "^14.1.0",
+    "socket.io": "^4.7.4"
+  }
+}

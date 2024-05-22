@@ -1,0 +1,47 @@
+body {
+    font-family: Arial, sans-serif; /* Use Arial font for better readability */
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9; /* Light gray background color */
+    text-align: center; /* Center-align content */
+}
+.modal {
+    display: none; /* Hide modal by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+}
+.modal-content {
+    background-color: #fff; /* White background color for modal content */
+    max-width: 400px;
+    margin: 100px auto; /* Center modal vertically */
+    padding: 20px;
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Soft shadow effect */
+    text-align: left; /* Left-align content */
+}
+h1 {
+    color: #333; /* Dark gray header color */
+}
+p {
+    margin-bottom: 20px; /* Add some space below paragraphs */
+    color: #666; /* Medium gray text color */
+}
+.buttons {
+    text-align: center; /* Center-align buttons */
+}
+.button {
+    padding: 10px 20px;
+    background-color: #007bff; /* Blue button color */
+    color: #fff; /* White text color */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 10px; /* Add space between buttons */
+}
+.button:hover {
+    background-color: #0056b3; /* Darken button color on hover */
+}

@@ -1,0 +1,43 @@
+/* Body styles */
+body {
+    padding-top: 50px; /* Add padding to the top to prevent overlap with the header */
+    font-family: 'Roboto', sans-serif;
+}
+
+header {
+    padding-top: 50px;
+}
+
+/* Table styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px; /* Add margin to separate the table from the header */
+    margin-left: 100px;
+}
+
+th, td {
+    padding: 12px; /* Increased padding for better spacing */
+    border-bottom: 1px solid #ddd;
+    text-align: left; /* Align text to the left */
+}
+
+th {
+    background-color: #f2f2f2;
+    font-weight: bold; /* Make header text bold */
+}
+
+/* Button styles */
+button {
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 5px; /* Add margin between buttons */
+}
+
+button:hover {
+    background-color: #0056b3;
+}

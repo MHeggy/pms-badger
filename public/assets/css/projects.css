@@ -1,0 +1,42 @@
+/* projects.css */
+
+
+/* Adjusting spacing for content below header */
+body {
+    padding-top: 20px; /* Adjust this value according to the header height */
+    padding-left: 100px;
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Adjusted styles for search input */
+.form-control {
+    margin-bottom: 10px; /* Adjusted margin */
+    border-radius: 0.25rem; /* Added border-radius */
+}
+
+/* Adjusted styles for status select */
+.form-select {
+    margin-bottom: 10px; /* Adjusted margin */
+    border-radius: 0.25rem; /* Added border-radius */
+}
+
+/* Adjusted styles for apply buttons */
+.btn-primary {
+    width: 100%;
+}
+
+/* Table styles */
+.table {
+    width: 100%;
+}
+
+.table th,
+.table td {
+    padding: 10px; /* Add padding for spacing */
+    text-align: center; /* Align text to the center */
+    vertical-align: middle; /* Vertically center content */
+}
+
+.table th {
+    background-color: #f2f2f2;
+}

@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title><?= $pageTitle = "Calendar" ?></title>
+    <!-- Link to Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Script for FullCalendar -->
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
+    <!-- Script for jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="<?php echo base_url('/assets/css/calendar.css')?>">
+</head>
+<body>
+<header>
+    <?php include 'header.php' ?>
+</header>
+
+<!-- Calendar Section -->
+<div id="calendar"></div>
+
+<!-- Modal for Adding Event -->
+<div class="modal fade" id="addEventModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Event</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="eventForm" method="post" action="/calendar/create">
+                    <label for="title">Title:</label>
+                    <input type="text" id="title" name="title" required><br><br>
+                    <label for="start">Start Date:</label>
+                    <input type="datetime-local" id="start" name="start" required><br><br>
+                    <label for="end">End Date:</label>
+                    <input type="datetime-local" id="end" name="end"><br><br>
+                    <button type="submit" class="btn btn-primary" id="addEventBtn">Add Event</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for Editing Event -->
+<div class="modal fade" id="editEventModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit Event</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editEventForm" method="post" action="/calendar/update">
+                    <input type="hidden" name="eventId" id="eventId">
+                    <label for="editTitle">Title:</label>
+                    <input type="text" id="editTitle" name="title" required><br><br>
+                    <label for="editStart">Start Date:</label>
+                    <input type="datetime-local" id="editStart" name="start" required><br><br>
+                    <label for="editEnd">End Date:</label>
+                    <input type="datetime-local" id="editEnd" name="end"><br><br>
+                    <button type="submit" class="btn btn-primary" id="updateEventBtn">Update Event</button>
+                    <button type="button" class="btn btn-danger" id="deleteEventBtn">Delete Event</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript to Initialize FullCalendar and Handle Events -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            headerToolbar: {
+                left: 'prev,next',
+                center: 'title',
+                right: 'dayGridMonth,timeGridWeek,timeGridDay'
+            },
+            selectable: true,
+            events: <?= $events ?>,
+            select: function(info) {
+                // Open the modal when a date is selected
+                $('#addEventModal').modal('show');
+                // Automatically fill the start and end date fields with the selected date
+                $('#start').val(info.startStr);
+                $('#end').val(info.endStr || info.startStr);
+            },
+            eventClick: function(info) {
+                // Show the modal for editing
+                $('#editEventModal').modal('show');
+                // Fill the form with event details
+                $('#editEventForm input[name="eventId"]').val(info.event.id);
+                $('#editTitle').val(info.event.title);
+                $('#editStart').val(info.event.startStr);
+                $('#editEnd').val(info.event.endStr || '');
+
+                // Capture the event ID for further actions
+                var eventId = info.event.id;
+                console.log(eventId);
+            }
+        });
+
+        calendar.render();
+
+        // Change view buttons
+        $('#month-view-btn').click(function() {
+            calendar.changeView('dayGridMonth');
+        });
+
+        $('#week-view-btn').click(function() {
+            calendar.changeView('timeGridWeek');
+        });
+
+        $('#day-view-btn').click(function() {
+            calendar.changeView('timeGridDay');
+        });
+
+        // Handle event form submission
+        $('#editEventForm').submit(function(e) {
+            e.preventDefault(); // Prevent default form submission
+
+            // Get form data
+            var eventId = $('#editEventForm input[name="eventId"]').val();
+            var title = $('#editTitle').val();
+            var start = $('#editStart').val();
+            var end = $('#editEnd').val();
+
+            // Submit form data via AJAX
+            $.ajax({
+                type: 'POST',
+                url: '/calendar/update',
+                data: {
+                    eventId: eventId,
+                    editTitle: title,
+                    editStart: start,
+                    editEnd: end
+                },
+                success: function(response) {
+                    // Handle success response
+                    console.log(response);
+                    // Reload the page or update the calendar view
+                    window.location.reload();
+                },
+                error: function(xhr, status, error) {
+                    // Handle error response
+                    console.error(error);
+                }
+            });
+        });
+
+        // Delete Event button click handler
+        $('#deleteEventBtn').click(function() {
+            // Capture the event ID
+            var eventId = $('#editEventForm input[name="eventId"]').val();
+
+            // Make an AJAX request to delete the event
+            $.ajax({
+                type: 'POST',
+                url: '/calendar/deleteEvent',
+                data: { eventId: eventId },
+                success: function(response) {
+                    // Handle success response
+                    console.log(response);
+                    // Reload the page or update the calendar view
+                    window.location.reload();
+                },
+                error: function(xhr, status, error) {
+                    // Handle error response
+                    console.error(error);
+                }
+            });
+        });
+
+        // Add Event button click handler
+        $('#addEventBtn').click(function() {
+            // Capture form data
+            var title = $('#title').val();
+            var start = $('#start').val();
+            var end = $('#end').val();
+
+            // Create a new event object
+            var event = {
+                title: title,
+                start: start,
+                end: end
+            };
+
+            // Add the event to the FullCalendar
+            calendar.addEvent(event);
+
+            // Close the modal
+            $('#addEventModal').modal('hide');
+        });
+    });
+</script>
+</body>
+</html>
