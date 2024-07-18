@@ -1,6 +1,9 @@
 # Disable directory browsing
 Options -Indexes
 
+# Set DirectoryIndex
+DirectoryIndex index.php index.html
+
 # ----------------------------------------------------------------------
 # Rewrite engine
 # ----------------------------------------------------------------------
