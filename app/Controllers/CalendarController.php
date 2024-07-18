@@ -20,6 +20,11 @@ class CalendarController extends Controller {
         // fetch events from the database.
         $events = $this->calendarModel->getAllEvents();
         $userID = auth()->id();
+
+        if (!$userID) {
+            return redirect()->to('/login')->with('error', 'You must login to access this page.');
+        }
+
         // Format event data for calendar.
         $formattedEvents = [];
         foreach($events as $event) {
@@ -44,12 +49,12 @@ class CalendarController extends Controller {
     public function updateEvent() {
         // Get POST form submission data from form
         $id = $this->request->getPost('eventId');
-        $title = $this->request->getPost('editTitle');
-        $start = $this->request->getPost('editStart');
-        $end = $this->request->getPost('editEnd');
+        $title = $this->request->getPost('title');  // Corrected from 'editTitle'
+        $start = $this->request->getPost('start');  // Corrected from 'editStart'
+        $end = $this->request->getPost('end');      // Corrected from 'editEnd'
 
         // Fetch the event by its ID
-        $event = $this->calendarModel->getEventById($id); // Use a different variable name, like $event
+        $event = $this->calendarModel->getEventById($id);
 
         if (!$event) {
             // Handle case where event with given ID does not exist
@@ -71,6 +76,7 @@ class CalendarController extends Controller {
         // Redirect back to calendar page
         return redirect()->to('/calendar');
     }
+
 
 
     public function storeEvent() {

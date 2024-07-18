@@ -20,6 +20,10 @@ class ForumController extends Controller {
         $userID = auth()->id();
         $categoryId = $this->request->getGet('category_id');
 
+        if (!$userID) {
+            return redirect()->to('/login')->with('error', 'You must login to access this page.');
+        }
+
         if ($categoryId) {
             $data['posts'] = $this->forumModel->getPostsByCategory($categoryId);
         } else {
@@ -79,7 +83,13 @@ class ForumController extends Controller {
     }
 
     public function deletePost($postId) {
+        // Delete all replies associated with the post
+        $this->replyModel->deleteRepliesByPostId($postId);
+
+        // Now delete the post
         $this->forumModel->deletePost($postId);
-        return redirect()->to('/forums');
+
+        return redirect()->to('/forums')->with('success', 'Post and its replies have been deleted.');
     }
+
 }

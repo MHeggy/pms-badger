@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Controllers;
 
 use App\Models\TimesheetsModel;
@@ -17,34 +16,13 @@ class TimesheetsController extends BaseController
         $this->notificationModel = new NotificationModel();
     }
 
-    public function submit() {
-        $data = [
-            'user_id' => $this->request->getPost('user-id'),
-            'week_of' => $this->request->getPost('week'),
-        ];
-
-        // Process daily hours worked
-        $dailyHours = [];
-        $daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-        foreach ($daysOfWeek as $day) {
-            $dailyHours[$day] = $this->request->getPost(strtolower($day));
-        }
-        // Insert the timesheet data
-        $success = $this->timesheetsModel->insertTimesheet($data, $dailyHours);
-
-        if ($success) {
-            // Set a success flash message
-            $this->session->setFlashdata('success_message', 'Timesheet submitted successfully!');
-        } else {
-            // Set an error flash message if insertion failed
-            $this->session->setFlashdata('error_message', 'Failed to submit timesheet. Please try again.');
-        }
-
-        return redirect()->to('/dashboard')->with('success_message', 'Timesheet submitted successfully!');
-    }
-
     public function index() {
         $userId = auth()->id();
+
+        if (!$userId) {
+            return redirect()->to('/login')->with('error', 'You must login to access this page.');
+        }
+
         $notifications = $this->notificationModel->getUnreadNotifications($userId);
         return view('PMS/payroll.php', [
             'userId' => $userId,
@@ -53,43 +31,65 @@ class TimesheetsController extends BaseController
     }
 
 
-    public function viewTimesheets($userId) {
-        // Fetch the user information
+    public function submit()
+    {
+        $data = [
+            'user_id' => $this->request->getPost('user-id'),
+            'week_of' => $this->request->getPost('week'),
+        ];
+
+        $dailyHours = [];
+        $daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+        foreach ($daysOfWeek as $day) {
+            $dailyHours[strtolower($day)] = $this->request->getPost(strtolower($day));
+        }
+
+        $success = $this->timesheetsModel->insertTimesheet($data, $dailyHours);
+
+        if ($success) {
+            $this->session->setFlashdata('success_message', 'Timesheet submitted successfully!');
+        } else {
+            $this->session->setFlashdata('error_message', 'Failed to submit timesheet. Please try again.');
+        }
+
+        return redirect()->to('/dashboard');
+    }
+
+    public function viewTimesheets($userId)
+    {
         $user = $this->timesheetsModel->getUserInfo($userId);
-        // Fetch the timesheets for the user
         $timesheets = $this->timesheetsModel->getUserTimesheets($userId);
-
-        // fetch notifications
         $notifications = $this->notificationModel->getUnreadNotifications($userId);
-
-        $role = auth()->user()->getGroups();
 
         return view('PMS/user_timesheets.php', [
             'user' => $user,
             'timesheets' => $timesheets,
-            'role' => $role,
             'notifications' => $notifications
         ]);
     }
 
-    // function edit the user's timesheet
-    public function editTimesheet($timesheetId) {
-        // Fetch timesheet details for editing.
+    public function viewTimesheet($timesheetId)
+    {
         $timesheet = $this->timesheetsModel->find($timesheetId);
-
-        // Fetch daily hours worked for the timesheet
         $dailyHours = $this->timesheetsModel->getDailyHours($timesheetId);
 
-        // convert keys in the array to lowercase.
-        $dailyHours = array_change_key_case($dailyHours, CASE_LOWER);
+        if (!$timesheet) {
+            return redirect()->back()->with('error_message', 'Timesheet not found.');
+        }
 
-        // Log the contents of $dailyHours
-        log_message('debug', 'Daily Hours: ' . print_r($dailyHours, true));
+        return view('PMS/timesheet_details.php', [
+            'timesheet' => $timesheet,
+            'dailyHours' => $dailyHours,
+        ]);
+    }
 
-        // Define days of the week
+    public function editTimesheet($timesheetId)
+    {
+        $timesheet = $this->timesheetsModel->find($timesheetId);
+        $dailyHours = $this->timesheetsModel->getDailyHours($timesheetId);
+
         $daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
-        // Pass the timesheet and daily hours data to the view
         return view('PMS/edit_timesheet.php', [
             'timesheet' => $timesheet,
             'dailyHours' => $dailyHours,
@@ -97,24 +97,17 @@ class TimesheetsController extends BaseController
         ]);
     }
 
-    public function updateTimesheet() {
-        // get the timesheet ID from the form.
+    public function updateTimesheet()
+    {
         $timesheetId = $this->request->getPost('id');
-
-        // get the week of the timesheet from the form.
-        $weekOf = $this->request->getPost('week');
-
-        $data = [
-            'week_of' => $weekOf,
-        ];
+        $data = ['week_of' => $this->request->getPost('week')];
 
         $success = $this->timesheetsModel->updateTimesheet($timesheetId, $data);
 
-        // Process daily hours worked
         $dailyHours = [];
         $daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
         foreach ($daysOfWeek as $day) {
-            $dailyHours[$day] = $this->request->getPost(strtolower($day));
+            $dailyHours[strtolower($day)] = $this->request->getPost(strtolower($day));
         }
 
         $successDailyHours = $this->timesheetsModel->updateDailyHours($timesheetId, $dailyHours);
@@ -122,30 +115,24 @@ class TimesheetsController extends BaseController
         if ($success && $successDailyHours) {
             $this->session->setFlashdata('success_message', 'Timesheet updated successfully');
         } else {
-            $this->session->setFlashdata('error_message', 'Failed to update timesheet. Please try again or contact an administrator.');
+            $this->session->setFlashdata('error_message', 'Failed to update timesheet. Please try again.');
         }
 
-        return redirect()->to('/dashboard')->with('success_message', 'Timesheet updated successfully!');
+        return redirect()->to('/dashboard');
     }
 
-    // function to delete timesheet
-    public function deleteTimesheet($timesheetId) {
-        // check if the timesheet exists first
+    public function deleteTimesheet($timesheetId)
+    {
         $timesheet = $this->timesheetsModel->find($timesheetId);
 
         if (!$timesheet) {
-            // timesheet not found.
             return redirect()->back()->with('error_message', 'Timesheet was unable to be found.');
         }
 
-        // Delete related daily hours records first
         $this->timesheetsModel->deleteDailyHours($timesheetId);
-
-        // Then, delete the timesheet record
         $success = $this->timesheetsModel->delete($timesheetId);
 
         if ($success) {
-            // deletion successful
             return redirect()->back()->with('success_message', 'Timesheet deleted successfully.');
         } else {
             return redirect()->back()->with('error_message', 'Failed to delete timesheet. Please try again.');

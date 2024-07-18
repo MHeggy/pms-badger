@@ -30,9 +30,9 @@
         <tbody>
         <?php foreach ($timesheets as $timesheet): ?>
             <tr>
-                <td><?= $timesheet['week_of'] ?></td>
+                <td><a href="/timesheets/view/<?= $timesheet['id'] ?>"><?= esc($timesheet['week_of']) ?></a></td>
                 <td><?= getTotalHoursWorked($timesheet['id']) ?></td>
-                <td><?= $user->pay_rate ?></td>
+                <td><?= esc($user->pay_rate) ?></td>
                 <td>
                     <a href="/timesheets/edit/<?= $timesheet['id'] ?>" class="btn btn-primary">Edit</a>
                     <button class="btn btn-danger" onclick="confirmDelete(<?= $timesheet['id'] ?>)">Delete</button>
@@ -65,20 +65,20 @@
 <?php
 function getTotalHoursWorked($timesheetId)
 {
-$db = \Config\Database::connect();
-$query = $db->table('daily_hours')->select('monday, tuesday, wednesday, thursday, friday, saturday, sunday')->where('timesheet_id', $timesheetId)->get()->getRow();
-$totalHours = 0;
+    $db = \Config\Database::connect();
+    $query = $db->table('daily_hours')->select('monday, tuesday, wednesday, thursday, friday, saturday, sunday')->where('timesheet_id', $timesheetId)->get()->getRow();
+    $totalHours = 0;
 
 // Sum up hours from each day of the week column
-$totalHours += $query->monday;
-$totalHours += $query->tuesday;
-$totalHours += $query->wednesday;
-$totalHours += $query->thursday;
-$totalHours += $query->friday;
-$totalHours += $query->saturday;
-$totalHours += $query->sunday;
+    $totalHours += $query->monday;
+    $totalHours += $query->tuesday;
+    $totalHours += $query->wednesday;
+    $totalHours += $query->thursday;
+    $totalHours += $query->friday;
+    $totalHours += $query->saturday;
+    $totalHours += $query->sunday;
 
-return $totalHours;
+    return $totalHours;
 }
 ?>
 

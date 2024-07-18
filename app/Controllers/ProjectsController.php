@@ -18,35 +18,72 @@ class ProjectsController extends BaseController {
     }
 
     public function index() {
-        $projects = $this->projectModel->getProjects();
+        try {
+            // Fetch projects from the model
+            $projects = $this->projectModel->getProjects();
 
-        // fetch assigned users for each project
-        foreach ($projects as $project) {
-            $project['assignedUsers'] = $this->projectModel->getAssignedUsers($project['projectID']);
+            // Sort projects by project number in descending order
+            usort($projects, function($a, $b) {
+                // Split project number into year and number parts
+                $aParts = explode('-', $a['projectNumber']);
+                $bParts = explode('-', $b['projectNumber']);
+                $aYear = intval($aParts[0]);
+                $bYear = intval($bParts[0]);
+                $aNumber = intval($aParts[1]);
+                $bNumber = intval($bParts[1]);
+
+                // Compare years first, then numbers
+                if ($aYear !== $bYear) {
+                    return $bYear - $aYear;
+                } else {
+                    return $bNumber - $aNumber;
+                }
+            });
+
+            // Fetch assigned users for each project
+            foreach ($projects as &$project) {
+                $project['assignedUsers'] = $this->projectModel->getAssignedUsers($project['projectID']);
+            }
+
+            // Get unread notifications for the logged-in user
+            $userID = auth()->id();
+            $notifications = $this->notificationModel->getUnreadNotifications($userID);
+
+            if (!$userID) {
+                return redirect()->to('/login')->with('error', 'You must login to access this page.');
+            }
+
+            // Pass projects and notifications data to the view
+            $data = [
+                "projects" => $projects,
+                "notifications" => $notifications
+            ];
+
+            // Load the projects view and pass the data
+            return view('PMS/projects.php', $data);
+        } catch (\Exception $e) {
+            log_message('error', 'Error in index: ' . $e->getMessage());
+            return $this->response->setStatusCode(500)->setJSON(['error' => 'Internal server error']);
         }
-        $userID = auth()->id();
-        $notifications = $this->notificationModel->getUnreadNotifications($userID);
-        $data = [
-            "projects" => $projects,
-            "notifications" => $notifications
-        ];
-
-        // load the projects view and pass the project's data.
-        return view('PMS/projects.php', $data);
     }
 
-    public function search() {
-        // Get the search term from the search bar.
-        $searchTerm = $this->request->getGet('search');
 
-        // Fetch data from the model with additional search term.
-        $data['projects'] = $this->projectModel->searchProjects($searchTerm);
-        // fetch user's id
-        $userID = auth()->id();
-        $data['notifications'] = $this->notificationModel->getUnreadNotifications($userID);
-        // pass the projects data to the view.
-        return view('PMS/projects.php', $data);
-    }// end search function.
+
+    public function search() {
+        try {
+            $searchTerm = $this->request->getGet('search');
+
+            // Fetch data from the model
+            $projects = $this->projectModel->searchProjects($searchTerm);
+
+            // Return JSON response
+            return $this->response->setJSON(['projects' => $projects]);
+        } catch (\Exception $e) {
+            log_message('error', 'Error in search: ' . $e->getMessage());
+            return $this->response->setStatusCode(500)->setJSON(['error' => 'Internal server error']);
+        }
+    }
+
 
     // function to filter projects based on status.
     public function filter() {

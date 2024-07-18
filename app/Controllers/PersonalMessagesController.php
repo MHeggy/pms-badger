@@ -19,6 +19,11 @@ class PersonalMessagesController extends Controller
     public function index()
     {
         $user_id = auth()->id();
+
+        if (!$user_id) {
+            return redirect()->to('/login')->with('error', 'You must login to access this page.');
+        }
+
         $threads = $this->personalMessageModel->getThreadsForUser($user_id);
 
         // Fetch unread message counts for each thread

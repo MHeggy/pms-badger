@@ -28,6 +28,7 @@
             <label for="week" class="form-label">Week</label>
             <input type="date" class="form-control" id="week" name="week" value="<?= $timesheet['week_of'] ?>" required>
         </div>
+
         <!-- Input fields for each day of the week -->
         <!-- Inside the form -->
         <?php foreach ($daysOfWeek as $day): ?>

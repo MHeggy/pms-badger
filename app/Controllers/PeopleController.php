@@ -18,6 +18,12 @@ class PeopleController extends BaseController {
     }
 
     public function index() {
+        $user = auth()->user();
+
+        if (!$user) {
+            return redirect()->to('/login')->with('error', 'You must login to access this page.');
+        }
+
         $data['users'] = $this->userModel->findAll(); // fetch all users.
         return view('PMS/people.php', $data);
     }
@@ -37,6 +43,11 @@ class PeopleController extends BaseController {
             // get total projects count
             $totalProjects = $this->projectModel->countAllResults();
             $notifications = $this->notificationModel->getUnreadNotifications($userID);
+            // Fetch upcoming events
+            $calendarModel = new \App\Models\CalendarModel();
+            $upcomingEvents = $calendarModel->where('start_date >=', date('Y-m-d H:i:s'))
+                ->orderBy('start_date', 'ASC')
+                ->findAll();
 
             return view('PMS/home.php', [
                 'totalProjects' => $totalProjects,
@@ -44,6 +55,7 @@ class PeopleController extends BaseController {
                 'completedProjects' => $completedProjects,
                 'ongoingProjects' => $ongoingProjects,
                 'notifications' => $notifications,
+                'upcomingEvents' => $upcomingEvents,
                 'errorMessage' => session()->getFlashdata('error')
             ]);
         }
@@ -55,6 +67,12 @@ class PeopleController extends BaseController {
         // check if the logged-in user is viewing their own profile or if they are superadmin.
         $loggedInUserId = auth()->id();
         $user = auth()->user();
+
+        // if user not logged in redirect to the login page with message telling them to login.
+        if (!$user) {
+            return redirect()->to('/login')->with('error', 'You must login to access this page.');
+        }
+
         $notifications = $this->notificationModel->getUnreadNotifications($loggedInUserId);
         if ($loggedInUserId == $userId || $user->inGroup('superadmin')) {
             // load the profile view.

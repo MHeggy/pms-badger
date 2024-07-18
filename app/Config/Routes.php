@@ -20,7 +20,7 @@ $routes->get('/forums/view/(:num)', 'ForumController::viewPost/$1');
 // route for editing forum post.
 $routes->post('/forums/updatePost/(:num)', 'ForumController::updatePost/$1');
 // route for deleting posts from forum
-$routes->post('/forums/deletePost/(:num)', 'ForumController::deletePost/$1');
+$routes->delete('/forums/deletePost/(:num)', 'ForumController::deletePost/$1');
 // route for personal messages page
 $routes->get('/personalmessages', 'PersonalMessagesController::index');
 // route for getting messages
@@ -51,6 +51,8 @@ $routes->get('/timesheets/edit/(:num)', 'TimesheetsController::editTimesheet/$1'
 $routes->post('/timesheets/update', 'TimesheetsController::updateTimesheet');
 // route for deleting timesheets out of database.
 $routes->get('/timesheets/delete/(:num)', 'TimesheetsController::deleteTimesheet/$1');
+// route for viewing specific timesheet.
+$routes->get('/timesheets/view/(:num)', 'TimesheetsController::viewTimesheet/$1');
 // route for displaying projects page.
 $routes->get('/projects', 'ProjectsController::index');
 // route for handling searching of projects.

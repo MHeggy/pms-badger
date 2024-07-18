@@ -109,7 +109,10 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                <button type="button" class="btn btn-danger">Yes</button>
+                <form action="/forums/deletePost/<?= $post['id']; ?>" method="post" class="d-inline">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <button type="submit" class="btn btn-danger">Yes</button>
+                </form>
             </div>
         </div>
     </div>

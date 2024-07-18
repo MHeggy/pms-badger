@@ -20,6 +20,11 @@ class PayrollController extends BaseController {
     public function index()
     {
         $user = auth()->user();
+
+        if (!$user) {
+            return redirect()->to('/login')->with('error', 'You must login to access this page.');
+        }
+
         if (!$user->inGroup('accountant') && !$user->inGroup('superadmin')) {
             return redirect()->to('/dashboard')->with('error_message', 'You do not have permissions to view this page.');
         }

@@ -26,10 +26,10 @@ class Database extends Config
      */
     public array $default = [
         'DSN'          => '',
-        'hostname'     => 'c5hilnj7pn10vb.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com',
+        'hostname'     => 'localhost',
         'username'     => 'phpuser',
         'password'     => 'phpuser',
-        'database'     => 'db3okrvoud1pla',
+        'database'     => 'pms_db',
         'DBDriver'     => 'MySQLi',
         'DBPrefix'     => '',
         'pConnect'     => false,

@@ -33,11 +33,11 @@
             <div class="modal-body">
                 <form id="eventForm" method="post" action="/calendar/create">
                     <label for="title">Title:</label>
-                    <input type="text" id="title" name="title" required><br><br>
+                    <input type="text" id="title" name="title" required class="form-control"><br><br>
                     <label for="start">Start Date:</label>
-                    <input type="datetime-local" id="start" name="start" required><br><br>
+                    <input type="datetime-local" id="start" name="start" required class="form-control"><br><br>
                     <label for="end">End Date:</label>
-                    <input type="datetime-local" id="end" name="end"><br><br>
+                    <input type="datetime-local" id="end" name="end" class="form-control"><br><br>
                     <button type="submit" class="btn btn-primary" id="addEventBtn">Add Event</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </form>
@@ -58,11 +58,11 @@
                 <form id="editEventForm" method="post" action="/calendar/update">
                     <input type="hidden" name="eventId" id="eventId">
                     <label for="editTitle">Title:</label>
-                    <input type="text" id="editTitle" name="title" required><br><br>
+                    <input type="text" id="editTitle" name="title" required class="form-control"><br><br>
                     <label for="editStart">Start Date:</label>
-                    <input type="datetime-local" id="editStart" name="start" required><br><br>
+                    <input type="datetime-local" id="editStart" name="start" required class="form-control"><br><br>
                     <label for="editEnd">End Date:</label>
-                    <input type="datetime-local" id="editEnd" name="end"><br><br>
+                    <input type="datetime-local" id="editEnd" name="end" class="form-control"><br><br>
                     <button type="submit" class="btn btn-primary" id="updateEventBtn">Update Event</button>
                     <button type="button" class="btn btn-danger" id="deleteEventBtn">Delete Event</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -71,6 +71,7 @@
         </div>
     </div>
 </div>
+
 
 <!-- JavaScript to Initialize FullCalendar and Handle Events -->
 <script>
@@ -89,8 +90,8 @@
                 // Open the modal when a date is selected
                 $('#addEventModal').modal('show');
                 // Automatically fill the start and end date fields with the selected date
-                $('#start').val(info.startStr);
-                $('#end').val(info.endStr || info.startStr);
+                $('#start').val(new Date(info.start).toISOString().slice(0, 16));
+                $('#end').val(info.end ? new Date(info.end).toISOString().slice(0, 16) : new Date(info.start).toISOString().slice(0, 16));
             },
             eventClick: function(info) {
                 // Show the modal for editing
@@ -98,29 +99,12 @@
                 // Fill the form with event details
                 $('#editEventForm input[name="eventId"]').val(info.event.id);
                 $('#editTitle').val(info.event.title);
-                $('#editStart').val(info.event.startStr);
-                $('#editEnd').val(info.event.endStr || '');
-
-                // Capture the event ID for further actions
-                var eventId = info.event.id;
-                console.log(eventId);
+                $('#editStart').val(new Date(info.event.start).toISOString().slice(0, 16));
+                $('#editEnd').val(info.event.end ? new Date(info.event.end).toISOString().slice(0, 16) : '');
             }
         });
 
         calendar.render();
-
-        // Change view buttons
-        $('#month-view-btn').click(function() {
-            calendar.changeView('dayGridMonth');
-        });
-
-        $('#week-view-btn').click(function() {
-            calendar.changeView('timeGridWeek');
-        });
-
-        $('#day-view-btn').click(function() {
-            calendar.changeView('timeGridDay');
-        });
 
         // Handle event form submission
         $('#editEventForm').submit(function(e) {
@@ -132,15 +116,23 @@
             var start = $('#editStart').val();
             var end = $('#editEnd').val();
 
+            // Log form data to console for debugging
+            console.log({
+                eventId: eventId,
+                title: title,
+                start: start,
+                end: end
+            });
+
             // Submit form data via AJAX
             $.ajax({
                 type: 'POST',
                 url: '/calendar/update',
                 data: {
                     eventId: eventId,
-                    editTitle: title,
-                    editStart: start,
-                    editEnd: end
+                    title: title,
+                    start: start,
+                    end: end
                 },
                 success: function(response) {
                     // Handle success response
@@ -176,27 +168,6 @@
                     console.error(error);
                 }
             });
-        });
-
-        // Add Event button click handler
-        $('#addEventBtn').click(function() {
-            // Capture form data
-            var title = $('#title').val();
-            var start = $('#start').val();
-            var end = $('#end').val();
-
-            // Create a new event object
-            var event = {
-                title: title,
-                start: start,
-                end: end
-            };
-
-            // Add the event to the FullCalendar
-            calendar.addEvent(event);
-
-            // Close the modal
-            $('#addEventModal').modal('hide');
         });
     });
 </script>
