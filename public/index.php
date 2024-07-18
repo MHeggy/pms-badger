@@ -17,7 +17,7 @@ if (getcwd() . DIRECTORY_SEPARATOR !== FCPATH) {
  */
 
 // Load our paths config file
-require 'app/Config/Paths.php';
+require '/app/Config/Paths.php';
 
 $paths = new Config\Paths();
 
