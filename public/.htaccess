@@ -1,5 +1,5 @@
 # Set DirectoryIndex
-DirectoryIndex index.php
+DirectoryIndex public/index.php
 
 # ----------------------------------------------------------------------
 # Rewrite engine
