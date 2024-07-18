@@ -1,6 +1,8 @@
 <?php
+
 // Path to the front controller (this file)
-define('FCPATH', __DIR__ . DIRECTORY_SEPARATOR);
+define('FCPATH', realpath(__DIR__ . '/../../') . DIRECTORY_SEPARATOR);
+
 
 // Ensure the current directory is pointing to the front controller's directory
 if (getcwd() . DIRECTORY_SEPARATOR !== FCPATH) {
@@ -16,8 +18,10 @@ if (getcwd() . DIRECTORY_SEPARATOR !== FCPATH) {
  * and fires up an environment-specific bootstrapping.
  */
 
+
 // Load our paths config file
-require '/app/Config/Paths.php';
+require FCPATH . 'app/Config/Paths.php';
+
 
 $paths = new Config\Paths();
 
