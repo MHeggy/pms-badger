@@ -4,17 +4,15 @@ namespace App\Controllers;
 
 use App\Models\ProjectModel;
 use CodeIgniter\Shield\Models\UserModel;
-use App\Models\NotificationModel;
+
 
 class PeopleController extends BaseController {
     protected $userModel;
     protected $projectModel;
-    protected $notificationModel;
 
     public function __construct() {
         $this->userModel = new UserModel();
         $this->projectModel = new ProjectModel();
-        $this->notificationModel = new NotificationModel();
     }
 
     public function index() {
@@ -42,7 +40,6 @@ class PeopleController extends BaseController {
             $ongoingProjects = $this->projectModel->getOngoingProjects($userID);
             // get total projects count
             $totalProjects = $this->projectModel->countAllResults();
-            $notifications = $this->notificationModel->getUnreadNotifications($userID);
             // Fetch upcoming events
             $calendarModel = new \App\Models\CalendarModel();
             $upcomingEvents = $calendarModel->where('start_date >=', date('Y-m-d H:i:s'))
@@ -54,7 +51,6 @@ class PeopleController extends BaseController {
                 'assignedProjects' => $assignedProjects,
                 'completedProjects' => $completedProjects,
                 'ongoingProjects' => $ongoingProjects,
-                'notifications' => $notifications,
                 'upcomingEvents' => $upcomingEvents,
                 'errorMessage' => session()->getFlashdata('error')
             ]);
@@ -73,12 +69,10 @@ class PeopleController extends BaseController {
             return redirect()->to('/login')->with('error', 'You must login to access this page.');
         }
 
-        $notifications = $this->notificationModel->getUnreadNotifications($loggedInUserId);
         if ($loggedInUserId == $userId || $user->inGroup('superadmin')) {
             // load the profile view.
             return view('PMS/myprofile.php', [
-                'userId' => $userId,
-                'notifications' => $notifications
+                'userId' => $userId
             ]);
         } else {
             return redirect()->back()->with('error_message', 'Unauthorized access.');
