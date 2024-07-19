@@ -21,7 +21,7 @@ class ProjectModel extends Model {
         // Join the two projects and projectStatuses table.
         $query = $this->db->query('SELECT p.*, ps.statusName
         FROM projects p
-        JOIN projectStatuses ps ON p.statusID = ps.statusID');
+        JOIN projectstatuses ps ON p.statusID = ps.statusID');
         return $query->getResultArray();
     }
 
@@ -30,7 +30,7 @@ class ProjectModel extends Model {
         $builder = $this->db->table('projects');
 
         // start building the query.
-        $builder->select('*')->join('projectStatuses', 'projects.statusID = projectStatuses.statusID', 'left');
+        $builder->select('*')->join('projectstatuses', 'projects.statusID = projectstatuses.statusID', 'left');
 
         if (!empty($searchTerm)) {
             $builder->like('projectName', $searchTerm);
@@ -86,9 +86,9 @@ class ProjectModel extends Model {
 
     public function getAssignedProjects($userID) {
         $builder = $this->db->table('user_project');
-        $builder->select('projects.*, projectStatuses.statusName')
+        $builder->select('projects.*, projectstatuses.statusName')
             ->join('projects', 'projects.projectID = user_project.project_id')
-            ->join('projectStatuses', 'projects.statusID = projectStatuses.statusID')
+            ->join('projectstatuses', 'projects.statusID = projectstatuses.statusID')
             ->where('user_id', $userID);
         $query = $builder->get();
         return $query->getResultArray();
@@ -97,22 +97,22 @@ class ProjectModel extends Model {
     // function to get the completed projects
     public function getCompletedProjects($userID) {
         $builder = $this->db->table('user_project');
-        $builder->select('projects.*, projectStatuses.statusName')
+        $builder->select('projects.*, projectstatuses.statusName')
             ->join('projects', 'projects.projectID = user_project.project_id')
-            ->join('projectStatuses', 'projects.statusID = projectStatuses.statusID')
+            ->join('projectstatuses', 'projects.statusID = projectstatuses.statusID')
             ->where('user_id', $userID)
-            ->where('projectStatuses.statusName', 'Completed');
+            ->where('projectstatuses.statusName', 'Completed');
         $query = $builder->get();
         return $query->getResultArray();
     }
 
     public function getOngoingProjects($userID) {
         $builder = $this->db->table('user_project');
-        $builder->select('projects.*, projectStatuses.statusName')
+        $builder->select('projects.*, projectstatuses.statusName')
             ->join('projects', 'projects.projectID = user_project.project_id')
-            ->join('projectStatuses', 'projects.statusID = projectStatuses.statusID')
+            ->join('projectstatuses', 'projects.statusID = projectstatuses.statusID')
             ->where('user_id', $userID)
-            ->where('projectStatuses.statusName !=', 'Completed');
+            ->where('projectstatuses.statusName !=', 'Completed');
         $query = $builder->get();
         return $query->getResultArray();
     }
