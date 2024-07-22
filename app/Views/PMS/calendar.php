@@ -37,6 +37,8 @@
                     <label for="start">Start Date:</label>
                     <input type="datetime-local" id="start" name="start" required class="form-control"><br><br>
                     <label for="end">End Date:</label>
+                    <label for="all_day">All Day:</label>
+                    <input type="checkbox" id="all_day" name="all_day"><br><br>
                     <input type="datetime-local" id="end" name="end" class="form-control"><br><br>
                     <button type="submit" class="btn btn-primary" id="addEventBtn">Add Event</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -63,6 +65,8 @@
                     <input type="datetime-local" id="editStart" name="start" required class="form-control"><br><br>
                     <label for="editEnd">End Date:</label>
                     <input type="datetime-local" id="editEnd" name="end" class="form-control"><br><br>
+                    <label for="editAllDay">All Day:</label>
+                    <input type="checkbox" id="editAllDay" name="all_day"><br><br>
                     <button type="submit" class="btn btn-primary" id="updateEventBtn">Update Event</button>
                     <button type="button" class="btn btn-danger" id="deleteEventBtn">Delete Event</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
