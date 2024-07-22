@@ -204,7 +204,10 @@ class ProjectsController extends BaseController {
 
     // function to show the addProjects view page.
     public function addProjectsView() {
-        return view('PMS/addProjects.php');
+        // Fetch states and countries from the models
+        $data['states'] = $this->stateModel->findAll();
+        $data['countries'] = $this->countryModel->findAll();
+        return view('PMS/addProjects.php', $data);
     }
 
     public function add() {
@@ -213,7 +216,8 @@ class ProjectsController extends BaseController {
             'projectName' => $this->request->getPost('project_name'),
             'description' => $this->request->getPost('description'),
             'dateAccepted' => $this->request->getPost('date_accepted'),
-            'statusID' => $this->request->getPost('status')
+            'statusID' => $this->request->getPost('status'),
+            'addressID' => $this->request->getPost('addressID')
         ];
 
         // Add project to database
