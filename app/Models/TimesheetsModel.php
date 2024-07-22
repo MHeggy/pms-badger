@@ -21,7 +21,7 @@ class TimesheetsModel extends Model
 
     public function getUserTimesheets($userId)
     {
-        return $this->select('timesheets.*, users.username, users.pay_rate')
+        return $this->select('timesheets.*, users.username')
             ->join('users', 'users.id = timesheets.user_id')
             ->where('timesheets.user_id', $userId)
             ->findAll();
