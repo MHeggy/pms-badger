@@ -67,7 +67,7 @@ class CalendarController extends Controller {
         $title = $this->request->getPost('title');
         $start_date = $this->request->getPost('start');
         $end_date = $this->request->getPost('end');
-        $all_day = $this->request->getPost('all_day');
+        $allDay = $this->request->getPost('all_day');
     
         // Validate required fields
         if (empty($start_date) || empty($title)) {
