@@ -4,15 +4,21 @@ namespace App\Controllers;
 
 use App\Models\ProjectModel;
 use App\Models\UserModel;
+use App\Models\StateModel;
+use App\Models\CountryModel;
 
 class ProjectsController extends BaseController {
 
     protected $projectModel;
     protected $authGroups;
+    protected $stateModel;
+    protected $countryModel;
 
     public function __construct() {
         $this->projectModel = new ProjectModel();
         $this->authGroups = new \Config\AuthGroups();
+        $this->stateModel = new StateModel();
+        $this->countryModel = new CountryModel();
     }
 
     public function index() {
