@@ -20,24 +20,6 @@ class ProjectsController extends BaseController {
             // Fetch projects from the model
             $projects = $this->projectModel->getProjects();
 
-            // Sort projects by project number in descending order
-            usort($projects, function($a, $b) {
-                // Split project number into year and number parts
-                $aParts = explode('-', $a['projectNumber']);
-                $bParts = explode('-', $b['projectNumber']);
-                $aYear = intval($aParts[0]);
-                $bYear = intval($bParts[0]);
-                $aNumber = intval($aParts[1]);
-                $bNumber = intval($bParts[1]);
-
-                // Compare years first, then numbers
-                if ($aYear !== $bYear) {
-                    return $bYear - $aYear;
-                } else {
-                    return $bNumber - $aNumber;
-                }
-            });
-
             // Fetch assigned users for each project
             foreach ($projects as &$project) {
                 $project['assignedUsers'] = $this->projectModel->getAssignedUsers($project['projectID']);
