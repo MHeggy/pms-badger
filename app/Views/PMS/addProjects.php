@@ -70,7 +70,7 @@
                             <select class="form-select" id="state" name="stateID" required>
                                 <!-- Add options dynamically from your database -->
                                 <?php foreach ($states as $state): ?>
-                                    <option value="<?php echo $state['id']; ?>"><?php echo $state['name']; ?></option>
+                                    <option value="<?php echo $state['stateID']; ?>"><?php echo $state['stateName']; ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
@@ -83,7 +83,7 @@
                             <select class="form-select" id="country" name="countryID" required>
                                 <!-- Add options dynamically from your database -->
                                 <?php foreach ($countries as $country): ?>
-                                    <option value="<?php echo $country['id']; ?>"><?php echo $country['name']; ?></option>
+                                    <option value="<?php echo $country['countryID']; ?>"><?php echo $country['countryName']; ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
