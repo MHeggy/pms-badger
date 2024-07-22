@@ -19,33 +19,44 @@
     <?php include 'header.php' ?>
 </header>
 <!-- Body content starts here -->
-<div class="container mt-5"><br><br><br>
-    <form action="<?php echo base_url('/projects/add') ?>" name="addProject" class="row g-3" method="post">
-        <div class="col-md-6">
-            <label for="project_name" class="form-label">Project Name</label>
-            <input type="text" class="form-control" id="project_name" name="project_name" placeholder="Project Name" required>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title text-center">Add New Project</h3>
+                </div>
+                <div class="card-body">
+                    <form action="<?php echo base_url('/projects/add') ?>" name="addProject" method="post">
+                        <div class="mb-3">
+                            <label for="project_name" class="form-label">Project Name</label>
+                            <input type="text" class="form-control" id="project_name" name="project_name" placeholder="Enter Project Name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="project_number" class="form-label">Project Number</label>
+                            <input type="text" class="form-control" id="project_number" name="project_number" placeholder="Enter Project Number" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="date_accepted" class="form-label">Date Accepted</label>
+                            <input type="date" class="form-control" id="date_accepted" name="date_accepted" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="status" class="form-label">Status</label>
+                            <select class="form-select" id="status" name="status" required>
+                                <option value="1">In Progress</option>
+                                <option value="2">Completed</option>
+                                <option value="3">Canceled</option>
+                                <option value="4">Postponed</option>
+                            </select>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-        <div class="col-md-6">
-            <label for="project_name" class="form-label">Project Number</label>
-            <input type="text" class="form-control" id="project_number" name="project_number" placeholder="Project Number" required>
-        </div>
-        <div class="col-md-6">
-            <label for="date_accepted" class="form-label">Date Accepted</label>
-            <input type="date" class="form-control" id="date_accepted" name="date_accepted" required>
-        </div>
-        <div class="col-md-6">
-            <label for="status" class="form-label">Status</label>
-            <select name="status" id="status">
-                <option value="1">In Progress</option>
-                <option value="2">Completed</option>
-                <option value="3">Canceled</option>
-                <option value="4">Postponed</option>
-            </select>
-        </div>
-        <div class="col-12">
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </div>
-    </form>
+    </div>
 </div>
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
