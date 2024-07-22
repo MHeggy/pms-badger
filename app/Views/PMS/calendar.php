@@ -129,7 +129,7 @@
             // Submit form data via AJAX
             $.ajax({
                 type: 'POST',
-                url: '/calendar/storeEvent',
+                url: '/calendar/create',
                 data: {
                     title: title,
                     start_date: start,
