@@ -22,7 +22,7 @@
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
+            <div class="card mb-3">
                 <div class="card-header">
                     <h3 class="card-title text-center">Add New Project</h3>
                 </div>
@@ -43,6 +43,48 @@
                                 <option value="2">Completed</option>
                                 <option value="3">Canceled</option>
                                 <option value="4">Postponed</option>
+                            </select>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title text-center">Project Address</h3>
+                </div>
+                <div class="card-body">
+                    <form action="<?php echo base_url('/address/add') ?>" name="addAddress" method="post">
+                        <div class="mb-3">
+                            <label for="street" class="form-label">Street</label>
+                            <input type="text" class="form-control" id="street" name="street" placeholder="Enter Street" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="city" class="form-label">City</label>
+                            <input type="text" class="form-control" id="city" name="city" placeholder="Enter City" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="state" class="form-label">State</label>
+                            <select class="form-select" id="state" name="stateID" required>
+                                <!-- Add options dynamically from your database -->
+                                <?php foreach ($states as $state): ?>
+                                    <option value="<?php echo $state['id']; ?>"><?php echo $state['name']; ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="zipCode" class="form-label">Zip Code</label>
+                            <input type="text" class="form-control" id="zipCode" name="zipCode" placeholder="Enter Zip Code" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="country" class="form-label">Country</label>
+                            <select class="form-select" id="country" name="countryID" required>
+                                <!-- Add options dynamically from your database -->
+                                <?php foreach ($countries as $country): ?>
+                                    <option value="<?php echo $country['id']; ?>"><?php echo $country['name']; ?></option>
+                                <?php endforeach; ?>
                             </select>
                         </div>
                         <div class="d-grid">
