@@ -83,7 +83,7 @@
                 <td><?= $project['projectID'] ?></td>
                 <td><?= $project['projectName'] ?></td>
                 <td><?= $project['statusName'] ?></td>
-                <td><?= $project['date_accepted'] ?></td>
+                <td><?= $project['dateAccepted'] ?></td>
                 <td>
                     <?php if (!empty($project['assignedUsers'])): ?>
                         <ul>
