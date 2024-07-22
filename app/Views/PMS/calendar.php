@@ -78,32 +78,29 @@
     document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
-            initialView: 'dayGridMonth',
-            displayEventTime: true,
-            headerToolbar: {
-                left: 'prev,next',
-                center: 'title',
-                right: 'dayGridMonth,timeGridWeek,timeGridDay'
-            },
-            selectable: true,
-            events: <?= $events ?>,
-            select: function(info) {
-                // Open the modal when a date is selected
-                $('#addEventModal').modal('show');
-                // Automatically fill the start and end date fields with the selected date
-                $('#start').val(new Date(info.start).toISOString().slice(0, 16));
-                $('#end').val(info.end ? new Date(info.end).toISOString().slice(0, 16) : new Date(info.start).toISOString().slice(0, 16));
-            },
-            eventClick: function(info) {
-                // Show the modal for editing
-                $('#editEventModal').modal('show');
-                // Fill the form with event details
-                $('#editEventForm input[name="eventId"]').val(info.event.id);
-                $('#editTitle').val(info.event.title);
-                $('#editStart').val(new Date(info.event.start).toISOString().slice(0, 16));
-                $('#editEnd').val(info.event.end ? new Date(info.event.end).toISOString().slice(0, 16) : '');
-            }
-        });
+        initialView: 'dayGridMonth',
+        displayEventTime: true,
+        headerToolbar: {
+            left: 'prev,next',
+            center: 'title',
+            right: 'dayGridMonth,timeGridWeek,timeGridDay'
+        },
+        selectable: true,
+        events: <?= $events ?>,
+        select: function(info) {
+            $('#addEventModal').modal('show');
+            $('#start').val(new Date(info.start).toISOString().slice(0, 16));
+            $('#end').val(info.end ? new Date(info.end).toISOString().slice(0, 16) : new Date(info.start).toISOString().slice(0, 16));
+        },
+        eventClick: function(info) {
+            $('#editEventModal').modal('show');
+            $('#editEventForm input[name="eventId"]').val(info.event.id);
+            $('#editTitle').val(info.event.title);
+            $('#editStart').val(new Date(info.event.start).toISOString().slice(0, 16));
+            $('#editEnd').val(info.event.end ? new Date(info.event.end).toISOString().slice(0, 16) : '');
+        }
+    });
+
 
         calendar.render();
 
