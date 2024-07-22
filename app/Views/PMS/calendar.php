@@ -79,6 +79,7 @@
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
             initialView: 'dayGridMonth',
+            showEventTime: 'true',
             headerToolbar: {
                 left: 'prev,next',
                 center: 'title',
