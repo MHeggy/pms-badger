@@ -62,7 +62,6 @@
     <table class="table table-striped">
         <thead>
         <tr>
-            <th>Project Number</th>
             <th>Project Name</th>
             <th>Project Status</th>
             <th>Description</th>
@@ -71,7 +70,6 @@
         <tbody id="project_list">
         <?php foreach ($projects as $project): ?>
             <tr data-project-id="<?= $project['projectID'] ?>">
-                <td><?= $project['projectNumber'] ?></td>
                 <td><?= $project['projectName'] ?></td>
                 <td><?= $project['statusName'] ?></td>
                 <td>[Placeholder]</td>
