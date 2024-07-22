@@ -3,17 +3,14 @@
 namespace App\Controllers;
 
 use App\Models\CalendarModel;
-use App\Models\NotificationModel;
 use CodeIgniter\Controller;
 use Faker\Provider\Base;
 
 class CalendarController extends Controller {
     protected $calendarModel;
-    protected $notificationModel;
 
     public function __construct() {
         $this->calendarModel = new CalendarModel();
-        $this->notificationModel = new NotificationModel();
     }
 
     public function index() {
@@ -91,13 +88,6 @@ class CalendarController extends Controller {
 
         $eventID = $this->calendarModel->insertEvent($data);
 
-        // create a notification for the new event.
-        $notificationData = [
-            'message' => "New event posted: $title",
-            'created_at' => date('Y-m-d H:i:s')
-        ];
-
-        $this->notificationModel->insert($notificationData);
 
         return redirect()->to('/calendar');
     }
