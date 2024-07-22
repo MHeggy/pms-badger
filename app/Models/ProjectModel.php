@@ -42,7 +42,7 @@ class ProjectModel extends Model {
     public function filterProjectsByStatus($status) {
         $builder = $this->db->table('projects');
 
-        $builder->select('*')->join('projectStatuses', 'projects.statusID = projectStatuses.statusID', 'left');
+        $builder->select('*')->join('projectstatuses', 'projects.statusID = projectstatuses.statusID', 'left');
 
         // Check if a filter status was selected.
         if (!empty($status)) {
@@ -55,10 +55,10 @@ class ProjectModel extends Model {
 
     public function findProjectDetails($projectId) {
         // Define the columns to select.
-        $this->select('projects.*, projectStatuses.statusName');
+        $this->select('projects.*, projectstatuses.statusName');
 
         // Define join conditions.
-        $this->join('projectStatuses', 'projectStatuses.statusID = projects.statusID');
+        $this->join('projectstatuses', 'projectstatuses.statusID = projects.statusID');
 
         $project = $this->find($projectId);
 
