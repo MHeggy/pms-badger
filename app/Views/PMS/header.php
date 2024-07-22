@@ -15,11 +15,6 @@
             top: 10px;
             right: 10px;
         }
-        #notification-dropdown {
-            position: absolute;
-            top: 10px;
-            right: 100px;
-        }
     </style>
 </head>
 <body>
