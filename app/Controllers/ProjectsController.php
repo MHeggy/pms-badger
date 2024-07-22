@@ -213,8 +213,7 @@ class ProjectsController extends BaseController {
             'projectName' => $this->request->getPost('project_name'),
             'description' => $this->request->getPost('description'),
             'dateAccepted' => $this->request->getPost('date_accepted'),
-            'statusID' => $this->request->getPost('status'),
-            'projectNumber' => $this->request->getPost('project_number')
+            'statusID' => $this->request->getPost('status')
         ];
 
         // Add project to database
