@@ -49,7 +49,6 @@
     <?php foreach ($userData as $user): ?>
         <div class="employee-box">
             <h4><?= $user->username ?></h4>
-            <p>Pay Rate: <?= $user->pay_rate ?></p>
             <p>Email: <?= $user->email ?></p>
             <p>Name: <?= $user->first_name . ' ' . $user->last_name ?></p>
             <!-- Add a link to view timesheets for this employee -->
