@@ -5,16 +5,12 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use CodeIgniter\Shield\Commands\User;
 use CodeIgniter\Shield\Models\UserModel;
-use App\Models\NotificationModel;
 
 class PayrollController extends BaseController {
     protected $userModel;
 
-    protected $notificationModel;
-
     public function __construct() {
         $this->userModel = auth()->getProvider();
-        $this->notificationModel = new NotificationModel();
     }
 
     public function index()
@@ -33,10 +29,8 @@ class PayrollController extends BaseController {
 
         // Fetch users based on search query
         $userData = $this->userModel->findAll();
-        $notifications = $this->notificationModel->getUnreadNotifications($userID);
         return view('PMS/accountantpayroll.php', [
             'userData' => $userData,
-            'notifications' => $notifications
         ]);
     }
 
