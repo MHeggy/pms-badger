@@ -36,13 +36,11 @@ class CalendarController extends Controller {
             ];
         }
 
-        $notifications = $this->notificationModel->getUnreadNotifications($userID);
 
         // Pass formatted event data directly to the view.
         return view('PMS/calendar.php', [
             'events' => json_encode($formattedEvents),
             'eventIds' => array_column($formattedEvents, 'id'), // Pass an array of event IDs
-            'notifications' => $notifications
         ]);
     }
 
