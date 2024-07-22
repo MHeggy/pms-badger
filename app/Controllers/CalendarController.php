@@ -33,7 +33,6 @@ class CalendarController extends Controller {
             ];
         }
 
-
         // Pass formatted event data directly to the view.
         return view('PMS/calendar.php', [
             'events' => json_encode($formattedEvents),
@@ -72,8 +71,6 @@ class CalendarController extends Controller {
         return redirect()->to('/calendar');
     }
 
-
-
     public function storeEvent() {
         // get the event from input.
         $title = $this->request->getPost('title');
@@ -87,7 +84,6 @@ class CalendarController extends Controller {
         ];
 
         $eventID = $this->calendarModel->insertEvent($data);
-
 
         return redirect()->to('/calendar');
     }
