@@ -4,17 +4,15 @@ namespace App\Controllers;
 
 use App\Models\ProjectModel;
 use App\Models\UserModel;
-use App\Models\NotificationModel;
 
 class ProjectsController extends BaseController {
 
     protected $projectModel;
     protected $authGroups;
-    protected $notificationModel;
+
     public function __construct() {
         $this->projectModel = new ProjectModel();
         $this->authGroups = new \Config\AuthGroups();
-        $this->notificationModel = new NotificationModel();
     }
 
     public function index() {
@@ -47,7 +45,6 @@ class ProjectsController extends BaseController {
 
             // Get unread notifications for the logged-in user
             $userID = auth()->id();
-            $notifications = $this->notificationModel->getUnreadNotifications($userID);
 
             if (!$userID) {
                 return redirect()->to('/login')->with('error', 'You must login to access this page.');
@@ -55,8 +52,7 @@ class ProjectsController extends BaseController {
 
             // Pass projects and notifications data to the view
             $data = [
-                "projects" => $projects,
-                "notifications" => $notifications
+                "projects" => $projects
             ];
 
             // Load the projects view and pass the data
