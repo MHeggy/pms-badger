@@ -25,14 +25,13 @@ class ProjectsController extends BaseController {
                 $project['assignedUsers'] = $this->projectModel->getAssignedUsers($project['projectID']);
             }
 
-            // Get unread notifications for the logged-in user
             $userID = auth()->id();
 
             if (!$userID) {
                 return redirect()->to('/login')->with('error', 'You must login to access this page.');
             }
 
-            // Pass projects and notifications data to the view
+            // Pass projects and data to the view
             $data = [
                 "projects" => $projects
             ];
@@ -99,7 +98,6 @@ class ProjectsController extends BaseController {
         }
         $data['users'] = $userModel->findAll();
         $data['projects'] = $this->projectModel->findAll();
-        $data['notifications'] = $this->notificationModel->getUnreadNotifications($userID);
 
         log_message('debug', 'Retrieved users: ' . print_r($data['users'], true));
         return view('PMS/assignusers', $data);
@@ -139,13 +137,11 @@ class ProjectsController extends BaseController {
 
         // Fetch projects associated with the user.
         $assignedProjects = $this->projectModel->getAssignedProjects($userID);
-        $notifications = $this->notificationModel->getUnreadNotifications($userID);
         // Pass the data to the view.
         $data = [
             'pageTitle' => 'My Work',
             'projects' => $assignedProjects,
-            'user' => $user,
-            'notifications' => $notifications
+            'user' => $user
         ];
         // return the view with the data passed.
         return view('PMS/mywork', $data);
@@ -160,7 +156,6 @@ class ProjectsController extends BaseController {
         }
 
         $data['users'] = $userModel->findAll();
-        $data['notifications'] = $this->notificationModel->getUnreadNotifications($userID);
         // Print selected user ID to log
         $userID = $this->request->getPost('unassign_user');
         log_message('debug', 'Selected user ID: ' . $userID);
