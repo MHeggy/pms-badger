@@ -134,7 +134,7 @@
                     title: title,
                     start_date: start,
                     end_date: end,
-                    all_day: allDay
+                    all_day: all_day
                 },
                 success: function(response) {
                     // Handle success response
