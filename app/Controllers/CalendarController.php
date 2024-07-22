@@ -41,54 +41,51 @@ class CalendarController extends Controller {
     }
 
     public function updateEvent() {
-        // Get POST form submission data from form
         $id = $this->request->getPost('eventId');
-        $title = $this->request->getPost('title');  // Corrected from 'editTitle'
-        $start = $this->request->getPost('start');  // Corrected from 'editStart'
-        $end = $this->request->getPost('end');      // Corrected from 'editEnd'
-
-        // Fetch the event by its ID
-        $event = $this->calendarModel->getEventById($id);
-
-        if (!$event) {
-            // Handle case where event with given ID does not exist
-            // For example, redirect back to calendar with an error message
-            return redirect()->to('/calendar')->with('error', 'Event not found.');
+        $title = $this->request->getPost('title');
+        $start = $this->request->getPost('start');
+        $end = $this->request->getPost('end');
+    
+        if (empty($start) || empty($title)) {
+            return redirect()->back()->with('error', 'Title and start date are required.');
         }
-
-        // Prepare data for updating the event
+    
         $data = [
             'title' => $title,
             'start_date' => $start,
             'end_date' => $end,
             'updated_at' => date('Y-m-d H:i:s')
         ];
-
-        // Update the event
+    
         $this->calendarModel->updateEvent($id, $data);
-
-        // Redirect back to calendar page
+    
         return redirect()->to('/calendar');
     }
+    
 
     public function storeEvent() {
-        // get the event from input.
         $title = $this->request->getPost('title');
         $start_date = $this->request->getPost('start');
         $end_date = $this->request->getPost('end');
         $all_day = $this->request->getPost('all_day');
-
+    
+        // Validate required fields
+        if (empty($start_date) || empty($title)) {
+            return redirect()->back()->with('error', 'Title and start date are required.');
+        }
+    
         $data = [
             'title' => $title,
             'start_date' => $start_date,
             'end_date' => $end_date,
             'all_day' => $all_day
         ];
-
+    
         $eventID = $this->calendarModel->insertEvent($data);
-
+    
         return redirect()->to('/calendar');
     }
+    
 
     public function deleteEvent() {
         // Get the event ID from the request
