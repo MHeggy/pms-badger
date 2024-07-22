@@ -79,7 +79,7 @@
         <?php foreach ($projects as $project): ?>
             <!-- Table rows -->
             <tr data-project-id="<?= $project['projectID'] ?>">
-                <td><?= $project['projectNumber'] ?></td>
+                <td><?= $project['projectID'] ?></td>
                 <td><?= $project['projectName'] ?></td>
                 <td><?= $project['statusName'] ?></td>
                 <td>
