@@ -2,18 +2,15 @@
 namespace App\Controllers;
 
 use App\Models\TimesheetsModel;
-use App\Models\NotificationModel;
 
 class TimesheetsController extends BaseController
 {
     protected $timesheetsModel;
-    protected $notificationModel;
 
     public function __construct()
     {
         $this->timesheetsModel = new TimesheetsModel();
         $this->session = \Config\Services::session();
-        $this->notificationModel = new NotificationModel();
     }
 
     public function index() {
@@ -23,10 +20,8 @@ class TimesheetsController extends BaseController
             return redirect()->to('/login')->with('error', 'You must login to access this page.');
         }
 
-        $notifications = $this->notificationModel->getUnreadNotifications($userId);
         return view('PMS/payroll.php', [
-            'userId' => $userId,
-            'notifications' => $notifications
+            'userId' => $userId
         ]);
     }
 
@@ -59,12 +54,10 @@ class TimesheetsController extends BaseController
     {
         $user = $this->timesheetsModel->getUserInfo($userId);
         $timesheets = $this->timesheetsModel->getUserTimesheets($userId);
-        $notifications = $this->notificationModel->getUnreadNotifications($userId);
 
         return view('PMS/user_timesheets.php', [
             'user' => $user,
             'timesheets' => $timesheets,
-            'notifications' => $notifications
         ]);
     }
 
