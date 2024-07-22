@@ -23,7 +23,6 @@
         <tr>
             <th scope="col">Week Of</th>
             <th scope="col">Hours Worked</th>
-            <th scope="col">Pay Rate</th>
             <th scope="col">Actions</th>
         </tr>
         </thead>
@@ -32,7 +31,6 @@
             <tr>
                 <td><a href="/timesheets/view/<?= $timesheet['id'] ?>"><?= esc($timesheet['week_of']) ?></a></td>
                 <td><?= getTotalHoursWorked($timesheet['id']) ?></td>
-                <td><?= esc($user->pay_rate) ?></td>
                 <td>
                     <a href="/timesheets/edit/<?= $timesheet['id'] ?>" class="btn btn-primary">Edit</a>
                     <button class="btn btn-danger" onclick="confirmDelete(<?= $timesheet['id'] ?>)">Delete</button>
