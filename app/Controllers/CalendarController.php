@@ -14,32 +14,30 @@ class CalendarController extends Controller {
     }
 
     public function index() {
-        // fetch events from the database.
         $events = $this->calendarModel->getAllEvents();
         $userID = auth()->id();
-
+    
         if (!$userID) {
             return redirect()->to('/login')->with('error', 'You must login to access this page.');
         }
-
-        // Format event data for calendar.
+    
         $formattedEvents = [];
         foreach($events as $event) {
             $formattedEvents[] = [
                 'title' => $event['title'],
                 'start' => $event['start_date'],
                 'end' => $event['end_date'] ?: $event['start_date'],
+                'all_day' => (bool)$event['all_day'],
                 'id' => $event['id']
             ];
         }
-
-        // Pass formatted event data directly to the view.
+    
         return view('PMS/calendar.php', [
             'events' => json_encode($formattedEvents),
-            'eventIds' => array_column($formattedEvents, 'id'), // Pass an array of event IDs
+            'eventIds' => array_column($formattedEvents, 'id'),
         ]);
     }
-
+    
     public function updateEvent() {
         $id = $this->request->getPost('eventId');
         $title = $this->request->getPost('title');
