@@ -76,11 +76,13 @@ class CalendarController extends Controller {
         $title = $this->request->getPost('title');
         $start_date = $this->request->getPost('start');
         $end_date = $this->request->getPost('end');
+        $all_day = $this->request->getPost('all_day');
 
         $data = [
             'title' => $title,
             'start_date' => $start_date,
-            'end_date' => $end_date
+            'end_date' => $end_date,
+            'all_day' => $all_day
         ];
 
         $eventID = $this->calendarModel->insertEvent($data);
