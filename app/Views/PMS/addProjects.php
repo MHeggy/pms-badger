@@ -33,10 +33,6 @@
                             <input type="text" class="form-control" id="project_name" name="project_name" placeholder="Enter Project Name" required>
                         </div>
                         <div class="mb-3">
-                            <label for="project_number" class="form-label">Project Number</label>
-                            <input type="text" class="form-control" id="project_number" name="project_number" placeholder="Enter Project Number" required>
-                        </div>
-                        <div class="mb-3">
                             <label for="date_accepted" class="form-label">Date Accepted</label>
                             <input type="date" class="form-control" id="date_accepted" name="date_accepted" required>
                         </div>
