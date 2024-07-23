@@ -24,27 +24,8 @@
                 </div>
                 <div class="card-body">
                     <form id="addProjectForm" action="<?php echo base_url('/projects/add') ?>" method="post">
-                        <!-- Project Details -->
-                        <div class="mb-3">
-                            <label for="project_name" class="form-label">Project Name</label>
-                            <input type="text" class="form-control" id="project_name" name="project_name" placeholder="Enter Project Name" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="date_accepted" class="form-label">Date Accepted</label>
-                            <input type="date" class="form-control" id="date_accepted" name="date_accepted" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="status" class="form-label">Status</label>
-                            <select class="form-select" id="status" name="status" required>
-                                <option value="1">In Progress</option>
-                                <option value="2">Completed</option>
-                                <option value="3">Canceled</option>
-                                <option value="4">Postponed</option>
-                            </select>
-                        </div>
-
                         <!-- Address Details -->
-                        <div class="card mt-3">
+                        <div class="card mb-3">
                             <div class="card-header">
                                 <h5 class="card-title">Project Address</h5>
                             </div>
@@ -80,6 +61,25 @@
                                     </select>
                                 </div>
                             </div>
+                        </div>
+
+                        <!-- Project Details -->
+                        <div class="mb-3">
+                            <label for="project_name" class="form-label">Project Name</label>
+                            <input type="text" class="form-control" id="project_name" name="project_name" placeholder="Enter Project Name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="date_accepted" class="form-label">Date Accepted</label>
+                            <input type="date" class="form-control" id="date_accepted" name="date_accepted" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="status" class="form-label">Status</label>
+                            <select class="form-select" id="status" name="status" required>
+                                <option value="1">In Progress</option>
+                                <option value="2">Completed</option>
+                                <option value="3">Canceled</option>
+                                <option value="4">Postponed</option>
+                            </select>
                         </div>
 
                         <!-- Category Details -->
