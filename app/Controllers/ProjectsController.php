@@ -226,6 +226,13 @@ class ProjectsController extends BaseController {
         $db->transBegin(); // Start transaction
     
         try {
+            // Retrieve the current maximum projectID
+            $builder = $db->table('projects');
+            $builder->selectMax('projectID');
+            $query = $builder->get();
+            $row = $query->getRow();
+            $newProjectID = $row->projectID + 1;
+    
             // Insert address
             $addressData = [
                 'street' => $this->request->getPost('street'),
@@ -239,8 +246,9 @@ class ProjectsController extends BaseController {
             $addressModel->insert($addressData);
             $addressID = $addressModel->insertID(); // Retrieve the addressID
     
-            // Insert project
+            // Insert project with the manually generated projectID
             $projectData = [
+                'projectID' => $newProjectID,
                 'projectName' => $this->request->getPost('project_name'),
                 'dateAccepted' => $this->request->getPost('date_accepted'),
                 'statusID' => $this->request->getPost('status'),
@@ -248,14 +256,13 @@ class ProjectsController extends BaseController {
             ];
     
             $this->projectModel->insert($projectData);
-            $projectID = $this->projectModel->insertID(); // Retrieve the projectID
-    
+            
             // Insert categories
             $categories = $this->request->getPost('categories');
             if ($categories) {
                 foreach ($categories as $categoryID) {
                     $db->table('project_categories')->insert([
-                        'projectID' => $projectID,
+                        'projectID' => $newProjectID,
                         'categoryID' => $categoryID
                     ]);
                 }
@@ -266,7 +273,7 @@ class ProjectsController extends BaseController {
             if ($tasks) {
                 foreach ($tasks as $taskID) {
                     $db->table('project_tasks')->insert([
-                        'projectID' => $projectID,
+                        'projectID' => $newProjectID,
                         'taskID' => $taskID
                     ]);
                 }
@@ -286,5 +293,6 @@ class ProjectsController extends BaseController {
             return redirect()->back()->with('error', 'An error occurred: ' . $e->getMessage());
         }
     }
+    
     
 }
