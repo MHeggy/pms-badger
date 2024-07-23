@@ -223,8 +223,8 @@ class ProjectsController extends BaseController {
     // function to insert projects into the database.
     public function add() {
         $db = \Config\Database::connect();
-        $db->transBegin();
-
+        $db->transBegin(); // Start transaction
+    
         try {
             // Insert address
             $addressData = [
@@ -234,38 +234,44 @@ class ProjectsController extends BaseController {
                 'zipCode' => $this->request->getPost('zipCode'),
                 'countryID' => $this->request->getPost('countryID')
             ];
+    
             $addressModel = new \App\Models\AddressModel();
             $addressModel->insert($addressData);
-            $addressID = $addressModel->insertID();
-
+            $addressID = $addressModel->insertID(); // Retrieve the addressID
+    
             // Insert project
             $projectData = [
                 'projectName' => $this->request->getPost('project_name'),
                 'dateAccepted' => $this->request->getPost('date_accepted'),
                 'statusID' => $this->request->getPost('status'),
-                'addressID' => $addressID
+                'addressID' => $addressID // Associate the project with the addressID
             ];
+    
             $this->projectModel->insert($projectData);
-            $projectID = $this->projectModel->insertID();
-
+            $projectID = $this->projectModel->insertID(); // Retrieve the projectID
+    
             // Insert categories
             $categories = $this->request->getPost('categories');
-            foreach ($categories as $categoryID) {
-                $db->table('project_categories')->insert([
-                    'projectID' => $projectID,
-                    'categoryID' => $categoryID
-                ]);
+            if ($categories) {
+                foreach ($categories as $categoryID) {
+                    $db->table('project_categories')->insert([
+                        'projectID' => $projectID,
+                        'categoryID' => $categoryID
+                    ]);
+                }
             }
-
+    
             // Insert tasks
             $tasks = $this->request->getPost('tasks');
-            foreach ($tasks as $taskID) {
-                $db->table('project_tasks')->insert([
-                    'projectID' => $projectID,
-                    'taskID' => $taskID
-                ]);
+            if ($tasks) {
+                foreach ($tasks as $taskID) {
+                    $db->table('project_tasks')->insert([
+                        'projectID' => $projectID,
+                        'taskID' => $taskID
+                    ]);
+                }
             }
-
+    
             // Commit transaction if no errors
             if ($db->transStatus() === FALSE) {
                 $db->transRollback();
@@ -274,10 +280,11 @@ class ProjectsController extends BaseController {
                 $db->transCommit();
                 return redirect()->back()->with('success', 'Project added successfully.');
             }
-
+    
         } catch (\Exception $e) {
             $db->transRollback();
             return redirect()->back()->with('error', 'An error occurred: ' . $e->getMessage());
         }
     }
+    
 }
