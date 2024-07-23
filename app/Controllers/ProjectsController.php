@@ -6,6 +6,8 @@ use App\Models\ProjectModel;
 use App\Models\UserModel;
 use App\Models\StateModel;
 use App\Models\CountryModel;
+use App\Models\TaskModel;
+use App\Models\CategoryModel; 
 
 class ProjectsController extends BaseController {
 
@@ -13,12 +15,16 @@ class ProjectsController extends BaseController {
     protected $authGroups;
     protected $stateModel;
     protected $countryModel;
+    protected $taskModel;
+    protected $categoryModel;
 
     public function __construct() {
         $this->projectModel = new ProjectModel();
         $this->authGroups = new \Config\AuthGroups();
         $this->stateModel = new StateModel();
         $this->countryModel = new CountryModel();
+        $this->taskModel = new TaskModel();
+        $this->categoryModel = new CategoryModel();
     }
 
     public function index() {
@@ -89,10 +95,6 @@ class ProjectsController extends BaseController {
 
         // Return project details including status name as JSON response
         return $this->response->setJSON(['details' => $project]);
-    }
-
-    public function projectsTest() {
-        return view('PMS/ProjectsTest.php');
     }
 
     public function assignUsersView() {
@@ -213,23 +215,69 @@ class ProjectsController extends BaseController {
         // Fetch states and countries from the models
         $data['states'] = $this->stateModel->findAll();
         $data['countries'] = $this->countryModel->findAll();
+        $data['categories'] = $this->categoryModel->findAll();
+        $data['tasks'] = $this->taskModel->findAll();
         return view('PMS/addProjects.php', $data);
     }
 
+    // function to insert projects into the database.
     public function add() {
-        // Get form data
-        $data = [
-            'projectName' => $this->request->getPost('project_name'),
-            'description' => $this->request->getPost('description'),
-            'dateAccepted' => $this->request->getPost('date_accepted'),
-            'statusID' => $this->request->getPost('status'),
-            'addressID' => $this->request->getPost('addressID')
-        ];
+        $db = \Config\Database::connect();
+        $db->transBegin();
 
-        // Add project to database
-        $this->projectModel->addProject($data);
+        try {
+            // Insert address
+            $addressData = [
+                'street' => $this->request->getPost('street'),
+                'city' => $this->request->getPost('city'),
+                'stateID' => $this->request->getPost('stateID'),
+                'zipCode' => $this->request->getPost('zipCode'),
+                'countryID' => $this->request->getPost('countryID')
+            ];
+            $addressModel = new \App\Models\AddressModel();
+            $addressModel->insert($addressData);
+            $addressID = $addressModel->insertID();
 
-        // Redirect back or to a success page
-        return redirect()->back()->with('success', 'Project added successfully.');
+            // Insert project
+            $projectData = [
+                'projectName' => $this->request->getPost('project_name'),
+                'dateAccepted' => $this->request->getPost('date_accepted'),
+                'statusID' => $this->request->getPost('status'),
+                'addressID' => $addressID
+            ];
+            $this->projectModel->insert($projectData);
+            $projectID = $this->projectModel->insertID();
+
+            // Insert categories
+            $categories = $this->request->getPost('categories');
+            foreach ($categories as $categoryID) {
+                $db->table('project_categories')->insert([
+                    'projectID' => $projectID,
+                    'categoryID' => $categoryID
+                ]);
+            }
+
+            // Insert tasks
+            $tasks = $this->request->getPost('tasks');
+            foreach ($tasks as $taskID) {
+                $db->table('project_tasks')->insert([
+                    'projectID' => $projectID,
+                    'taskID' => $taskID
+                ]);
+            }
+
+            // Commit transaction if no errors
+            if ($db->transStatus() === FALSE) {
+                $db->transRollback();
+                return redirect()->back()->with('error', 'An error occurred while adding the project.');
+            } else {
+                $db->transCommit();
+                return redirect()->back()->with('success', 'Project added successfully.');
+            }
+
+        } catch (\Exception $e) {
+            $db->transRollback();
+            return redirect()->back()->with('error', 'An error occurred: ' . $e->getMessage());
+        }
     }
 }

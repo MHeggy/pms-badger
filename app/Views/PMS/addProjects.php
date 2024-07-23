@@ -81,6 +81,42 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Category Details -->
+                        <div class="card mt-3">
+                            <div class="card-header">
+                                <h5 class="card-title">Project Categories</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <label for="categories" class="form-label">Categories</label>
+                                    <select class="form-select" id="categories" name="categories[]" multiple required>
+                                        <!-- Add options dynamically from your database -->
+                                        <?php foreach ($categories as $category): ?>
+                                            <option value="<?php echo $category['categoryID']; ?>"><?php echo $category['categoryName']; ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Task Details -->
+                        <div class="card mt-3">
+                            <div class="card-header">
+                                <h5 class="card-title">Project Tasks</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <label for="tasks" class="form-label">Tasks</label>
+                                    <select class="form-select" id="tasks" name="tasks[]" multiple required>
+                                        <!-- Add options dynamically from your database -->
+                                        <?php foreach ($tasks as $task): ?>
+                                            <option value="<?php echo $task['taskID']; ?>"><?php echo $task['taskName']; ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                         
                         <!-- Submit Button -->
                         <div class="d-grid mt-4">
