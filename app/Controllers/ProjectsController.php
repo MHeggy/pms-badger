@@ -272,21 +272,10 @@ class ProjectsController extends BaseController {
             $tasks = $this->request->getPost('tasks');
             if ($tasks) {
                 foreach ($tasks as $taskID) {
-                    // Ensure taskID is valid and projectID exists
-                    $taskData = [
-                        'projectID' => $newProjectID,
+                    $db->table('project_tasks')->insert([
+                        'projectID' => $projectID,
                         'taskID' => $taskID
-                    ];
-    
-                    // Optional: Validate taskID exists in the tasks table
-                    $taskBuilder = $db->table('tasks');
-                    $taskBuilder->where('taskID', $taskID);
-                    $taskQuery = $taskBuilder->get();
-                    if ($taskQuery->getNumRows() == 0) {
-                        throw new \Exception("Task ID $taskID does not exist.");
-                    }
-    
-                    $db->table('project_tasks')->insert($taskData);
+                    ]);
                 }
             }
     
