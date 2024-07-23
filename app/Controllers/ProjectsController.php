@@ -256,7 +256,7 @@ class ProjectsController extends BaseController {
             ];
     
             $this->projectModel->insert($projectData);
-            
+    
             // Insert categories
             $categories = $this->request->getPost('categories');
             if ($categories) {
@@ -272,10 +272,21 @@ class ProjectsController extends BaseController {
             $tasks = $this->request->getPost('tasks');
             if ($tasks) {
                 foreach ($tasks as $taskID) {
-                    $db->table('project_tasks')->insert([
+                    // Ensure taskID is valid and projectID exists
+                    $taskData = [
                         'projectID' => $newProjectID,
                         'taskID' => $taskID
-                    ]);
+                    ];
+    
+                    // Optional: Validate taskID exists in the tasks table
+                    $taskBuilder = $db->table('tasks');
+                    $taskBuilder->where('taskID', $taskID);
+                    $taskQuery = $taskBuilder->get();
+                    if ($taskQuery->getNumRows() == 0) {
+                        throw new \Exception("Task ID $taskID does not exist.");
+                    }
+    
+                    $db->table('project_tasks')->insert($taskData);
                 }
             }
     
@@ -293,6 +304,5 @@ class ProjectsController extends BaseController {
             return redirect()->back()->with('error', 'An error occurred: ' . $e->getMessage());
         }
     }
-    
-    
+
 }
