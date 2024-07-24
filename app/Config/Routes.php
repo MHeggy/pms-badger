@@ -61,8 +61,8 @@ $routes->get('/projects/search', 'ProjectsController::search');
 $routes->get('/projects/filter', 'ProjectsController::filter');
 // route for showing the people page.
 $routes->get('/people', 'PeopleController::index');
-// route for displaying the specific project details modal in the projects.php page.
-$routes->get('/projectDetails/(:num)', 'ProjectsController::projectDetails/$1');
+// route for displaying more detials of project in the projectdetails page.
+$routes->get('projects/details/(:num)', 'ProjectsController::projectDetails/$1');
 // route for getting projects associated with a specific user
 $routes->get('projects/getProjectsForUser/(:num)', 'ProjectsController::getProjectsForUser/$1');
 // route for unassociating users from a specific project(s)

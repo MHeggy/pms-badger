@@ -85,17 +85,27 @@ class ProjectsController extends BaseController {
     }
 
     public function projectDetails($projectId) {
-        // Fetch project details along with status name
-        $project = $this->projectModel->findProjectDetails($projectId);
-
-        // Check if project exists
-        if (!$project) {
-            return $this->response->setStatusCode(404)->setJSON(['error' => 'Project not found']);
+        try {
+            // Fetch project details including status and address
+            $project = $this->projectModel->findProjectDetails($projectId);
+    
+            // Check if project exists
+            if (!$project) {
+                return $this->response->setStatusCode(404)->setJSON(['error' => 'Project not found']);
+            }
+    
+            // Pass project details to the view
+            $data = [
+                'project' => $project
+            ];
+    
+            return view('PMS/projectDetails', $data);
+        } catch (\Exception $e) {
+            log_message('error', 'Error in projectDetails: ' . $e->getMessage());
+            return $this->response->setStatusCode(500)->setJSON(['error' => 'Internal server error']);
         }
-
-        // Return project details including status name as JSON response
-        return $this->response->setJSON(['details' => $project]);
     }
+    
 
     public function assignUsersView() {
         $user = auth()->user();
