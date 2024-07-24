@@ -56,9 +56,6 @@ class ProjectsController extends BaseController {
         }
     }
     
-
-
-
     public function search() {
         try {
             $searchTerm = $this->request->getGet('search');

@@ -93,7 +93,7 @@
                         </a>
                     </td>
                     <td><?= esc($project['statusName']) ?></td>
-                    <td><?= esc($project['categoryName']) ?></td> <!-- New Data -->
+                    <td><?= esc($project['categoryNames']) ?></td> <!-- New Data -->
                     <td><?= esc($project['dateAccepted']) ?></td>
                     <td>
                         <?php if (!empty($project['assignedUsers'])): ?>

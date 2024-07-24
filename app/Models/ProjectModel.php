@@ -18,7 +18,6 @@ class ProjectModel extends Model {
     }
 
     public function getProjects() {
-        // Join the projects, projectStatuses, projectCategories, and categories tables.
         $query = $this->db->query('
             SELECT p.*, ps.statusName, GROUP_CONCAT(pc.categoryName) AS categoryNames
             FROM projects p
@@ -29,7 +28,6 @@ class ProjectModel extends Model {
         ');
         return $query->getResultArray();
     }
-    
     
 
     public function searchProjects($searchTerm) {
