@@ -38,7 +38,7 @@
     <header>
         <?php include 'header.php'; ?>
     </header>
-
+    <br><br><br><br><br>
     <div class="container mt-4">
         <h1>Project Details</h1>
         <table class="table">
