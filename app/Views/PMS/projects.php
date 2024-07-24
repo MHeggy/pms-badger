@@ -84,7 +84,7 @@
                 <tr data-project-id="<?= $project['projectID'] ?>">
                     <td>
                         <a href="<?= base_url('projects/details/' . $project['projectID']) ?>">
-                            <?= $project['projectID'] ?>
+                            <?= $project['projectNumber'] ?>
                         </a>
                     </td>
                     <td>
