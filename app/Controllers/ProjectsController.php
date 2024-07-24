@@ -223,10 +223,9 @@ class ProjectsController extends BaseController {
     // function to insert projects into the database.
     public function add() {
         $db = \Config\Database::connect();
-        $db->transBegin(); // Start transaction
-    
+        $db->transBegin();
+        
         try {
-            // Insert address
             $addressData = [
                 'street' => $this->request->getPost('street'),
                 'city' => $this->request->getPost('city'),
@@ -234,72 +233,31 @@ class ProjectsController extends BaseController {
                 'zipCode' => $this->request->getPost('zipCode'),
                 'countryID' => $this->request->getPost('countryID')
             ];
-    
+            
             $addressModel = new \App\Models\AddressModel();
             $addressModel->insert($addressData);
-            $addressID = $addressModel->insertID(); // Retrieve the addressID
-    
-            // Generate a new projectID manually
-            $maxProjectID = $this->projectModel->selectMax('projectID')->first()['projectID'];
-            $newProjectID = $maxProjectID + 1;
-    
-            // Log the new projectID
-            log_message('debug', 'Generated new projectID: ' . $newProjectID);
-    
-            // Insert project
+            $addressID = $addressModel->insertID();
+            
             $projectData = [
-                'projectID' => $newProjectID, // Manually set projectID
                 'projectName' => $this->request->getPost('project_name'),
                 'dateAccepted' => $this->request->getPost('date_accepted'),
                 'statusID' => $this->request->getPost('status'),
-                'addressID' => $addressID // Associate the project with the addressID
+                'addressID' => $addressID
             ];
-    
+            
             $this->projectModel->insert($projectData);
-    
-            // Log project insertion status
+            
             if ($this->projectModel->errors()) {
-                log_message('error', 'Project insert errors: ' . json_encode($this->projectModel->errors()));
-                throw new \Exception('Error inserting project');
-            } else {
-                log_message('debug', 'Project inserted successfully with projectID: ' . $newProjectID);
+                throw new \Exception('Error inserting project: ' . json_encode($this->projectModel->errors()));
             }
-    
-            // Insert categories
-            $categories = $this->request->getPost('categories');
-            if ($categories) {
-                foreach ($categories as $categoryID) {
-                    $db->table('project_categories')->insert([
-                        'projectID' => $newProjectID,
-                        'categoryID' => $categoryID
-                    ]);
-                }
-            }
-    
-            // Insert tasks
-            $tasks = $this->request->getPost('tasks');
-            if ($tasks) {
-                foreach ($tasks as $taskID) {
-                    $db->table('project_tasks')->insert([
-                        'projectID' => $newProjectID,
-                        'taskID' => $taskID
-                    ]);
-                }
-            }
-    
-            // Commit transaction if no errors
-            if ($db->transStatus() === FALSE) {
-                $db->transRollback();
-                return redirect()->back()->with('error', 'An error occurred while adding the project.');
-            } else {
-                $db->transCommit();
-                return redirect()->back()->with('success', 'Project added successfully.');
-            }
-    
+            
+            $db->transCommit();
+            return redirect()->back()->with('success', 'Project added successfully.');
         } catch (\Exception $e) {
             $db->transRollback();
             log_message('error', 'An error occurred: ' . $e->getMessage());
             return redirect()->back()->with('error', 'An error occurred: ' . $e->getMessage());
         }
-    }    
+    }
+        
 }
