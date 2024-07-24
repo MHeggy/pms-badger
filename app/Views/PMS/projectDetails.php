@@ -7,32 +7,6 @@
     <title><?= $pageTitle = 'Project Details' ?></title>
     <link rel="stylesheet" href="<?= base_url('/assets/css/projectDetails.css') ?>">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            padding-top: 56px; /* Adjust this value if your header is taller */
-        }
-        .container {
-            max-width: 900px;
-        }
-        table {
-            border: 1px solid #dee2e6;
-            border-radius: .25rem;
-        }
-        th, td {
-            padding: 1rem;
-            vertical-align: middle;
-        }
-        th {
-            background-color: #f8f9fa;
-            color: #495057;
-        }
-        td {
-            background-color: #ffffff;
-        }
-        h1 {
-            margin-bottom: 20px;
-        }
-    </style>
 </head>
 <body>
     <header>
@@ -40,12 +14,12 @@
     </header>
     <br><br><br><br><br>
     <div class="container mt-4">
-        <h1>Project Details</h1>
+        <h1><?= $project['projectName'] ?>'s Details</h1>
         <table class="table">
             <tbody>
                 <tr>
-                    <th>Project ID</th>
-                    <td><?= esc($project['projectID']) ?></td>
+                    <th>Project Number</th>
+                    <td><?= esc($project['projectNumber']) ?></td>
                 </tr>
                 <tr>
                     <th>Project Name</th>
