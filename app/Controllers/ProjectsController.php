@@ -239,25 +239,27 @@ class ProjectsController extends BaseController {
             $addressModel->insert($addressData);
             $addressID = $addressModel->insertID(); // Retrieve the addressID
     
+            // Generate a new projectID manually
+            $maxProjectID = $this->projectModel->selectMax('projectID')->first()['projectID'];
+            $newProjectID = $maxProjectID + 1;
+    
             // Insert project
             $projectData = [
+                'projectID' => $newProjectID, // Manually set projectID
                 'projectName' => $this->request->getPost('project_name'),
                 'dateAccepted' => $this->request->getPost('date_accepted'),
                 'statusID' => $this->request->getPost('status'),
-                'addressID' => $addressID
+                'addressID' => $addressID // Associate the project with the addressID
             ];
     
             $this->projectModel->insert($projectData);
-            $projectID = $this->projectModel->insertID(); // Retrieve the projectID
-    
-            log_message('debug', 'Inserted projectID: ' . $projectID);
     
             // Insert categories
             $categories = $this->request->getPost('categories');
             if ($categories) {
                 foreach ($categories as $categoryID) {
                     $db->table('project_categories')->insert([
-                        'projectID' => $projectID,
+                        'projectID' => $newProjectID,
                         'categoryID' => $categoryID
                     ]);
                 }
@@ -267,9 +269,8 @@ class ProjectsController extends BaseController {
             $tasks = $this->request->getPost('tasks');
             if ($tasks) {
                 foreach ($tasks as $taskID) {
-                    log_message('debug', 'Inserting taskID: ' . $taskID . ' for projectID: ' . $projectID);
                     $db->table('project_tasks')->insert([
-                        'projectID' => $projectID,
+                        'projectID' => $newProjectID,
                         'taskID' => $taskID
                     ]);
                 }
@@ -286,10 +287,8 @@ class ProjectsController extends BaseController {
     
         } catch (\Exception $e) {
             $db->transRollback();
-            log_message('error', 'An error occurred: ' . $e->getMessage());
             return redirect()->back()->with('error', 'An error occurred: ' . $e->getMessage());
         }
     }
     
-
 }
