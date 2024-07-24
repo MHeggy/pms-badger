@@ -243,6 +243,9 @@ class ProjectsController extends BaseController {
             $maxProjectID = $this->projectModel->selectMax('projectID')->first()['projectID'];
             $newProjectID = $maxProjectID + 1;
     
+            // Log the new projectID
+            log_message('debug', 'Generated new projectID: ' . $newProjectID);
+    
             // Insert project
             $projectData = [
                 'projectID' => $newProjectID, // Manually set projectID
@@ -253,6 +256,14 @@ class ProjectsController extends BaseController {
             ];
     
             $this->projectModel->insert($projectData);
+    
+            // Log project insertion status
+            if ($this->projectModel->errors()) {
+                log_message('error', 'Project insert errors: ' . json_encode($this->projectModel->errors()));
+                throw new \Exception('Error inserting project');
+            } else {
+                log_message('debug', 'Project inserted successfully with projectID: ' . $newProjectID);
+            }
     
             // Insert categories
             $categories = $this->request->getPost('categories');
@@ -287,8 +298,8 @@ class ProjectsController extends BaseController {
     
         } catch (\Exception $e) {
             $db->transRollback();
+            log_message('error', 'An error occurred: ' . $e->getMessage());
             return redirect()->back()->with('error', 'An error occurred: ' . $e->getMessage());
         }
-    }
-    
+    }    
 }
