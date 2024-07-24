@@ -36,8 +36,8 @@
                 <tr>
                     <th>Address</th>
                     <td>
-                        <?= esc($project['street']) ?>, <?= esc($project['city']) ?><br>
-                        <?= esc($project['stateName']) ?>, <?= esc($project['zipCode']) ?><br>
+                        <?= esc($project['street']) ?>, <?= esc($project['city']) ?>
+                        <?= esc($project['stateName']) ?><br>, <?= esc($project['zipCode']) ?><br>
                         <?= esc($project['countryName']) ?>
                     </td>
                 </tr>
