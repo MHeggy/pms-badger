@@ -55,11 +55,19 @@ class ProjectModel extends Model {
 
     public function findProjectDetails($projectId) {
         // Define the columns to select.
-        $this->select('projects.*, projectstatuses.statusName, address.street, address.city, address.stateID, address.zipCode, address.countryID');
+        $this->select('projects.*, 
+                       projectstatuses.statusName, 
+                       address.street, 
+                       address.city, 
+                       address.zipCode, 
+                       states.stateName AS stateName, 
+                       countries.countryName AS countryName');
         
         // Define the join conditions.
         $this->join('projectstatuses', 'projectstatuses.statusID = projects.statusID');
         $this->join('address', 'address.addressID = projects.addressID');
+        $this->join('states', 'states.stateID = address.stateID');
+        $this->join('countries', 'countries.countryID = address.countryID');
         
         // Fetch the project details by its ID.
         $project = $this->find($projectId);
