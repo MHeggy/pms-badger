@@ -72,8 +72,17 @@ class ProjectModel extends Model {
         // Fetch the project details by its ID.
         $project = $this->find($projectId);
     
+        // Debugging output
+        if (!$project) {
+            throw new \Exception('Project not found or invalid projectId.');
+        }
+        
+        // Inspect the result
+        var_dump($project);
+    
         return $project;
     }
+    
     
     public function getUserProjectAssociation($userID, $projectID) {
         // Query the database to check if the association exists
