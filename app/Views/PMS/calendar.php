@@ -38,10 +38,7 @@
                     <input type="datetime-local" id="start" name="start" required class="form-control"><br><br>
                     <label for="end">End Date:</label>
                     <input type="datetime-local" id="end" name="end" class="form-control"><br><br>
-                    <div class="form-check">
-                        <label for="allDay" class="form-check-label">All Day Event</label>
-                        <input type="checkbox" id="allDay" name="all_day" class="form-check-input">
-                    </div><br>
+                    <br>
                     <button type="submit" class="btn btn-primary" id="addEventBtn">Add Event</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </form>
@@ -67,10 +64,7 @@
                     <input type="datetime-local" id="editStart" name="start" required class="form-control"><br><br>
                     <label for="editEnd">End Date:</label>
                     <input type="datetime-local" id="editEnd" name="end" class="form-control"><br><br>
-                    <div class="form-check">
-                        <input type="checkbox" id="editAllDay" name="all_day" class="form-check-input">
-                        <label for="editAllDay" class="form-check-label">All Day Event</label>
-                    </div><br>
+                    <br>
                     <button type="submit" class="btn btn-primary" id="updateEventBtn">Update Event</button>
                     <button type="button" class="btn btn-danger" id="deleteEventBtn">Delete Event</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -106,63 +100,60 @@ document.addEventListener('DOMContentLoaded', function() {
             $('#editTitle').val(info.event.title);
             $('#editStart').val(new Date(info.event.start).toISOString().slice(0, 16));
             $('#editEnd').val(info.event.end ? new Date(info.event.end).toISOString().slice(0, 16) : '');
-            $('#editAllDay').prop('checked', info.event.extendedProps.all_day); // Correctly handle all_day property
         }
     });
 
     calendar.render();
 
     $('#eventForm').submit(function(e) {
-        e.preventDefault();
-        var title = $('#title').val();
-        var start = $('#start').val();
-        var end = $('#end').val();
-        var allDay = $('#allDay').is(':checked') ? 1 : 0;
+    e.preventDefault();
+    var title = $('#title').val();
+    var start = $('#start').val();
+    var end = $('#end').val();
 
-        $.ajax({
-            type: 'POST',
-            url: '/calendar/create',
-            data: {
-                title: title,
-                start_date: start,
-                end_date: end,
-                all_day: allDay
-            },
-            success: function(response) {
-                window.location.reload();
-            },
-            error: function(xhr, status, error) {
-                console.error(error);
-            }
-        });
+    $.ajax({
+        type: 'POST',
+        url: '/calendar/create',
+        data: {
+            title: title,
+            start_date: start,
+            end_date: end
+        },
+        success: function(response) {
+            window.location.reload();
+        },
+        error: function(xhr, status, error) {
+            console.error(error);
+        }
     });
+});
 
-    $('#editEventForm').submit(function(e) {
-        e.preventDefault();
-        var eventId = $('#editEventForm input[name="eventId"]').val();
-        var title = $('#editTitle').val();
-        var start = $('#editStart').val();
-        var end = $('#editEnd').val();
-        var allDay = $('#editAllDay').is(':checked') ? 1 : 0;
 
-        $.ajax({
-            type: 'POST',
-            url: '/calendar/updateEvent',
-            data: {
-                eventId: eventId,
-                title: title,
-                start_date: start,
-                end_date: end,
-                all_day: allDay
-            },
-            success: function(response) {
-                window.location.reload();
-            },
-            error: function(xhr, status, error) {
-                console.error(error);
-            }
-        });
+$('#editEventForm').submit(function(e) {
+    e.preventDefault();
+    var eventId = $('#editEventForm input[name="eventId"]').val();
+    var title = $('#editTitle').val();
+    var start = $('#editStart').val();
+    var end = $('#editEnd').val();
+
+    $.ajax({
+        type: 'POST',
+        url: '/calendar/updateEvent',
+        data: {
+            eventId: eventId,
+            title: title,
+            start_date: start,
+            end_date: end
+        },
+        success: function(response) {
+            window.location.reload();
+        },
+        error: function(xhr, status, error) {
+            console.error(error);
+        }
     });
+});
+
 
     $('#deleteEventBtn').click(function() {
         var eventId = $('#editEventForm input[name="eventId"]').val();

@@ -38,51 +38,33 @@ class CalendarController extends Controller {
         ]);
     }
     
-    public function updateEvent() {
-        $id = $this->request->getPost('eventId');
-        $title = $this->request->getPost('title');
-        $start = $this->request->getPost('start');
-        $end = $this->request->getPost('end');
-    
-        if (empty($start) || empty($title)) {
-            return redirect()->back()->with('error', 'Title and start date are required.');
-        }
-    
+    public function create()
+    {
         $data = [
-            'title' => $title,
-            'start_date' => $start,
-            'end_date' => $end,
-            'updated_at' => date('Y-m-d H:i:s')
+            'title' => $this->request->getPost('title'),
+            'start_date' => $this->request->getPost('start_date'),
+            'end_date' => $this->request->getPost('end_date')
         ];
     
-        $this->calendarModel->updateEvent($id, $data);
+        $this->calendarModel->insertEvent($data);
     
-        return redirect()->to('/calendar');
+        return $this->response->setJSON(['success' => true]);
     }
     
-
-    public function storeEvent() {
-        $title = $this->request->getPost('title');
-        $start_date = $this->request->getPost('start');
-        $end_date = $this->request->getPost('end');
-        $allDay = $this->request->getPost('all_day');
-    
-        // Validate required fields
-        if (empty($start_date) || empty($title)) {
-            return redirect()->back()->with('error', 'Title and start date are required.');
-        }
-    
+    public function updateEvent()
+    {
+        $eventId = $this->request->getPost('eventId');
         $data = [
-            'title' => $title,
-            'start_date' => $start_date,
-            'end_date' => $end_date,
-            'all_day' => $all_day
+            'title' => $this->request->getPost('title'),
+            'start_date' => $this->request->getPost('start_date'),
+            'end_date' => $this->request->getPost('end_date')
         ];
     
-        $eventID = $this->calendarModel->insertEvent($data);
+        $this->calendarModel->updateEvent($eventId, $data);
     
-        return redirect()->to('/calendar');
+        return $this->response->setJSON(['success' => true]);
     }
+    
     
 
     public function deleteEvent() {
