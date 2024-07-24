@@ -73,6 +73,10 @@
                             <input type="date" class="form-control" id="date_accepted" name="date_accepted" required>
                         </div>
                         <div class="mb-3">
+                            <label for="project_number">Project Number:</label>
+                            <input type="text" id="project_number" name="project_number" required>
+                        </div>
+                        <div class="mb-3">
                             <label for="status" class="form-label">Status</label>
                             <select class="form-select" id="status" name="status" required>
                                 <option value="1">In Progress</option>
