@@ -89,7 +89,7 @@
                     </td>
                     <td>
                         <a href="<?= base_url('projects/details/' . $project['projectID']) ?>">
-                            <?= esc($project['projectName']) ?>
+                            <?= esc($project['projectNames']) ?>
                         </a>
                     </td>
                     <td><?= esc($project['statusName']) ?></td>
