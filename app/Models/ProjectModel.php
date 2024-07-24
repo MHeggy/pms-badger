@@ -72,14 +72,29 @@ class ProjectModel extends Model {
         // Fetch the project details by its ID.
         $project = $this->find($projectId);
     
-        // Debugging output
         if (!$project) {
             throw new \Exception('Project not found or invalid projectId.');
         }
         
-        // Inspect the result
-        var_dump($project);
-    
+        // Fetch categories and tasks
+        $categories = $this->db->table('project_categories')
+            ->select('pcategories.categoryName')
+            ->join('pcategories', 'pcategories.categoryID = project_categories.categoryID')
+            ->where('project_categories.projectID', $projectId)
+            ->get()
+            ->getResultArray();
+
+        $tasks = $this->db->table('project_tasks')
+            ->select('tasks.taskName')
+            ->join('tasks', 'tasks.taskID = project_tasks.taskID')
+            ->where('project_tasks.projectID', $projectId)
+            ->get()
+            ->getResultArray();
+
+        // Add categories and tasks to the project array
+        $project['categories'] = array_column($categories, 'categoryName');
+        $project['tasks'] = array_column($tasks, 'taskName');
+        
         return $project;
     }
     

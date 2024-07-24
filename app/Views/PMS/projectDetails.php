@@ -41,6 +41,26 @@
                         <?= esc($project['countryName']) ?>
                     </td>
                 </tr>
+                <tr>
+                    <th>Categories</th>
+                    <td>
+                        <?php if (!empty($project['categories'])): ?>
+                            <?= implode(', ', $project['categories']) ?>
+                        <?php else: ?>
+                            None
+                        <?php endif; ?>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Tasks</th>
+                    <td>
+                        <?php if (!empty($project['tasks'])): ?>
+                            <?= implode(', ', $project['tasks']) ?>
+                        <?php else: ?>
+                            None
+                        <?php endif; ?>
+                    </td>
+                </tr>
             </tbody>
         </table>
     </div>
