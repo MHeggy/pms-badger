@@ -153,7 +153,7 @@ class ProjectModel extends Model {
     }
 
     public function addProject($data) {
-        $this->insert($data);
+        return $this->insert($data);
     }
 
 }

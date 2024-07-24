@@ -252,45 +252,59 @@ class ProjectsController extends BaseController {
 
     // function to insert projects into the database.
     public function add() {
+        $db = \Config\Database::connect();
+        $db->transBegin();
+        
         try {
-            if ($this->request->getMethod() === 'post') {
-                $projectNumber = $this->request->getPost('projectNumber');
-                $projectName = $this->request->getPost('projectName');
-                $dateAccepted = $this->request->getPost('dateAccepted');
-                $addressID = $this->request->getPost('addressID');
-                $city = $this->request->getPost('city');
-                $zipCode = $this->request->getPost('zipCode');
-                $stateID = $this->request->getPost('stateID');
-                $countryID = $this->request->getPost('countryID');
-                $statusID = $this->request->getPost('statusID');
-
-                $projectData = [
-                    'projectNumber' => $projectNumber,
-                    'projectName' => $projectName,
-                    'dateAccepted' => $dateAccepted,
-                    'addressID' => $addressID,
-                    'city' => $city,
-                    'zipCode' => $zipCode,
-                    'stateID' => $stateID,
-                    'countryID' => $countryID,
-                    'statusID' => $statusID
-                ];
-
-                $this->projectModel->addProject($projectData);
-
-                return redirect()->to('/projects');
-            } else {
-                $data = [
-                    'states' => $this->stateModel->findAll(),
-                    'countries' => $this->countryModel->findAll(),
-                    'categories' => $this->categoryModel->findAll(),
-                    'tasks' => $this->taskModel->findAll()
-                ];
-                return view('PMS/addProjects', $data);
+            // Insert address data
+            $addressData = [
+                'street' => $this->request->getPost('street'),
+                'city' => $this->request->getPost('city'),
+                'stateID' => $this->request->getPost('stateID'),
+                'zipCode' => $this->request->getPost('zipCode'),
+                'countryID' => $this->request->getPost('countryID')
+            ];
+            
+            $addressModel = new \App\Models\AddressModel();
+            $addressModel->insert($addressData);
+            $addressID = $addressModel->insertID();
+            
+            // Insert project data
+            $projectData = [
+                'projectName' => $this->request->getPost('project_name'),
+                'projectNumber' => $this->request->getPost('project_number'),
+                'dateAccepted' => $this->request->getPost('date_accepted'),
+                'statusID' => $this->request->getPost('status'),
+                'addressID' => $addressID
+            ];
+            
+            $this->projectModel->insert($projectData);
+            
+            if ($this->projectModel->errors()) {
+                throw new \Exception('Error inserting project: ' . json_encode($this->projectModel->errors()));
             }
+            
+            // Get the newly created projectID
+            $projectID = $this->projectModel->insertID();
+            
+            // Add categories to the project if provided
+            $categoryIDs = $this->request->getPost('categories'); // array of category IDs
+            if ($categoryIDs) {
+                $this->addCategoriesToProject($projectID, $categoryIDs);
+            }
+    
+            // Add tasks to the project if provided
+            $taskIDs = $this->request->getPost('tasks'); // array of task IDs
+            if ($taskIDs) {
+                $this->addTasksToProject($projectID, $taskIDs);
+            }
+    
+            $db->transCommit();
+            return redirect()->back()->with('success', 'Project added successfully.');
         } catch (\Exception $e) {
-            log_message('error', 'Error in add: ' . $e->getMessage());
-            return $this->response->setStatusCode(500)->setJSON(['error' => 'Internal server error']);
+            $db->transRollback();
+            log_message('error', 'An error occurred: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'An error occurred: ' . $e->getMessage());
         }
     }  
 }
