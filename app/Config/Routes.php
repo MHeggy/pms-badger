@@ -80,7 +80,7 @@ $routes->post('/messages/update', 'MessageController::update');
 // route for project 3D test.
 $routes->get('/projectsTest', 'ProjectsController::projectsTest');
 // route for updating calendar event information.
-$routes->post('/calendar/update', 'CalendarController::updateEvent');
+$routes->post('/calendar/updateEvent', 'CalendarController::updateEvent');
 // routes for deleting events from the calendar.
 $routes->post('/calendar/deleteEvent', 'CalendarController::deleteEvent');
 // route for displaying the assign users page.
