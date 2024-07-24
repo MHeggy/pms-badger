@@ -11,7 +11,7 @@ class ProjectModel extends Model {
 
     protected $primaryKey = 'projectID';
 
-    protected $allowedFields = ['projectName', 'dateAccepted', 'addressID', 'city', 'zipCode', 'stateID', 'countryID'];
+    protected $allowedFields = ['projectName', 'dateAccepted', 'addressID', 'city', 'zipCode', 'stateID', 'countryID', 'statusID'];
 
     public function __construct() {
         parent::__construct();
