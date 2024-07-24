@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= esc($project['projectName']) ?> - Project Details</title>
+    <title><?= $pageTitle = 'Project Details' ?></title>
     <link rel="stylesheet" href="<?= base_url('/assets/css/projectDetails.css') ?>">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
@@ -40,8 +40,8 @@
     </header>
 
     <div class="container mt-4">
-        <h1><?= esc($project['projectName']) ?>'s Details</h1>
-        <table class="table table-bordered">
+        <h1>Project Details</h1>
+        <table class="table">
             <tbody>
                 <tr>
                     <th>Project ID</th>
