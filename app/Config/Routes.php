@@ -40,7 +40,7 @@ $routes->get('/search_payroll', 'PayrollController::search');
 // route for displaying the calendar.
 $routes->get('/calendar', 'CalendarController::index');
 // route for inserting calendar data into database.
-$routes->post('/calendar/create', 'CalendarController::storeEvent');
+$routes->post('/calendar/create', 'CalendarController::create');
 // route for submitting timesheet to the database.
 $routes->post('/submit-timesheets', 'TimesheetsController::submit');
 // route for showing the accountant specific user timesheets.
