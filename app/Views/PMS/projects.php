@@ -72,6 +72,7 @@
                 </th>
                 <th>Project Name</th>
                 <th>Project Status</th>
+                <th>Category</th> <!-- New Column -->
                 <th>Date Accepted</th>
                 <th>Assigned Users</th>
             </tr>
@@ -92,6 +93,7 @@
                         </a>
                     </td>
                     <td><?= esc($project['statusName']) ?></td>
+                    <td><?= esc($project['categoryName']) ?></td> <!-- New Data -->
                     <td><?= esc($project['dateAccepted']) ?></td>
                     <td>
                         <?php if (!empty($project['assignedUsers'])): ?>
