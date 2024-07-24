@@ -18,15 +18,18 @@ class ProjectModel extends Model {
     }
 
     public function getProjects() {
-        // Join the projects, projectStatuses, and projectCategories tables.
+        // Join the projects, projectStatuses, projectCategories, and categories tables.
         $query = $this->db->query('
-            SELECT p.*, ps.statusName, pc.categoryName
+            SELECT p.*, ps.statusName, GROUP_CONCAT(pc.categoryName) AS categoryNames
             FROM projects p
             JOIN projectstatuses ps ON p.statusID = ps.statusID
-            LEFT JOIN project_categories pc ON p.categoryID = pc.categoryID
+            LEFT JOIN project_categories pcj ON p.projectID = pcj.projectID
+            LEFT JOIN pcategories pc ON pcj.categoryID = pc.categoryID
+            GROUP BY p.projectID, ps.statusName
         ');
         return $query->getResultArray();
     }
+    
     
 
     public function searchProjects($searchTerm) {
