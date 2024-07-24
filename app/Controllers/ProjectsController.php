@@ -220,6 +220,27 @@ class ProjectsController extends BaseController {
         return $this->response->setJSON(['projects' => $assignedProjects]);
     }
 
+    // functions for categories and tasks start here.
+    public function addCategoriesToProject($projectID, $categoryIDs) {
+        foreach ($categoryIDs as $categoryID) {
+            $data = [
+                'projectID' => $projectID,
+                'categoryID' => $categoryID
+            ];
+            $this->projectModel->db->table('project_categories')->insert($data);
+        }
+    }
+
+    public function addTasksToProject($projectID, $taskIDs) {
+        foreach ($taskIDs as $taskID) {
+            $data = [
+                'projectID' => $projectID,
+                'taskID' => $taskID
+            ];
+            $this->projectModel->db->table('project_tasks')->insert($data);
+        }
+    }
+
     // function to show the addProjects view page.
     public function addProjectsView() {
         // Fetch states and countries from the models
@@ -236,6 +257,7 @@ class ProjectsController extends BaseController {
         $db->transBegin();
         
         try {
+            // Insert address data
             $addressData = [
                 'street' => $this->request->getPost('street'),
                 'city' => $this->request->getPost('city'),
@@ -248,6 +270,7 @@ class ProjectsController extends BaseController {
             $addressModel->insert($addressData);
             $addressID = $addressModel->insertID();
             
+            // Insert project data
             $projectData = [
                 'projectName' => $this->request->getPost('project_name'),
                 'dateAccepted' => $this->request->getPost('date_accepted'),
@@ -261,6 +284,21 @@ class ProjectsController extends BaseController {
                 throw new \Exception('Error inserting project: ' . json_encode($this->projectModel->errors()));
             }
             
+            // Get the newly created projectID
+            $projectID = $this->projectModel->insertID();
+            
+            // Add categories to the project if provided
+            $categoryIDs = $this->request->getPost('categories'); // array of category IDs
+            if ($categoryIDs) {
+                $this->addCategoriesToProject($projectID, $categoryIDs);
+            }
+    
+            // Add tasks to the project if provided
+            $taskIDs = $this->request->getPost('tasks'); // array of task IDs
+            if ($taskIDs) {
+                $this->addTasksToProject($projectID, $taskIDs);
+            }
+    
             $db->transCommit();
             return redirect()->back()->with('success', 'Project added successfully.');
         } catch (\Exception $e) {
@@ -269,5 +307,5 @@ class ProjectsController extends BaseController {
             return redirect()->back()->with('error', 'An error occurred: ' . $e->getMessage());
         }
     }
-        
+    
 }
