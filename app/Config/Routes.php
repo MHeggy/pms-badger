@@ -112,3 +112,6 @@ $routes->get('/user/change_password', 'UserController::changePasswordView');
 // route for actually changing the user's password in the database.
 $routes->post('/change_password', 'UserController::changePassword');
 service('auth')->routes($routes);
+
+// test email route
+$routes->get('/send-test-email', 'EmailController::sendTestEmail');
