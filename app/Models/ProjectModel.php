@@ -31,13 +31,21 @@ class ProjectModel extends Model {
     
     public function searchProjects($searchTerm) {
         $builder = $this->db->table('projects');
-        $builder->select('*')->join('projectstatuses', 'projects.statusID = projectstatuses.statusID', 'left');
-
+        $builder->select('projects.*, projectstatuses.statusName, GROUP_CONCAT(pcategories.categoryName) AS categoryNames, GROUP_CONCAT(users.username) AS assignedUsers')
+                ->join('projectstatuses', 'projects.statusID = projectstatuses.statusID', 'left')
+                ->join('project_categories', 'projects.projectID = project_categories.projectID', 'left')
+                ->join('pcategories', 'project_categories.categoryID = pcategories.categoryID', 'left')
+                ->join('user_project', 'projects.projectID = user_project.project_id', 'left')
+                ->join('users', 'user_project.user_id = users.id', 'left');
+    
         if (!empty($searchTerm)) {
-            $builder->like('projectName', $searchTerm);
+            $builder->like('projects.projectName', $searchTerm);
         }
+    
+        $builder->groupBy('projects.projectID, projectstatuses.statusName');
         return $builder->get()->getResultArray();
     }
+    
 
     public function filterProjectsByStatus($status) {
         $builder = $this->db->table('projects');
