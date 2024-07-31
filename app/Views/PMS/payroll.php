@@ -91,6 +91,13 @@
                     <td><button type="button" class="btn btn-danger remove-row disabled">Remove</button></td>
                 </tr>
             </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="10" class="text-end"><strong>Total Hours for the Week:</strong></td>
+                    <td><input type="text" id="weekly-total" class="form-control" readonly></td>
+                    <td></td>
+                </tr>
+            </tfoot>
         </table>
 
         <!-- Add Row Button -->
@@ -120,15 +127,20 @@
     }
 
     function calculateAllTotals() {
+        let weeklyTotal = 0;
         document.querySelectorAll('#timesheet-rows tr').forEach(row => {
             calculateRowTotal(row);
+            const rowTotal = parseFloat(row.querySelector('.total-hours').value) || 0;
+            weeklyTotal += rowTotal;
         });
+        document.getElementById('weekly-total').value = weeklyTotal.toFixed(2);
     }
 
     document.querySelectorAll('.day-input').forEach(input => {
         input.addEventListener('input', () => {
             const row = input.closest('tr');
             calculateRowTotal(row);
+            calculateAllTotals();
         });
     });
 
@@ -149,6 +161,7 @@
         newRow.querySelectorAll('.day-input').forEach(input => {
             input.addEventListener('input', () => {
                 calculateRowTotal(newRow);
+                calculateAllTotals();
             });
         });
         newRow.querySelector('.remove-row').addEventListener('click', () => {
