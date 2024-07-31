@@ -22,6 +22,10 @@
             pointer-events: none;
             opacity: 0.5;
         }
+
+        .button-container {
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -90,17 +94,13 @@
         </table>
 
         <!-- Add Row Button -->
-        <div class="row mb-3">
-            <div class="col-sm-10 offset-sm-2">
-                <button type="button" id="add-row" class="btn btn-secondary">Add Row</button>
-            </div>
+        <div class="button-container">
+            <button type="button" id="add-row" class="btn btn-secondary">Add Row</button>
         </div>
 
         <!-- Submit button -->
-        <div class="row mt-3">
-            <div class="col-sm-10 offset-sm-2">
-                <button id="submit-timesheet" type="submit" class="btn btn-primary">Submit Timesheet</button>
-            </div>
+        <div class="button-container">
+            <button id="submit-timesheet" type="submit" class="btn btn-primary">Submit Timesheet</button>
         </div>
     </form>
 </div>
