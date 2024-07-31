@@ -1,20 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo $pageTitle = '[Admin] Add Projects' ?></title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- jQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="<?php echo base_url('/assets/css/main.css') ?>">
-</head>
-<body>
+<?php $pageTitle = '[Admin] Add Projects' ?>
 <header>
     <?php include 'header.php' ?>
 </header><br><br>
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<!-- Custom CSS -->
+<link rel="stylesheet" href="<?php echo base_url('/assets/css/main.css') ?>">
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-8">
