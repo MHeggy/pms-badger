@@ -58,9 +58,7 @@
             <a href="<?php echo base_url('/projects') ?>"><li>Projects</li></a>
             <a href="<?php echo base_url('/myWork') ?>"><li>My Work</li></a>
             <a href="<?php echo base_url('/calendar') ?>"><li>Calendar</li></a>
-            <a href="<?php echo base_url('/people') ?>"><li>People</li></a>
             <a href="<?php echo base_url('/forums') ?>"><li>Forums</li></a>
-            <a href="<?php echo base_url('/reports') ?>"><li>Reports</li></a>
         <?php else : ?>
             <!-- Show these if user is not logged in. -->
             <a href="<?php echo base_url('/login') ?>"><li>Login</li></a>
