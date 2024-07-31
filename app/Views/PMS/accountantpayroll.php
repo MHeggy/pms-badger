@@ -1,15 +1,7 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title><?= $pageTitle = 'Payroll [Accountant]' ?></title>
-    <!-- Link to Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/handsontable/dist/handsontable.full.css">
-    <script src="https://cdn.jsdelivr.net/npm/handsontable/dist/handsontable.full.min.js"></script>
+<?php $pageTitle = 'Payroll [Accountant]' ?>
+<header>
+    <?php include 'header.php' ?>
+</header>
     <style>
         .employee-box {
             margin: 120px; /* Adjusted margin */
@@ -32,12 +24,11 @@
             flex-shrink: 0;
         }
     </style>
-</head>
-<body>
-<header>
-    <?php include 'header.php' ?>
-</header>
 
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/handsontable/dist/handsontable.full.css">
+<script src="https://cdn.jsdelivr.net/npm/handsontable/dist/handsontable.full.min.js"></script>
 <!-- Search form -->
 <form action="<?= base_url('/search_payroll') ?>" method="get" class="search-form">
     <input type="text" name="search" class="form-control search-input" placeholder="Search by username...">
