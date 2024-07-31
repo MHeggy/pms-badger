@@ -28,7 +28,7 @@ class TimesheetsController extends BaseController {
     public function submit() {
         $userId = auth()->id();
         $weekOf = $this->request->getPost('week');
-        $entries = $this->timesheetsModel->getTimesheetEntriesFromRequest($userId);
+        $entries = $this->getTimesheetEntriesFromRequest($userId);
 
         $totalHours = array_sum(array_column($entries, 'totalHours'));
 
@@ -42,7 +42,7 @@ class TimesheetsController extends BaseController {
 
         if ($success) {
             $timesheetId = $success;
-            $successEntries = $this->timesheetsModel->insertTimesheetEntries($timesheetId, $entires);
+            $successEntries = $this->timesheetsModel->insertTimesheetEntries($timesheetId, $entries);
 
             if ($successEntries) {
                 $this->session->setFlashdata('success_message', 'Timesheet submitted successfully.');
@@ -68,7 +68,7 @@ class TimesheetsController extends BaseController {
 
     public function viewTimesheet($timesheetId) {
         $timesheet = $this->timesheetsModel->find($timesheetId);
-        $entries = $this->timesheetsModel->getTimesheetEntries($timesheetId);
+        $entries = $this->getTimesheetEntries($timesheetId);
 
         if (!$timesheet) {
             return redirect()->back()->with('error_message', 'Timesheet not found.');
@@ -83,7 +83,7 @@ class TimesheetsController extends BaseController {
     public function editTimesheet($timesheetId)
     {
         $timesheet = $this->timesheetsModel->find($timesheetId);
-        $entries = $this->timesheetsModel->getTimesheetEntries($timesheetId);
+        $entries = $this->getTimesheetEntries($timesheetId);
 
         $daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
@@ -144,6 +144,34 @@ class TimesheetsController extends BaseController {
                     'timesheetID' => $timesheetId,
                     'day' => $day,
                     'hours' => $hours
+                ];
+            }
+        }
+
+        return $entries;
+    }
+
+    public function getTimesheetEntriesFromRequest() {
+        $entries = [];
+        $daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+
+        foreach ($daysOfWeek as $day) {
+            $hours = $this->request()->getPost((strtolower($day) . 'Hours'));
+            $totalHours = $this->calculateTotalHoursForDay($hours);
+
+            if ($hours) {
+                $entries[] = [
+                    'projectNumber' => $this->request->getPost('projectNumber'),
+                    'projectName' => $this->request->getPost('projectName'),
+                    'activityDescription' => $this->request->getPost('activityDescription'),
+                    'mondayHours' => $day === 'Monday' ? $hours : null,
+                    'tuesdayHours' => $day === 'Tuesday' ? $hours : null,
+                    'wednesdayHours' => $day === 'Wednesday' ? $hours : null,
+                    'thursdayHours' => $day === 'Thursday' ? $hours : null,
+                    'fridayHours' => $day === 'Friday' ? $hours : null,
+                    'saturdayHours' => $day === 'Saturday' ? $hours : null,
+                    'sundayHours' => $day === 'Sunday' ? $hours : null,
+                    'totalHours' => $totalHours
                 ];
             }
         }
