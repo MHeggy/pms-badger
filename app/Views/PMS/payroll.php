@@ -14,15 +14,15 @@
             margin-bottom: 20px;
         }
 
-        .table th, .table td {
-            text-align: center;
+        .timesheet-table input {
+            width: 100%;
         }
     </style>
 </head>
 <body>
 <!-- Header content -->
 <header>
-    <?php include 'header.php'; ?>
+    <?php include 'header.php' ?>
 </header>
 <br><br>
 <!-- Section to allow user to view their own timesheets -->
@@ -46,24 +46,14 @@
                 <input type="date" class="form-control" id="week" name="week" required>
             </div>
         </div>
-        <div class="row mb-3">
-            <label for="project" class="col-sm-2 col-form-label">Project</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="project" name="project">
-            </div>
-        </div>
-        <div class="row mb-3">
-            <label for="description" class="col-sm-2 col-form-label">Description</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="description" name="description">
-            </div>
-        </div>
-        
+
         <!-- Timesheet table -->
-        <table class="table table-bordered">
+        <table class="table timesheet-table">
             <thead>
                 <tr>
-                    <th>Activity</th>
+                    <th>Project Number</th>
+                    <th>Project Name</th>
+                    <th>Description</th>
                     <th>Monday</th>
                     <th>Tuesday</th>
                     <th>Wednesday</th>
@@ -72,26 +62,34 @@
                     <th>Saturday</th>
                     <th>Sunday</th>
                     <th>Total Hours</th>
+                    <th>Action</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="timesheet-rows">
+                <!-- Rows will be added here dynamically -->
                 <tr>
-                    <td>
-                        <input type="text" class="form-control" name="activity" placeholder="Activity Description">
-                    </td>
-                    <td><input type="number" class="form-control" id="monday" name="monday" step="0.1"></td>
-                    <td><input type="number" class="form-control" id="tuesday" name="tuesday" step="0.1"></td>
-                    <td><input type="number" class="form-control" id="wednesday" name="wednesday" step="0.1"></td>
-                    <td><input type="number" class="form-control" id="thursday" name="thursday" step="0.1"></td>
-                    <td><input type="number" class="form-control" id="friday" name="friday" step="0.1"></td>
-                    <td><input type="number" class="form-control" id="saturday" name="saturday" step="0.1"></td>
-                    <td><input type="number" class="form-control" id="sunday" name="sunday" step="0.1"></td>
-                    <td>
-                        <input type="text" class="form-control" id="total-hours" name="total-hours" readonly>
-                    </td>
+                    <td><input type="text" class="form-control" name="projectNumber[]"></td>
+                    <td><input type="text" class="form-control" name="projectName[]"></td>
+                    <td><input type="text" class="form-control" name="description[]"></td>
+                    <td><input type="number" class="form-control day-input" name="monday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="tuesday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="wednesday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="thursday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="friday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="saturday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="sunday[]" step="0.01"></td>
+                    <td><input type="text" class="form-control total-hours" readonly></td>
+                    <td><button type="button" class="btn btn-danger remove-row">Remove</button></td>
                 </tr>
             </tbody>
         </table>
+
+        <!-- Add Row Button -->
+        <div class="row mb-3">
+            <div class="col-sm-10 offset-sm-2">
+                <button type="button" id="add-row" class="btn btn-secondary">Add Row</button>
+            </div>
+        </div>
 
         <!-- Submit button -->
         <div class="row mt-3">
@@ -102,18 +100,57 @@
     </form>
 </div>
 
-<!-- Simple script to calculate the total hours -->
+<!-- Scripts -->
 <script>
-    function calculateTotalHours() {
+    function calculateRowTotal(row) {
         let totalHours = 0;
         const daysOfWeek = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
-
         daysOfWeek.forEach(day => {
-            const input = document.getElementById(day);
+            const input = row.querySelector(`[name="${day}[]"]`);
             if (input.value !== '') {
                 totalHours += parseFloat(input.value);
             }
         });
+        row.querySelector('.total-hours').value = totalHours.toFixed(2);
+    }
 
-        const totalHoursElement = document.getElementById('total-hours');
-        totalHoursElement.v
+    function calculateAllTotals() {
+        document.querySelectorAll('#timesheet-rows tr').forEach(row => {
+            calculateRowTotal(row);
+        });
+    }
+
+    document.querySelectorAll('.day-input').forEach(input => {
+        input.addEventListener('input', () => {
+            const row = input.closest('tr');
+            calculateRowTotal(row);
+        });
+    });
+
+    document.querySelectorAll('#timesheet-rows .remove-row').forEach(button => {
+        button.addEventListener('click', () => {
+            button.closest('tr').remove();
+            calculateAllTotals();
+        });
+    });
+
+    document.getElementById('add-row').addEventListener('click', () => {
+        const newRow = document.querySelector('#timesheet-rows tr').cloneNode(true);
+        newRow.querySelectorAll('input').forEach(input => input.value = '');
+        document.querySelector('#timesheet-rows').appendChild(newRow);
+        newRow.querySelectorAll('.day-input').forEach(input => {
+            input.addEventListener('input', () => {
+                calculateRowTotal(newRow);
+            });
+        });
+        newRow.querySelector('.remove-row').addEventListener('click', () => {
+            newRow.remove();
+            calculateAllTotals();
+        });
+    });
+
+    calculateAllTotals();  // Initial calculation
+</script>
+<script src="<?php echo base_url('/assets/js/main.js')?>"></script>
+</body>
+</html>
