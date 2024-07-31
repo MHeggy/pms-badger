@@ -1,11 +1,12 @@
+<?php $pageTitle = "Login" ?>
 <!-- Header -->
 <div id="header">
     <header>
         <?php include 'header.php' ?>
     </header>
 </div>
-<?php $pageTitle = "Login" ?>
 
+<!-- Body content -->
 <div class="container d-flex justify-content-center p-5">
     <div class="card col-12 col-md-5 shadow-sm">
         <div class="card-body">
