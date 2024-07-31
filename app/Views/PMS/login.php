@@ -7,6 +7,7 @@
 </div>
 <!-- Style sheet -->
 <link rel="stylesheet" href="<?= base_url('/assets/css/login.css') ?>">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <!-- Body content -->
 <div class="container d-flex justify-content-center p-5">
     <div class="card col-12 col-md-5 shadow-sm">
