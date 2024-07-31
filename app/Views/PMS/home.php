@@ -1,20 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title><?= $pageTitle = "Dashboard"; ?></title>
-    <link rel="stylesheet" href="<?php echo base_url('/assets/css/dashboard.css') ?>">
-    <!-- Link to Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
+<?php $pageTitle = 'Dashboard' ?>
 <!-- Header content -->
 <header>
     <?php require_once 'header.php' ?>
 </header>
-
+<link rel="stylesheet" href="<?php echo base_url('/assets/css/dashboard.css') ?>">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Content -->
 <div id="content">
     <!-- Display success message or error message if they exist -->
     <?php if (session()->get('success_message') || !empty($errorMessage)): ?>
