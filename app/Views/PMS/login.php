@@ -1,22 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Link to external CSS file -->
-    <title><?= $pageTitle = "Login"; ?></title>
-    <link rel="stylesheet" href="<?php echo base_url('/assets/css/login.css') ?>">
-    <!-- Link to Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
 <!-- Header -->
 <div id="header">
     <header>
         <?php include 'header.php' ?>
     </header>
 </div>
+<?php $pageTitle = "Login" ?>
 
 <div class="container d-flex justify-content-center p-5">
     <div class="card col-12 col-md-5 shadow-sm">
