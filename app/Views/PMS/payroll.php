@@ -136,21 +136,27 @@
         document.getElementById('weekly-total').value = weeklyTotal.toFixed(2);
     }
 
-    document.querySelectorAll('.day-input').forEach(input => {
-        input.addEventListener('input', () => {
-            const row = input.closest('tr');
-            calculateRowTotal(row);
-            calculateAllTotals();
+    function addEventListenersToRow(row) {
+        row.querySelectorAll('.day-input').forEach(input => {
+            input.addEventListener('input', () => {
+                calculateRowTotal(row);
+                calculateAllTotals();
+            });
         });
-    });
-
-    document.querySelectorAll('#timesheet-rows .remove-row').forEach(button => {
-        button.addEventListener('click', () => {
-            if (!button.classList.contains('disabled')) {
-                button.closest('tr').remove();
+        row.querySelector('.remove-row').addEventListener('click', () => {
+            if (!row.querySelector('.remove-row').classList.contains('disabled')) {
+                row.remove();
                 calculateAllTotals();
             }
         });
+    }
+
+    document.querySelectorAll('.day-input').forEach(input => {
+        addEventListenersToRow(input.closest('tr'));
+    });
+
+    document.querySelectorAll('#timesheet-rows .remove-row').forEach(button => {
+        addEventListenersToRow(button.closest('tr'));
     });
 
     document.getElementById('add-row').addEventListener('click', () => {
@@ -158,20 +164,12 @@
         newRow.querySelectorAll('input').forEach(input => input.value = '');
         newRow.querySelector('.remove-row').classList.remove('disabled');
         document.querySelector('#timesheet-rows').appendChild(newRow);
-        newRow.querySelectorAll('.day-input').forEach(input => {
-            input.addEventListener('input', () => {
-                calculateRowTotal(newRow);
-                calculateAllTotals();
-            });
-        });
-        newRow.querySelector('.remove-row').addEventListener('click', () => {
-            newRow.remove();
-            calculateAllTotals();
-        });
+        addEventListenersToRow(newRow);
     });
 
     calculateAllTotals();  // Initial calculation
 </script>
+
 <script src="<?php echo base_url('/assets/js/main.js')?>"></script>
 </body>
 </html>

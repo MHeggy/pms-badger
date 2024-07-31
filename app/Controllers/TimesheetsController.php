@@ -30,6 +30,8 @@ class TimesheetsController extends BaseController {
         $weekOf = $this->request->getPost('week');
         $entries = $this->getTimesheetEntriesFromRequest($userId);
 
+        log_message('debug', 'Received data: ' . print_r($entries, true));
+
         $totalHours = $this->request->getPost('totalHours');
 
         $data = [
