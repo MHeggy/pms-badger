@@ -132,26 +132,7 @@ class TimesheetsController extends BaseController {
         }
     }
 
-    private function getTimesheetEntriesFromRequest($timesheetId)
-    {
-        $entries = [];
-        $daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-
-        foreach ($daysOfWeek as $day) {
-            $hours = $this->request->getPost(strtolower($day) . 'Hours');
-            if ($hours) {
-                $entries[] = [
-                    'timesheetID' => $timesheetId,
-                    'day' => $day,
-                    'hours' => $hours
-                ];
-            }
-        }
-
-        return $entries;
-    }
-
-    public function getTimesheetEntriesFromRequest() {
+    private function getTimesheetEntriesFromRequest() {
         $entries = [];
         $daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
