@@ -74,4 +74,36 @@ class TimesheetsModel extends Model {
     public function deleteTimesheetEntries($timesheetId) {
         return $this->db->table('timesheetEntries')->where('timesheetID', $timesheetId)->delete();
     }
+
+    public function getTimesheetEntriesFromRequest() {
+        $entries = [];
+        $daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+
+        foreach ($daysOfWeek as $day) {
+            $hours = $this->request()->getPost((strtolower($day) . 'Hours'));
+            $totalHours = $this->calculateTotalHoursForDay($hours);
+
+            if ($hours) {
+                $entries[] = [
+                    'projectNumber' => $this->request->getPost('projectNumber'),
+                    'projectName' => $this->request->getPost('projectName'),
+                    'activityDescription' => $this->request->getPost('activityDescription'),
+                    'mondayHours' => $day === 'Monday' ? $hours : null,
+                    'tuesdayHours' => $day === 'Tuesday' ? $hours : null,
+                    'wednesdayHours' => $day === 'Wednesday' ? $hours : null,
+                    'thursdayHours' => $day === 'Thursday' ? $hours : null,
+                    'fridayHours' => $day === 'Friday' ? $hours : null,
+                    'saturdayHours' => $day === 'Saturday' ? $hours : null,
+                    'sundayHours' => $day === 'Sunday' ? $hours : null,
+                    'totalHours' => $totalHours
+                ];
+            }
+        }
+
+        return $entries;
+    }
+
+    private function calculateTotalHoursForDay($hours) {
+        return array_sum($hours);
+    }
 }
