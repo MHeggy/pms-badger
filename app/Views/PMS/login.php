@@ -5,7 +5,8 @@
         <?php include 'header.php' ?>
     </header>
 </div>
-
+<!-- Style sheet -->
+<link rel="stylesheet" href="<?= base_url('/assets/css/login.css') ?>">
 <!-- Body content -->
 <div class="container d-flex justify-content-center p-5">
     <div class="card col-12 col-md-5 shadow-sm">
