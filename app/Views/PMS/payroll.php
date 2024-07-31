@@ -17,6 +17,11 @@
         .timesheet-table input {
             width: 100%;
         }
+
+        .remove-row.disabled {
+            pointer-events: none;
+            opacity: 0.5;
+        }
     </style>
 </head>
 <body>
@@ -66,7 +71,7 @@
                 </tr>
             </thead>
             <tbody id="timesheet-rows">
-                <!-- Rows will be added here dynamically -->
+                <!-- First row (cannot be removed) -->
                 <tr>
                     <td><input type="text" class="form-control" name="projectNumber[]"></td>
                     <td><input type="text" class="form-control" name="projectName[]"></td>
@@ -79,7 +84,7 @@
                     <td><input type="number" class="form-control day-input" name="saturday[]" step="0.01"></td>
                     <td><input type="number" class="form-control day-input" name="sunday[]" step="0.01"></td>
                     <td><input type="text" class="form-control total-hours" readonly></td>
-                    <td><button type="button" class="btn btn-danger remove-row">Remove</button></td>
+                    <td><button type="button" class="btn btn-danger remove-row disabled">Remove</button></td>
                 </tr>
             </tbody>
         </table>
@@ -129,14 +134,17 @@
 
     document.querySelectorAll('#timesheet-rows .remove-row').forEach(button => {
         button.addEventListener('click', () => {
-            button.closest('tr').remove();
-            calculateAllTotals();
+            if (!button.classList.contains('disabled')) {
+                button.closest('tr').remove();
+                calculateAllTotals();
+            }
         });
     });
 
     document.getElementById('add-row').addEventListener('click', () => {
         const newRow = document.querySelector('#timesheet-rows tr').cloneNode(true);
         newRow.querySelectorAll('input').forEach(input => input.value = '');
+        newRow.querySelector('.remove-row').classList.remove('disabled');
         document.querySelector('#timesheet-rows').appendChild(newRow);
         newRow.querySelectorAll('.day-input').forEach(input => {
             input.addEventListener('input', () => {
