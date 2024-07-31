@@ -28,13 +28,13 @@ class TimesheetsController extends BaseController {
     public function submit() {
         $userId = auth()->id();
         $weekOf = $this->request->getPost('week');
-        $entries = $this->getTimesheetEntriesFromRequest();
+        $entries = $this->timesheetsModel->getTimesheetEntriesFromRequest($userId);
 
         $totalHours = array_sum(array_column($entries, 'totalHours'));
 
         $data = [
             'userID' => $userId,
-            'weekOf' => $weekof,
+            'weekOf' => $weekOf,
             'totalHours' => $totalHours,
         ];
 
@@ -42,15 +42,15 @@ class TimesheetsController extends BaseController {
 
         if ($success) {
             $timesheetId = $success;
-            $successEntries = $this->timesheetsModel->insertTimesheetEntries($timesheetId, $entries);
+            $successEntries = $this->timesheetsModel->insertTimesheetEntries($timesheetId, $entires);
 
             if ($successEntries) {
-                $this->session->setFlashdata('success_message', 'Timesheet submitted succesfully!');
+                $this->session->setFlashdata('success_message', 'Timesheet submitted successfully.');
             } else {
-                $this->session->setFlashdata('error_message', 'Failed to submit timesheet, please try again.');
+                $this->session->setFlashdata('error_message', 'Unable to submit timesheet, please try again.');
             }
         } else {
-            $this->session->setFlashdata('error_message', 'Failed to submit timesheet successfully.');
+            $this->session->setFlashdata('error_message', 'Unable to submit timesheet, please try again.');
         }
 
         return redirect()->to('/dashboard');
@@ -100,15 +100,15 @@ class TimesheetsController extends BaseController {
             'weekOf' => $this->request->getPost('week'),
         ];
 
-        $success = $this->tiemsheetsModel->updateTimesheet($timesheetId, $data);
+        $success = $this->timesheetsModel->updateTimesheet($timesheetId, $data);
 
-        $entires = $this->getTimesheetEntriesFromRequest();
+        $entries = $this->getTimesheetEntriesFromRequest($timesheetId);
         $successEntries = $this->timesheetsModel->updateTimesheetEntries($timesheetId, $entries);
 
         if ($success && $successEntries) {
             $this->session->setFlashdata('success_message', 'Timesheet updated successfully.');
         } else {
-            $this->session->setFlashdata('error_message', 'Failed to update timesheet, please try again.');
+            $this->session->setFlashdata('error_message', 'Unable to update timesheet, please try again.');
         }
 
         return redirect()->to('/dashboard');
