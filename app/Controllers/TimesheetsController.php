@@ -30,7 +30,7 @@ class TimesheetsController extends BaseController {
         $weekOf = $this->request->getPost('week');
         $entries = $this->getTimesheetEntriesFromRequest($userId);
 
-        $totalHours = array_sum(array_column($entries, 'totalHours'));
+        $totalHours = $this->request->getPost('totalHours');
 
         $data = [
             'userID' => $userId,
@@ -134,31 +134,40 @@ class TimesheetsController extends BaseController {
 
     private function getTimesheetEntriesFromRequest() {
         $entries = [];
-        $daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-
-        foreach ($daysOfWeek as $day) {
-            $hours = $this->request->getPost(strtolower($day). 'Hours');
-            $totalHours = $this->calculateTotalHoursForDay($hours);
-
-            if ($hours) {
-                $entries[] = [
-                    'projectNumber' => $this->request->getPost('projectNumber'),
-                    'projectName' => $this->request->getPost('projectName'),
-                    'activityDescription' => $this->request->getPost('activityDescription'),
-                    'mondayHours' => $day === 'Monday' ? $hours : null,
-                    'tuesdayHours' => $day === 'Tuesday' ? $hours : null,
-                    'wednesdayHours' => $day === 'Wednesday' ? $hours : null,
-                    'thursdayHours' => $day === 'Thursday' ? $hours : null,
-                    'fridayHours' => $day === 'Friday' ? $hours : null,
-                    'saturdayHours' => $day === 'Saturday' ? $hours : null,
-                    'sundayHours' => $day === 'Sunday' ? $hours : null,
-                    'totalHours' => $totalHours
-                ];
-            }
+        
+        // Fetch the number of rows (assuming each row is represented by an index)
+        $projectNumbers = $this->request->getPost('projectNumber');
+        $projectNames = $this->request->getPost('projectName');
+        $descriptions = $this->request->getPost('description');
+        $mondayHours = $this->request->getPost('monday');
+        $tuesdayHours = $this->request->getPost('tuesday');
+        $wednesdayHours = $this->request->getPost('wednesday');
+        $thursdayHours = $this->request->getPost('thursday');
+        $fridayHours = $this->request->getPost('friday');
+        $saturdayHours = $this->request->getPost('saturday');
+        $sundayHours = $this->request->getPost('sunday');
+        $totalHours = $this->request->getPost('totalHours');
+    
+        // Loop through each row
+        for ($i = 0; $i < count($projectNumbers); $i++) {
+            $entries[] = [
+                'projectNumber' => $projectNumbers[$i],
+                'projectName' => $projectNames[$i],
+                'activityDescription' => $descriptions[$i],
+                'mondayHours' => $mondayHours[$i],
+                'tuesdayHours' => $tuesdayHours[$i],
+                'wednesdayHours' => $wednesdayHours[$i],
+                'thursdayHours' => $thursdayHours[$i],
+                'fridayHours' => $fridayHours[$i],
+                'saturdayHours' => $saturdayHours[$i],
+                'sundayHours' => $sundayHours[$i],
+                'totalHours' => $totalHours[$i],
+            ];
         }
-
+    
         return $entries;
     }
+    
 
     private function calculateTotalHoursForDay($hours) {
         return array_sum($hours);

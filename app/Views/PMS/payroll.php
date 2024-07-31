@@ -87,7 +87,7 @@
                     <td><input type="number" class="form-control day-input" name="friday[]" step="0.01"></td>
                     <td><input type="number" class="form-control day-input" name="saturday[]" step="0.01"></td>
                     <td><input type="number" class="form-control day-input" name="sunday[]" step="0.01"></td>
-                    <td><input type="text" class="form-control total-hours" readonly></td>
+                    <td><input type="text" class="form-control total-hours" name="totalHours[]" readonly></td>
                     <td><button type="button" class="btn btn-danger remove-row disabled">Remove</button></td>
                 </tr>
             </tbody>
