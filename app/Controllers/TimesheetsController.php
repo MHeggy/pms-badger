@@ -137,7 +137,7 @@ class TimesheetsController extends BaseController {
         $daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
         foreach ($daysOfWeek as $day) {
-            $hours = $this->request()->getPost((strtolower($day) . 'Hours'));
+            $hours = $this->request->getPost(strtolower($day). 'Hours');
             $totalHours = $this->calculateTotalHoursForDay($hours);
 
             if ($hours) {
@@ -158,5 +158,9 @@ class TimesheetsController extends BaseController {
         }
 
         return $entries;
+    }
+
+    private function calculateTotalHoursForDay($hours) {
+        return array_sum($hours);
     }
 }

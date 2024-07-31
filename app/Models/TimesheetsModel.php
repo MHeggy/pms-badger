@@ -75,7 +75,4 @@ class TimesheetsModel extends Model {
         return $this->db->table('timesheetEntries')->where('timesheetID', $timesheetId)->delete();
     }
 
-    private function calculateTotalHoursForDay($hours) {
-        return array_sum($hours);
-    }
 }
