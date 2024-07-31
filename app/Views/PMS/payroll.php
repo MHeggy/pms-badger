@@ -13,12 +13,16 @@
         .view-timesheets-card {
             margin-bottom: 20px;
         }
+
+        .table th, .table td {
+            text-align: center;
+        }
     </style>
 </head>
 <body>
 <!-- Header content -->
 <header>
-    <?php include 'header.php' ?>
+    <?php include 'header.php'; ?>
 </header>
 <br><br>
 <!-- Section to allow user to view their own timesheets -->
@@ -54,57 +58,40 @@
                 <input type="text" class="form-control" id="description" name="description">
             </div>
         </div>
-        <!-- Add input fields for each day of the week -->
-        <div class="row mb-3">
-            <label for="monday" class="col-sm-2 col-form-label">Monday</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="monday" name="monday">
-            </div>
-        </div>
-        <div class="row mb-3">
-            <label for="tuesday" class="col-sm-2 col-form-label">Tuesday</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="tuesday" name="tuesday">
-            </div>
-        </div>
-        <div class="row mb-3">
-            <label for="wednesday" class="col-sm-2 col-form-label">Wednesday</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="wednesday" name="wednesday">
-            </div>
-        </div>
-        <div class="row mb-3">
-            <label for="thursday" class="col-sm-2 col-form-label">Thursday</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="thursday" name="thursday">
-            </div>
-        </div>
-        <div class="row mb-3">
-            <label for="friday" class="col-sm-2 col-form-label">Friday</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="friday" name="friday">
-            </div>
-        </div>
-        <div class="row mb-3">
-            <label for="saturday" class="col-sm-2 col-form-label">Saturday</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="saturday" name="saturday">
-            </div>
-        </div>
-        <div class="row mb-3">
-            <label for="sunday" class="col-sm-2 col-form-label">Sunday</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="sunday" name="sunday">
-            </div>
-        </div>
-
-        <!-- Total hours field -->
-        <div class="row mb-3">
-            <label for="total-hours" class="col-sm-2 col-form-label">Total Hours</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="total-hours" name="total-hours" readonly>
-            </div>
-        </div>
+        
+        <!-- Timesheet table -->
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Activity</th>
+                    <th>Monday</th>
+                    <th>Tuesday</th>
+                    <th>Wednesday</th>
+                    <th>Thursday</th>
+                    <th>Friday</th>
+                    <th>Saturday</th>
+                    <th>Sunday</th>
+                    <th>Total Hours</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <input type="text" class="form-control" name="activity" placeholder="Activity Description">
+                    </td>
+                    <td><input type="number" class="form-control" id="monday" name="monday" step="0.1"></td>
+                    <td><input type="number" class="form-control" id="tuesday" name="tuesday" step="0.1"></td>
+                    <td><input type="number" class="form-control" id="wednesday" name="wednesday" step="0.1"></td>
+                    <td><input type="number" class="form-control" id="thursday" name="thursday" step="0.1"></td>
+                    <td><input type="number" class="form-control" id="friday" name="friday" step="0.1"></td>
+                    <td><input type="number" class="form-control" id="saturday" name="saturday" step="0.1"></td>
+                    <td><input type="number" class="form-control" id="sunday" name="sunday" step="0.1"></td>
+                    <td>
+                        <input type="text" class="form-control" id="total-hours" name="total-hours" readonly>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
 
         <!-- Submit button -->
         <div class="row mt-3">
@@ -115,13 +102,12 @@
     </form>
 </div>
 
-<!-- Simple little script to calculate the total hours a user is submitting -->
+<!-- Simple script to calculate the total hours -->
 <script>
     function calculateTotalHours() {
         let totalHours = 0;
-
-        // get values entered by the user.
         const daysOfWeek = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+
         daysOfWeek.forEach(day => {
             const input = document.getElementById(day);
             if (input.value !== '') {
@@ -129,16 +115,5 @@
             }
         });
 
-        // display the total hours on the page.
         const totalHoursElement = document.getElementById('total-hours');
-        totalHoursElement.value = totalHours;
-    }
-
-    // Event listener to calculate total hours whenever any input field changes
-    document.querySelectorAll('input').forEach(input => {
-        input.addEventListener('input', calculateTotalHours);
-    });
-</script>
-<script src="<?php echo base_url('/assets/js/main.js')?>"></script>
-</body>
-</html>
+        totalHoursElement.v
