@@ -82,8 +82,7 @@ class TimesheetsController extends BaseController {
         ]);
     }
 
-    public function editTimesheet($timesheetId)
-    {
+    public function editTimesheet($timesheetId) {
         $timesheet = $this->timesheetsModel->find($timesheetId);
         $entries = $this->getTimesheetEntries($timesheetId);
 
