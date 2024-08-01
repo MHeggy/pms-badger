@@ -18,23 +18,22 @@ class TimesheetsModel extends Model {
     protected $skipValidation = false;
 
     public function getUserTimesheets($userId) {
-        return $this->select('timsheets.*, users.username')
-        ->join('users', 'users.id = timesheets.userID')
-        ->where('timesheets.userID', $userId)
-        ->findAll();
+        return $this->select('timesheets.*, users.username')
+                    ->join('users', 'users.id = timesheets.userID')
+                    ->where('timesheets.userID', $userId)
+                    ->findAll();
     }
 
-    public function insertTimesheet($data)
-    {
+    public function insertTimesheet($data) {
         $this->db->transStart();
         $timesheetId = $this->insert($data);
 
-        if ($timesheetId) {
-            $this->db->transComplete();
-            return $timesheetId;
-        } else {
+        if ($this->db->transStatus() === false) {
             $this->db->transRollback();
             return false;
+        } else {
+            $this->db->transComplete();
+            return $timesheetId;
         }
     }
 
@@ -56,7 +55,7 @@ class TimesheetsModel extends Model {
         return $this->db->table('timesheetEntries')->where('timesheetID', $timesheetId)->get()->getResultArray();
     }
 
-    public function updateTimesheet($timesheetId, $entries) {
+    public function updateTimesheet($timesheetId, $data) {
         return $this->update($timesheetId, $data);
     }
 
@@ -74,5 +73,4 @@ class TimesheetsModel extends Model {
     public function deleteTimesheetEntries($timesheetId) {
         return $this->db->table('timesheetEntries')->where('timesheetID', $timesheetId)->delete();
     }
-
 }
