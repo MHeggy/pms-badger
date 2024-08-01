@@ -150,6 +150,9 @@ class TimesheetsController extends BaseController {
         $sundayHours = $this->request->getPost('sunday');
         $totalHours = $this->request->getPost('totalHours');
     
+        // Debugging statement
+        log_message('debug', 'Inserting timesheet entries: ' . print_r($entries, true));
+
         // Loop through each row
         for ($i = 0; $i < count($projectNumbers); $i++) {
             $entries[] = [
