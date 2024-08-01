@@ -27,8 +27,7 @@
 </header>
 
 <div class="container mt-5">
-    <form id="timesheet-form" action="/submit-timesheets" method="post">
-        <input type="hidden" id="user-id" name="user-id" value="<?= esc($userId) ?>">
+    <form id="timesheet-form" action="/timesheets/update" method="post">
         
         <div class="mb-3">
             <label for="week" class="form-label">Week</label>
