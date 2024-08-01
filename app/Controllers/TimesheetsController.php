@@ -73,12 +73,12 @@ class TimesheetsController extends BaseController {
         $entries = $this->getTimesheetEntries($timesheetId);
 
         if (!$timesheet) {
-            return redirect()->back()->with('error_message', 'Timesheet not found.');
+            return redirect()->back()->with('error_messge', 'Timesheet not found.');
         }
 
         return view('PMS/timesheet_details.php', [
             'timesheet' => $timesheet,
-            'entries' => $entries,
+            'timesheetEntries' => $entries,
         ]);
     }
 
@@ -173,6 +173,10 @@ class TimesheetsController extends BaseController {
         return $entries;
     }
     
+    private function getTimesheetEntries($timesheetId) {
+        // Fetch timesheet entries from the model
+        return $this->timesheetsModel->getTimesheetEntriesByTimesheetId($timesheetId);
+    }
 
     private function calculateTotalHoursForDay($hours) {
         return array_sum($hours);

@@ -73,4 +73,11 @@ class TimesheetsModel extends Model {
     public function deleteTimesheetEntries($timesheetId) {
         return $this->db->table('timesheetEntries')->where('timesheetID', $timesheetId)->delete();
     }
+
+    public function getTimesheetEntriesByTimesheetId($timesheetId) {
+        return $this->db->table('timesheetEntries')
+        ->where('timesheetID', $timesheetId)
+        ->get()
+        ->getResultArray();
+    }
 }
