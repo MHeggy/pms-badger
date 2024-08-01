@@ -11,6 +11,7 @@
         }
         .container {
             max-width: 600px;
+            border-top: 80px;
         }
         .remove-row.disabled {
             pointer-events: none;
