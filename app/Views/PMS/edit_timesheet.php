@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= esc($pageTitle = "Timesheets") ?></title>
+    <title><?= esc($pageTitle = "Edit Timesheet") ?></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
@@ -28,10 +28,11 @@
 
 <div class="container mt-5">
     <form id="timesheet-form" action="/timesheets/update" method="post">
-        
+        <input type="hidden" name="id" value="<?= esc($timesheet['timesheetID']) ?>">
+
         <div class="mb-3">
             <label for="week" class="form-label">Week</label>
-            <input type="date" class="form-control" id="week" name="week" required>
+            <input type="date" class="form-control" id="week" name="week" value="<?= esc($timesheet['weekOf']) ?>" required>
         </div>
 
         <!-- Timesheet table -->
@@ -53,21 +54,40 @@
                 </tr>
             </thead>
             <tbody id="timesheet-rows">
-                <!-- Initial Row -->
-                <tr>
-                    <td><input type="text" class="form-control" name="projectNumber[]"></td>
-                    <td><input type="text" class="form-control" name="projectName[]"></td>
-                    <td><input type="text" class="form-control" name="description[]"></td>
-                    <td><input type="number" class="form-control day-input" name="monday[]" step="0.01"></td>
-                    <td><input type="number" class="form-control day-input" name="tuesday[]" step="0.01"></td>
-                    <td><input type="number" class="form-control day-input" name="wednesday[]" step="0.01"></td>
-                    <td><input type="number" class="form-control day-input" name="thursday[]" step="0.01"></td>
-                    <td><input type="number" class="form-control day-input" name="friday[]" step="0.01"></td>
-                    <td><input type="number" class="form-control day-input" name="saturday[]" step="0.01"></td>
-                    <td><input type="number" class="form-control day-input" name="sunday[]" step="0.01"></td>
-                    <td><input type="text" class="form-control total-hours" name="totalHours[]" readonly></td>
-                    <td><button type="button" class="btn btn-danger remove-row disabled">Remove</button></td>
-                </tr>
+                <?php if (!empty($entries)): ?>
+                    <?php foreach ($entries as $entry): ?>
+                        <tr>
+                            <td><input type="text" class="form-control" name="projectNumber[]" value="<?= esc($entry['projectNumber']) ?>"></td>
+                            <td><input type="text" class="form-control" name="projectName[]" value="<?= esc($entry['projectName']) ?>"></td>
+                            <td><input type="text" class="form-control" name="description[]" value="<?= esc($entry['activityDescription']) ?>"></td>
+                            <td><input type="number" class="form-control day-input" name="monday[]" step="0.01" value="<?= esc($entry['mondayHours']) ?>"></td>
+                            <td><input type="number" class="form-control day-input" name="tuesday[]" step="0.01" value="<?= esc($entry['tuesdayHours']) ?>"></td>
+                            <td><input type="number" class="form-control day-input" name="wednesday[]" step="0.01" value="<?= esc($entry['wednesdayHours']) ?>"></td>
+                            <td><input type="number" class="form-control day-input" name="thursday[]" step="0.01" value="<?= esc($entry['thursdayHours']) ?>"></td>
+                            <td><input type="number" class="form-control day-input" name="friday[]" step="0.01" value="<?= esc($entry['fridayHours']) ?>"></td>
+                            <td><input type="number" class="form-control day-input" name="saturday[]" step="0.01" value="<?= esc($entry['saturdayHours']) ?>"></td>
+                            <td><input type="number" class="form-control day-input" name="sunday[]" step="0.01" value="<?= esc($entry['sundayHours']) ?>"></td>
+                            <td><input type="text" class="form-control total-hours" name="totalHours[]" readonly value="<?= esc($entry['totalHours']) ?>"></td>
+                            <td><button type="button" class="btn btn-danger remove-row">Remove</button></td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <!-- Initial Row -->
+                    <tr>
+                        <td><input type="text" class="form-control" name="projectNumber[]"></td>
+                        <td><input type="text" class="form-control" name="projectName[]"></td>
+                        <td><input type="text" class="form-control" name="description[]"></td>
+                        <td><input type="number" class="form-control day-input" name="monday[]" step="0.01"></td>
+                        <td><input type="number" class="form-control day-input" name="tuesday[]" step="0.01"></td>
+                        <td><input type="number" class="form-control day-input" name="wednesday[]" step="0.01"></td>
+                        <td><input type="number" class="form-control day-input" name="thursday[]" step="0.01"></td>
+                        <td><input type="number" class="form-control day-input" name="friday[]" step="0.01"></td>
+                        <td><input type="number" class="form-control day-input" name="saturday[]" step="0.01"></td>
+                        <td><input type="number" class="form-control day-input" name="sunday[]" step="0.01"></td>
+                        <td><input type="text" class="form-control total-hours" name="totalHours[]" readonly></td>
+                        <td><button type="button" class="btn btn-danger remove-row disabled">Remove</button></td>
+                    </tr>
+                <?php endif; ?>
             </tbody>
             <tfoot>
                 <tr>
@@ -85,7 +105,7 @@
 
         <!-- Submit Button -->
         <div class="button-container">
-            <button type="submit" class="btn btn-primary">Submit Timesheet</button>
+            <button type="submit" class="btn btn-primary">Update Timesheet</button>
         </div>
     </form>
 </div>
@@ -137,16 +157,17 @@
     });
 
     document.getElementById('add-row').addEventListener('click', () => {
-        const newRow = document.querySelector('#timesheet-rows tr').cloneNode(true);
+        const newRow = document.querySelector('#timesheet-rows tr:last-child').cloneNode(true);
         newRow.querySelectorAll('input').forEach(input => input.value = '');
         newRow.querySelector('.remove-row').classList.remove('disabled');
-        document.querySelector('#timesheet-rows').appendChild(newRow);
+        document.getElementById('timesheet-rows').appendChild(newRow);
         addEventListenersToRow(newRow);
+        calculateAllTotals();
     });
 
-    calculateAllTotals();  // Initial calculation
+    // Initial calculation
+    calculateAllTotals();
 </script>
 
-<script src="<?php echo base_url('/assets/js/main.js') ?>"></script>
 </body>
 </html>
