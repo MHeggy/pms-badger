@@ -14,7 +14,7 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th>Week Of</th>
+                    <th>Week</th>
                     <th>Actions</th>
                 </tr>
             </thead>
