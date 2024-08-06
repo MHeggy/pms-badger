@@ -5,16 +5,18 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use CodeIgniter\Shield\Commands\User;
 use CodeIgniter\Shield\Models\UserModel;
+use App\Models\TimesheetsModel;
 
 class PayrollController extends BaseController {
     protected $userModel;
+    protected $timesheetsModel;
 
     public function __construct() {
         $this->userModel = auth()->getProvider();
+        $this->timesheetsModel = new TimesheetsModel();
     }
 
-    public function index()
-    {
+    public function index() {
         $user = auth()->user();
 
         if (!$user) {
@@ -22,20 +24,27 @@ class PayrollController extends BaseController {
         }
 
         if (!$user->inGroup('accountant') && !$user->inGroup('superadmin')) {
-            return redirect()->to('/dashboard')->with('error_message', 'You do not have permissions to view this page.');
+            return redirect()->to('/dashboard')->with('error_message', 'You do not have access to this page.');
         }
-        $userID = auth()->id();
 
+        // Fetch timesheets grouped by 'weekOf'
+        $timesheets = $this->timesheetsModel->orderBy('weekOf', 'DESC')->findAll();
 
-        // Fetch users based on search query
-        $userData = $this->userModel->findAll();
+        $timesheetData = [];
+        foreach ($timesheets as $timesheet) {
+            $weekOf = $timesheet['weekOf'];
+            if (!isset($timesheetData[$weekOf])) {
+                $timesheetData[$weekOf] = [];
+            }
+            $timesheetData[$weekOf] = [];
+        }
+
         return view('PMS/accountantpayroll.php', [
-            'userData' => $userData,
+            'timesheetData' => $timesheetData,
         ]);
     }
 
-    public function search()
-    {
+    public function search() {
         // Retrieve search term from the URL query parameters
         $searchTerm = $this->request->getGet('search');
 
@@ -45,13 +54,22 @@ class PayrollController extends BaseController {
             return redirect()->to('/accountantpayroll')->with('error_message', 'Please provide a search term.');
         }
 
-        // Fetch users based on the search term
-        $userData = $this->userModel->like('username', $searchTerm)->findAll();
+        // Fetch timesheets based on the search term (assumed to be the weekOf date)
+        $timesheets = $this->timesheetModel->like('weekOf', $searchTerm)->findAll();
+
+        // Group timesheets by 'weekOf'
+        $timesheetData = [];
+        foreach ($timesheets as $timesheet) {
+            $weekOf = $timesheet['weekOf'];
+            if (!isset($timesheetData[$weekOf])) {
+                $timesheetData[$weekOf] = [];
+            }
+            $timesheetData[$weekOf][] = $timesheet;
+        }
 
         // Pass the search results to the view
         return view('PMS/accountantpayroll.php', [
-            'userData' => $userData,
+            'timesheetData' => $timesheetData,
         ]);
     }
-
 }
