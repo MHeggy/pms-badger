@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Payroll [Accountant]</title>
+    <title>Timesheets for <?= $weekOf ?></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
@@ -10,27 +10,29 @@
     </header>
 
     <div class="container mt-5">
-        <h2>Payroll Overview</h2>
+        <h2>Timesheets for Week Of: <?= date('Y-m-d', strtotime($weekOf)) ?></h2>
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th>Week Of</th>
+                    <th>User</th>
+                    <th>Total Hours</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
-                <?php if (!empty($weeks)): ?>
-                    <?php foreach ($weeks as $week): ?>
+                <?php if (!empty($timesheets)): ?>
+                    <?php foreach ($timesheets as $timesheet): ?>
                         <tr>
-                            <td><?= date('Y-m-d', strtotime($week['weekOf'])) ?></td>
+                            <td><?= $timesheet['userID'] // Replace with user's name if available ?></td>
+                            <td><?= $timesheet['totalHours'] ?></td>
                             <td>
-                                <a href="<?= base_url('/accountantpayroll/week/' . urlencode($week['weekOf'])) ?>" class="btn btn-primary">View Timesheets</a>
+                                <a href="<?= base_url('/timesheet/' . $timesheet['timesheetID']) ?>" class="btn btn-info">View Details</a>
                             </td>
                         </tr>
                     <?php endforeach; ?>
                 <?php else: ?>
                     <tr>
-                        <td colspan="2">No timesheets found.</td>
+                        <td colspan="3">No timesheets found for this week.</td>
                     </tr>
                 <?php endif; ?>
             </tbody>

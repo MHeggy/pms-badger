@@ -24,23 +24,25 @@ class PayrollController extends BaseController {
         }
 
         if (!$user->inGroup('accountant') && !$user->inGroup('superadmin')) {
-            return redirect()->to('/dashboard')->with('error_message', 'You do not have access to this page.');
+            return redirect()->to('/dashboard')->with('error_message', 'You do not have permission to access this page.');
         }
 
-        // Fetch timesheets grouped by 'weekOf'
-        $timesheets = $this->timesheetsModel->orderBy('weekOf', 'DESC')->findAll();
-
-        $timesheetData = [];
-        foreach ($timesheets as $timesheet) {
-            $weekOf = $timesheet['weekOf'];
-            if (!isset($timesheetData[$weekOf])) {
-                $timesheetData[$weekOf] = [];
-            }
-            $timesheetData[$weekOf] = [];
-        }
-
+        $weeks = $this->timesheetModel->distinct()
+                                       ->select('weekOf')
+                                       ->orderBy('weekOf', 'DESC')
+                                       ->findAll();
+        
         return view('PMS/accountantpayroll.php', [
-            'timesheetData' => $timesheetData,
+            'weeks' => $weeks,
+        ]);
+    }
+
+    public function viewWeek($weekOf) {
+        $timesheets = $this->timesheetsModel->where('weekOf', $weekOf)->findAll();
+
+        return view('PMS/timesheetByWeek.php', [
+            'weekOf' => $weekOf,
+            'timesheets' => $timesheets,
         ]);
     }
 
