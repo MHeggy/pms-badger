@@ -1,9 +1,13 @@
 <?php $pageTitle = 'Payroll [Accountant]' ?>
-<header>
-    <?php include 'header.php' ?>
-</header>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><?= $pageTitle ?></title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        .employee-box {
+        .week-box {
             margin: 120px; /* Adjusted margin */
             padding: 20px;
             border: 1px solid #ccc;
@@ -24,30 +28,35 @@
             flex-shrink: 0;
         }
     </style>
+</head>
+<body>
+<header>
+    <?php include 'header.php' ?>
+</header>
 
-
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/handsontable/dist/handsontable.full.css">
-<script src="https://cdn.jsdelivr.net/npm/handsontable/dist/handsontable.full.min.js"></script>
 <!-- Search form -->
 <form action="<?= base_url('/search_payroll') ?>" method="get" class="search-form">
-    <input type="text" name="search" class="form-control search-input" placeholder="Search by username...">
+    <input type="text" name="search" class="form-control search-input" placeholder="Search by week...">
     <button type="submit" class="btn btn-primary search-btn">Search</button>
 </form>
 
 <!-- Accountant payroll page content starts here -->
-<?php if (!empty($userData)): ?>
-    <?php foreach ($userData as $user): ?>
-        <div class="employee-box">
-            <h4><?= $user->username ?></h4>
-            <p>Email: <?= $user->email ?></p>
-            <p>Name: <?= $user->first_name . ' ' . $user->last_name ?></p>
-            <!-- Add a link to view timesheets for this employee -->
-            <a href="/timesheets/user/<?= $user->id ?>">View Timesheets</a>
+<?php if (!empty($timesheetData)): ?>
+    <?php foreach ($timesheetData as $weekOf => $timesheets): ?>
+        <div class="week-box">
+            <h4>Week of: <?= date('F j, Y', strtotime($weekOf)) ?></h4>
+            <ul>
+                <?php foreach ($timesheets as $timesheet): ?>
+                    <li>
+                        <?= $timesheet->username ?> (<?= $timesheet->email ?>) - 
+                        <a href="/timesheets/view/<?= $timesheet->timesheetID ?>">View Timesheet</a>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
         </div>
     <?php endforeach; ?>
 <?php else: ?>
-    <p>No users found.</p>
+    <p>No timesheets found.</p>
 <?php endif; ?>
 
 <script src="<?php echo base_url('/assets/js/main.js')?>"></script>
