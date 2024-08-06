@@ -27,7 +27,7 @@ class PayrollController extends BaseController {
             return redirect()->to('/dashboard')->with('error_message', 'You do not have permission to access this page.');
         }
 
-        $weeks = $this->timesheetModel->distinct()
+        $weeks = $this->timesheetsModel->distinct()
                                        ->select('weekOf')
                                        ->orderBy('weekOf', 'DESC')
                                        ->findAll();
