@@ -27,6 +27,9 @@
                             <td>
                                 <a href="<?= base_url('/timesheet/' . $timesheet['timesheetID']) ?>" class="btn btn-info">View Details</a>
                             </td>
+                            <td>
+                                <a href="<?= site_url('timesheets/export/' . $timesheet['timesheetID']); ?>" class="btn btn-success">Export to Excel</a>
+                            </td>
                         </tr>
                     <?php endforeach; ?>
                 <?php else: ?>

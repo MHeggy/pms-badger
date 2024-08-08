@@ -117,4 +117,4 @@ service('auth')->routes($routes);
 
 // test email route
 $routes->get('/send-test-email', 'EmailController::sendTestEmail');
-$routes->get('/testSpreadsheet', 'TimesheetsController::test');
+$routes->get('timesheets/export/(:num)', 'TimesheetsController::exportTimesheet/$1');

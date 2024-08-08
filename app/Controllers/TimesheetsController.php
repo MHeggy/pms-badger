@@ -171,6 +171,59 @@ class TimesheetsController extends BaseController {
     
         return $entries;
     }
+
+    public function exportTimesheet($timesheetId) {
+        // Load the timesheet and entries.
+        $timesheet = $this->timesheetsModel->find($timesheetId);
+        $entries = $this->getTimesheetEntries($timesheetId);
+
+        if (!$timesheet) {
+            return redirect()->back()->with('error_message', 'Timesheet not found.');
+        }
+
+        $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        // Set spreadsheet headers
+        $sheet->setCellValue('A1', 'Project Number');
+        $sheet->setCellValue('B1', 'Project Name');
+        $sheet->setCellValue('C1', 'Activity Description');
+        $sheet->setCellValue('D1', 'Monday');
+        $sheet->setCellValue('E1', 'Tuesday');
+        $sheet->setCellValue('F1', 'Wednesday');
+        $sheet->setCellValue('G1', 'Thursday');
+        $sheet->setCellValue('H1', 'Friday');
+        $sheet->setCellValue('I1', 'Saturday');
+        $sheet->setCellValue('J1', 'Sunday');
+        $sheet->setCellValue('K1', 'Total Hours');
+
+        // Fill spreadsheet with timesheet data
+        $row = 2;
+        foreach ($entries as $entry) {
+            $sheet->setCellValue('A' . $row, $entry['projectNumber']);
+            $sheet->setCellValue('B' . $row, $entry['projectName']);
+            $sheet->setCellValue('C' . $row, $entry['activityDescription']);
+            $sheet->setCellValue('D' . $row, $entry['mondayHours']);
+            $sheet->setCellValue('E' . $row, $entry['tuesdayHours']);
+            $sheet->setCellValue('F' . $row, $entry['wednesdayHours']);
+            $sheet->setCellValue('G' . $row, $entry['thursdayHours']);
+            $sheet->setCellValue('H' . $row, $entry['fridayHours']);
+            $sheet->setCellValue('I' . $row, $entry['saturdayHours']);
+            $sheet->setCellValue('J' . $row, $entry['sundayHours']);
+            $sheet->setCellValue('K' . $row, $entry['totalHours']);
+            $row++;
+        }
+
+            // Prepare the file for download
+            $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
+
+            header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+            header('Content-Disposition: attachment; filename="timesheet_' . $timesheetId . '.xlsx"');
+            header('Cache-Control: max-age=0');
+
+            $writer->save('php://output');
+            exit;
+    }
     
     private function getTimesheetEntries($timesheetId) {
         // Fetch timesheet entries from the model
@@ -181,7 +234,4 @@ class TimesheetsController extends BaseController {
         return array_sum($hours);
     }
 
-    public function test() {
-        return view('PMS/testSpreadsheet.php');
-    }
 }
