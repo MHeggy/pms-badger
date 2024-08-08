@@ -180,4 +180,8 @@ class TimesheetsController extends BaseController {
     private function calculateTotalHoursForDay($hours) {
         return array_sum($hours);
     }
+
+    public function test() {
+        return view('PMS/testSpreadsheet.php');
+    }
 }

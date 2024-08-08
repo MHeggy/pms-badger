@@ -117,3 +117,4 @@ service('auth')->routes($routes);
 
 // test email route
 $routes->get('/send-test-email', 'EmailController::sendTestEmail');
+$routes->get('/testSpreadsheet', 'TimesheetsController::test');
