@@ -49,7 +49,7 @@
             <?php if ($user->inGroup('accountant') || $user->inGroup('superadmin')): ?>
                 <a href="<?php echo base_url('/accountantpayroll') ?>"><li>Payroll</li></a>
             <?php endif; ?>
-            <a href="<?php echo base_url('/timesheets') ?>"><li>My Sheets</li></a>
+            <a href="<?php echo base_url('/timesheets') ?>"><li>Timesheets</li></a>
             <?php if ($user->inGroup('superadmin')): ?>
                 <a href="<?php echo base_url('/assignUsers') ?>"><li>Assign Users</li></a>
                 <a href="<?php echo base_url('/unassignUsers') ?>"><li>Unassign Users</li></a>
