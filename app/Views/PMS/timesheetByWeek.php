@@ -25,7 +25,7 @@
                             <td><?= $timesheet['userID'] // Replace with user's name if available ?></td>
                             <td><?= $timesheet['totalHours'] ?></td>
                             <td>
-                                <a href="<?= base_url('/timesheets/view' . $timesheet['timesheetID']) ?>" class="btn btn-info">View Details</a>
+                                <a href="<?= base_url('/timesheets/view/' . $timesheet['timesheetID']) ?>" class="btn btn-info">View Details</a>
                             </td>
                             <td>
                                 <a href="<?= site_url('timesheets/export/' . $timesheet['timesheetID']); ?>" class="btn btn-success">Export to Excel</a>
