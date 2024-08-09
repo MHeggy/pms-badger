@@ -38,13 +38,14 @@ class TimesheetsModel extends Model {
     }
 
     public function insertTimesheetEntries($timesheetId, $entries) {
-        $this->db->transStart();
         foreach ($entries as $entry) {
             $entry['timesheetID'] = $timesheetId;
-            $this->db->table('timesheetEntries')->insert($entry);
         }
+
+        // Perform batch entry.
+        $this->db->transStart();
+        $this->db->table('timesheetEntries')->insertBatch($entries);
         $this->db->transComplete();
-        return $this->db->transStatus();
     }
 
     public function getUserInfo($userId) {
@@ -60,13 +61,18 @@ class TimesheetsModel extends Model {
     }
 
     public function updateTimesheetEntries($timesheetId, $entries) {
+        // Delete existing entries and perform batch insert for new entries
         $this->db->transStart();
         $this->db->table('timesheetEntries')->where('timesheetID', $timesheetId)->delete();
-        foreach($entries as $entry) {
+        
+        // Add the timesheetID to each entry
+        foreach ($entries as &$entry) {
             $entry['timesheetID'] = $timesheetId;
-            $this->db->table('timesheetEntries')->insert($entry);
         }
+        
+        $this->db->table('timesheetEntries')->insertBatch($entries);
         $this->db->transComplete();
+
         return $this->db->transStatus();
     }
 
