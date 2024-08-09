@@ -1,24 +1,17 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title><?= $pageTitle = $post['title']; ?></title>
-    <link rel="stylesheet" href="<?php echo base_url('/assets/css/messages.css') ?>">
-    <!-- Link to Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<?= $pageTitle = $post['title']; ?>
+<link rel="stylesheet" href="<?php echo base_url('/assets/css/messages.css') ?>">
+<!-- Link to Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         .reply-author-info {
             font-size: 0.9rem;
         }
     </style>
-</head>
-<body>
+
 <header>
     <?php include 'header.php' ?>
 </header>
+
 <br><br><br><br>
 <!-- Main content -->
 <div class="container mt-4">

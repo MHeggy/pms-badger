@@ -1,13 +1,11 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title><?php $pageTitle = 'Timesheets'?></title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
+<?php $pageTitle = 'Timesheets'?>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Header content -->
     <header>
         <?php include 'header.php'; ?>
     </header>
+    
     <div class="container mt-5">
         <h2>Timesheets for Week Of: <?= date('Y-m-d', strtotime($weekOf)) ?></h2>
         <table class="table table-bordered">

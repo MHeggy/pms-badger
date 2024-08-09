@@ -1,10 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= $pageTitle = "Timesheets"; ?></title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<?= $pageTitle = "Timesheets"; ?>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
     <style>
         #timesheet-container {
             margin-bottom: 50px;
@@ -27,12 +23,12 @@
             margin-top: 20px;
         }
     </style>
-</head>
-<body>
+
 <!-- Header content -->
 <header>
     <?php include 'header.php' ?>
 </header>
+
 <br><br>
 <!-- Section to allow user to view their own timesheets -->
 <div class="container mt-3">

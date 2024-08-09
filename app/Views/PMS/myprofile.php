@@ -1,11 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= $pageTitle = 'My Profile' ?></title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="<?php echo base_url('/assets/css/main.css') ?>">
+<?= $pageTitle = 'My Profile' ?>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="<?php echo base_url('/assets/css/main.css') ?>">
+
     <style>
         body {
             background-color: #f8f9fa;
@@ -37,12 +33,13 @@
             text-decoration: none;
         }
     </style>
-</head>
-<body>
+
 <?php $user = auth()->user(); ?>
+
 <header>
     <?php include 'header.php' ?>
 </header>
+
 <div class="container">
     <h1>User Profile</h1>
     <div class="row">
