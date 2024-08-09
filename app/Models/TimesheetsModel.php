@@ -86,4 +86,14 @@ class TimesheetsModel extends Model {
         ->get()
         ->getResultArray();
     }
+
+    public function getTimesheetsWithUsernames($weekOf) {
+        $builder = $this->db->table('timesheets');
+        $builder->select('timesheets.*, users.username');
+        $builder->join('users', 'timesheets.userID = users.id', 'left');
+        $builder->where('timesheets.weekOf', $weekOf);
+        $query = $builder->get();
+        return $query->getResultArray();
+    }
+    
 }

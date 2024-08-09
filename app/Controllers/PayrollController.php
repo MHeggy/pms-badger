@@ -38,13 +38,14 @@ class PayrollController extends BaseController {
     }
 
     public function viewWeek($weekOf) {
-        $timesheets = $this->timesheetsModel->where('weekOf', $weekOf)->findAll();
-
+        $timesheets = $this->timesheetsModel->getTimesheetsWithUsernames($weekOf);
+    
         return view('PMS/timesheetByWeek.php', [
             'weekOf' => $weekOf,
             'timesheets' => $timesheets,
         ]);
     }
+    
 
     public function search() {
         // Retrieve search term from the URL query parameters

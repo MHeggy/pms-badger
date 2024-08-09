@@ -5,7 +5,7 @@
     <header>
         <?php include 'header.php'; ?>
     </header>
-    
+
     <div class="container mt-5">
         <h2>Timesheets for Week Of: <?= date('Y-m-d', strtotime($weekOf)) ?></h2>
         <table class="table table-bordered">
@@ -20,7 +20,7 @@
                 <?php if (!empty($timesheets)): ?>
                     <?php foreach ($timesheets as $timesheet): ?>
                         <tr>
-                            <td><?= $timesheet['userID'] // Replace with user's name if available ?></td>
+                            <td><?= $timesheet['username'] // Replace with user's name if available ?></td>
                             <td><?= $timesheet['totalHours'] ?></td>
                             <td>
                                 <a href="<?= base_url('/timesheets/view/' . $timesheet['timesheetID']) ?>" class="btn btn-info">View Details</a>
