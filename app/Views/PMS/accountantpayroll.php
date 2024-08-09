@@ -5,6 +5,7 @@
     </header>
 
     <div class="container mt-5">
+        <br><br>
         <h2>Payroll Overview</h2>
         <table class="table table-bordered">
             <thead>
