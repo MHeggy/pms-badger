@@ -51,7 +51,7 @@
     </div>
     <div id="myTasks" class="box">
         <a href="<?php echo base_url('/forums')?>">
-        <p id="myTasksText">Forum Posts...</p>
+        <p id="myTasksText">Forum Posts... <?= count($forumPosts) ?></p>
         </a>
     </div>
     <div id="upcomingDeadlines" class="box">

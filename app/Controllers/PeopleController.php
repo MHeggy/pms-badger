@@ -4,15 +4,18 @@ namespace App\Controllers;
 
 use App\Models\ProjectModel;
 use CodeIgniter\Shield\Models\UserModel;
+use App\Models\ForumModel;
 
 
 class PeopleController extends BaseController {
     protected $userModel;
     protected $projectModel;
+    protected $forumModel;
 
     public function __construct() {
         $this->userModel = new UserModel();
         $this->projectModel = new ProjectModel();
+        $this->forumModel = new ForumModel();
     }
 
     public function index() {
@@ -45,13 +48,16 @@ class PeopleController extends BaseController {
             $upcomingEvents = $calendarModel->where('start_date >=', date('Y-m-d H:i:s'))
                 ->orderBy('start_date', 'ASC')
                 ->findAll();
-
+            
+            $forumPosts = $this->forumModel->getAllPosts();
+            
             return view('PMS/home.php', [
                 'totalProjects' => $totalProjects,
                 'assignedProjects' => $assignedProjects,
                 'completedProjects' => $completedProjects,
                 'ongoingProjects' => $ongoingProjects,
                 'upcomingEvents' => $upcomingEvents,
+                'forumPosts' => $forumPosts,
                 'errorMessage' => session()->getFlashdata('error')
             ]);
         }
