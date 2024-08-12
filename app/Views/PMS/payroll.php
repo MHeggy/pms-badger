@@ -75,7 +75,7 @@
                 <tr>
                     <td><input type="text" class="form-control" name="projectNumber[0]"></td>
                     <td><input type="text" class="form-control" name="projectName[0]"></td>
-                    <td><input type="text" class="form-control" name="description[0]"></td>
+                    <td><input type="text" class="form-control" name="activityDescription[0]"></td>
                     <td><input type="number" class="form-control day-input" name="monday[0]" step="0.01"></td>
                     <td><input type="number" class="form-control day-input" name="tuesday[0]" step="0.01"></td>
                     <td><input type="number" class="form-control day-input" name="wednesday[0]" step="0.01"></td>
