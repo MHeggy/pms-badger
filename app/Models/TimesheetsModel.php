@@ -25,35 +25,25 @@ class TimesheetsModel extends Model {
     }
 
     public function insertTimesheet($data) {
-        $this->db->transStart();
-        $timesheetId = $this->insert($data);
-
-        if ($this->db->transStatus() === false) {
-            $this->db->transRollback();
-            return false;
-        } else {
-            $this->db->transComplete();
-            return $timesheetId;
-        }
+        $this->db->table('timesheets')->insert($data);
+        return $this->db->insertID();
     }
 
-    public function insertTimesheetEntries($timesheetId, $entries) {
-        foreach ($entries as $entry) {
-            $entry['timesheetID'] = $timesheetId;
-        }
-
-        // Perform batch entry.
-        $this->db->transStart();
-        $this->db->table('timesheetEntries')->insertBatch($entries);
-        $this->db->transComplete();
+    public function insertTimesheetEntry($data) {
+        return $this->db->table('timesheetEntries')->insert($data);
     }
 
     public function getUserInfo($userId) {
         return $this->db->table('users')->where('id', $userId)->get()->getRowArray();
     }
 
-    public function getTimesheetEntries($timesheetId) {
-        return $this->db->table('timesheetEntries')->where('timesheetID', $timesheetId)->get()->getResultArray();
+    public function getTimesheetWithEntries($timesheetId) {
+        $builder = $this->db->table('timesheets');
+        $builder->select('timesheets.*, timesheetEntries.*');
+        $builder->join('timesheetEntries', 'timesheets.timesheetID = timesheetEntries.timesheetID', 'left');
+        $builder->where('timesheets.timesheetID', $timesheetId);
+        $query = $builder->get();
+        return $query->getResultArray();
     }
 
     public function updateTimesheet($timesheetId, $data) {

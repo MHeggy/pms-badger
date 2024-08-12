@@ -29,31 +29,34 @@ class TimesheetsController extends BaseController {
         $userId = auth()->id();
         $weekOf = $this->request->getPost('week');
         $entries = $this->getTimesheetEntriesFromRequest();
-    
-        log_message('debug', 'Received data: ' . print_r($entries, true));
-    
         $totalHours = $this->request->getPost('totalHours');
-    
-        $data = [
+
+        // Prepare data for the timesheet.
+        $timesheetData = [
             'userID' => $userId,
             'weekOf' => $weekOf,
             'totalHours' => $totalHours,
+            'createdAt' => date('Y-m-d H:i:s'),
+            'updatedAt' => date('Y-m-d H:i:s')
         ];
-    
-        $timesheetId = $this->timesheetsModel->insertTimesheet($data);
-    
+
+        // Insert the timesheet and get the ID
+        $timesheetId = $this->timesheetsModel->insertTimesheet($timesheetData);
+
         if ($timesheetId) {
-            $successEntries = $this->timesheetsModel->insertTimesheetEntries($timesheetId, $entries);
-    
-            if ($successEntries) {
-                $this->session->setFlashdata('success_message', 'Timesheet submitted successfully.');
-            } else {
-                $this->session->setFlashdata('error_message', 'Unable to submit timesheet entries, please try again.');
+            // Insert each timesheet entry.
+            foreach ($entries as $entry) {
+                $entry['timesheetID'] = $timesheetId;
+                $entry['createdAt'] = date('Y-m-d H:i:s');
+                $entry['updatedAt'] = date('Y-m-d H:i:s');
+                $this->timesheetsModel->insertTimesheetEntry($entry);
             }
+
+            $this->session->setFlashdata('success_message', 'Timesheet submitted successfully.');
         } else {
-            $this->session->setFlashdata('error_message', 'Unable to submit timesheet, please try again.');
+            $this->session->setFlashdata('error_message', 'Timesheet could not be submitted successfully, please try again.');
         }
-    
+
         return redirect()->to('/dashboard');
     }
     
