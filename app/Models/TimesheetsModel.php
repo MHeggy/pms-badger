@@ -39,9 +39,36 @@ class TimesheetsModel extends Model {
         return $this->db->insertID();
     }
 
-    public function insertTimesheetEntry($data) {
-        log_message('debug', 'Inserting timesheet entry: ' . print_r($data, true)); // Log data
-        return $this->db->table('timesheetEntries')->insert($data);
+    public function insertTimesheetEntries($timesheetId, $entries) {
+        $this->db->transStart();
+
+        foreach ($entries as $entry) {
+            // Prepare the entry data.
+            $entryData = [
+                'timesheetID' => $timesheetId,
+                'projectNumber' => $entry['projectNumber'],
+                'projectName' => $entry['projectName'],
+                'activityDescription' => $entry['activityDescription'],
+                'mondayHours' => $entry['mondayHours'],
+                'tuesdayHours' => $entry['mondayHours'],
+                'wednesdayHours' => $entry['wednesdayHours'],
+                'thursdayHours' => $entry['thursdayHours'],
+                'fridayHours' => $entry['fridayHours'],
+                'saturdayHours' => $entry['saturdayHours'],
+                'sundayHours' => $entry['sundayHours'],
+                'totalHours' => $entry['totalHours'],
+                'createdAt' => date('Y-m-d H:i:s'),
+                'updatedAt' => date('Y-m-d H:i:s')
+            ];
+
+            //Insert the entry.
+            $this->db->table('timesheetEntries')->insert($entryData);
+        }
+
+        // Complete the transaction
+        $this->db->transComplete();
+
+        return $this->db->transStatus();
     }
     
 

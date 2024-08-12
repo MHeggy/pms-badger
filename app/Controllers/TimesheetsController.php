@@ -32,7 +32,7 @@ class TimesheetsController extends BaseController {
         $weekOf = $this->request->getPost('week');
         $totalHours = $this->request->getPost('totalHours');
         $entries = $this->getTimesheetEntriesFromRequest();
-    
+
         $timesheetData = [
             'userID' => $userId,
             'weekOf' => $weekOf,
@@ -40,35 +40,32 @@ class TimesheetsController extends BaseController {
             'createdAt' => date('Y-m-d H:i:s'),
             'updatedAt' => date('Y-m-d H:i:s')
         ];
-    
+
         try {
             $timesheetId = $this->timesheetsModel->insertTimesheet($timesheetData);
         } catch (\Exception $e) {
             $this->session->setFlashdata('error_message', 'Timesheet could not be submitted successfully, please try again.');
             return redirect()->to('/dashboard');
         }
-    
+
         try {
-            foreach ($entries as $entry) {
-                $entry['timesheetID'] = $timesheetId;
-                $entry['createdAt'] = date('Y-m-d H:i:s');
-                $entry['updatedAt'] = date('Y-m-d H:i:s');
-                $this->timesheetsModel->insertTimesheetEntry($entry);
+            $result = $this->timesheetsModel->insertTimesheetEntries($timesheetId, $entries);
+            if (!$result) {
+                throw new \Exception('Failed to insert timesheet entries.');
             }
             $this->session->setFlashdata('success_message', 'Timesheet submitted successfully.');
         } catch (\Exception $e) {
             $this->session->setFlashdata('error_message', 'Failed to insert timesheet entries: ' . $e->getMessage());
             return redirect()->to('/dashboard');
         }
-    
+
         return redirect()->to('/dashboard');
     }
-    
 
     public function viewTimesheets($userId) {
         $user = $this->timesheetsModel->getUserInfo($userId);
         $timesheets = $this->timesheetsModel->getUserTimesheets($userId);
-        
+
         return view('PMS/user_timesheets', [
             'user' => $user,
             'timesheets' => $timesheets,
@@ -118,7 +115,7 @@ class TimesheetsController extends BaseController {
         } else {
             $this->session->setFlashdata('error_message', 'Unable to update timesheet, please try again.');
         }
-    
+
         return redirect()->to('/dashboard');
     }
 
@@ -142,7 +139,7 @@ class TimesheetsController extends BaseController {
     public function exportTimesheet($timesheetId) {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
-        
+
         $timesheet = $this->timesheetsModel->find($timesheetId);
         $entries = $this->timesheetsModel->getTimesheetEntriesByTimesheetId($timesheetId);
 
@@ -154,7 +151,7 @@ class TimesheetsController extends BaseController {
         $sheet->setCellValue('A2', 'Week Of: ' . $timesheet['weekOf']);
         $sheet->setCellValue('A3', 'User ID: ' . $timesheet['userID']);
         $sheet->setCellValue('A4', 'Total Hours: ' . $timesheet['totalHours']);
-        
+
         $sheet->setCellValue('A6', 'Project Number');
         $sheet->setCellValue('B6', 'Project Name');
         $sheet->setCellValue('C6', 'Activity Description');
@@ -195,27 +192,27 @@ class TimesheetsController extends BaseController {
     private function getTimesheetEntriesFromRequest() {
         $entries = [];
         $post = $this->request->getPost();
-    
+
         foreach ($post['projectNumber'] as $index => $projectNumber) {
             if (empty($projectNumber)) {
                 continue; // Skip empty rows
             }
-    
+
             $entries[] = [
                 'projectNumber' => $projectNumber,
                 'projectName' => $post['projectName'][$index],
                 'activityDescription' => $post['activityDescription'][$index],
-                'mondayHours' => $post['monday'][$index] ?? 0,
-                'tuesdayHours' => $post['tuesday'][$index] ?? 0,
-                'wednesdayHours' => $post['wednesday'][$index] ?? 0,
-                'thursdayHours' => $post['thursday'][$index] ?? 0,
-                'fridayHours' => $post['friday'][$index] ?? 0,
-                'saturdayHours' => $post['saturday'][$index] ?? 0,
-                'sundayHours' => $post['sunday'][$index] ?? 0,
-                'totalHours' => $post['totalHours'][$index] ?? 0
+                'mondayHours' => $post['mondayHours'][$index],
+                'tuesdayHours' => $post['tuesdayHours'][$index],
+                'wednesdayHours' => $post['wednesdayHours'][$index],
+                'thursdayHours' => $post['thursdayHours'][$index],
+                'fridayHours' => $post['fridayHours'][$index],
+                'saturdayHours' => $post['saturdayHours'][$index],
+                'sundayHours' => $post['sundayHours'][$index],
+                'totalHours' => $post['totalHours'][$index],
             ];
         }
-    
+
         return $entries;
     }
 }
