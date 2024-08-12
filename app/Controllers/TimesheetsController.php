@@ -32,7 +32,7 @@ class TimesheetsController extends BaseController {
         $weekOf = $this->request->getPost('week');
         $totalHours = $this->request->getPost('totalHours');
         $entries = $this->getTimesheetEntriesFromRequest();
-
+    
         $timesheetData = [
             'userID' => $userId,
             'weekOf' => $weekOf,
@@ -40,14 +40,14 @@ class TimesheetsController extends BaseController {
             'createdAt' => date('Y-m-d H:i:s'),
             'updatedAt' => date('Y-m-d H:i:s')
         ];
-
+    
         try {
             $timesheetId = $this->timesheetsModel->insertTimesheet($timesheetData);
         } catch (\Exception $e) {
             $this->session->setFlashdata('error_message', 'Timesheet could not be submitted successfully, please try again.');
             return redirect()->to('/dashboard');
         }
-
+    
         try {
             foreach ($entries as $entry) {
                 $entry['timesheetID'] = $timesheetId;
@@ -55,11 +55,15 @@ class TimesheetsController extends BaseController {
                 $entry['updatedAt'] = date('Y-m-d H:i:s');
                 $this->timesheetsModel->insertTimesheetEntry($entry);
             }
+            $this->session->setFlashdata('success_message', 'Timesheet submitted successfully.');
         } catch (\Exception $e) {
             $this->session->setFlashdata('error_message', 'Failed to insert timesheet entries: ' . $e->getMessage());
             return redirect()->to('/dashboard');
         }
+    
+        return redirect()->to('/dashboard');
     }
+    
 
     public function viewTimesheets($userId) {
         $user = $this->timesheetsModel->getUserInfo($userId);
