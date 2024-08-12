@@ -200,7 +200,7 @@ class TimesheetsController extends BaseController {
             $entries[] = [
                 'projectNumber' => $projectNumber,
                 'projectName' => $post['projectName'][$index],
-                'description' => $post['description'][$index],
+                'activityDescription' => $post['activityDescription'][$index],
                 'mondayHours' => $post['monday'][$index] ?? 0,
                 'tuesdayHours' => $post['tuesday'][$index] ?? 0,
                 'wednesdayHours' => $post['wednesday'][$index] ?? 0,
