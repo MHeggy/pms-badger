@@ -56,7 +56,7 @@
     </div>
     <div id="upcomingDeadlines" class="box">
         <a href="<?php echo base_url('/calendar') ?>">
-        <p id="upcomingDeadlinesText">Upcoming Deadlines...</p>
+        <p id="upcomingDeadlinesText">Upcoming Deadlines... <?= count($upcomingEvents) ?></p>
         </a>
     </div>
 </div>
