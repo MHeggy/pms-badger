@@ -32,7 +32,7 @@ class TimesheetsController extends BaseController {
         $weekOf = $this->request->getPost('week');
         $totalHours = $this->request->getPost('totalHours');
         $entries = $this->getTimesheetEntriesFromRequest();
-    
+
         $timesheetData = [
             'userID' => $userId,
             'weekOf' => $weekOf,
@@ -40,40 +40,26 @@ class TimesheetsController extends BaseController {
             'createdAt' => date('Y-m-d H:i:s'),
             'updatedAt' => date('Y-m-d H:i:s')
         ];
-    
+
         try {
             $timesheetId = $this->timesheetsModel->insertTimesheet($timesheetData);
-            log_message('debug', 'Timesheet inserted with ID: ' . $timesheetId);
         } catch (\Exception $e) {
-            log_message('error', 'Failed to insert timesheet: ' . $e->getMessage());
             $this->session->setFlashdata('error_message', 'Timesheet could not be submitted successfully, please try again.');
             return redirect()->to('/dashboard');
         }
-    
+
         try {
-            $this->db->transStart();
             foreach ($entries as $entry) {
                 $entry['timesheetID'] = $timesheetId;
                 $entry['createdAt'] = date('Y-m-d H:i:s');
                 $entry['updatedAt'] = date('Y-m-d H:i:s');
                 $this->timesheetsModel->insertTimesheetEntry($entry);
             }
-            $this->db->transComplete();
-    
-            if ($this->db->transStatus() === false) {
-                throw new \Exception('Transaction failed during timesheet entries insertion.');
-            }
-    
-            log_message('debug', 'Timesheet entries inserted successfully.');
         } catch (\Exception $e) {
-            log_message('error', 'Failed to insert timesheet entries: ' . $e->getMessage());
             $this->session->setFlashdata('error_message', 'Failed to insert timesheet entries: ' . $e->getMessage());
             return redirect()->to('/dashboard');
         }
-    
-        return redirect()->to('/dashboard')->with('success_message', 'Timesheet submitted successfully.');
     }
-    
 
     public function viewTimesheets($userId) {
         $user = $this->timesheetsModel->getUserInfo($userId);
