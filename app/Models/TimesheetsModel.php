@@ -40,8 +40,10 @@ class TimesheetsModel extends Model {
     }
 
     public function insertTimesheetEntry($data) {
+        log_message('debug', 'Inserting timesheet entry: ' . print_r($data, true)); // Log data
         return $this->db->table('timesheetEntries')->insert($data);
     }
+    
 
     public function getUserInfo($userId) {
         return $this->db->table('users')->where('id', $userId)->get()->getRowArray();

@@ -48,15 +48,17 @@ class TimesheetsController extends BaseController {
             return redirect()->to('/dashboard');
         }
 
-        foreach ($entries as $entry) {
-            $entry['timesheetID'] = $timesheetId;
-            $entry['createdAt'] = date('Y-m-d H:i:s');
-            $entry['updatedAt'] = date('Y-m-d H:i:s');
-            $this->timesheetsModel->insertTimesheetEntry($entry);
+        try {
+            foreach ($entries as $entry) {
+                $entry['timesheetID'] = $timesheetId;
+                $entry['createdAt'] = date('Y-m-d H:i:s');
+                $entry['updatedAt'] = date('Y-m-d H:i:s');
+                $this->timesheetsModel->insertTimesheetEntry($entry);
+            }
+        } catch (\Exception $e) {
+            $this->session->setFlashdata('error_message', 'Failed to insert timesheet entries: ' . $e->getMessage());
+            return redirect()->to('/dashboard');
         }
-
-        $this->session->setFlashdata('success_message', 'Timesheet submitted successfully.');
-        return redirect()->to('/dashboard');
     }
 
     public function viewTimesheets($userId) {
@@ -188,26 +190,26 @@ class TimesheetsController extends BaseController {
 
     private function getTimesheetEntriesFromRequest() {
         $entries = [];
-        $totalEntries = $this->request->getPost('totalEntries'); // Ensure this is set in your form.
+        $post = $this->request->getPost();
     
-        for ($i = 0; $i < $totalEntries; $i++) {
-            $entry = [
-                'projectNumber' => $this->request->getPost('projectNumber[' . $i . ']'),
-                'projectName' => $this->request->getPost('projectName[' . $i . ']'),
-                'activityDescription' => $this->request->getPost('description[' . $i . ']'),
-                'mondayHours' => $this->request->getPost('monday[' . $i . ']'),
-                'tuesdayHours' => $this->request->getPost('tuesday[' . $i . ']'),
-                'wednesdayHours' => $this->request->getPost('wednesday[' . $i . ']'),
-                'thursdayHours' => $this->request->getPost('thursday[' . $i . ']'),
-                'fridayHours' => $this->request->getPost('friday[' . $i . ']'),
-                'saturdayHours' => $this->request->getPost('saturday[' . $i . ']'),
-                'sundayHours' => $this->request->getPost('sunday[' . $i . ']'),
-                'totalHours' => $this->request->getPost('totalHours[' . $i . ']'),
-            ];
-    
-            if (!empty($entry['projectNumber'])) {
-                $entries[] = $entry;
+        foreach ($post['projectNumber'] as $index => $projectNumber) {
+            if (empty($projectNumber)) {
+                continue; // Skip empty rows
             }
+    
+            $entries[] = [
+                'projectNumber' => $projectNumber,
+                'projectName' => $post['projectName'][$index],
+                'description' => $post['description'][$index],
+                'mondayHours' => $post['monday'][$index] ?? 0,
+                'tuesdayHours' => $post['tuesday'][$index] ?? 0,
+                'wednesdayHours' => $post['wednesday'][$index] ?? 0,
+                'thursdayHours' => $post['thursday'][$index] ?? 0,
+                'fridayHours' => $post['friday'][$index] ?? 0,
+                'saturdayHours' => $post['saturday'][$index] ?? 0,
+                'sundayHours' => $post['sunday'][$index] ?? 0,
+                'totalHours' => $post['totalHours'][$index] ?? 0
+            ];
         }
     
         return $entries;
