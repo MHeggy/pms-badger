@@ -188,21 +188,21 @@ class TimesheetsController extends BaseController {
 
     private function getTimesheetEntriesFromRequest() {
         $entries = [];
-        $totalEntries = $this->request->getPost('totalEntries'); // Ensure this is correctly set in your form.
+        $totalEntries = $this->request->getPost('totalEntries'); // Ensure this is set in your form.
     
         for ($i = 0; $i < $totalEntries; $i++) {
             $entry = [
-                'projectNumber' => $this->request->getPost('projectNumber_' . $i),
-                'projectName' => $this->request->getPost('projectName_' . $i),
-                'activityDescription' => $this->request->getPost('description_' . $i),
-                'mondayHours' => $this->request->getPost('monday_' . $i),
-                'tuesdayHours' => $this->request->getPost('tuesday_' . $i),
-                'wednesdayHours' => $this->request->getPost('wednesday_' . $i),
-                'thursdayHours' => $this->request->getPost('thursday_' . $i),
-                'fridayHours' => $this->request->getPost('friday_' . $i),
-                'saturdayHours' => $this->request->getPost('saturday_' . $i),
-                'sundayHours' => $this->request->getPost('sunday_' . $i),
-                'totalHours' => $this->request->getPost('totalHours_' . $i),
+                'projectNumber' => $this->request->getPost('projectNumber[' . $i . ']'),
+                'projectName' => $this->request->getPost('projectName[' . $i . ']'),
+                'activityDescription' => $this->request->getPost('description[' . $i . ']'),
+                'mondayHours' => $this->request->getPost('monday[' . $i . ']'),
+                'tuesdayHours' => $this->request->getPost('tuesday[' . $i . ']'),
+                'wednesdayHours' => $this->request->getPost('wednesday[' . $i . ']'),
+                'thursdayHours' => $this->request->getPost('thursday[' . $i . ']'),
+                'fridayHours' => $this->request->getPost('friday[' . $i . ']'),
+                'saturdayHours' => $this->request->getPost('saturday[' . $i . ']'),
+                'sundayHours' => $this->request->getPost('sunday[' . $i . ']'),
+                'totalHours' => $this->request->getPost('totalHours[' . $i . ']'),
             ];
     
             if (!empty($entry['projectNumber'])) {
@@ -212,5 +212,6 @@ class TimesheetsController extends BaseController {
     
         return $entries;
     }
+    
     
 }

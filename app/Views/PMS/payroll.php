@@ -73,17 +73,17 @@
             <tbody id="timesheet-rows">
                 <!-- First row (cannot be removed) -->
                 <tr>
-                    <td><input type="text" class="form-control" name="projectNumber[]"></td>
-                    <td><input type="text" class="form-control" name="projectName[]"></td>
-                    <td><input type="text" class="form-control" name="description[]"></td>
-                    <td><input type="number" class="form-control day-input" name="monday[]" step="0.01"></td>
-                    <td><input type="number" class="form-control day-input" name="tuesday[]" step="0.01"></td>
-                    <td><input type="number" class="form-control day-input" name="wednesday[]" step="0.01"></td>
-                    <td><input type="number" class="form-control day-input" name="thursday[]" step="0.01"></td>
-                    <td><input type="number" class="form-control day-input" name="friday[]" step="0.01"></td>
-                    <td><input type="number" class="form-control day-input" name="saturday[]" step="0.01"></td>
-                    <td><input type="number" class="form-control day-input" name="sunday[]" step="0.01"></td>
-                    <td><input type="text" class="form-control total-hours" name="totalHours[]" readonly></td>
+                    <td><input type="text" class="form-control" name="projectNumber[0]"></td>
+                    <td><input type="text" class="form-control" name="projectName[0]"></td>
+                    <td><input type="text" class="form-control" name="description[0]"></td>
+                    <td><input type="number" class="form-control day-input" name="monday[0]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="tuesday[0]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="wednesday[0]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="thursday[0]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="friday[0]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="saturday[0]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="sunday[0]" step="0.01"></td>
+                    <td><input type="text" class="form-control total-hours" name="totalHours[0]" readonly></td>
                     <td><button type="button" class="btn btn-danger remove-row disabled">Remove</button></td>
                 </tr>
             </tbody>
@@ -110,11 +110,13 @@
 
 <!-- Scripts -->
 <script>
+    let rowCount = 1;  // Counter to generate unique IDs
+
     function calculateRowTotal(row) {
         let totalHours = 0;
         const daysOfWeek = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
         daysOfWeek.forEach(day => {
-            const input = row.querySelector(`[name="${day}[]"]`);
+            const input = row.querySelector(`[name^="${day}"]`);
             if (input.value !== '') {
                 totalHours += parseFloat(input.value);
             }
@@ -156,8 +158,15 @@
     });
 
     document.getElementById('add-row').addEventListener('click', () => {
+        rowCount++;
         const newRow = document.querySelector('#timesheet-rows tr').cloneNode(true);
-        newRow.querySelectorAll('input').forEach(input => input.value = '');
+        
+        newRow.querySelectorAll('input').forEach(input => {
+            input.value = '';
+            // Update names with unique identifiers
+            input.name = input.name.replace(/\[\]$/, `[${rowCount}]`);
+        });
+
         newRow.querySelector('.remove-row').classList.remove('disabled');
         document.querySelector('#timesheet-rows').appendChild(newRow);
         addEventListenersToRow(newRow);
