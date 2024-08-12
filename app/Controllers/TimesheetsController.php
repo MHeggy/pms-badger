@@ -3,6 +3,8 @@
 namespace App\Controllers;
 
 use App\Models\TimesheetsModel;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class TimesheetsController extends BaseController {
     protected $timesheetsModel;
@@ -20,7 +22,7 @@ class TimesheetsController extends BaseController {
             return redirect()->to('/login')->with('error', 'You must login to access this page.');
         }
 
-        return view ('PMS/payroll.php', [
+        return view('PMS/payroll', [
             'userId' => $userId
         ]);
     }
@@ -30,8 +32,6 @@ class TimesheetsController extends BaseController {
         $weekOf = $this->request->getPost('week');
         $totalHours = $this->request->getPost('totalHours');
         $entries = $this->getTimesheetEntriesFromRequest();
-
-        log_message('debug', 'Submitting timesheet for user ID: ' . $userId . ', weekOf: ' . $weekOf);
 
         $timesheetData = [
             'userID' => $userId,
@@ -43,15 +43,12 @@ class TimesheetsController extends BaseController {
 
         try {
             $timesheetId = $this->timesheetsModel->insertTimesheet($timesheetData);
-            log_message('debug', 'Timesheet ID ' . $timesheetId . ' inserted successfully.');
         } catch (\Exception $e) {
-            log_message('error', 'Failed to insert timesheet: ' . $e->getMessage());
             $this->session->setFlashdata('error_message', 'Timesheet could not be submitted successfully, please try again.');
             return redirect()->to('/dashboard');
         }
 
         foreach ($entries as $entry) {
-            log_message('debug', 'Inserting entry for timesheet ID: ' . $timesheetId . ' with data: ' . json_encode($entry));
             $entry['timesheetID'] = $timesheetId;
             $entry['createdAt'] = date('Y-m-d H:i:s');
             $entry['updatedAt'] = date('Y-m-d H:i:s');
@@ -61,13 +58,12 @@ class TimesheetsController extends BaseController {
         $this->session->setFlashdata('success_message', 'Timesheet submitted successfully.');
         return redirect()->to('/dashboard');
     }
-    
 
     public function viewTimesheets($userId) {
         $user = $this->timesheetsModel->getUserInfo($userId);
         $timesheets = $this->timesheetsModel->getUserTimesheets($userId);
         
-        return view('PMS/user_timesheets.php', [
+        return view('PMS/user_timesheets', [
             'user' => $user,
             'timesheets' => $timesheets,
         ]);
@@ -75,13 +71,13 @@ class TimesheetsController extends BaseController {
 
     public function viewTimesheet($timesheetId) {
         $timesheet = $this->timesheetsModel->find($timesheetId);
-        $entries = $this->getTimesheetEntries($timesheetId);
+        $entries = $this->timesheetsModel->getTimesheetEntriesByTimesheetId($timesheetId);
 
         if (!$timesheet) {
-            return redirect()->back()->with('error_messge', 'Timesheet not found.');
+            return redirect()->back()->with('error_message', 'Timesheet not found.');
         }
 
-        return view('PMS/timesheet_details.php', [
+        return view('PMS/timesheet_details', [
             'timesheet' => $timesheet,
             'timesheetEntries' => $entries,
         ]);
@@ -89,11 +85,11 @@ class TimesheetsController extends BaseController {
 
     public function editTimesheet($timesheetId) {
         $timesheet = $this->timesheetsModel->find($timesheetId);
-        $entries = $this->getTimesheetEntries($timesheetId);
+        $entries = $this->timesheetsModel->getTimesheetEntriesByTimesheetId($timesheetId);
 
         $daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
-        return view('PMS/edit_timesheet.php', [
+        return view('PMS/edit_timesheet', [
             'timesheet' => $timesheet,
             'entries' => $entries,
             'daysOfWeek' => $daysOfWeek,
@@ -119,10 +115,8 @@ class TimesheetsController extends BaseController {
     
         return redirect()->to('/dashboard');
     }
-    
 
-    public function deleteTimesheet($timesheetId)
-    {
+    public function deleteTimesheet($timesheetId) {
         $timesheet = $this->timesheetsModel->find($timesheetId);
 
         if (!$timesheet) {
@@ -135,77 +129,39 @@ class TimesheetsController extends BaseController {
         if ($success) {
             return redirect()->back()->with('success_message', 'Timesheet deleted successfully.');
         } else {
-            return redirect()->back()->with('error_message', 'Failed to delete timesheet. Please try again.');
+            return redirect()->back()->with('error_message', 'Unable to delete timesheet, please try again.');
         }
-    }
-
-    private function getTimesheetEntriesFromRequest() {
-        $entries = [];
-        
-        // Fetch the number of rows (assuming each row is represented by an index)
-        $projectNumbers = $this->request->getPost('projectNumber');
-        $projectNames = $this->request->getPost('projectName');
-        $descriptions = $this->request->getPost('description');
-        $mondayHours = $this->request->getPost('monday');
-        $tuesdayHours = $this->request->getPost('tuesday');
-        $wednesdayHours = $this->request->getPost('wednesday');
-        $thursdayHours = $this->request->getPost('thursday');
-        $fridayHours = $this->request->getPost('friday');
-        $saturdayHours = $this->request->getPost('saturday');
-        $sundayHours = $this->request->getPost('sunday');
-        $totalHours = $this->request->getPost('totalHours');
-    
-        // Debugging statement
-        log_message('debug', 'Inserting timesheet entries: ' . print_r($entries, true));
-
-        // Loop through each row
-        for ($i = 0; $i < count($projectNumbers); $i++) {
-            $entries[] = [
-                'projectNumber' => $projectNumbers[$i],
-                'projectName' => $projectNames[$i],
-                'activityDescription' => $descriptions[$i],
-                'mondayHours' => $mondayHours[$i],
-                'tuesdayHours' => $tuesdayHours[$i],
-                'wednesdayHours' => $wednesdayHours[$i],
-                'thursdayHours' => $thursdayHours[$i],
-                'fridayHours' => $fridayHours[$i],
-                'saturdayHours' => $saturdayHours[$i],
-                'sundayHours' => $sundayHours[$i],
-                'totalHours' => $totalHours[$i],
-            ];
-        }
-        
-        log_message('debug', 'Timesheet entries from request: ' . json_encode($entries));
-        return $entries;
     }
 
     public function exportTimesheet($timesheetId) {
-        // Load the timesheet and entries.
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        
         $timesheet = $this->timesheetsModel->find($timesheetId);
-        $entries = $this->getTimesheetEntries($timesheetId);
+        $entries = $this->timesheetsModel->getTimesheetEntriesByTimesheetId($timesheetId);
 
         if (!$timesheet) {
             return redirect()->back()->with('error_message', 'Timesheet not found.');
         }
 
-        $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->setCellValue('A1', 'Timesheet ID: ' . $timesheetId);
+        $sheet->setCellValue('A2', 'Week Of: ' . $timesheet['weekOf']);
+        $sheet->setCellValue('A3', 'User ID: ' . $timesheet['userID']);
+        $sheet->setCellValue('A4', 'Total Hours: ' . $timesheet['totalHours']);
+        
+        $sheet->setCellValue('A6', 'Project Number');
+        $sheet->setCellValue('B6', 'Project Name');
+        $sheet->setCellValue('C6', 'Activity Description');
+        $sheet->setCellValue('D6', 'Monday Hours');
+        $sheet->setCellValue('E6', 'Tuesday Hours');
+        $sheet->setCellValue('F6', 'Wednesday Hours');
+        $sheet->setCellValue('G6', 'Thursday Hours');
+        $sheet->setCellValue('H6', 'Friday Hours');
+        $sheet->setCellValue('I6', 'Saturday Hours');
+        $sheet->setCellValue('J6', 'Sunday Hours');
+        $sheet->setCellValue('K6', 'Total Hours');
 
-        // Set spreadsheet headers
-        $sheet->setCellValue('A1', 'Project Number');
-        $sheet->setCellValue('B1', 'Project Name');
-        $sheet->setCellValue('C1', 'Activity Description');
-        $sheet->setCellValue('D1', 'Monday');
-        $sheet->setCellValue('E1', 'Tuesday');
-        $sheet->setCellValue('F1', 'Wednesday');
-        $sheet->setCellValue('G1', 'Thursday');
-        $sheet->setCellValue('H1', 'Friday');
-        $sheet->setCellValue('I1', 'Saturday');
-        $sheet->setCellValue('J1', 'Sunday');
-        $sheet->setCellValue('K1', 'Total Hours');
-
-        // Fill spreadsheet with timesheet data
-        $row = 2;
+        $row = 7;
         foreach ($entries as $entry) {
             $sheet->setCellValue('A' . $row, $entry['projectNumber']);
             $sheet->setCellValue('B' . $row, $entry['projectName']);
@@ -221,24 +177,39 @@ class TimesheetsController extends BaseController {
             $row++;
         }
 
-            // Prepare the file for download
-            $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
+        $writer = new Xlsx($spreadsheet);
+        $fileName = 'Timesheet_' . $timesheetId . '.xlsx';
+        $filePath = WRITEPATH . 'uploads/' . $fileName;
 
-            header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-            header('Content-Disposition: attachment; filename="timesheet_' . $timesheetId . '.xlsx"');
-            header('Cache-Control: max-age=0');
+        $writer->save($filePath);
 
-            $writer->save('php://output');
-            exit;
-    }
-    
-    private function getTimesheetEntries($timesheetId) {
-        // Fetch timesheet entries from the model
-        return $this->timesheetsModel->getTimesheetEntriesByTimesheetId($timesheetId);
+        return $this->response->download($filePath, null)->setFileName($fileName);
     }
 
-    private function calculateTotalHoursForDay($hours) {
-        return array_sum($hours);
-    }
+    private function getTimesheetEntriesFromRequest() {
+        $entries = [];
+        $totalEntries = $this->request->getPost('totalEntries');
 
+        for ($i = 0; $i < $totalEntries; $i++) {
+            $entry = [
+                'projectNumber' => $this->request->getPost('projectNumber_' . $i),
+                'projectName' => $this->request->getPost('projectName_' . $i),
+                'activityDescription' => $this->request->getPost('activityDescription_' . $i),
+                'mondayHours' => $this->request->getPost('mondayHours_' . $i),
+                'tuesdayHours' => $this->request->getPost('tuesdayHours_' . $i),
+                'wednesdayHours' => $this->request->getPost('wednesdayHours_' . $i),
+                'thursdayHours' => $this->request->getPost('thursdayHours_' . $i),
+                'fridayHours' => $this->request->getPost('fridayHours_' . $i),
+                'saturdayHours' => $this->request->getPost('saturdayHours_' . $i),
+                'sundayHours' => $this->request->getPost('sundayHours_' . $i),
+                'totalHours' => $this->request->getPost('totalHours_' . $i),
+            ];
+
+            if (!empty($entry['projectNumber'])) {
+                $entries[] = $entry;
+            }
+        }
+
+        return $entries;
+    }
 }

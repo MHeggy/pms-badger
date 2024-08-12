@@ -25,8 +25,6 @@ class TimesheetsModel extends Model {
     }
 
     public function insertTimesheet($data) {
-        log_message('debug', 'Inserting timesheet: ' . json_encode($data));
-        // Check if data is properly structured
         if (empty($data) || !is_array($data)) {
             throw new \Exception('Invalid data provided for insert.');
         }
@@ -34,17 +32,14 @@ class TimesheetsModel extends Model {
         $builder = $this->db->table('timesheets');
         $result = $builder->insert($data);
     
-        // If insert fails, throw an exception with the last query for debugging
         if (!$result) {
             throw new \Exception('Insert failed: ' . $this->db->getLastQuery());
         }
     
-        return $this->db->insertID(); // Return the ID of the newly inserted timesheet
+        return $this->db->insertID();
     }
-    
 
     public function insertTimesheetEntry($data) {
-        log_message('debug', 'Inserting timesheet entry: ' . json_encode($data));
         return $this->db->table('timesheetEntries')->insert($data);
     }
 
@@ -66,11 +61,9 @@ class TimesheetsModel extends Model {
     }
 
     public function updateTimesheetEntries($timesheetId, $entries) {
-        // Delete existing entries and perform batch insert for new entries
         $this->db->transStart();
         $this->db->table('timesheetEntries')->where('timesheetID', $timesheetId)->delete();
         
-        // Add the timesheetID to each entry
         foreach ($entries as &$entry) {
             $entry['timesheetID'] = $timesheetId;
         }
@@ -100,5 +93,4 @@ class TimesheetsModel extends Model {
         $query = $builder->get();
         return $query->getResultArray();
     }
-    
 }
