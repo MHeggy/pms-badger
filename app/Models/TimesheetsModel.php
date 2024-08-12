@@ -68,11 +68,14 @@ class TimesheetsModel extends Model {
         
         foreach ($entries as &$entry) {
             $entry['timesheetID'] = $timesheetId;
+            // No need to set 'entryID' as it is auto-incremented
+            $entry['createdAt'] = date('Y-m-d H:i:s');
+            $entry['updatedAt'] = date('Y-m-d H:i:s');
         }
         
         $this->db->table('timesheetEntries')->insertBatch($entries);
         $this->db->transComplete();
-
+    
         return $this->db->transStatus();
     }
 

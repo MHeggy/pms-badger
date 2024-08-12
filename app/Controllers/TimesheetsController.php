@@ -103,12 +103,12 @@ class TimesheetsController extends BaseController {
         $data = [
             'weekOf' => $this->request->getPost('week'),
         ];
-    
+
         $success = $this->timesheetsModel->updateTimesheet($timesheetId, $data);
-    
+
         $entries = $this->getTimesheetEntriesFromRequest();
         $successEntries = $this->timesheetsModel->updateTimesheetEntries($timesheetId, $entries);
-    
+
         if ($success && $successEntries) {
             $this->session->setFlashdata('success_message', 'Timesheet updated successfully.');
         } else {
