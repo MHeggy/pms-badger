@@ -188,28 +188,29 @@ class TimesheetsController extends BaseController {
 
     private function getTimesheetEntriesFromRequest() {
         $entries = [];
-        $totalEntries = $this->request->getPost('totalEntries');
-
+        $totalEntries = $this->request->getPost('totalEntries'); // Ensure this is correctly set in your form.
+    
         for ($i = 0; $i < $totalEntries; $i++) {
             $entry = [
                 'projectNumber' => $this->request->getPost('projectNumber_' . $i),
                 'projectName' => $this->request->getPost('projectName_' . $i),
-                'activityDescription' => $this->request->getPost('activityDescription_' . $i),
-                'mondayHours' => $this->request->getPost('mondayHours_' . $i),
-                'tuesdayHours' => $this->request->getPost('tuesdayHours_' . $i),
-                'wednesdayHours' => $this->request->getPost('wednesdayHours_' . $i),
-                'thursdayHours' => $this->request->getPost('thursdayHours_' . $i),
-                'fridayHours' => $this->request->getPost('fridayHours_' . $i),
-                'saturdayHours' => $this->request->getPost('saturdayHours_' . $i),
-                'sundayHours' => $this->request->getPost('sundayHours_' . $i),
+                'activityDescription' => $this->request->getPost('description_' . $i),
+                'mondayHours' => $this->request->getPost('monday_' . $i),
+                'tuesdayHours' => $this->request->getPost('tuesday_' . $i),
+                'wednesdayHours' => $this->request->getPost('wednesday_' . $i),
+                'thursdayHours' => $this->request->getPost('thursday_' . $i),
+                'fridayHours' => $this->request->getPost('friday_' . $i),
+                'saturdayHours' => $this->request->getPost('saturday_' . $i),
+                'sundayHours' => $this->request->getPost('sunday_' . $i),
                 'totalHours' => $this->request->getPost('totalHours_' . $i),
             ];
-
+    
             if (!empty($entry['projectNumber'])) {
                 $entries[] = $entry;
             }
         }
-
+    
         return $entries;
     }
+    
 }
