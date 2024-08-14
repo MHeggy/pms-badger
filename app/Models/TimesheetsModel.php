@@ -46,6 +46,7 @@ class TimesheetsModel extends Model {
     public function insertTimesheetEntries($timesheetId, $entries) {
         $this->db->transStart();
     
+        $batchData = [];
         foreach ($entries as $entry) {
             // Check if the entry is empty
             if (empty($entry['projectNumber']) && empty($entry['projectName']) && empty($entry['activityDescription']) &&
@@ -55,8 +56,7 @@ class TimesheetsModel extends Model {
                 continue; // Skip empty rows
             }
     
-            // Prepare the entry data.
-            $entryData = [
+            $batchData[] = [
                 'timesheetID' => $timesheetId,
                 'projectNumber' => $entry['projectNumber'],
                 'projectName' => $entry['projectName'],
@@ -72,10 +72,10 @@ class TimesheetsModel extends Model {
                 'createdAt' => date('Y-m-d H:i:s'),
                 'updatedAt' => date('Y-m-d H:i:s')
             ];
-    
-            // Insert the entry.
-            $this->db->table('timesheetEntries')->insert($entryData);
         }
+    
+        // Batch insert
+        $this->db->table('timesheetEntries')->insertBatch($batchData);
     
         $this->db->transComplete();
     
@@ -85,7 +85,6 @@ class TimesheetsModel extends Model {
     
         return true;
     }
-    
 
     public function getUserInfo($userId) {
         return $this->db->table('users')->where('id', $userId)->get()->getRowArray();
