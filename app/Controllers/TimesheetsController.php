@@ -212,28 +212,52 @@ class TimesheetsController extends BaseController {
 
     private function getTimesheetEntriesFromRequest() {
         $entries = [];
-        $post = $this->request->getPost();
-
-        foreach ($post['projectNumber'] as $index => $projectNumber) {
-            if (empty($projectNumber)) {
-                continue; // Skip empty rows
-            }
-
-            $entries[] = [
+        $projectNumbers = $this->request->getPost('projectNumber');
+        $projectNames = $this->request->getPost('projectName');
+        $activityDescriptions = $this->request->getPost('activityDescription');
+        $mondayHours = $this->request->getPost('mondayHours');
+        $tuesdayHours = $this->request->getPost('tuesdayHours');
+        $wednesdayHours = $this->request->getPost('wednesdayHours');
+        $thursdayHours = $this->request->getPost('thursdayHours');
+        $fridayHours = $this->request->getPost('fridayHours');
+        $saturdayHours = $this->request->getPost('saturdayHours');
+        $sundayHours = $this->request->getPost('sundayHours');
+        $totalHours = $this->request->getPost('totalHours');
+    
+        log_message('debug', 'Received timesheet data from request: ' . print_r([
+            'projectNumber' => $projectNumbers,
+            'projectName' => $projectNames,
+            'activityDescription' => $activityDescriptions,
+            'mondayHours' => $mondayHours,
+            'tuesdayHours' => $tuesdayHours,
+            'wednesdayHours' => $wednesdayHours,
+            'thursdayHours' => $thursdayHours,
+            'fridayHours' => $fridayHours,
+            'saturdayHours' => $saturdayHours,
+            'sundayHours' => $sundayHours,
+            'totalHours' => $totalHours,
+        ], true));
+    
+        foreach ($projectNumbers as $index => $projectNumber) {
+            $entry = [
                 'projectNumber' => $projectNumber,
-                'projectName' => $post['projectName'][$index],
-                'activityDescription' => $post['activityDescription'][$index],
-                'mondayHours' => $post['monday'][$index],
-                'tuesdayHours' => $post['tuesday'][$index],
-                'wednesdayHours' => $post['wednesday'][$index],
-                'thursdayHours' => $post['thursday'][$index],
-                'fridayHours' => $post['friday'][$index],
-                'saturdayHours' => $post['saturday'][$index],
-                'sundayHours' => $post['sunday'][$index],
-                'totalHours' => $post['totalHours'][$index],
+                'projectName' => $projectNames[$index] ?? '',
+                'activityDescription' => $activityDescriptions[$index] ?? '',
+                'mondayHours' => $mondayHours[$index] ?? 0,
+                'tuesdayHours' => $tuesdayHours[$index] ?? 0,
+                'wednesdayHours' => $wednesdayHours[$index] ?? 0,
+                'thursdayHours' => $thursdayHours[$index] ?? 0,
+                'fridayHours' => $fridayHours[$index] ?? 0,
+                'saturdayHours' => $saturdayHours[$index] ?? 0,
+                'sundayHours' => $sundayHours[$index] ?? 0,
+                'totalHours' => $totalHours[$index] ?? 0,
             ];
+    
+            log_message('debug', 'Processed timesheet entry ' . $index . ': ' . print_r($entry, true));
+            $entries[] = $entry;
         }
-
+    
         return $entries;
     }
+    
 }

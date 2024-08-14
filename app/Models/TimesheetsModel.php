@@ -29,6 +29,9 @@ class TimesheetsModel extends Model {
             throw new \Exception('Invalid data provided for insert.');
         }
     
+        // Log the data being inserted
+        log_message('debug', 'Insert data: ' . print_r($data, true));
+    
         $builder = $this->db->table('timesheets');
         $result = $builder->insert($data);
     
@@ -38,6 +41,7 @@ class TimesheetsModel extends Model {
     
         return $this->db->insertID();
     }
+    
 
     public function insertTimesheetEntries($timesheetId, $entries) {
         $this->db->transStart();
