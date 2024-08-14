@@ -45,13 +45,17 @@ class TimesheetsModel extends Model {
 
     public function insertTimesheetEntries($timesheetId, $entries) {
         $this->db->transStart();
-
+    
         foreach ($entries as $entry) {
-            if (!is_array($entry)) {
-                throw new \Exception('Each entry must be an array.');
+            // Check if the entry is empty
+            if (empty($entry['projectNumber']) && empty($entry['projectName']) && empty($entry['activityDescription']) &&
+                empty($entry['mondayHours']) && empty($entry['tuesdayHours']) && empty($entry['wednesdayHours']) &&
+                empty($entry['thursdayHours']) && empty($entry['fridayHours']) && empty($entry['saturdayHours']) &&
+                empty($entry['sundayHours'])) {
+                continue; // Skip empty rows
             }
-
-            // prepare the entry data.
+    
+            // Prepare the entry data.
             $entryData = [
                 'timesheetID' => $timesheetId,
                 'projectNumber' => $entry['projectNumber'],
@@ -68,19 +72,17 @@ class TimesheetsModel extends Model {
                 'createdAt' => date('Y-m-d H:i:s'),
                 'updatedAt' => date('Y-m-d H:i:s')
             ];
-
-            // Debugging statement for the sql query.
-            log_message('debug', 'Entry data: ' . print_r($entryData, true));
+    
             // Insert the entry.
             $this->db->table('timesheetEntries')->insert($entryData);
         }
-
+    
         $this->db->transComplete();
-
+    
         if (!$this->db->transStatus()) {
-            throw new \Exception('Transaction failed: ' . $this->db->getLastQuery());
+            throw new \Exception('Transaction failed.');
         }
-
+    
         return true;
     }
     

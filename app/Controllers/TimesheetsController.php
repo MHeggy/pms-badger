@@ -32,19 +32,19 @@ class TimesheetsController extends BaseController {
         $weekOf = $this->request->getPost('week');
         $totalHours = $this->request->getPost('totalHours');
         $entries = $this->getTimesheetEntriesFromRequest();
-    
+
         // Check if a timesheet already exists for the user and the week.
         $existingTimesheet = $this->timesheetsModel
             ->where('userID', $userId)
             ->where('weekOf', $weekOf)
             ->first();
-    
+        
         if ($existingTimesheet) {
             // Redirect to edit the existing timesheet.
-            $this->session->setFlashdata('info_message', 'You have already submitted a timesheet for this week. You can update it instead.');
+            $this->session->setFlashdata('info_message', 'You have already submitted a timesheet for this week, please edit it instead.');
             return redirect()->to('/timesheets/edit/' . $existingTimesheet['timesheetID']);
         }
-    
+
         $timesheetData = [
             'userID' => $userId,
             'weekOf' => $weekOf,
@@ -52,28 +52,19 @@ class TimesheetsController extends BaseController {
             'createdAt' => date('Y-m-d H:i:s'),
             'updatedAt' => date('Y-m-d H:i:s')
         ];
-    
+
         try {
             $timesheetId = $this->timesheetsModel->insertTimesheet($timesheetData);
-    
-            // Log the last query for timesheet insertion
-            log_message('debug', 'Last SQL query for insertTimesheet: ' . $this->timesheetsModel->db->getLastQuery());
-    
         } catch (\Exception $e) {
             $this->session->setFlashdata('error_message', 'Timesheet could not be submitted successfully, please try again.');
             return redirect()->to('/dashboard');
         }
-    
+
         try {
             $result = $this->timesheetsModel->insertTimesheetEntries($timesheetId, $entries);
-            
             if (!$result) {
                 throw new \Exception('Failed to insert timesheet entries.');
             }
-    
-            // Log the last query for timesheet entries insertion
-            log_message('debug', 'Last SQL query for insertTimesheetEntries: ' . $this->timesheetsModel->db->getLastQuery());
-    
             $this->session->setFlashdata('success_message', 'Timesheet submitted successfully.');
         } catch (\Exception $e) {
             $this->session->setFlashdata('error_message', 'Failed to insert timesheet entries: ' . $e->getMessage());
