@@ -73,115 +73,115 @@
             <tbody id="timesheet-rows">
                 <!-- Existing rows with unique identifiers -->
                 <tr>
-                    <td><input type="text" class="form-control" name="projectNumber[0]"></td>
-                    <td><input type="text" class="form-control" name="projectName[0]"></td>
-                    <td><input type="text" class="form-control" name="activityDescription[0]"></td>
-                    <td><input type="number" class="form-control day-input" name="monday[0]" step="0.01"></td>
-                    <td><input type="number" class="form-control day-input" name="tuesday[0]" step="0.01"></td>
-                    <td><input type="number" class="form-control day-input" name="wednesday[0]" step="0.01"></td>
-                    <td><input type="number" class="form-control day-input" name="thursday[0]" step="0.01"></td>
-                    <td><input type="number" class="form-control day-input" name="friday[0]" step="0.01"></td>
-                    <td><input type="number" class="form-control day-input" name="saturday[0]" step="0.01"></td>
-                    <td><input type="number" class="form-control day-input" name="sunday[0]" step="0.01"></td>
-                    <td><input type="text" class="form-control total-hours" name="totalHours[0]" readonly></td>
+                    <td><input type="text" class="form-control" name="projectNumber[]"></td>
+                    <td><input type="text" class="form-control" name="projectName[]"></td>
+                    <td><input type="text" class="form-control" name="activityDescription[]"></td>
+                    <td><input type="number" class="form-control day-input" name="monday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="tuesday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="wednesday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="thursday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="friday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="saturday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="sunday[]" step="0.01"></td>
+                    <td><input type="text" class="form-control total-hours" name="totalHours[]" readonly></td>
                     <td><button type="button" class="btn btn-danger remove-row">Remove</button></td>
                 </tr>
                 <tr>
-                    <td><input type="text" class="form-control" name="projectNumber[1]"></td>
-                    <td><input type="text" class="form-control" name="projectName[1]"></td>
-                    <td><input type="text" class="form-control" name="activityDescription[1]"></td>
-                    <td><input type="number" class="form-control day-input" name="monday[1]" step="0.01"></td>
-                    <td><input type="number" class="form-control day-input" name="tuesday[1]" step="0.01"></td>
-                    <td><input type="number" class="form-control day-input" name="wednesday[1]" step="0.01"></td>
-                    <td><input type="number" class="form-control day-input" name="thursday[1]" step="0.01"></td>
-                    <td><input type="number" class="form-control day-input" name="friday[1]" step="0.01"></td>
-                    <td><input type="number" class="form-control day-input" name="saturday[1]" step="0.01"></td>
-                    <td><input type="number" class="form-control day-input" name="sunday[1]" step="0.01"></td>
-                    <td><input type="text" class="form-control total-hours" name="totalHours[1]" readonly></td>
+                    <td><input type="text" class="form-control" name="projectNumber[]"></td>
+                    <td><input type="text" class="form-control" name="projectName[]"></td>
+                    <td><input type="text" class="form-control" name="activityDescription[]"></td>
+                    <td><input type="number" class="form-control day-input" name="monday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="tuesday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="wednesday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="thursday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="friday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="saturday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="sunday[]" step="0.01"></td>
+                    <td><input type="text" class="form-control total-hours" name="totalHours[]" readonly></td>
                     <td><button type="button" class="btn btn-danger remove-row">Remove</button></td>
                 </tr>
                 <tr>
-                    <td><input type="text" class="form-control" name="projectNumber[2]"></td>
-                    <td><input type="text" class="form-control" name="projectName[2]"></td>
-                    <td><input type="text" class="form-control" name="activityDescription[2]"></td>
-                    <td><input type="number" class="form-control day-input" name="monday[2]" step="0.01"></td>
-                    <td><input type="number" class="form-control day-input" name="tuesday[2]" step="0.01"></td>
-                    <td><input type="number" class="form-control day-input" name="wednesday[2]" step="0.01"></td>
-                    <td><input type="number" class="form-control day-input" name="thursday[2]" step="0.01"></td>
-                    <td><input type="number" class="form-control day-input" name="friday[2]" step="0.01"></td>
-                    <td><input type="number" class="form-control day-input" name="saturday[2]" step="0.01"></td>
-                    <td><input type="number" class="form-control day-input" name="sunday[2]" step="0.01"></td>
-                    <td><input type="text" class="form-control total-hours" name="totalHours[2]" readonly></td>
+                    <td><input type="text" class="form-control" name="projectNumber[]"></td>
+                    <td><input type="text" class="form-control" name="projectName[]"></td>
+                    <td><input type="text" class="form-control" name="activityDescription[]"></td>
+                    <td><input type="number" class="form-control day-input" name="monday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="tuesday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="wednesday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="thursday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="friday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="saturday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="sunday[]" step="0.01"></td>
+                    <td><input type="text" class="form-control total-hours" name="totalHours[]" readonly></td>
                     <td><button type="button" class="btn btn-danger remove-row">Remove</button></td>
                 </tr>
                 <tr>
-                    <td><input type="text" class="form-control" name="projectNumber[3]"></td>
-                    <td><input type="text" class="form-control" name="projectName[3]"></td>
-                    <td><input type="text" class="form-control" name="activityDescription[3]"></td>
-                    <td><input type="number" class="form-control day-input" name="monday[3]" step="0.01"></td>
-                    <td><input type="number" class="form-control day-input" name="tuesday[3]" step="0.01"></td>
-                    <td><input type="number" class="form-control day-input" name="wednesday[3]" step="0.01"></td>
-                    <td><input type="number" class="form-control day-input" name="thursday[3]" step="0.01"></td>
-                    <td><input type="number" class="form-control day-input" name="friday[3]" step="0.01"></td>
-                    <td><input type="number" class="form-control day-input" name="saturday[3]" step="0.01"></td>
-                    <td><input type="number" class="form-control day-input" name="sunday[3]" step="0.01"></td>
-                    <td><input type="text" class="form-control total-hours" name="totalHours[3]" readonly></td>
+                    <td><input type="text" class="form-control" name="projectNumber[]"></td>
+                    <td><input type="text" class="form-control" name="projectName[]"></td>
+                    <td><input type="text" class="form-control" name="activityDescription[]"></td>
+                    <td><input type="number" class="form-control day-input" name="monday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="tuesday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="wednesday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="thursday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="friday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="saturday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="sunday[]" step="0.01"></td>
+                    <td><input type="text" class="form-control total-hours" name="totalHours[]" readonly></td>
                     <td><button type="button" class="btn btn-danger remove-row">Remove</button></td>
                 </tr>
                 <tr>
-                    <td><input type="text" class="form-control" name="projectNumber[4]"></td>
-                    <td><input type="text" class="form-control" name="projectName[4]"></td>
-                    <td><input type="text" class="form-control" name="activityDescription[4]"></td>
-                    <td><input type="number" class="form-control day-input" name="monday[4]" step="0.01"></td>
-                    <td><input type="number" class="form-control day-input" name="tuesday[4]" step="0.01"></td>
-                    <td><input type="number" class="form-control day-input" name="wednesday[4]" step="0.01"></td>
-                    <td><input type="number" class="form-control day-input" name="thursday[4]" step="0.01"></td>
-                    <td><input type="number" class="form-control day-input" name="friday[4]" step="0.01"></td>
-                    <td><input type="number" class="form-control day-input" name="saturday[4]" step="0.01"></td>
-                    <td><input type="number" class="form-control day-input" name="sunday[4]" step="0.01"></td>
-                    <td><input type="text" class="form-control total-hours" name="totalHours[4]" readonly></td>
+                    <td><input type="text" class="form-control" name="projectNumber[]"></td>
+                    <td><input type="text" class="form-control" name="projectName[]"></td>
+                    <td><input type="text" class="form-control" name="activityDescription[]"></td>
+                    <td><input type="number" class="form-control day-input" name="monday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="tuesday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="wednesday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="thursday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="friday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="saturday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="sunday[]" step="0.01"></td>
+                    <td><input type="text" class="form-control total-hours" name="totalHours[]" readonly></td>
                     <td><button type="button" class="btn btn-danger remove-row">Remove</button></td>
                 </tr>
                 <tr>
-                    <td><input type="text" class="form-control" name="projectNumber[5]"></td>
-                    <td><input type="text" class="form-control" name="projectName[5]"></td>
-                    <td><input type="text" class="form-control" name="activityDescription[5]"></td>
-                    <td><input type="number" class="form-control day-input" name="monday[5]" step="0.01"></td>
-                    <td><input type="number" class="form-control day-input" name="tuesday[5]" step="0.01"></td>
-                    <td><input type="number" class="form-control day-input" name="wednesday[5]" step="0.01"></td>
-                    <td><input type="number" class="form-control day-input" name="thursday[5]" step="0.01"></td>
-                    <td><input type="number" class="form-control day-input" name="friday[5]" step="0.01"></td>
-                    <td><input type="number" class="form-control day-input" name="saturday[5]" step="0.01"></td>
-                    <td><input type="number" class="form-control day-input" name="sunday[5]" step="0.01"></td>
-                    <td><input type="text" class="form-control total-hours" name="totalHours[5]" readonly></td>
+                    <td><input type="text" class="form-control" name="projectNumber[]"></td>
+                    <td><input type="text" class="form-control" name="projectName[]"></td>
+                    <td><input type="text" class="form-control" name="activityDescription[]"></td>
+                    <td><input type="number" class="form-control day-input" name="monday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="tuesday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="wednesday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="thursday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="friday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="saturday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="sunday[]" step="0.01"></td>
+                    <td><input type="text" class="form-control total-hours" name="totalHours[]" readonly></td>
                     <td><button type="button" class="btn btn-danger remove-row">Remove</button></td>
                 </tr>
                 <tr>
-                    <td><input type="text" class="form-control" name="projectNumber[6]"></td>
-                    <td><input type="text" class="form-control" name="projectName[6]"></td>
-                    <td><input type="text" class="form-control" name="activityDescription[6]"></td>
-                    <td><input type="number" class="form-control day-input" name="monday[6]" step="0.01"></td>
-                    <td><input type="number" class="form-control day-input" name="tuesday[6]" step="0.01"></td>
-                    <td><input type="number" class="form-control day-input" name="wednesday[6]" step="0.01"></td>
-                    <td><input type="number" class="form-control day-input" name="thursday[6]" step="0.01"></td>
-                    <td><input type="number" class="form-control day-input" name="friday[6]" step="0.01"></td>
-                    <td><input type="number" class="form-control day-input" name="saturday[6]" step="0.01"></td>
-                    <td><input type="number" class="form-control day-input" name="sunday[6]" step="0.01"></td>
-                    <td><input type="text" class="form-control total-hours" name="totalHours[6]" readonly></td>
+                    <td><input type="text" class="form-control" name="projectNumber[]"></td>
+                    <td><input type="text" class="form-control" name="projectName[]"></td>
+                    <td><input type="text" class="form-control" name="activityDescription[]"></td>
+                    <td><input type="number" class="form-control day-input" name="monday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="tuesday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="wednesday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="thursday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="friday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="saturday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="sunday[]" step="0.01"></td>
+                    <td><input type="text" class="form-control total-hours" name="totalHours[]" readonly></td>
                     <td><button type="button" class="btn btn-danger remove-row">Remove</button></td>
                 </tr>
                 <tr>
-                    <td><input type="text" class="form-control" name="projectNumber[7]"></td>
-                    <td><input type="text" class="form-control" name="projectName[7]"></td>
-                    <td><input type="text" class="form-control" name="activityDescription[7]"></td>
-                    <td><input type="number" class="form-control day-input" name="monday[7]" step="0.01"></td>
-                    <td><input type="number" class="form-control day-input" name="tuesday[7]" step="0.01"></td>
-                    <td><input type="number" class="form-control day-input" name="wednesday[7]" step="0.01"></td>
-                    <td><input type="number" class="form-control day-input" name="thursday[7]" step="0.01"></td>
-                    <td><input type="number" class="form-control day-input" name="friday[7]" step="0.01"></td>
-                    <td><input type="number" class="form-control day-input" name="saturday[7]" step="0.01"></td>
-                    <td><input type="number" class="form-control day-input" name="sunday[7]" step="0.01"></td>
-                    <td><input type="text" class="form-control total-hours" name="totalHours[7]" readonly></td>
+                    <td><input type="text" class="form-control" name="projectNumber[]"></td>
+                    <td><input type="text" class="form-control" name="projectName[]"></td>
+                    <td><input type="text" class="form-control" name="activityDescription[]"></td>
+                    <td><input type="number" class="form-control day-input" name="monday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="tuesday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="wednesday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="thursday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="friday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="saturday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="sunday[]" step="0.01"></td>
+                    <td><input type="text" class="form-control total-hours" name="totalHours[]" readonly></td>
                     <td><button type="button" class="btn btn-danger remove-row">Remove</button></td>
                 </tr>
             </tbody>
