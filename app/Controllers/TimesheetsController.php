@@ -33,6 +33,18 @@ class TimesheetsController extends BaseController {
         $totalHours = $this->request->getPost('totalHours');
         $entries = $this->getTimesheetEntriesFromRequest();
 
+        //Check if a timesheet already exists for the user and the week.
+        $existingTimesheet = $this->timesheetsModel
+            ->where('userID', $userId)
+            ->where('weekOf', $weekOf)
+            ->first();
+        
+        if ($existingTimesheet) {
+            // Redirect to edit the existing timesheet.
+            $this->session->setFlashdata('info_message', 'You have already submitted a timesheet for this week. You can update it instead.');
+            return redirect()->to('/timesheets/edit/' . $existingTimesheet['timesheetID']);
+        }
+
         $timesheetData = [
             'userID' => $userId,
             'weekOf' => $weekOf,
