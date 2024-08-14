@@ -43,14 +43,18 @@ class TimesheetsModel extends Model {
         $this->db->transStart();
 
         foreach ($entries as $entry) {
-            // Prepare the entry data.
+            if (!is_array($entry)) {
+                throw new \Exception('Each entry must be an array.');
+            }
+
+            // prepare the entry data.
             $entryData = [
                 'timesheetID' => $timesheetId,
                 'projectNumber' => $entry['projectNumber'],
                 'projectName' => $entry['projectName'],
                 'activityDescription' => $entry['activityDescription'],
                 'mondayHours' => $entry['mondayHours'],
-                'tuesdayHours' => $entry['mondayHours'],
+                'tuesdayHours' => $entry['tuesdayHours'],
                 'wednesdayHours' => $entry['wednesdayHours'],
                 'thursdayHours' => $entry['thursdayHours'],
                 'fridayHours' => $entry['fridayHours'],
@@ -61,14 +65,19 @@ class TimesheetsModel extends Model {
                 'updatedAt' => date('Y-m-d H:i:s')
             ];
 
-            //Insert the entry.
+            // Debugging statement for the sql query.
+            log_message('debug', 'Entry data: ' . print_r($entryData, true));
+            // Insert the entry.
             $this->db->table('timesheetEntries')->insert($entryData);
         }
 
-        // Complete the transaction
         $this->db->transComplete();
 
-        return $this->db->transStatus();
+        if (!$this->db->transStatus()) {
+            throw new \Exception('Transaction failed: ' . $this->db->getLastQuery());
+        }
+
+        return true;
     }
     
 
