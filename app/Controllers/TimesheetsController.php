@@ -82,8 +82,6 @@ class TimesheetsController extends BaseController {
     
         return redirect()->to('/dashboard');
     }
-    
-    
 
     public function viewTimesheets($userId) {
         $user = $this->timesheetsModel->getUserInfo($userId);
