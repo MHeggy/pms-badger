@@ -22,6 +22,10 @@
 </header>
 
 <div class="container mt-5">
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <?= session()->get('info_message') ?>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
     <form id="timesheet-form" action="/timesheets/update" method="post">
         <input type="hidden" name="id" value="<?= esc($timesheet['timesheetID']) ?>">
 
