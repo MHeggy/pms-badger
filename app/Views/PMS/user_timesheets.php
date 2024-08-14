@@ -13,6 +13,7 @@
 </header>
 
 <div class="container mt-5"><br><br>
+<button onclick="goBack()" class="btn btn-primary btn-back">Back to Timesheets</button>
     <table class="table table-striped">
         <thead>
         <tr>
@@ -64,6 +65,10 @@
         // Show the modal
         var myModal = new bootstrap.Modal(document.getElementById('confirmDeleteModal'));
         myModal.show();
+    }
+
+    function goBack() {
+        window.history.back();
     }
 </script>
 <script src="<?php echo base_url('/assets/js/main.js')?>"></script>
