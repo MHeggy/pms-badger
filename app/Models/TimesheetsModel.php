@@ -55,26 +55,29 @@ class TimesheetsModel extends Model {
                 continue; // Skip empty rows
             }
     
-            // Prepare the entry data.
-            $entryData = [
-                'timesheetID' => $timesheetId,
-                'projectNumber' => $entry['projectNumber'],
-                'projectName' => $entry['projectName'],
-                'activityDescription' => $entry['activityDescription'],
-                'mondayHours' => $entry['mondayHours'],
-                'tuesdayHours' => $entry['tuesdayHours'],
-                'wednesdayHours' => $entry['wednesdayHours'],
-                'thursdayHours' => $entry['thursdayHours'],
-                'fridayHours' => $entry['fridayHours'],
-                'saturdayHours' => $entry['saturdayHours'],
-                'sundayHours' => $entry['sundayHours'],
-                'totalHours' => $entry['totalHours'],
-                'createdAt' => date('Y-m-d H:i:s'),
-                'updatedAt' => date('Y-m-d H:i:s')
-            ];
+            // Manually build the SQL insert statement
+            $sql = "INSERT INTO timesheetEntries (timesheetID, projectNumber, projectName, activityDescription, 
+                    mondayHours, tuesdayHours, wednesdayHours, thursdayHours, fridayHours, saturdayHours, 
+                    sundayHours, totalHours, createdAt, updatedAt)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     
-            // Insert the entry.
-            $this->db->table('timesheetEntries')->insert($entryData);
+            // Bind parameters to the query
+            $this->db->query($sql, [
+                $timesheetId,
+                $entry['projectNumber'],
+                $entry['projectName'],
+                $entry['activityDescription'],
+                $entry['mondayHours'],
+                $entry['tuesdayHours'],
+                $entry['wednesdayHours'],
+                $entry['thursdayHours'],
+                $entry['fridayHours'],
+                $entry['saturdayHours'],
+                $entry['sundayHours'],
+                $entry['totalHours'],
+                date('Y-m-d H:i:s'),
+                date('Y-m-d H:i:s')
+            ]);
         }
     
         $this->db->transComplete();
@@ -108,7 +111,7 @@ class TimesheetsModel extends Model {
         $this->db->transStart();
         $this->db->table('timesheetEntries')->where('timesheetID', $timesheetId)->delete();
         
-        foreach ($entries as &$entry) {
+        foreach ($entries as $entry) {
             $entry['timesheetID'] = $timesheetId;
             // No need to set 'entryID' as it is auto-incremented
             $entry['createdAt'] = date('Y-m-d H:i:s');
