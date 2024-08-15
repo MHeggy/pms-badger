@@ -72,11 +72,11 @@ class TimesheetsModel extends Model {
                 'createdAt' => date('Y-m-d H:i:s'),
                 'updatedAt' => date('Y-m-d H:i:s')
             ];
+
+            $this->db->table('timesheetEntries')->insert($batchData);
         }
     
         // Batch insert
-        $builder = $db->table('timesheetEntries');
-        $builder->insert_batch($entries);
     
         $this->db->transComplete();
     
