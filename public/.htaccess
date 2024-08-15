@@ -1,3 +1,7 @@
+# Redirect root URL to /dashboard
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,}\s/[\s\S]*\sHTTP [NC]
+RewriteRule ^$ /dashboard [L,R=302]
+
 # Set DirectoryIndex
 DirectoryIndex public/index.php
 
