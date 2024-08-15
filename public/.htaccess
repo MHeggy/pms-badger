@@ -9,6 +9,7 @@ DirectoryIndex public/index.php
 # FollowSymLinks must be enabled for this to work.
 <IfModule mod_rewrite.c>
     Options +FollowSymlinks
+    Options -Indexes
     RewriteEngine On
 
     # If you installed CodeIgniter in a subfolder, you will need to
