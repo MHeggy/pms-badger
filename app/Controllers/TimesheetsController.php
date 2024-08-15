@@ -203,17 +203,17 @@ class TimesheetsController extends BaseController {
 
     private function getTimesheetEntriesFromRequest() {
         $entries = [];
-        $projectNumbers = $this->request->getPost('projectNumber');
-        $projectNames = $this->request->getPost('projectName');
-        $activityDescriptions = $this->request->getPost('activityDescription');
-        $mondayHours = $this->request->getPost('mondayHours');
-        $tuesdayHours = $this->request->getPost('tuesdayHours');
-        $wednesdayHours = $this->request->getPost('wednesdayHours');
-        $thursdayHours = $this->request->getPost('thursdayHours');
-        $fridayHours = $this->request->getPost('fridayHours');
-        $saturdayHours = $this->request->getPost('saturdayHours');
-        $sundayHours = $this->request->getPost('sundayHours');
-        $totalHours = $this->request->getPost('totalHours');
+        $projectNumbers = (array) $this->request->getPost('projectNumber');
+        $projectNames = (array) $this->request->getPost('projectName');
+        $activityDescriptions = (array) $this->request->getPost('activityDescription');
+        $mondayHours = (array) $this->request->getPost('monday');
+        $tuesdayHours = (array) $this->request->getPost('tuesday');
+        $wednesdayHours = (array)  $this->request->getPost('wednesday');
+        $thursdayHours = (array) $this->request->getPost('thursday');
+        $fridayHours = (array) $this->request->getPost('friday');
+        $saturdayHours = (array) $this->request->getPost('saturday');
+        $sundayHours = (array) $this->request->getPost('sunday');
+        $totalHours = (array) $this->request->getPost('totalHours');
     
         log_message('debug', 'Received timesheet data from request: ' . print_r([
             'projectNumber' => $projectNumbers,
