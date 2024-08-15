@@ -73,9 +73,9 @@ class TimesheetsModel extends Model {
                 'updatedAt' => date('Y-m-d H:i:s')
             ];
 
-            $this->db->table('timesheetEntries')->insert($batchData);
         }
-    
+        
+        $this->db->table('timesheetEntries')->insert($batchData);
         $this->db->transComplete();
     
         if (!$this->db->transStatus()) {
