@@ -76,7 +76,7 @@ class TimesheetsModel extends Model {
     
         // Batch insert
         $builder = $db->table('timesheetEntries');
-        $builder->insertBatch($entries);
+        $builder->insert_batch($entries);
     
         $this->db->transComplete();
     
