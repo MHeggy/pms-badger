@@ -211,66 +211,67 @@
     let rowCount = 8;  // Adjusting row count for existing rows
 
     function calculateRowTotal(row) {
-        let totalHours = 0;
-        const daysOfWeek = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
-        daysOfWeek.forEach(day => {
-            const input = row.querySelector([name^="${day}"]);
-            if (input.value !== '') {
-                totalHours += parseFloat(input.value);
-            }
-        });
-        row.querySelector('.total-hours').value = totalHours.toFixed(2);
-    }
+    let totalHours = 0;
+    const daysOfWeek = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+    daysOfWeek.forEach(day => {
+        const input = row.querySelector(`input[name^="${day}"]`);
+        if (input && input.value !== '') {
+            totalHours += parseFloat(input.value);
+        }
+    });
+    row.querySelector('.total-hours').value = totalHours.toFixed(2);
+}
 
-    function calculateAllTotals() {
-        let weeklyTotal = 0;
-        document.querySelectorAll('#timesheet-rows tr').forEach(row => {
+function calculateAllTotals() {
+    let weeklyTotal = 0;
+    document.querySelectorAll('#timesheet-rows tr').forEach(row => {
+        calculateRowTotal(row);
+        const rowTotal = parseFloat(row.querySelector('.total-hours').value) || 0;
+        weeklyTotal += rowTotal;
+    });
+    document.getElementById('weekly-total').value = weeklyTotal.toFixed(2);
+}
+
+function addEventListenersToRow(row) {
+    row.querySelectorAll('.day-input').forEach(input => {
+        input.addEventListener('input', () => {
             calculateRowTotal(row);
-            const rowTotal = parseFloat(row.querySelector('.total-hours').value) || 0;
-            weeklyTotal += rowTotal;
+            calculateAllTotals();
         });
-        document.getElementById('weekly-total').value = weeklyTotal.toFixed(2);
-    }
+    });
+    row.querySelector('.remove-row').addEventListener('click', () => {
+        if (!row.querySelector('.remove-row').classList.contains('disabled')) {
+            row.remove();
+            calculateAllTotals();
+        }
+    });
+}
 
-    function addEventListenersToRow(row) {
-        row.querySelectorAll('.day-input').forEach(input => {
-            input.addEventListener('input', () => {
-                calculateRowTotal(row);
-                calculateAllTotals();
-            });
-        });
-        row.querySelector('.remove-row').addEventListener('click', () => {
-            if (!row.querySelector('.remove-row').classList.contains('disabled')) {
-                row.remove();
-                calculateAllTotals();
-            }
-        });
-    }
+document.querySelectorAll('.day-input').forEach(input => {
+    addEventListenersToRow(input.closest('tr'));
+});
 
-    document.querySelectorAll('.day-input').forEach(input => {
-        addEventListenersToRow(input.closest('tr'));
+document.querySelectorAll('#timesheet-rows .remove-row').forEach(button => {
+    addEventListenersToRow(button.closest('tr'));
+});
+
+document.getElementById('add-row').addEventListener('click', () => {
+    rowCount++;
+    const newRow = document.querySelector('#timesheet-rows tr').cloneNode(true);
+    
+    newRow.querySelectorAll('input').forEach(input => {
+        input.value = '';
+        // Update names with unique identifiers
+        input.name = input.name.replace(/\[\d+\]/, `[${rowCount}]`);
     });
 
-    document.querySelectorAll('#timesheet-rows .remove-row').forEach(button => {
-        addEventListenersToRow(button.closest('tr'));
-    });
+    newRow.querySelector('.remove-row').classList.remove('disabled');
+    document.querySelector('#timesheet-rows').appendChild(newRow);
+    addEventListenersToRow(newRow);
+});
 
-    document.getElementById('add-row').addEventListener('click', () => {
-        rowCount++;
-        const newRow = document.querySelector('#timesheet-rows tr').cloneNode(true);
-        
-        newRow.querySelectorAll('input').forEach(input => {
-            input.value = '';
-            // Update names with unique identifiers
-            input.name = input.name.replace(/\[\d+\]/, [${rowCount}]);
-        });
+calculateAllTotals();  // Initial calculation
 
-        newRow.querySelector('.remove-row').classList.remove('disabled');
-        document.querySelector('#timesheet-rows').appendChild(newRow);
-        addEventListenersToRow(newRow);
-    });
-
-    calculateAllTotals();  // Initial calculation
 </script>
 
 <script src="<?php echo base_url('/assets/js/main.js')?>"></script>
