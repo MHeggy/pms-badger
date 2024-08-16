@@ -253,10 +253,13 @@ class TimesheetsController extends BaseController {
             
             log_message('debug', 'Processed timesheet entry ' . $index . ': ' . print_r($entry, true));
 
-            // Check for empty entries here if needed
-            if (!array_filter($entry)) {
+            // Check if the entry is empty and skip it, if so.
+            if (empty($entry['projectNumber']) && empty($entry['projectName']) && empty($entry['activityDescription']) &&
+                empty($entry['mondayHours']) && empty($entry['tuesdayHours']) && empty($entry['wednesdayHours']) &&
+                empty($entry['thursdayHours']) && empty($entry['fridayHours']) && empty($entry['saturdayHours']) &&
+                empty($entry['sundayHours']) && empty($entry['totalHours'])) {
                 continue; // Skip empty entries
-            }  
+            }
 
             $entries[] = $entry;
         }
