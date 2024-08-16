@@ -30,32 +30,36 @@ class TimesheetsController extends BaseController {
     public function submit() {
         $userId = auth()->id();
         $weekOf = $this->request->getPost('week');
+        $totalHours = $this->request->getPost('totalHours');
         $entries = $this->getTimesheetEntriesFromRequest();
-    
+
+        // Check if a timesheet already exists for the user and the week.
         $existingTimesheet = $this->timesheetsModel
             ->where('userID', $userId)
             ->where('weekOf', $weekOf)
             ->first();
         
         if ($existingTimesheet) {
+            // Redirect to edit the existing timesheet.
             $this->session->setFlashdata('info_message', 'You have already submitted a timesheet for this week, please edit it instead.');
             return redirect()->to('/timesheets/edit/' . $existingTimesheet['timesheetID']);
         }
-    
+
         $timesheetData = [
             'userID' => $userId,
             'weekOf' => $weekOf,
+            'totalHours' => $totalHours,
             'createdAt' => date('Y-m-d H:i:s'),
             'updatedAt' => date('Y-m-d H:i:s')
         ];
-    
+
         try {
             $timesheetId = $this->timesheetsModel->insertTimesheet($timesheetData);
         } catch (\Exception $e) {
             $this->session->setFlashdata('error_message', 'Timesheet could not be submitted successfully, please try again.');
             return redirect()->to('/dashboard');
         }
-    
+
         try {
             $result = $this->timesheetsModel->insertTimesheetEntries($timesheetId, $entries);
             if (!$result) {
@@ -67,10 +71,8 @@ class TimesheetsController extends BaseController {
             return redirect()->to('/dashboard');
         }
     
-        log_message('debug', 'Submitted POST data: ' . print_r($this->request->getPost(), true));
         return redirect()->to('/dashboard');
     }
-    
 
     public function viewTimesheets($userId) {
         $user = $this->timesheetsModel->getUserInfo($userId);
@@ -113,7 +115,6 @@ class TimesheetsController extends BaseController {
         $timesheetId = $this->request->getPost('id');
         $data = [
             'weekOf' => $this->request->getPost('week'),
-            'updatedAt' => date('Y-m-d H:i:s')
         ];
 
         $success = $this->timesheetsModel->updateTimesheet($timesheetId, $data);
@@ -161,6 +162,7 @@ class TimesheetsController extends BaseController {
         $sheet->setCellValue('A1', 'Timesheet ID: ' . $timesheetId);
         $sheet->setCellValue('A2', 'Week Of: ' . $timesheet['weekOf']);
         $sheet->setCellValue('A3', 'User ID: ' . $timesheet['userID']);
+        $sheet->setCellValue('A4', 'Total Hours: ' . $timesheet['totalHours']);
 
         $sheet->setCellValue('A6', 'Project Number');
         $sheet->setCellValue('B6', 'Project Name');
@@ -172,6 +174,7 @@ class TimesheetsController extends BaseController {
         $sheet->setCellValue('H6', 'Friday Hours');
         $sheet->setCellValue('I6', 'Saturday Hours');
         $sheet->setCellValue('J6', 'Sunday Hours');
+        $sheet->setCellValue('K6', 'Total Hours');
 
         $row = 7;
         foreach ($entries as $entry) {
@@ -185,6 +188,7 @@ class TimesheetsController extends BaseController {
             $sheet->setCellValue('H' . $row, $entry['fridayHours']);
             $sheet->setCellValue('I' . $row, $entry['saturdayHours']);
             $sheet->setCellValue('J' . $row, $entry['sundayHours']);
+            $sheet->setCellValue('K' . $row, $entry['totalHours']);
             $row++;
         }
 
@@ -199,43 +203,52 @@ class TimesheetsController extends BaseController {
 
     private function getTimesheetEntriesFromRequest() {
         $entries = [];
-        $projectNumbers = (array) $this->request->getPost('projectNumber');
-        $projectNames = (array) $this->request->getPost('projectName');
-        $activityDescriptions = (array) $this->request->getPost('activityDescription');
-        $mondayHours = (array) $this->request->getPost('monday');
-        $tuesdayHours = (array) $this->request->getPost('tuesday');
-        $wednesdayHours = (array) $this->request->getPost('wednesday');
-        $thursdayHours = (array) $this->request->getPost('thursday');
-        $fridayHours = (array) $this->request->getPost('friday');
-        $saturdayHours = (array) $this->request->getPost('saturday');
-        $sundayHours = (array) $this->request->getPost('sunday');
-
-        for ($i = 0; $i < count($projectNumbers); $i++) {
-            // Calculating totalHours for each entry.
-            $totalHours = 
-            (float)$mondayHours[$i] +
-            (float)$tuesdayHours[$i] +
-            (float)$wednesdayHours[$i] +
-            (float)$thursdayHours[$i] +
-            (float)$fridayHours[$i] +
-            (float)$saturdayHours[$i] +
-            (float)$sundayHours[$i];
-
-            $entries[] = [
-                'projectNumber' => $projectNumbers[$i],
-                'projectName' => $projectNames[$i],
-                'activityDescription' => $activityDescriptions[$i],
-                'mondayHours' => $mondayHours[$i],
-                'tuesdayHours' => $tuesdayHours[$i],
-                'wednesdayHours' => $wednesdayHours[$i],
-                'thursdayHours' => $thursdayHours[$i],
-                'fridayHours' => $fridayHours[$i],
-                'saturdayHours' => $saturdayHours[$i],
-                'sundayHours' => $sundayHours[$i],
-                'totalHours' => $totalHours
+        $projectNumbers = $this->request->getPost('projectNumber');
+        $projectNames = $this->request->getPost('projectName');
+        $activityDescriptions = $this->request->getPost('activityDescription');
+        $mondayHours = $this->request->getPost('mondayHours');
+        $tuesdayHours = $this->request->getPost('tuesdayHours');
+        $wednesdayHours = $this->request->getPost('wednesdayHours');
+        $thursdayHours = $this->request->getPost('thursdayHours');
+        $fridayHours = $this->request->getPost('fridayHours');
+        $saturdayHours = $this->request->getPost('saturdayHours');
+        $sundayHours = $this->request->getPost('sundayHours');
+        $totalHours = $this->request->getPost('totalHours');
+    
+        log_message('debug', 'Received timesheet data from request: ' . print_r([
+            'projectNumber' => $projectNumbers,
+            'projectName' => $projectNames,
+            'activityDescription' => $activityDescriptions,
+            'mondayHours' => $mondayHours,
+            'tuesdayHours' => $tuesdayHours,
+            'wednesdayHours' => $wednesdayHours,
+            'thursdayHours' => $thursdayHours,
+            'fridayHours' => $fridayHours,
+            'saturdayHours' => $saturdayHours,
+            'sundayHours' => $sundayHours,
+            'totalHours' => $totalHours,
+        ], true));
+    
+        foreach ($projectNumbers as $index => $projectNumber) {
+            $entry = [
+                'projectNumber' => $projectNumber,
+                'projectName' => $projectNames[$index] ?? '',
+                'activityDescription' => $activityDescriptions[$index] ?? '',
+                'mondayHours' => $mondayHours[$index] ?? 0,
+                'tuesdayHours' => $tuesdayHours[$index] ?? 0,
+                'wednesdayHours' => $wednesdayHours[$index] ?? 0,
+                'thursdayHours' => $thursdayHours[$index] ?? 0,
+                'fridayHours' => $fridayHours[$index] ?? 0,
+                'saturdayHours' => $saturdayHours[$index] ?? 0,
+                'sundayHours' => $sundayHours[$index] ?? 0,
+                'totalHours' => $totalHours[$index] ?? 0,
             ];
+    
+            log_message('debug', 'Processed timesheet entry ' . $index . ': ' . print_r($entry, true));
+            $entries[] = $entry;
         }
-
+    
         return $entries;
     }
+    
 }

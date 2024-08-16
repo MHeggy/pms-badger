@@ -36,7 +36,8 @@ class TimesheetsModel extends Model {
         if (empty($data) || !is_array($data)) {
             throw new \Exception('Invalid data provided for insert.');
         }
-
+    
+        // Log the data being inserted
         log_message('debug', 'Insert data: ' . print_r($data, true));
     
         $builder = $this->db->table('timesheets');
@@ -56,54 +57,35 @@ class TimesheetsModel extends Model {
         foreach ($entries as $entry) {
             // Check if the entry is empty
             if (empty($entry['projectNumber']) && empty($entry['projectName']) && empty($entry['activityDescription']) &&
-                empty($entry['monday']) && empty($entry['tuesday']) && empty($entry['wednesday']) &&
-                empty($entry['thursday']) && empty($entry['friday']) && empty($entry['saturday']) &&
-                empty($entry['sunday'])) {
+                empty($entry['mondayHours']) && empty($entry['tuesdayHours']) && empty($entry['wednesdayHours']) &&
+                empty($entry['thursdayHours']) && empty($entry['fridayHours']) && empty($entry['saturdayHours']) &&
+                empty($entry['sundayHours'])) {
                 continue; // Skip empty rows
             }
-    
-            // Calculate total hours for the entry
-            $totalHours = (float)$entry['monday'] + (float)$entry['tuesday'] + (float)$entry['wednesday'] +
-                          (float)$entry['thursday'] + (float)$entry['friday'] + (float)$entry['saturday'] +
-                          (float)$entry['sunday'];
     
             $batchData[] = [
                 'timesheetID' => $timesheetId,
                 'projectNumber' => $entry['projectNumber'],
                 'projectName' => $entry['projectName'],
                 'activityDescription' => $entry['activityDescription'],
-                'mondayHours' => $entry['monday'],
-                'tuesdayHours' => $entry['tuesday'],
-                'wednesdayHours' => $entry['wednesday'],
-                'thursdayHours' => $entry['thursday'],
-                'fridayHours' => $entry['friday'],
-                'saturdayHours' => $entry['saturday'],
-                'sundayHours' => $entry['sunday'],
-                'totalHours' => $totalHours, // Insert the calculated total hours
+                'mondayHours' => $entry['mondayHours'],
+                'tuesdayHours' => $entry['tuesdayHours'],
+                'wednesdayHours' => $entry['wednesdayHours'],
+                'thursdayHours' => $entry['thursdayHours'],
+                'fridayHours' => $entry['fridayHours'],
+                'saturdayHours' => $entry['saturdayHours'],
+                'sundayHours' => $entry['sundayHours'],
+                'totalHours' => $entry['totalHours'],
                 'createdAt' => date('Y-m-d H:i:s'),
                 'updatedAt' => date('Y-m-d H:i:s')
             ];
-        }
-    
-        // Log the batch data for debugging
-        log_message('debug', 'Batch data: ' . print_r($batchData, true));
-    
-        if (!empty($batchData)) {
-            try {
-                $this->db->table('timesheetEntries')->insertBatch($batchData);
-            } catch (\Exception $e) {
-                log_message('error', 'Insert batch failed: ' . $e->getMessage());
-                throw $e;
-            }
-        } else {
-            log_message('error', 'Batch data is empty.');
-            throw new \Exception('Batch data is empty.');
+
+            $this->db->table('timesheetEntries')->insert($batchData);
         }
     
         $this->db->transComplete();
     
         if (!$this->db->transStatus()) {
-            log_message('error', 'Transaction failed.');
             throw new \Exception('Transaction failed.');
         }
     

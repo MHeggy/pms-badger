@@ -86,6 +86,104 @@
                     <td><input type="text" class="form-control total-hours" name="totalHours[]" readonly></td>
                     <td><button type="button" class="btn btn-danger remove-row">Remove</button></td>
                 </tr>
+                <tr>
+                    <td><input type="text" class="form-control" name="projectNumber[]"></td>
+                    <td><input type="text" class="form-control" name="projectName[]"></td>
+                    <td><input type="text" class="form-control" name="activityDescription[]"></td>
+                    <td><input type="number" class="form-control day-input" name="monday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="tuesday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="wednesday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="thursday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="friday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="saturday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="sunday[]" step="0.01"></td>
+                    <td><input type="text" class="form-control total-hours" name="totalHours[]" readonly></td>
+                    <td><button type="button" class="btn btn-danger remove-row">Remove</button></td>
+                </tr>
+                <tr>
+                    <td><input type="text" class="form-control" name="projectNumber[]"></td>
+                    <td><input type="text" class="form-control" name="projectName[]"></td>
+                    <td><input type="text" class="form-control" name="activityDescription[]"></td>
+                    <td><input type="number" class="form-control day-input" name="monday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="tuesday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="wednesday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="thursday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="friday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="saturday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="sunday[]" step="0.01"></td>
+                    <td><input type="text" class="form-control total-hours" name="totalHours[]" readonly></td>
+                    <td><button type="button" class="btn btn-danger remove-row">Remove</button></td>
+                </tr>
+                <tr>
+                    <td><input type="text" class="form-control" name="projectNumber[]"></td>
+                    <td><input type="text" class="form-control" name="projectName[]"></td>
+                    <td><input type="text" class="form-control" name="activityDescription[]"></td>
+                    <td><input type="number" class="form-control day-input" name="monday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="tuesday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="wednesday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="thursday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="friday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="saturday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="sunday[]" step="0.01"></td>
+                    <td><input type="text" class="form-control total-hours" name="totalHours[]" readonly></td>
+                    <td><button type="button" class="btn btn-danger remove-row">Remove</button></td>
+                </tr>
+                <tr>
+                    <td><input type="text" class="form-control" name="projectNumber[]"></td>
+                    <td><input type="text" class="form-control" name="projectName[]"></td>
+                    <td><input type="text" class="form-control" name="activityDescription[]"></td>
+                    <td><input type="number" class="form-control day-input" name="monday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="tuesday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="wednesday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="thursday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="friday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="saturday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="sunday[]" step="0.01"></td>
+                    <td><input type="text" class="form-control total-hours" name="totalHours[]" readonly></td>
+                    <td><button type="button" class="btn btn-danger remove-row">Remove</button></td>
+                </tr>
+                <tr>
+                    <td><input type="text" class="form-control" name="projectNumber[]"></td>
+                    <td><input type="text" class="form-control" name="projectName[]"></td>
+                    <td><input type="text" class="form-control" name="activityDescription[]"></td>
+                    <td><input type="number" class="form-control day-input" name="monday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="tuesday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="wednesday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="thursday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="friday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="saturday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="sunday[]" step="0.01"></td>
+                    <td><input type="text" class="form-control total-hours" name="totalHours[]" readonly></td>
+                    <td><button type="button" class="btn btn-danger remove-row">Remove</button></td>
+                </tr>
+                <tr>
+                    <td><input type="text" class="form-control" name="projectNumber[]"></td>
+                    <td><input type="text" class="form-control" name="projectName[]"></td>
+                    <td><input type="text" class="form-control" name="activityDescription[]"></td>
+                    <td><input type="number" class="form-control day-input" name="monday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="tuesday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="wednesday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="thursday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="friday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="saturday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="sunday[]" step="0.01"></td>
+                    <td><input type="text" class="form-control total-hours" name="totalHours[]" readonly></td>
+                    <td><button type="button" class="btn btn-danger remove-row">Remove</button></td>
+                </tr>
+                <tr>
+                    <td><input type="text" class="form-control" name="projectNumber[]"></td>
+                    <td><input type="text" class="form-control" name="projectName[]"></td>
+                    <td><input type="text" class="form-control" name="activityDescription[]"></td>
+                    <td><input type="number" class="form-control day-input" name="monday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="tuesday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="wednesday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="thursday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="friday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="saturday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="sunday[]" step="0.01"></td>
+                    <td><input type="text" class="form-control total-hours" name="totalHours[]" readonly></td>
+                    <td><button type="button" class="btn btn-danger remove-row">Remove</button></td>
+                </tr>
             </tbody>
             <tfoot>
                 <tr>
@@ -110,13 +208,13 @@
 
 <!-- Scripts -->
 <script>
-    let rowCount = 1;  // Initial row count for unique IDs
+    let rowCount = 8;  // Adjusting row count for existing rows
 
     function calculateRowTotal(row) {
         let totalHours = 0;
         const daysOfWeek = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
         daysOfWeek.forEach(day => {
-            const input = row.querySelector(`[name^="${day}"]`);
+            const input = row.querySelector([name^="${day}"]);
             if (input.value !== '') {
                 totalHours += parseFloat(input.value);
             }
@@ -164,7 +262,7 @@
         newRow.querySelectorAll('input').forEach(input => {
             input.value = '';
             // Update names with unique identifiers
-            input.name = input.name.replace(/\[\d+\]/, `[${rowCount}]`);
+            input.name = input.name.replace(/\[\d+\]/, [${rowCount}]);
         });
 
         newRow.querySelector('.remove-row').classList.remove('disabled');
@@ -174,7 +272,6 @@
 
     calculateAllTotals();  // Initial calculation
 </script>
-
 
 <script src="<?php echo base_url('/assets/js/main.js')?>"></script>
 </body>
