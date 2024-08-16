@@ -51,7 +51,7 @@ class TimesheetsModel extends Model {
     }
 
     public function insertTimesheetEntries($timesheetId, $entries) {
-        $builder = $db->table('timesheetEntries');
+        $builder = $this->db->table('timesheetEntries');
 
         foreach($entries as $entry) {
             $data = [
@@ -72,7 +72,7 @@ class TimesheetsModel extends Model {
 
             $builder->insert($data);
         }
-        return $db->affectedRows() > 0;
+        return $this->$db->affectedRows() > 0;
     }
     
     
