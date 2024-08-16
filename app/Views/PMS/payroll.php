@@ -72,18 +72,18 @@
             </thead>
             <tbody id="timesheet-rows">
                 <!-- Existing rows with unique identifiers -->
-                <tr>
-                    <td><input type="text" class="form-control" name="projectNumber[]"></td>
-                    <td><input type="text" class="form-control" name="projectName[]"></td>
-                    <td><input type="text" class="form-control" name="activityDescription[]"></td>
-                    <td><input type="number" class="form-control day-input" name="monday[]" step="0.01"></td>
-                    <td><input type="number" class="form-control day-input" name="tuesday[]" step="0.01"></td>
-                    <td><input type="number" class="form-control day-input" name="wednesday[]" step="0.01"></td>
-                    <td><input type="number" class="form-control day-input" name="thursday[]" step="0.01"></td>
-                    <td><input type="number" class="form-control day-input" name="friday[]" step="0.01"></td>
-                    <td><input type="number" class="form-control day-input" name="saturday[]" step="0.01"></td>
-                    <td><input type="number" class="form-control day-input" name="sunday[]" step="0.01"></td>
-                    <td><input type="text" class="form-control total-hours" name="totalHours[]" readonly></td>
+                <tr class="timesheet-entry">
+                    <td><input type="text" name="entries[0][projectNumber]" class="form-control"></td>
+                    <td><input type="text" name="entries[0][projectName]" class="form-control"></td>
+                    <td><input type="text" name="entries[0][activityDescription]" class="form-control"></td>
+                    <td><input type="number" name="entries[0][mondayHours]" class="form-control"></td>
+                    <td><input type="number" name="entries[0][tuesdayHours]" class="form-control"></td>
+                    <td><input type="number" name="entries[0][wednesdayHours]" class="form-control"></td>
+                    <td><input type="number" name="entries[0][thursdayHours]" class="form-control"></td>
+                    <td><input type="number" name="entries[0][fridayHours]" class="form-control"></td>
+                    <td><input type="number" name="entries[0][saturdayHours]" class="form-control"></td>
+                    <td><input type="number" name="entries[0][sundayHours]" class="form-control"></td>
+                    <td><input type="number" name="entries[0][totalHours]" class="form-control"></td>
                     <td><button type="button" class="btn btn-danger remove-row">Remove</button></td>
                 </tr>
             </tbody>
@@ -157,19 +157,25 @@
         addEventListenersToRow(button.closest('tr'));
     });
 
-    document.getElementById('add-row').addEventListener('click', () => {
-        rowCount++;
-        const newRow = document.querySelector('#timesheet-rows tr').cloneNode(true);
-        
-        newRow.querySelectorAll('input').forEach(input => {
-            input.value = '';
-            // Update names with unique identifiers
-            input.name = input.name.replace(/\[\d+\]/, `[${rowCount}]`);
+    let entryIndex = 1;
+
+    document.getElementById('add-row').addEventListener('click', function() {
+        const tableBody = document.getElementById('timesheet-entries');
+        const newRow = tableBody.querySelector('.timesheet-entry').cloneNode(true);
+
+        // Update the names of the inputs in the new row
+        newRow.querySelectorAll('input').forEach(function(input) {
+            const name = input.getAttribute('name');
+            const newName = name.replace(/\[\d+\]/, '[' + entryIndex + ']');
+            input.setAttribute('name', newName);
+            input.value = ''; // Clear the value
         });
 
-        newRow.querySelector('.remove-row').classList.remove('disabled');
-        document.querySelector('#timesheet-rows').appendChild(newRow);
-        addEventListenersToRow(newRow);
+        // Append the new row to the table
+        tableBody.appendChild(newRow);
+
+        // Increment the entry index
+        entryIndex++;
     });
 
     calculateAllTotals();  // Initial calculation

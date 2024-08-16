@@ -75,7 +75,7 @@ class TimesheetsModel extends Model {
         }
     
         // Log the batch data for debugging
-        log_message('debug', 'Batch data: ' . print_r($batchData, true));
+        log_message('debug', 'Batch data before insert: ' . print_r($batchData, true));
     
         if (!empty($batchData)) {
             try {
