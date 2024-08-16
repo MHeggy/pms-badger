@@ -72,21 +72,31 @@ class TimesheetsModel extends Model {
                 'createdAt' => date('Y-m-d H:i:s'),
                 'updatedAt' => date('Y-m-d H:i:s')
             ];
-
         }
-
-        $this->db->table('timesheetEntries')->insertBatch($batchData);
+    
+        // Log the batch data for debugging
+        log_message('debug', 'Batch data: ' . print_r($batchData, true));
+    
+        if (!empty($batchData)) {
+            try {
+                $this->db->table('timesheetEntries')->insertBatch($batchData);
+            } catch (\Exception $e) {
+                log_message('error', 'Insert batch failed: ' . $e->getMessage());
+                throw $e;
+            }
+        } else {
+            log_message('error', 'Batch data is empty.');
+            throw new \Exception('Batch data is empty.');
+        }
+    
         $this->db->transComplete();
     
         if (!$this->db->transStatus()) {
+            log_message('error', 'Transaction failed.');
             throw new \Exception('Transaction failed.');
         }
     
         return true;
-    }
-
-    public function getUserInfo($userId) {
-        return $this->db->table('users')->where('id', $userId)->get()->getRowArray();
     }
 
     public function getTimesheetWithEntries($timesheetId) {
