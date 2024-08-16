@@ -114,7 +114,7 @@
 
     function calculateRowTotal(row) {
         let totalHours = 0;
-        const daysOfWeek = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+        const daysOfWeek = ['mondayHours', 'tuesdayHours', 'wednesdayHours', 'thursdayHours', 'fridayHours', 'saturdayHours', 'sundayHours'];
         daysOfWeek.forEach(day => {
             const input = row.querySelector(`[name^="${day}"]`);
             if (input.value !== '') {
