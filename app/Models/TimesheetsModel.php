@@ -75,6 +75,7 @@ class TimesheetsModel extends Model {
                 'fridayHours' => $entry['fridayHours'],
                 'saturdayHours' => $entry['saturdayHours'],
                 'sundayHours' => $entry['sundayHours'],
+                'totalHours' => $entry['totalHours'],
                 'createdAt' => date('Y-m-d H:i:s'),
                 'updatedAt' => date('Y-m-d H:i:s')
             ];
