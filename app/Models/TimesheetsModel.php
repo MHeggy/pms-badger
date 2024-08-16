@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class TimesheetsModel extends Model {
     protected $table = 'timesheets';
     protected $primaryKey = 'timesheetID';
-    protected $allowedFields = ['userID', 'weekOf', 'totalHours', 'createdAt', 'updatedAt'];
+    protected $allowedFields = ['userID', 'weekOf', 'createdAt', 'updatedAt'];
 
     protected $validationRules = [
         'userID' => 'required|numeric',
@@ -28,8 +28,7 @@ class TimesheetsModel extends Model {
         if (empty($data) || !is_array($data)) {
             throw new \Exception('Invalid data provided for insert.');
         }
-    
-        // Log the data being inserted
+
         log_message('debug', 'Insert data: ' . print_r($data, true));
     
         $builder = $this->db->table('timesheets');
@@ -41,7 +40,6 @@ class TimesheetsModel extends Model {
     
         return $this->db->insertID();
     }
-    
 
     public function insertTimesheetEntries($timesheetId, $entries) {
         $this->db->transStart();
@@ -56,26 +54,31 @@ class TimesheetsModel extends Model {
                 continue; // Skip empty rows
             }
     
+            // Calculate total hours for the entry
+            $totalHours = (float)$entry['mondayHours'] + (float)$entry['tuesdayHours'] + (float)$entry['wednesdayHours'] +
+                          (float)$entry['thursdayHours'] + (float)$entry['fridayHours'] + (float)$entry['saturdayHours'] +
+                          (float)$entry['sundayHours'];
+    
             $batchData[] = [
                 'timesheetID' => $timesheetId,
                 'projectNumber' => $entry['projectNumber'],
                 'projectName' => $entry['projectName'],
                 'activityDescription' => $entry['activityDescription'],
-                'mondayHours' => $entry['mondayHours'],
-                'tuesdayHours' => $entry['tuesdayHours'],
-                'wednesdayHours' => $entry['wednesdayHours'],
-                'thursdayHours' => $entry['thursdayHours'],
-                'fridayHours' => $entry['fridayHours'],
-                'saturdayHours' => $entry['saturdayHours'],
-                'sundayHours' => $entry['sundayHours'],
-                'totalHours' => $entry['totalHours'],
+                'mondayHours' => $entry['monday'],
+                'tuesdayHours' => $entry['tuesday'],
+                'wednesdayHours' => $entry['wednesday'],
+                'thursdayHours' => $entry['thursday'],
+                'fridayHours' => $entry['friday'],
+                'saturdayHours' => $entry['saturday'],
+                'sundayHours' => $entry['sunday'],
+                'totalHours' => $totalHours, // Insert the calculated total hours
                 'createdAt' => date('Y-m-d H:i:s'),
                 'updatedAt' => date('Y-m-d H:i:s')
             ];
         }
     
         // Log the batch data for debugging
-        log_message('debug', 'Batch data before insert: ' . print_r($batchData, true));
+        log_message('debug', 'Batch data: ' . print_r($batchData, true));
     
         if (!empty($batchData)) {
             try {
@@ -98,6 +101,7 @@ class TimesheetsModel extends Model {
     
         return true;
     }
+    
 
     public function getTimesheetWithEntries($timesheetId) {
         $builder = $this->db->table('timesheets');
@@ -105,7 +109,6 @@ class TimesheetsModel extends Model {
         $builder->join('timesheetEntries', 'timesheets.timesheetID = timesheetEntries.timesheetID', 'left');
         $builder->where('timesheets.timesheetID', $timesheetId);
     
-        // Log the SQL query for debugging
         log_message('debug', 'SQL Query: ' . $builder->getCompiledSelect());
     
         $query = $builder->get();
@@ -120,17 +123,44 @@ class TimesheetsModel extends Model {
         $this->db->transStart();
         $this->db->table('timesheetEntries')->where('timesheetID', $timesheetId)->delete();
         
+        $batchData = [];
         foreach ($entries as $entry) {
-            $entry['timesheetID'] = $timesheetId;
-            // No need to set 'entryID' as it is auto-incremented
-            $entry['createdAt'] = date('Y-m-d H:i:s');
-            $entry['updatedAt'] = date('Y-m-d H:i:s');
+            if (empty($entry['projectNumber']) && empty($entry['projectName']) && empty($entry['activityDescription']) &&
+                empty($entry['mondayHours']) && empty($entry['tuesdayHours']) && empty($entry['wednesdayHours']) &&
+                empty($entry['thursdayHours']) && empty($entry['fridayHours']) && empty($entry['saturdayHours']) &&
+                empty($entry['sundayHours'])) {
+                continue;
+            }
+
+            $batchData[] = [
+                'timesheetID' => $timesheetId,
+                'projectNumber' => $entry['projectNumber'],
+                'projectName' => $entry['projectName'],
+                'activityDescription' => $entry['activityDescription'],
+                'mondayHours' => $entry['mondayHours'],
+                'tuesdayHours' => $entry['tuesdayHours'],
+                'wednesdayHours' => $entry['wednesdayHours'],
+                'thursdayHours' => $entry['thursdayHours'],
+                'fridayHours' => $entry['fridayHours'],
+                'saturdayHours' => $entry['saturdayHours'],
+                'sundayHours' => $entry['sundayHours'],
+                'createdAt' => date('Y-m-d H:i:s'),
+                'updatedAt' => date('Y-m-d H:i:s')
+            ];
         }
-        
-        $this->db->table('timesheetEntries')->insertBatch($entries);
+
+        if (!empty($batchData)) {
+            $this->db->table('timesheetEntries')->insertBatch($batchData);
+        }
+
         $this->db->transComplete();
     
-        return $this->db->transStatus();
+        if (!$this->db->transStatus()) {
+            log_message('error', 'Transaction failed.');
+            throw new \Exception('Transaction failed.');
+        }
+    
+        return true;
     }
 
     public function deleteTimesheetEntries($timesheetId) {
@@ -139,17 +169,16 @@ class TimesheetsModel extends Model {
 
     public function getTimesheetEntriesByTimesheetId($timesheetId) {
         return $this->db->table('timesheetEntries')
-        ->where('timesheetID', $timesheetId)
-        ->get()
-        ->getResultArray();
+                       ->where('timesheetID', $timesheetId)
+                       ->get()
+                       ->getResultArray();
     }
 
     public function getTimesheetsWithUsernames($weekOf) {
-        $builder = $this->db->table('timesheets');
-        $builder->select('timesheets.*, users.username');
-        $builder->join('users', 'timesheets.userID = users.id', 'left');
-        $builder->where('timesheets.weekOf', $weekOf);
-        $query = $builder->get();
-        return $query->getResultArray();
+        return $this->select('timesheets.*, users.username')
+                    ->join('users', 'timesheets.userID = users.id', 'left')
+                    ->where('timesheets.weekOf', $weekOf)
+                    ->get()
+                    ->getResultArray();
     }
 }

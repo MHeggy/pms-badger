@@ -72,18 +72,18 @@
             </thead>
             <tbody id="timesheet-rows">
                 <!-- Existing rows with unique identifiers -->
-                <tr class="timesheet-entry">
-                    <td><input type="text" name="entries[0][projectNumber]" class="form-control"></td>
-                    <td><input type="text" name="entries[0][projectName]" class="form-control"></td>
-                    <td><input type="text" name="entries[0][activityDescription]" class="form-control"></td>
-                    <td><input type="number" name="entries[0][mondayHours]" class="form-control"></td>
-                    <td><input type="number" name="entries[0][tuesdayHours]" class="form-control"></td>
-                    <td><input type="number" name="entries[0][wednesdayHours]" class="form-control"></td>
-                    <td><input type="number" name="entries[0][thursdayHours]" class="form-control"></td>
-                    <td><input type="number" name="entries[0][fridayHours]" class="form-control"></td>
-                    <td><input type="number" name="entries[0][saturdayHours]" class="form-control"></td>
-                    <td><input type="number" name="entries[0][sundayHours]" class="form-control"></td>
-                    <td><input type="number" name="entries[0][totalHours]" class="form-control"></td>
+                <tr>
+                    <td><input type="text" class="form-control" name="projectNumber[]"></td>
+                    <td><input type="text" class="form-control" name="projectName[]"></td>
+                    <td><input type="text" class="form-control" name="activityDescription[]"></td>
+                    <td><input type="number" class="form-control day-input" name="monday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="tuesday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="wednesday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="thursday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="friday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="saturday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="sunday[]" step="0.01"></td>
+                    <td><input type="text" class="form-control total-hours" name="totalHours[]" readonly></td>
                     <td><button type="button" class="btn btn-danger remove-row">Remove</button></td>
                 </tr>
             </tbody>
@@ -114,7 +114,7 @@
 
     function calculateRowTotal(row) {
         let totalHours = 0;
-        const daysOfWeek = ['mondayHours', 'tuesdayHours', 'wednesdayHours', 'thursdayHours', 'fridayHours', 'saturdayHours', 'sundayHours'];
+        const daysOfWeek = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
         daysOfWeek.forEach(day => {
             const input = row.querySelector(`[name^="${day}"]`);
             if (input.value !== '') {
