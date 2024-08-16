@@ -236,6 +236,13 @@ class TimesheetsController extends BaseController {
         ], true));
         
         foreach ($projectNumbers as $index => $projectNumber) {
+            if (empty($entry['projectNumber']) && empty($entry['projectName']) && empty($entry['activityDescription']) &&
+                empty($entry['mondayHours']) && empty($entry['tuesdayHours']) && empty($entry['wednesdayHours']) &&
+                empty($entry['thursdayHours']) && empty($entry['fridayHours']) && empty($entry['saturdayHours']) &&
+                empty($entry['sundayHours']) && empty($entry['totalHours'])) {
+                continue; // Skip empty entries
+            }
+
             $entry = [
                 'projectNumber' => $projectNumber,
                 'projectName' => $projectNames[$index] ?? '',
@@ -256,6 +263,5 @@ class TimesheetsController extends BaseController {
     
         return $entries;
     }
-    
     
 }
