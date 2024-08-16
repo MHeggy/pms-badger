@@ -48,7 +48,6 @@ class TimesheetsController extends BaseController {
         $timesheetData = [
             'userID' => $userId,
             'weekOf' => $weekOf,
-            'totalHours' => $totalHours,
             'createdAt' => date('Y-m-d H:i:s'),
             'updatedAt' => date('Y-m-d H:i:s')
         ];
