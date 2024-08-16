@@ -157,25 +157,19 @@
         addEventListenersToRow(button.closest('tr'));
     });
 
-    let entryIndex = 1;
-
-    document.getElementById('add-row').addEventListener('click', function() {
-        const tableBody = document.getElementById('timesheet-entries');
-        const newRow = tableBody.querySelector('.timesheet-entry').cloneNode(true);
-
-        // Update the names of the inputs in the new row
-        newRow.querySelectorAll('input').forEach(function(input) {
-            const name = input.getAttribute('name');
-            const newName = name.replace(/\[\d+\]/, '[' + entryIndex + ']');
-            input.setAttribute('name', newName);
-            input.value = ''; // Clear the value
+    document.getElementById('add-row').addEventListener('click', () => {
+        rowCount++;
+        const newRow = document.querySelector('#timesheet-rows tr').cloneNode(true);
+        
+        newRow.querySelectorAll('input').forEach(input => {
+            input.value = '';
+            // Update names with unique identifiers
+            input.name = input.name.replace(/\[\d+\]/, `[${rowCount}]`);
         });
 
-        // Append the new row to the table
-        tableBody.appendChild(newRow);
-
-        // Increment the entry index
-        entryIndex++;
+        newRow.querySelector('.remove-row').classList.remove('disabled');
+        document.querySelector('#timesheet-rows').appendChild(newRow);
+        addEventListenersToRow(newRow);
     });
 
     calculateAllTotals();  // Initial calculation
