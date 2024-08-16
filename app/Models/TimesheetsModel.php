@@ -19,7 +19,7 @@ class TimesheetsModel extends Model {
 
     public function getUserInfo($userId) {
         return $this->db->table('users')
-                        ->select('users.id, users.username, users.email, users.first_name, users.last_name')
+                        ->select('users.id, users.username')
                         ->where('users.id', $userId)
                         ->get()
                         ->getRowArray();
