@@ -55,12 +55,11 @@ class TimesheetsModel extends Model {
     
         $batchData = [];
         foreach ($entries as $entry) {
-            // Check if the entry is empty
             if (empty($entry['projectNumber']) && empty($entry['projectName']) && empty($entry['activityDescription']) &&
                 empty($entry['mondayHours']) && empty($entry['tuesdayHours']) && empty($entry['wednesdayHours']) &&
                 empty($entry['thursdayHours']) && empty($entry['fridayHours']) && empty($entry['saturdayHours']) &&
                 empty($entry['sundayHours'])) {
-                continue; // Skip empty rows
+                continue;
             }
     
             $batchData[] = [
@@ -79,8 +78,10 @@ class TimesheetsModel extends Model {
                 'createdAt' => date('Y-m-d H:i:s'),
                 'updatedAt' => date('Y-m-d H:i:s')
             ];
-
-            $this->db->table('timesheetEntries')->insert($batchData);
+        }
+    
+        if (!empty($batchData)) {
+            $this->db->table('timesheetEntries')->insertBatch($batchData);
         }
     
         $this->db->transComplete();
@@ -91,6 +92,7 @@ class TimesheetsModel extends Model {
     
         return true;
     }
+    
     
 
     public function getTimesheetWithEntries($timesheetId) {
