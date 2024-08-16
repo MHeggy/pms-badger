@@ -213,7 +213,7 @@ class TimesheetsController extends BaseController {
         $saturdayHours = $this->request->getPost('saturday');
         $sundayHours = $this->request->getPost('sunday');
         $totalHours = $this->request->getPost('totalHours');
-    
+        
         log_message('debug', 'Received timesheet data from request: ' . print_r([
             'projectNumber' => $projectNumbers,
             'projectName' => $projectNames,
@@ -227,7 +227,7 @@ class TimesheetsController extends BaseController {
             'sundayHours' => $sundayHours,
             'totalHours' => $totalHours,
         ], true));
-    
+        
         foreach ($projectNumbers as $index => $projectNumber) {
             $entry = [
                 'projectNumber' => $projectNumber,
@@ -242,12 +242,13 @@ class TimesheetsController extends BaseController {
                 'sundayHours' => $sundayHours[$index] ?? 0,
                 'totalHours' => $totalHours[$index] ?? 0,
             ];
-    
+            
             log_message('debug', 'Processed timesheet entry ' . $index . ': ' . print_r($entry, true));
             $entries[] = $entry;
         }
     
         return $entries;
     }
+    
     
 }

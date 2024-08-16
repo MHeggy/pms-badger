@@ -51,46 +51,28 @@ class TimesheetsModel extends Model {
     }
 
     public function insertTimesheetEntries($timesheetId, $entries) {
-        $this->db->transStart();
-    
-        $batchData = [];
-        foreach ($entries as $entry) {
-            if (empty($entry['projectNumber']) && empty($entry['projectName']) && empty($entry['activityDescription']) &&
-                empty($entry['mondayHours']) && empty($entry['tuesdayHours']) && empty($entry['wednesdayHours']) &&
-                empty($entry['thursdayHours']) && empty($entry['fridayHours']) && empty($entry['saturdayHours']) &&
-                empty($entry['sundayHours'])) {
-                continue;
-            }
-    
-            $batchData[] = [
+        $builder = $db->table('timesheetEntries');
+
+        foreach($entries as $entry) {
+            $data = [
                 'timesheetID' => $timesheetId,
                 'projectNumber' => $entry['projectNumber'],
                 'projectName' => $entry['projectName'],
                 'activityDescription' => $entry['activityDescription'],
-                'mondayHours' => $entry['monday'],
-                'tuesdayHours' => $entry['tuesday'],
-                'wednesdayHours' => $entry['wednesday'],
-                'thursdayHours' => $entry['thursday'],
-                'fridayHours' => $entry['friday'],
-                'saturdayHours' => $entry['saturday'],
-                'sundayHours' => $entry['sunday'],
-                'totalHours' => $entry['totalHours'],
+                'mondayHours' => $entry['mondayHours'],
+                'tuesdayHours' => $entry['tuesdayHours'],
+                'wednesdayHours' => $entry['wednesdayHours'],
+                'thursdayHours' => $entry['thursdayHours'],
+                'fridayHours' => $entry['fridayHours'],
+                'saturdayHours' => $entry['saturdayHours'],
+                'sundayHours' => $entry['sundayHours'],
                 'createdAt' => date('Y-m-d H:i:s'),
                 'updatedAt' => date('Y-m-d H:i:s')
             ];
+
+            $builder->insert($data);
         }
-    
-        if (!empty($batchData)) {
-            $this->db->table('timesheetEntries')->insertBatch($batchData);
-        }
-    
-        $this->db->transComplete();
-    
-        if (!$this->db->transStatus()) {
-            throw new \Exception('Transaction failed.');
-        }
-    
-        return true;
+        return $db->affectedRows() > 0;
     }
     
     
