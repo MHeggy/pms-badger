@@ -68,7 +68,9 @@ class TimesheetsController extends BaseController {
             $this->session->setFlashdata('error_message', 'Failed to insert timesheet entries: ' . $e->getMessage());
             return redirect()->to('/dashboard');
         }
-    
+        // Debugging statement
+        log_message('debug', 'Submitted POST data: ' . print_r($this->request->getPost(), true));
+        // Redirect to the dashboard.
         return redirect()->to('/dashboard');
     }
 

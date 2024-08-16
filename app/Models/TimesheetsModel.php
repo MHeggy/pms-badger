@@ -56,16 +56,16 @@ class TimesheetsModel extends Model {
         foreach ($entries as $entry) {
             // Check if the entry is empty
             if (empty($entry['projectNumber']) && empty($entry['projectName']) && empty($entry['activityDescription']) &&
-                empty($entry['mondayHours']) && empty($entry['tuesdayHours']) && empty($entry['wednesdayHours']) &&
-                empty($entry['thursdayHours']) && empty($entry['fridayHours']) && empty($entry['saturdayHours']) &&
-                empty($entry['sundayHours'])) {
+                empty($entry['monday']) && empty($entry['tuesday']) && empty($entry['wednesday']) &&
+                empty($entry['thursday']) && empty($entry['friday']) && empty($entry['saturday']) &&
+                empty($entry['sunday'])) {
                 continue; // Skip empty rows
             }
     
             // Calculate total hours for the entry
-            $totalHours = (float)$entry['mondayHours'] + (float)$entry['tuesdayHours'] + (float)$entry['wednesdayHours'] +
-                          (float)$entry['thursdayHours'] + (float)$entry['fridayHours'] + (float)$entry['saturdayHours'] +
-                          (float)$entry['sundayHours'];
+            $totalHours = (float)$entry['monday'] + (float)$entry['tuesday'] + (float)$entry['wednesday'] +
+                          (float)$entry['thursday'] + (float)$entry['friday'] + (float)$entry['saturday'] +
+                          (float)$entry['sunday'];
     
             $batchData[] = [
                 'timesheetID' => $timesheetId,
