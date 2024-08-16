@@ -104,6 +104,10 @@ class TimesheetsModel extends Model {
         $builder->select('timesheets.*, timesheetEntries.*');
         $builder->join('timesheetEntries', 'timesheets.timesheetID = timesheetEntries.timesheetID', 'left');
         $builder->where('timesheets.timesheetID', $timesheetId);
+    
+        // Log the SQL query for debugging
+        log_message('debug', 'SQL Query: ' . $builder->getCompiledSelect());
+    
         $query = $builder->get();
         return $query->getResultArray();
     }
