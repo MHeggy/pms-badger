@@ -31,33 +31,31 @@ class TimesheetsController extends BaseController {
         $userId = auth()->id();
         $weekOf = $this->request->getPost('week');
         $entries = $this->getTimesheetEntriesFromRequest();
-
-        // Check if a timesheet already exists for the user and the week.
+    
         $existingTimesheet = $this->timesheetsModel
             ->where('userID', $userId)
             ->where('weekOf', $weekOf)
             ->first();
         
         if ($existingTimesheet) {
-            // Redirect to edit the existing timesheet.
             $this->session->setFlashdata('info_message', 'You have already submitted a timesheet for this week, please edit it instead.');
             return redirect()->to('/timesheets/edit/' . $existingTimesheet['timesheetID']);
         }
-
+    
         $timesheetData = [
             'userID' => $userId,
             'weekOf' => $weekOf,
             'createdAt' => date('Y-m-d H:i:s'),
             'updatedAt' => date('Y-m-d H:i:s')
         ];
-
+    
         try {
             $timesheetId = $this->timesheetsModel->insertTimesheet($timesheetData);
         } catch (\Exception $e) {
             $this->session->setFlashdata('error_message', 'Timesheet could not be submitted successfully, please try again.');
             return redirect()->to('/dashboard');
         }
-
+    
         try {
             $result = $this->timesheetsModel->insertTimesheetEntries($timesheetId, $entries);
             if (!$result) {
@@ -68,11 +66,11 @@ class TimesheetsController extends BaseController {
             $this->session->setFlashdata('error_message', 'Failed to insert timesheet entries: ' . $e->getMessage());
             return redirect()->to('/dashboard');
         }
-        // Debugging statement
+    
         log_message('debug', 'Submitted POST data: ' . print_r($this->request->getPost(), true));
-        // Redirect to the dashboard.
         return redirect()->to('/dashboard');
     }
+    
 
     public function viewTimesheets($userId) {
         $user = $this->timesheetsModel->getUserInfo($userId);

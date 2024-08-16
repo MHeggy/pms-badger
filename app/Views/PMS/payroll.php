@@ -110,7 +110,7 @@
 
 <!-- Scripts -->
 <script>
-    let rowCount = 1;  // Adjusting row count for existing rows
+    let rowCount = 1;  // Initial row count for unique IDs
 
     function calculateRowTotal(row) {
         let totalHours = 0;
@@ -174,6 +174,7 @@
 
     calculateAllTotals();  // Initial calculation
 </script>
+
 
 <script src="<?php echo base_url('/assets/js/main.js')?>"></script>
 </body>
