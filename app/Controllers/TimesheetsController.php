@@ -73,7 +73,7 @@ class TimesheetsController extends BaseController {
     }
 
     public function viewTimesheets($userId) {
-        $userId = auth()->id();
+        $user = $this->timesheetsModel->getUserInfo($userId);
         $timesheets = $this->timesheetsModel->getUserTimesheets($userId);
 
         return view('PMS/user_timesheets', [

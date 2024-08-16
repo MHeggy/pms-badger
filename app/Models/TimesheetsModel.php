@@ -17,6 +17,14 @@ class TimesheetsModel extends Model {
     protected $validationMessages = [];
     protected $skipValidation = false;
 
+    public function getUserInfo($userId) {
+        return $this->db->table('users')
+                        ->select('users.id, users.username, users.email, users.first_name, users.last_name')
+                        ->where('users.id', $userId)
+                        ->get()
+                        ->getRowArray();
+    }
+
     public function getUserTimesheets($userId) {
         return $this->select('timesheets.*, users.username')
                     ->join('users', 'users.id = timesheets.userID')
