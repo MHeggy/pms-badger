@@ -252,6 +252,12 @@ class TimesheetsController extends BaseController {
             ];
             
             log_message('debug', 'Processed timesheet entry ' . $index . ': ' . print_r($entry, true));
+
+            // Check for empty entries here if needed
+            if (!array_filter($entry)) {
+                continue; // Skip empty entries
+            }  
+
             $entries[] = $entry;
         }
     
