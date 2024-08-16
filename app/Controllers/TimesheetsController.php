@@ -33,6 +33,12 @@ class TimesheetsController extends BaseController {
         $totalHours = $this->request->getPost('totalHours');
         $entries = $this->getTimesheetEntriesFromRequest();
 
+        // Calculating the totalHours from each of the entries.
+        $totalHours = 0;
+        foreach ($entries as $entry) {
+            $totalHours += $entry['totalHours'];
+        }
+
         // Check if a timesheet already exists for the user and the week.
         $existingTimesheet = $this->timesheetsModel
             ->where('userID', $userId)
@@ -48,6 +54,7 @@ class TimesheetsController extends BaseController {
         $timesheetData = [
             'userID' => $userId,
             'weekOf' => $weekOf,
+            'totalHours' => $totalHours,
             'createdAt' => date('Y-m-d H:i:s'),
             'updatedAt' => date('Y-m-d H:i:s')
         ];
