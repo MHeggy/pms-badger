@@ -205,13 +205,13 @@ class TimesheetsController extends BaseController {
         $projectNumbers = $this->request->getPost('projectNumber');
         $projectNames = $this->request->getPost('projectName');
         $activityDescriptions = $this->request->getPost('activityDescription');
-        $mondayHours = $this->request->getPost('mondayHours');
-        $tuesdayHours = $this->request->getPost('tuesdayHours');
-        $wednesdayHours = $this->request->getPost('wednesdayHours');
-        $thursdayHours = $this->request->getPost('thursdayHours');
-        $fridayHours = $this->request->getPost('fridayHours');
-        $saturdayHours = $this->request->getPost('saturdayHours');
-        $sundayHours = $this->request->getPost('sundayHours');
+        $mondayHours = $this->request->getPost('monday');
+        $tuesdayHours = $this->request->getPost('tuesday');
+        $wednesdayHours = $this->request->getPost('wednesday');
+        $thursdayHours = $this->request->getPost('thursday');
+        $fridayHours = $this->request->getPost('friday');
+        $saturdayHours = $this->request->getPost('saturday');
+        $sundayHours = $this->request->getPost('sunday');
         $totalHours = $this->request->getPost('totalHours');
     
         log_message('debug', 'Received timesheet data from request: ' . print_r([
