@@ -110,7 +110,7 @@
 
 <!-- Scripts -->
 <script>
-    let rowCount = 8;  // Adjusting row count for existing rows
+    let rowCount = 1;  // Adjusting row count for existing rows
 
     function calculateRowTotal(row) {
         let totalHours = 0;
