@@ -54,6 +54,15 @@ class TimesheetsModel extends Model {
         $builder = $this->db->table('timesheetEntries');
 
         foreach($entries as $entry) {
+            // Checking if the entry is empty, and if so skip it.
+            // Check if the entry is not empty
+            if (empty($entry['projectNumber']) && empty($entry['projectName']) && empty($entry['activityDescription']) &&
+                empty($entry['mondayHours']) && empty($entry['tuesdayHours']) && empty($entry['wednesdayHours']) &&
+                empty($entry['thursdayHours']) && empty($entry['fridayHours']) && empty($entry['saturdayHours']) &&
+                empty($entry['sundayHours']) && empty($entry['totalHours'])) {
+                continue; // Skip empty entries
+            }
+            // preparing the data to be submitted.
             $data = [
                 'timesheetID' => $timesheetId,
                 'projectNumber' => $entry['projectNumber'],
