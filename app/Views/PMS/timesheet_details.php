@@ -1,17 +1,20 @@
 <?= esc($pageTitle = 'Timesheet Details') ?>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <style>
-        th, td {
-            text-align: center;
-        }
-        .container {
-            margin-top: 85px;
-        }
-        .btn-back {
-            margin-bottom: 20px;
-        }
-    </style>
+<style>
+    th, td {
+        text-align: center;
+    }
+    .container {
+        margin-top: 85px;
+    }
+    .btn-back {
+        margin-bottom: 20px;
+    }
+    .total-hours {
+        font-weight: bold;
+    }
+</style>
 
 <!-- header content -->
 <header>
@@ -54,6 +57,12 @@
             </tr>
         <?php endforeach; ?>
         </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="10" class="text-end">Total Hours for this week:</td>
+            <td class="total-hours"><?= esc($totalHours) ?></td>
+        </tr>
+        </tfoot>
     </table>
 </div>
 
