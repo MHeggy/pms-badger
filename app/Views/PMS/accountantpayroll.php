@@ -62,7 +62,7 @@
                             <td><?= $timesheet['weekOf']; ?></td>
                             <td><?= $timesheet['totalHours']; ?></td>
                             <td>
-                                <a href="/payroll/viewWeek/<?= $timesheet['weekOf']; ?>" class="btn btn-info btn-sm">View Details</a>
+                                <a href="/timesheets/view/<?= $timesheet['timesheetID']; ?>" class="btn btn-info btn-sm">View Details</a>
                                 <a href="/timesheets/export/<?= $timesheet['timesheetID']; ?>" class="btn btn-success btn-sm ms-2">Export</a>
                             </td>
                         </tr>
