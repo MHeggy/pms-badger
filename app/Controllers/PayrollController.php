@@ -18,45 +18,50 @@ class PayrollController extends BaseController {
 
     public function index() {
         $user = auth()->user();
-
+    
         if (!$user) {
             return redirect()->to('/login')->with('error', 'You must login to access this page.');
         }
-
+    
         if (!$user->inGroup('accountant') && !$user->inGroup('superadmin')) {
             return redirect()->to('/dashboard')->with('error_message', 'You do not have permission to access this page.');
         }
-
+    
         // Fetch usernames
-        $usernames = $this->userModel->select('username')->findAll();
-
+        $usernames = $this->userModel->asArray()
+            ->select('id, username')
+            ->findAll();
+    
         $weeks = $this->timesheetsModel->distinct()
             ->select('weekOf')
             ->orderBy('weekOf', 'DESC')
             ->findAll();
-        
+    
         $selectedUsername = $this->request->getGet('username');
         $selectedWeek = $this->request->getGet('week');
-
+    
         $query = $this->timesheetsModel->select('timesheets.*, users.username')
-                                       ->join('users', 'users.id = timesheets.userID', 'left');
-        
+                                        ->join('users', 'users.id = timesheets.userID', 'left');
+    
         if (!empty($selectedUsername)) {
             $query->where('users.username', $selectedUsername);
         }
-
+    
         if (!empty($selectedWeek)) {
             $query->where('timesheets.weekOf', $selectedWeek);
         }
-
+    
         $filteredTimesheets = $query->findAll();
-
+    
         return view('PMS/accountantpayroll', [
             'usernames' => $usernames,
             'weeks' => $weeks,
             'filteredTimesheets' => $filteredTimesheets,
+            'selectedUsername' => $selectedUsername,
+            'selectedWeek' => $selectedWeek,
         ]);
     }
+    
 
     public function viewWeek($weekOf) {
         $timesheets = $this->timesheetsModel->getTimesheetsWithUsernames($weekOf);

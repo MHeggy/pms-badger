@@ -5,68 +5,62 @@
     <?php include 'header.php'; ?>
 </header>
 
-<div class="container mt-5">
-    <br><br>
-    <h2>Payroll Overview</h2>
+
+<?php if (session()->getFlashdata('error_message')): ?>
+        <p style="color: red;"><?= session()->getFlashdata('error_message') ?></p>
+    <?php endif; ?>
 
     <!-- Filter Form -->
-    <form method="get" action="<?= base_url('/accountantpayroll') ?>" class="row mb-4">
-        <div class="col-md-4">
-            <label for="username" class="form-label">Filter by Username</label>
-            <select name="username" id="username" class="form-select">
-                <option value="">All Users</option>
-                <?php foreach ($usernames as $username): ?>
-                    <option value="<?= $username['username'] ?>" <?= set_select('username', $username) ?>>
-                        <?= $username['username'] ?>
-                    </option>
-                <?php endforeach; ?>
-            </select>
-        </div>
+    <form method="get" action="">
+        <label for="username">Username:</label>
+        <select name="username" id="username">
+            <option value="">Select Username</option>
+            <?php foreach ($usernames as $user): ?>
+                <option value="<?= $user['username']; ?>" <?= $user['username'] == $selectedUsername ? 'selected' : ''; ?>>
+                    <?= $user['username']; ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
 
-        <div class="col-md-4">
-            <label for="week" class="form-label">Filter by Week</label>
-            <select name="week" id="week" class="form-select">
-                <option value="">All Weeks</option>
-                <?php foreach ($weeks as $week): ?>
-                    <option value="<?= esc($week['weekOf']) ?>" <?= set_select('week', $week['weekOf']) ?>>
-                        <?= date('Y-m-d', strtotime($week['weekOf'])) ?>
-                    </option>
-                <?php endforeach; ?>
-            </select>
-        </div>
+        <label for="week">Week:</label>
+        <select name="week" id="week">
+            <option value="">Select Week</option>
+            <?php foreach ($weeks as $week): ?>
+                <option value="<?= $week['weekOf']; ?>" <?= $week['weekOf'] == $selectedWeek ? 'selected' : ''; ?>>
+                    <?= $week['weekOf']; ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
 
-        <div class="col-md-4 d-flex align-items-end">
-            <button type="submit" class="btn btn-primary">Filter</button>
-        </div>
+        <button type="submit">Filter</button>
     </form>
 
-    <!-- Timesheet Results -->
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>Username</th>
-                <th>Week</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php if (!empty($filteredTimesheets)): ?>
+    <!-- Display Filtered Timesheets -->
+    <?php if (!empty($filteredTimesheets)): ?>
+        <table>
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Week</th>
+                    <th>Total Hours</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
                 <?php foreach ($filteredTimesheets as $timesheet): ?>
                     <tr>
-                        <td><?= esc($timesheet['username']) ?></td>
-                        <td><?= date('Y-m-d', strtotime($timesheet['weekOf'])) ?></td>
+                        <td><?= $timesheet['username']; ?></td>
+                        <td><?= $timesheet['weekOf']; ?></td>
+                        <td><?= $timesheet['totalHours']; ?></td>
                         <td>
-                            <a href="<?= base_url('/accountantpayroll/view/' . urlencode($timesheet['id'])) ?>" class="btn btn-primary">View Timesheet</a>
+                            <a href="/payroll/viewWeek/<?= $timesheet['weekOf']; ?>">View Details</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>
-            <?php else: ?>
-                <tr>
-                    <td colspan="3">No timesheets found.</td>
-                </tr>
-            <?php endif; ?>
-        </tbody>
-    </table>
-</div>
+            </tbody>
+        </table>
+    <?php else: ?>
+        <p>No timesheets found for the selected filters.</p>
+    <?php endif; ?>
 </body>
 </html>
