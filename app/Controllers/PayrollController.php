@@ -27,13 +27,34 @@ class PayrollController extends BaseController {
             return redirect()->to('/dashboard')->with('error_message', 'You do not have permission to access this page.');
         }
 
+        // Fetch usernames
+        $usernames = $this->userModel->select('username')->findAll();
+
         $weeks = $this->timesheetsModel->distinct()
-                                       ->select('weekOf')
-                                       ->orderBy('weekOf', 'DESC')
-                                       ->findAll();
+            ->select('weekOf')
+            ->orderBy('weekOf', 'DESC')
+            ->findAll();
         
-        return view('PMS/accountantpayroll.php', [
+        $selectedUsername = $this->request->getGet('username');
+        $selectedWeek = $this->request->getGet('week');
+
+        $query = $this->timesheetsModel->select('timesheets.*, users.username')
+                                       ->join('users', 'users.id = timesheets.userID', 'left');
+        
+        if (!empty($selectedUsername)) {
+            $query->where('users.username', $selectedUsername);
+        }
+
+        if (!empty($selectedWeek)) {
+            $query->where('timesheets.weekOf', $selectedWeek);
+        }
+
+        $filteredTimesheets = $query->findAll();
+
+        return view('PMS/accountantpayroll', [
+            'usernames' => $usernames,
             'weeks' => $weeks,
+            'filteredTimesheets' => $filteredTimesheets,
         ]);
     }
 
@@ -46,7 +67,6 @@ class PayrollController extends BaseController {
         ]);
     }
     
-
     public function search() {
         // Retrieve search term from the URL query parameters
         $searchTerm = $this->request->getGet('search');
