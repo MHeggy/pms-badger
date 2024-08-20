@@ -15,12 +15,11 @@
             <label for="username" class="form-label">Filter by Username</label>
             <select name="username" id="username" class="form-select">
                 <option value="">All Users</option>
-                <?php foreach ($usernames as $user): ?>
-                    <option value="<?= esc($user->username) ?>" <?= set_select('username', $user->username) ?>>
-                        <?= esc($user->username) ?>
+                <?php foreach ($usernames as $username): ?>
+                    <option value="<?= esc($username) ?>" <?= set_select('username', $username) ?>>
+                        <?= esc($username) ?>
                     </option>
                 <?php endforeach; ?>
-
             </select>
         </div>
 
