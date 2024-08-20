@@ -63,6 +63,7 @@
                             <td><?= $timesheet['totalHours']; ?></td>
                             <td>
                                 <a href="/payroll/viewWeek/<?= $timesheet['weekOf']; ?>" class="btn btn-info btn-sm">View Details</a>
+                                <a href="/payroll/exportWeek/<?= $timesheet['weekOf']; ?>" class="btn btn-success btn-sm ms-2">Export</a>
                             </td>
                         </tr>
                     <?php endforeach; ?>
