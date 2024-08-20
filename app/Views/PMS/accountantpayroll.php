@@ -16,8 +16,8 @@
             <select name="username" id="username" class="form-select">
                 <option value="">All Users</option>
                 <?php foreach ($usernames as $username): ?>
-                    <option value="<?= esc($username) ?>" <?= set_select('username', $username) ?>>
-                        <?= esc($username) ?>
+                    <option value="<?= $username['username'] ?>" <?= set_select('username', $username) ?>>
+                        <?= $username['username'] ?>
                     </option>
                 <?php endforeach; ?>
             </select>
