@@ -16,10 +16,11 @@
             <select name="username" id="username" class="form-select">
                 <option value="">All Users</option>
                 <?php foreach ($usernames as $user): ?>
-                    <option value="<?= esc($user['username']) ?>" <?= set_select('username', $user['username']) ?>>
-                        <?= esc($user['username']) ?>
+                    <option value="<?= esc($user->username) ?>" <?= set_select('username', $user->username) ?>>
+                        <?= esc($user->username) ?>
                     </option>
                 <?php endforeach; ?>
+
             </select>
         </div>
 
