@@ -158,7 +158,7 @@ class TimesheetsController extends BaseController {
     }
 
     public function exportTimesheet($timesheetId) {
-        $templatePath = WRITEPATH . 'templates/timesheet_template.xlsx'; // Path to your Excel template
+        $templatePath = WRITEPATH . 'templates/badgerspreadsheet.xlsx'; // Path to your Excel template
     
         // Load the template
         $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($templatePath);
