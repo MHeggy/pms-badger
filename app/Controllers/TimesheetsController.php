@@ -178,7 +178,7 @@ class TimesheetsController extends BaseController {
         $sheet->setCellValue('R31', $timesheet['totalHours']); // Example cell for Total Hours
     
         // Start filling timesheet entries at a specific row (e.g., row 10)
-        $startRow = 10;
+        $startRow = 12;
         foreach ($entries as $index => $entry) {
             $row = $startRow + $index;
     
