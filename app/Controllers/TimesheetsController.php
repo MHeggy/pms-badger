@@ -223,7 +223,6 @@ class TimesheetsController extends BaseController {
         return $this->response->download($filePath, null)->setFileName($fileName);
     }
     
-    
     private function getTimesheetEntriesFromRequest() {
         $entries = [];
         $projectNumbers = $this->request->getPost('projectNumber');
