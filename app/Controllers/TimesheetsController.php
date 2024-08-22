@@ -172,8 +172,17 @@ class TimesheetsController extends BaseController {
             return redirect()->back()->with('error_message', 'Timesheet not found.');
         }
     
+        // Calculate the end date (Sunday) from the start date (Monday)
+        $weekOf = new \DateTime($timesheet['weekOf']);
+        $endDate = clone $weekOf;
+        $endDate->modify('+6 days');
+    
+        // Format the dates as needed (e.g., 'Y-m-d' or 'm/d/Y')
+        $formattedStartDate = $weekOf->format('m/d/Y');
+        $formattedEndDate = $endDate->format('m/d/Y');
+    
         // Fill in the template data
-        $sheet->setCellValue('K6', $timesheet['weekOf']); // Example cell for Week Of
+        $sheet->setCellValue('K6', $formattedStartDate . ' - ' . $formattedEndDate); // Week Of - End Date
         $sheet->setCellValue('B4', $timesheet['userID']); // Example cell for User ID
         $sheet->setCellValue('R31', $timesheet['totalHours']); // Example cell for Total Hours
     
@@ -209,6 +218,7 @@ class TimesheetsController extends BaseController {
         // Trigger file download
         return $this->response->download($filePath, null)->setFileName($fileName);
     }
+    
     
     private function getTimesheetEntriesFromRequest() {
         $entries = [];
