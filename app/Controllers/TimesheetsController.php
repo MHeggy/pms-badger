@@ -158,35 +158,30 @@ class TimesheetsController extends BaseController {
     }
 
     public function exportTimesheet($timesheetId) {
-        $spreadsheet = new Spreadsheet();
+        $templatePath = WRITEPATH . 'templates/timesheet_template.xlsx'; // Path to your Excel template
+    
+        // Load the template
+        $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($templatePath);
         $sheet = $spreadsheet->getActiveSheet();
-
+    
+        // Fetch the timesheet and entries
         $timesheet = $this->timesheetsModel->find($timesheetId);
         $entries = $this->timesheetsModel->getTimesheetEntriesByTimesheetId($timesheetId);
-
+    
         if (!$timesheet) {
             return redirect()->back()->with('error_message', 'Timesheet not found.');
         }
-
-        $sheet->setCellValue('A1', 'Timesheet ID: ' . $timesheetId);
-        $sheet->setCellValue('A2', 'Week Of: ' . $timesheet['weekOf']);
-        $sheet->setCellValue('A3', 'User ID: ' . $timesheet['userID']);
-        $sheet->setCellValue('A4', 'Total Hours: ' . $timesheet['totalHours']);
-
-        $sheet->setCellValue('A6', 'Project Number');
-        $sheet->setCellValue('B6', 'Project Name');
-        $sheet->setCellValue('C6', 'Activity Description');
-        $sheet->setCellValue('D6', 'Monday Hours');
-        $sheet->setCellValue('E6', 'Tuesday Hours');
-        $sheet->setCellValue('F6', 'Wednesday Hours');
-        $sheet->setCellValue('G6', 'Thursday Hours');
-        $sheet->setCellValue('H6', 'Friday Hours');
-        $sheet->setCellValue('I6', 'Saturday Hours');
-        $sheet->setCellValue('J6', 'Sunday Hours');
-        $sheet->setCellValue('K6', 'Total Hours');
-
-        $row = 7;
-        foreach ($entries as $entry) {
+    
+        // Fill in the template data
+        $sheet->setCellValue('B2', $timesheetId); // Example cell for Timesheet ID
+        $sheet->setCellValue('B3', $timesheet['weekOf']); // Example cell for Week Of
+        $sheet->setCellValue('B4', $timesheet['userID']); // Example cell for User ID
+        $sheet->setCellValue('B5', $timesheet['totalHours']); // Example cell for Total Hours
+    
+        // Start filling timesheet entries at a specific row (e.g., row 10)
+        $startRow = 10;
+        foreach ($entries as $index => $entry) {
+            $row = $startRow + $index;
             $sheet->setCellValue('A' . $row, $entry['projectNumber']);
             $sheet->setCellValue('B' . $row, $entry['projectName']);
             $sheet->setCellValue('C' . $row, $entry['activityDescription']);
@@ -198,17 +193,19 @@ class TimesheetsController extends BaseController {
             $sheet->setCellValue('I' . $row, $entry['saturdayHours']);
             $sheet->setCellValue('J' . $row, $entry['sundayHours']);
             $sheet->setCellValue('K' . $row, $entry['totalHours']);
-            $row++;
         }
-
+    
+        // Save the filled template as a new file
         $writer = new Xlsx($spreadsheet);
         $fileName = 'Timesheet_' . $timesheetId . '.xlsx';
         $filePath = WRITEPATH . 'uploads/' . $fileName;
-
+    
         $writer->save($filePath);
-
+    
+        // Trigger file download
         return $this->response->download($filePath, null)->setFileName($fileName);
     }
+    
 
     private function getTimesheetEntriesFromRequest() {
         $entries = [];
