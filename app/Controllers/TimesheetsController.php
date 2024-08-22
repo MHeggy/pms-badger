@@ -182,11 +182,12 @@ class TimesheetsController extends BaseController {
         $formattedEndDate = $endDate->format('m/d/Y');
     
         // Fill in the template data
-        $sheet->setCellValue('K6', $formattedStartDate . ' - ' . $formattedEndDate); // Week Of - End Date
+        $sheet->setCellValue('K6', $formattedStartDate); // Start Date (Week Of)
+        $sheet->setCellValue('K7', $formattedEndDate); // End Date (Sunday)
         $sheet->setCellValue('B4', $timesheet['userID']); // Example cell for User ID
         $sheet->setCellValue('R31', $timesheet['totalHours']); // Example cell for Total Hours
     
-        // Start filling timesheet entries at a specific row (e.g., row 10)
+        // Start filling timesheet entries at a specific row (e.g., row 12)
         $startRow = 12;
         foreach ($entries as $index => $entry) {
             $row = $startRow + $index;
@@ -218,7 +219,6 @@ class TimesheetsController extends BaseController {
         // Trigger file download
         return $this->response->download($filePath, null)->setFileName($fileName);
     }
-    
     
     private function getTimesheetEntriesFromRequest() {
         $entries = [];
