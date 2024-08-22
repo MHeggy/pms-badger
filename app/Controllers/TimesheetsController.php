@@ -192,21 +192,24 @@ class TimesheetsController extends BaseController {
         foreach ($entries as $index => $entry) {
             $row = $startRow + $index;
     
-            $sheet->setCellValue('B' . $row, $entry['projectNumber']);
+            // Align cells based on your provided layout
+            $sheet->setCellValue('B' . $row, $entry['projectNumber']); // Project Number
+            $sheet->mergeCells('C' . $row . ':E' . $row); // Merge cells for Project Name
+            $sheet->setCellValue('C' . $row, $entry['projectName']); // Project Name
     
-            // Merge cells C, D, and E for the project name
-            $sheet->mergeCells('C' . $row . ':E' . $row);
-            $sheet->setCellValue('C' . $row, $entry['projectName']);
+            // Merge cells for activity description across columns F to J
+            $sheet->mergeCells('F' . $row . ':J' . $row);
+            $sheet->setCellValue('F' . $row, $entry['activityDescription']); // Activity Description
     
-            $sheet->setCellValue('F' . $row, $entry['activityDescription']);
-            $sheet->setCellValue('G' . $row, $entry['mondayHours']);
-            $sheet->setCellValue('H' . $row, $entry['tuesdayHours']);
-            $sheet->setCellValue('I' . $row, $entry['wednesdayHours']);
-            $sheet->setCellValue('J' . $row, $entry['thursdayHours']);
-            $sheet->setCellValue('K' . $row, $entry['fridayHours']);
-            $sheet->setCellValue('L' . $row, $entry['saturdayHours']);
-            $sheet->setCellValue('M' . $row, $entry['sundayHours']);
-            $sheet->setCellValue('N' . $row, $entry['totalHours']);
+            $sheet->setCellValue('K' . $row, $entry['mondayHours']); // Monday Hours
+            $sheet->setCellValue('L' . $row, $entry['tuesdayHours']); // Tuesday Hours
+            $sheet->setCellValue('M' . $row, $entry['wednesdayHours']); // Wednesday Hours
+            $sheet->setCellValue('N' . $row, $entry['thursdayHours']); // Thursday Hours
+            $sheet->setCellValue('O' . $row, $entry['fridayHours']); // Friday Hours
+            $sheet->setCellValue('P' . $row, $entry['saturdayHours']); // Saturday Hours
+            $sheet->setCellValue('Q' . $row, $entry['sundayHours']); // Sunday Hours
+    
+            $sheet->setCellValue('R' . $row, $entry['totalHours']); // Project Total Hours
         }
     
         // Save the filled template as a new file
@@ -219,6 +222,7 @@ class TimesheetsController extends BaseController {
         // Trigger file download
         return $this->response->download($filePath, null)->setFileName($fileName);
     }
+    
     
     private function getTimesheetEntriesFromRequest() {
         $entries = [];
