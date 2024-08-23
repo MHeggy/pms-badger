@@ -49,13 +49,21 @@ class ProjectModel extends Model {
 
     public function filterProjectsByStatus($status) {
         $builder = $this->db->table('projects');
-        $builder->select('*')->join('projectstatuses', 'projects.statusID = projectstatuses.statusID', 'left');
-
+        $builder->select('projects.*, projectstatuses.statusName, GROUP_CONCAT(DISTINCT pcategories.categoryName) AS categoryNames, GROUP_CONCAT(DISTINCT tasks.taskName) AS taskNames')
+            ->join('projectstatuses', 'projects.statusID = projectstatuses.statusID', 'left')
+            ->join('project_categories', 'projects.projectID = project_categories.projectID', 'left')
+            ->join('pcategories', 'project_categories.categoryID = pcategories.categoryID', 'left')
+            ->join('project_tasks', 'projects.projectID = project_tasks.projectID', 'left')
+            ->join('tasks', 'project_tasks.taskID = tasks.taskID', 'left');
+    
         if (!empty($status)) {
             $builder->where('projects.statusID', $status);
         }
+    
+        $builder->groupBy('projects.projectID, projectstatuses.statusName');
         return $builder->get()->getResultArray();
     }
+    
 
     public function findProjectDetails($projectId) {
         $this->select('projects.*, 
