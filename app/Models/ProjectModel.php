@@ -155,14 +155,20 @@ class ProjectModel extends Model {
 
     public function getAssignedProjects($userID) {
         $builder = $this->db->table('user_project');
-        $builder->select('projects.*, projectstatuses.statusName')
+        $builder->select('projects.*, projectstatuses.statusName, GROUP_CONCAT(DISTINCT pcategories.categoryName) AS categoryNames, GROUP_CONCAT(DISTINCT tasks.taskName) AS taskNames')
             ->join('projects', 'projects.projectID = user_project.project_id')
             ->join('projectstatuses', 'projects.statusID = projectstatuses.statusID')
-            ->where('user_id', $userID);
+            ->join('project_categories', 'projects.projectID = project_categories.projectID', 'left')
+            ->join('pcategories', 'project_categories.categoryID = pcategories.categoryID', 'left')
+            ->join('project_tasks', 'projects.projectID = project_tasks.projectID', 'left')
+            ->join('tasks', 'project_tasks.taskID = tasks.taskID', 'left')
+            ->where('user_project.user_id', $userID)
+            ->groupBy('projects.projectID, projectstatuses.statusName');
+        
         $query = $builder->get();
         return $query->getResultArray();
     }
-
+    
     public function getCompletedProjects($userID) {
         $builder = $this->db->table('user_project');
         $builder->select('projects.*, projectstatuses.statusName')
