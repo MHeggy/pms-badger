@@ -143,8 +143,6 @@ class ProjectsController extends BaseController {
             return $this->response->setStatusCode(500)->setJSON(['error' => 'Internal server error']);
         }
     }
-    
-    
 
     public function assignUsersView() {
         $user = auth()->user();
