@@ -189,18 +189,27 @@ class ProjectsController extends BaseController {
     public function myWork() {
         $user = auth()->user();
         $userID = $user->id;
-
+    
         // Fetch projects associated with the user.
         $assignedProjects = $this->projectModel->getAssignedProjects($userID);
-        // Pass the data to the view.
+    
+        // Debugging: Log the assigned projects data
+        log_message('debug', 'Assigned Projects for User ID ' . $userID . ': ' . print_r($assignedProjects, true));
+    
+        // Debugging: Display the assigned projects in the view (temporarily, for development purposes)
         $data = [
             'pageTitle' => 'My Work',
             'projects' => $assignedProjects,
             'user' => $user
         ];
+    
+        // Uncomment the following line to see the output directly in the browser for debugging purposes.
+        // return view('PMS/mywork', $data) . '<pre>' . print_r($assignedProjects, true) . '</pre>';
+    
         // return the view with the data passed.
         return view('PMS/mywork', $data);
     }
+    
 
     public function unassignUsersView() {
         $user = auth()->user();
