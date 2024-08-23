@@ -22,7 +22,7 @@
 </header>
 
 <div class="container">
-    <button onclick="goBack()" class="btn btn-primary btn-back">Back to Timesheets</button>
+    <button onclick="goBack()" class="btn btn-primary btn-back">Go Back</button>
     <h2>Timesheet for the week of <?= esc($timesheet['weekOf']) ?></h2>
     <table class="table table-bordered">
         <thead>
