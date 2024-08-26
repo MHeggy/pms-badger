@@ -23,7 +23,7 @@
                     <select class="form-select" name="user" id="user">
                         <option value="">Select User</option>
                         <?php foreach ($users as $user): ?>
-                            <option value="<?= $user['id'] ?>"><?= $user['username'] ?></option>
+                            <option value="<?= $user->id; ?>"><?= $user->username; ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
