@@ -77,7 +77,7 @@
         </thead>
         <!-- Table body -->
         <tbody id="project_list">
-        <?php foreach ($projects as $project): ?>
+        <?php foreach ($assignedProjects as $project): ?>
             <tr data-project-id="<?= $project['projectID'] ?>">
                 <td>
                     <a href="<?= base_url('projects/details/' . $project['projectID']) ?>">
