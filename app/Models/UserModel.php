@@ -18,8 +18,5 @@ class UserModel extends Model {
     public function getUserByUsername($username) {
         return $this->where('username', $username)->first();
     }
-
-    //public function projects() {
-        //return $this->belongsToMany(ProjectModel::class, 'user_project', 'user_id', 'project_id');
-    //}
+    
 }

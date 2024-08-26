@@ -115,6 +115,10 @@ $routes->get('/accountantpayroll/week/(:segment)', 'PayrollController::viewWeek/
 $routes->post('/change_password', 'UserController::changePassword');
 service('auth')->routes($routes);
 
+$routes->get('register', 'AuthController::register', ['as' => 'register']);
+$routes->post('register', 'AuthController::register');
+
+
 // test email route
 $routes->get('/send-test-email', 'EmailController::sendTestEmail');
 $routes->get('timesheets/export/(:num)', 'TimesheetsController::exportTimesheet/$1');
