@@ -171,6 +171,10 @@ class TimesheetsController extends BaseController {
         if (!$timesheet) {
             return redirect()->back()->with('error_message', 'Timesheet not found.');
         }
+
+        // Fetch user details.
+        $userId = $timesheet['userID'];
+        $user = $this->timesheetsModel->getUserInfo($userId);
     
         // Calculate the end date (Sunday) from the start date (Monday)
         $weekOf = new \DateTime($timesheet['weekOf']);
@@ -186,6 +190,15 @@ class TimesheetsController extends BaseController {
         $sheet->setCellValue('K7', $formattedEndDate); // End Date (Sunday)
         $sheet->setCellValue('B4', $timesheet['userID']); // Example cell for User ID
         $sheet->setCellValue('R31', $timesheet['totalHours']); // Example cell for Total Hours
+
+        // Fill in the employee name across cells K9, L9, M9, and N9
+        if ($user) {
+            $sheet->setCellValue('K9', $user['firstName']);
+            $sheet->setCellValue('L9', $user['lastName']);
+            $sheet->setCellValue('M9', $user['firstName']);
+            $sheet->setCellValue('N9', $user['lastName']);
+        }
+
     
         // Start filling timesheet entries at a specific row (e.g., row 12)
         $startRow = 12;
