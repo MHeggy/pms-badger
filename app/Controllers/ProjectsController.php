@@ -200,9 +200,9 @@ class ProjectsController extends BaseController {
             $projects = $this->projectModel->getAssignedProjects($userID);
 
             // Debugging statement.
-            log_message('debug', 'Assigned Projects for User ID ' . $userID . ': ' . print_r($assignedProjects, true));
+            log_message('debug', 'Assigned Projects for User ID ' . $userID . ': ' . print_r($projects, true));
             // print_r statement for the $assignedProjects variable.
-            print_r($assignedProjects);
+            print_r($projects);
 
             $data = [
                 'projects' => $projects
