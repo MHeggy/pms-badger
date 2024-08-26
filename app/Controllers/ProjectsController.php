@@ -188,13 +188,13 @@ class ProjectsController extends BaseController {
 
     public function myWork() {
         $user = auth()->user();
-        $userId = auth()->id();
+        $userID = auth()->id();
     
         // Fetch projects associated with the user.
-        $assignedProjects = $this->projectModel->getAssignedProjects($userId);
+        $assignedProjects = $this->projectModel->getAssignedProjects($userID);
     
         // Debugging: Log the assigned projects data
-        log_message('debug', 'Assigned Projects for User ID ' . $userId . ': ' . print_r($assignedProjects, true));
+        log_message('debug', 'Assigned Projects for User ID ' . $userID . ': ' . print_r($assignedProjects, true));
     
         // Debugging: Display the assigned projects in the view (temporarily, for development purposes)
         $data = [
