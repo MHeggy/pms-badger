@@ -166,7 +166,7 @@ class ProjectModel extends Model {
             ->groupBy('projects.projectID, projectstatuses.statusName');
         
         $query = $builder->get();
-        return $builder->getResultArray();
+        return $query->getResultArray();
     }    
     
     public function getCompletedProjects($userID) {
