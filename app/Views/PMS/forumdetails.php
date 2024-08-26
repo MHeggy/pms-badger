@@ -2,11 +2,24 @@
 <link rel="stylesheet" href="<?php echo base_url('/assets/css/messages.css') ?>">
 <!-- Link to Bootstrap CSS -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        .reply-author-info {
-            font-size: 0.9rem;
-        }
-    </style>
+<style>
+    .reply-author-info {
+        font-size: 0.9rem;
+    }
+
+    /* Ensure buttons have consistent styling */
+    .action-buttons .btn {
+        font-size: 0.875rem; /* Adjust font size if needed */
+        padding: 0.375rem 0.75rem; /* Adjust padding if needed */
+        margin: 0.1rem; /* Add margin to prevent overlap */
+    }
+
+    /* Additional styling for button consistency */
+    .btn-edit {
+        font-size: 0.875rem;
+        padding: 0.375rem 0.75rem;
+    }
+</style>
 
 <header>
     <?php include 'header.php' ?>
@@ -35,7 +48,7 @@
                 <!-- Action Buttons -->
                 <div class="action-buttons mt-3">
                     <button type="button" class="btn btn-success btn-sm" id="replybtn">Reply</button>
-                    <button type="button" class="btn btn-info btn-sm" id="editbtn" data-bs-toggle="modal" data-bs-target="#editModal">Edit</button>
+                    <button type="button" class="btn btn-info btn-sm btn-edit" id="editbtn" data-bs-toggle="modal" data-bs-target="#editModal">Edit</button>
                     <button type="button" class="btn btn-danger btn-sm" id="deletebtn" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</button>
                 </div>
                 <!-- Inside forumdetails.php -->
@@ -72,7 +85,7 @@
                             <!-- Action Buttons for Replies -->
                             <div class="action-buttons mt-2">
                                 <!-- Edit Button -->
-                                <button type="button" class="btn btn-primary btn-sm edit-reply" data-reply-id="<?= $reply['id']; ?>" data-bs-toggle="modal" data-bs-target="#editReplyModal">Edit</button>
+                                <button type="button" class="btn btn-primary btn-sm btn-edit edit-reply" data-reply-id="<?= $reply['id']; ?>" data-bs-toggle="modal" data-bs-target="#editReplyModal">Edit</button>
                                 <!-- Delete Button -->
                                 <form action="/forums/deleteReply/<?= $reply['id']; ?>" method="post" class="d-inline-block">
                                     <input type="hidden" name="_method" value="DELETE">
