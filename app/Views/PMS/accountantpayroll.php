@@ -16,12 +16,12 @@
     <div class="card p-4 mb-4">
         <form method="get" action="" class="row g-3">
             <div class="col-md-6">
-                <label for="username" class="form-label">Username:</label>
-                <select name="username" id="username" class="form-select">
-                    <option value="">Select Username</option>
-                    <?php foreach ($usernames as $user): ?>
-                        <option value="<?= $user['username']; ?>" <?= $user['username'] == $selectedUsername ? 'selected' : ''; ?>>
-                            <?= $user['username']; ?>
+                <label for="userID" class="form-label">User Name:</label>
+                <select name="userID" id="userID" class="form-select">
+                    <option value="">Select User</option>
+                    <?php foreach ($users as $user): ?>
+                        <option value="<?= $user['id']; ?>" <?= $user['id'] == $selectedUserId ? 'selected' : ''; ?>>
+                            <?= esc($user['firstName'] . ' ' . $user['lastName']); ?>
                         </option>
                     <?php endforeach; ?>
                 </select>
@@ -49,7 +49,7 @@
             <table class="table table-striped table-bordered text-center">
                 <thead class="table-dark">
                     <tr>
-                        <th>Username</th>
+                        <th>Name</th>
                         <th>Week</th>
                         <th>Total Hours</th>
                         <th>Actions</th>
@@ -58,12 +58,12 @@
                 <tbody>
                     <?php foreach ($filteredTimesheets as $timesheet): ?>
                         <tr>
-                            <td><?= $timesheet['username']; ?></td>
-                            <td><?= $timesheet['weekOf']; ?></td>
-                            <td><?= $timesheet['totalHours']; ?></td>
+                            <td><?= esc($timesheet['firstName'] . ' ' . $timesheet['lastName']) ?></td>
+                            <td><?= esc($timesheet['weekOf']); ?></td>
+                            <td><?= esc($timesheet['totalHours']); ?></td>
                             <td>
-                                <a href="/timesheets/view/<?= $timesheet['timesheetID']; ?>" class="btn btn-info btn-sm">View Details</a>
-                                <a href="/timesheets/export/<?= $timesheet['timesheetID']; ?>" class="btn btn-success btn-sm ms-2">Export</a>
+                                <a href="/timesheets/view/<?= esc($timesheet['timesheetID']); ?>" class="btn btn-info btn-sm">View Details</a>
+                                <a href="/timesheets/export/<?= esc($timesheet['timesheetID']); ?>" class="btn btn-success btn-sm ms-2">Export</a>
                             </td>
                         </tr>
                     <?php endforeach; ?>

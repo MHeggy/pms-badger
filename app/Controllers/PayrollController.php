@@ -27,9 +27,9 @@ class PayrollController extends BaseController {
             return redirect()->to('/dashboard')->with('error_message', 'You do not have permission to access this page.');
         }
     
-        // Fetch usernames
-        $usernames = $this->userModel->asArray()
-            ->select('id, username')
+        // Fetch user data (including first and last names)
+        $users = $this->userModel->asArray()
+            ->select('id, firstName, lastName')
             ->findAll();
     
         $weeks = $this->timesheetsModel->distinct()
@@ -37,14 +37,14 @@ class PayrollController extends BaseController {
             ->orderBy('weekOf', 'DESC')
             ->findAll();
     
-        $selectedUsername = $this->request->getGet('username');
+        $selectedUserId = $this->request->getGet('userID');
         $selectedWeek = $this->request->getGet('week');
     
-        $query = $this->timesheetsModel->select('timesheets.*, users.username')
-                                        ->join('users', 'users.id = timesheets.userID', 'left');
+        $query = $this->timesheetsModel->select('timesheets.*, users.firstName, users.lastName')
+                                       ->join('users', 'users.id = timesheets.userID', 'left');
     
-        if (!empty($selectedUsername)) {
-            $query->where('users.username', $selectedUsername);
+        if (!empty($selectedUserId)) {
+            $query->where('users.id', $selectedUserId);
         }
     
         if (!empty($selectedWeek)) {
@@ -54,10 +54,10 @@ class PayrollController extends BaseController {
         $filteredTimesheets = $query->findAll();
     
         return view('PMS/accountantpayroll', [
-            'usernames' => $usernames,
+            'users' => $users,
             'weeks' => $weeks,
             'filteredTimesheets' => $filteredTimesheets,
-            'selectedUsername' => $selectedUsername,
+            'selectedUserId' => $selectedUserId,
             'selectedWeek' => $selectedWeek,
         ]);
     }
