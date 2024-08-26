@@ -198,6 +198,8 @@ class ProjectsController extends BaseController {
         try {
             // Fetch assigned projects using the new model method.
             $assignedProjects = $this->projectModel->getAssignedProjects($userID);
+            // print_r statement for the assigned projects
+            print_r($assignedProjects);
 
             // Debgging statement.
             log_message('debug', 'Assigned Projects for User ID ' . $userID . ': ' . print_r($assignedProjects, true));

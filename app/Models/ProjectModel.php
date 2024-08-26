@@ -153,24 +153,9 @@ class ProjectModel extends Model {
         $this->db->table('user_project')->insert($data);
     }
 
-    public function getAssignedProjectsByUserID($userID) {
-        $builder = $this->db->table('user_project');
-        $builder->select('projects.*, projectstatuses.statusName, GROUP_CONCAT(DISTINCT pcategories.categoryName) AS categoryNames, GROUP_CONCAT(DISTINCT tasks.taskName) AS taskNames')
-            ->join('projects', 'projects.projectID = user_project.project_id')
-            ->join('projectstatuses', 'projects.statusID = projectstatuses.statusID')
-            ->join('project_categories', 'projects.projectID = project_categories.projectID', 'left')
-            ->join('pcategories', 'project_categories.categoryID = pcategories.categoryID', 'left')
-            ->join('project_tasks', 'projects.projectID = project_tasks.projectID', 'left')
-            ->join('tasks', 'project_tasks.taskID = tasks.taskID', 'left')
-            ->where('user_project.user_id', $userID)
-            ->groupBy('projects.projectID, projectstatuses.statusName');
-        
-        return $builder->get()->getResultArray();
-    }
-
     public function getAssignedProjects($userID) {
         $builder = $this->db->table('user_project');
-        $builder->select('projects.*, projectstatuses.statusName, GROUP_CONCAT(DISTINCT pcategories.categoryName) AS categoryNames, GROUP_CONCAT(DISTINCT tasks.taskName) AS taskNames')
+        $builder->select('projects.projectID, projects.projectNumber, projects.projectName, projects.dateAccepted, projectstatuses.statusName, GROUP_CONCAT(DISTINCT pcategories.categoryName) AS categoryNames, GROUP_CONCAT(DISTINCT tasks.taskName) AS taskNames')
             ->join('projects', 'projects.projectID = user_project.project_id')
             ->join('projectstatuses', 'projects.statusID = projectstatuses.statusID')
             ->join('project_categories', 'projects.projectID = project_categories.projectID', 'left')
@@ -182,7 +167,7 @@ class ProjectModel extends Model {
         
         $query = $builder->get();
         return $query->getResultArray();
-    }
+    }    
     
     public function getCompletedProjects($userID) {
         $builder = $this->db->table('user_project');
