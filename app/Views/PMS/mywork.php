@@ -9,6 +9,7 @@
     </header>
 </div>
 
+<!-- Search and Filter -->
 <div class="container" id="filter-container" style="margin-top: 100px;">
     <div class="row justify-content-center"> <!-- Centering the row -->
         <div class="col-md-6">
@@ -31,7 +32,7 @@
                 <div class="card search-filter-card">
                     <div class="card-body">
                         <h5 class="card-title">Filter Projects</h5>
-                        <form action="<?= base_url('mywork/filter') ?>" method="get">
+                        <form action="<?= base_url('myWork/filter') ?>" method="get">
                             <!-- Status select -->
                             <select name="status" id="status" class="form-select">
                                 <option value="">All Projects</option>
@@ -50,39 +51,64 @@
     </div>
 </div>
 
+<!-- Projects Table -->
 <div class="container" id="project_table" style="margin-top: 20px;">
-    <!-- Project table goes here -->
     <table class="table table-striped">
+        <!-- Table headers -->
         <thead>
         <tr>
+            <th>
+                Project Number
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-sm btn-primary" onclick="sortProjects('asc')">
+                        <i class="bi bi-arrow-up"></i>
+                    </button>
+                    <button type="button" class="btn btn-sm btn-primary" onclick="sortProjects('desc')">
+                        <i class="bi bi-arrow-down"></i>
+                    </button>
+                </div>
+            </th>
             <th>Project Name</th>
             <th>Project Status</th>
-            <th>Description</th>
+            <th>Category</th> <!-- New Column -->
+            <th>Date Accepted</th>
+            <th>Assigned Users</th>
         </tr>
         </thead>
+        <!-- Table body -->
         <tbody id="project_list">
         <?php foreach ($projects as $project): ?>
             <tr data-project-id="<?= $project['projectID'] ?>">
-                <td><?= $project['projectName'] ?></td>
-                <td><?= $project['statusName'] ?></td>
-                <td>[Placeholder]</td>
+                <td>
+                    <a href="<?= base_url('projects/details/' . $project['projectID']) ?>">
+                        <?= $project['projectNumber'] ?>
+                    </a>
+                </td>
+                <td>
+                    <a href="<?= base_url('projects/details/' . $project['projectID']) ?>">
+                        <?= esc($project['projectName']) ?>
+                    </a>
+                </td>
+                <td><?= esc($project['statusName']) ?></td>
+                <td><?= esc(str_replace(',', ', ', $project['categoryNames'])) ?></td> <!-- Updated Data -->
+                <td><?= esc($project['dateAccepted']) ?></td>
+                <td>
+                    <?php if (!empty($project['assignedUsers'])): ?>
+                        <ul>
+                            <?php foreach ($project['assignedUsers'] as $user): ?>
+                                <li><?= esc($user['username']) ?></li>
+                            <?php endforeach; ?>
+                        </ul>
+                    <?php else: ?>
+                        No users assigned.
+                    <?php endif; ?>
+                </td>
             </tr>
         <?php endforeach; ?>
         </tbody>
     </table>
 </div>
 
-<!-- Initialize modal -->
-<div id="projectDetailsModal" class="modal fade">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body" id="projectDetails"></div>
-        </div>
-    </div>
-</div>
 <!-- Scripts -->
 <script src="<?php echo base_url('/assets/js/projects.js') ?>"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
