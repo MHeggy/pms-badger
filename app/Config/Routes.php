@@ -115,8 +115,8 @@ $routes->get('/accountantpayroll/week/(:segment)', 'PayrollController::viewWeek/
 $routes->post('/change_password', 'UserController::changePassword');
 service('auth')->routes($routes);
 
-$routes->get('register', 'AuthController::register', ['as' => 'register']);
-$routes->post('register', 'AuthController::register');
+$routes->get('register', 'UserController::register', ['as' => 'register']);
+$routes->post('register', 'UserController::register');
 
 
 // test email route

@@ -2,36 +2,54 @@
 
 namespace App\Controllers;
 
-use App\Controllers\BaseController;
-use CodeIgniter\Shield\Commands\User;
-use CodeIgniter\Shield\Models\UserModel;
+use CodeIgniter\Shield\Controllers\UserController as ShieldUserController;
+use App\Models\UserModel;
 
-class UserController extends BaseController {// start of UserController class.
+class UserController extends ShieldUserController
+{
+    public function register()
+    {
+        $data = [
+            'pageTitle' => 'Register',
+        ];
 
-    protected $userModel;
+        if ($this->request->getMethod() === 'post') {
+            $users = new UserModel();
 
-    public function __construct() {
-        $this->userModel = new UserModel();
-    }
+            // Validate input
+            $rules = [
+                'firstName' => 'required|min_length[2]',
+                'lastName'  => 'required|min_length[2]',
+                'email'     => 'required|valid_email|is_unique[users.email]',
+                'username'  => 'required|min_length[3]|is_unique[users.username]',
+                'password'  => 'required|min_length[8]',
+                'password_confirm' => 'required|matches[password]',
+            ];
 
-    public function changePasswordView() {
-        return view('PMS/changepassword.php');
-    }
+            if (!$this->validate($rules)) {
+                return view('auth/register', [
+                    'validation' => $this->validator,
+                    'pageTitle' => 'Register',
+                ]);
+            }
 
-    public function changePassword() {
-        // get the new password from the form.
-        $newPassword = $this->request->getPost('password');
-        $confirmPassword = $this->request->getPost('confirm');
+            // Create a new user
+            $user = new \CodeIgniter\Shield\Entities\User([
+                'email' => $this->request->getPost('email'),
+                'username' => $this->request->getPost('username'),
+                'firstName' => $this->request->getPost('firstName'),
+                'lastName' => $this->request->getPost('lastName'),
+                'password' => $this->request->getPost('password'),
+            ]);
 
-        if ($newPassword !== $confirmPassword) {
-            return redirect()->back()->withInput()->with('error', 'Passwords do not match, please try again.');
+            // Save the user
+            $users->save($user);
+
+            // Optionally, log the user in after registration or redirect to login
+            return redirect()->to('/login')->with('message', 'Registration successful. Please login.');
         }
 
-        $user = auth()->user();
-
-        $user->setPassword($newPassword);
-
-        return redirect()->back()->to('/dashboard')->with('success', 'Password changed successfully!');
+        return view('auth/register', $data);
     }
-
+    
 }
