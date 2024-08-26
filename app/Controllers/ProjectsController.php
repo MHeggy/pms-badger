@@ -187,36 +187,37 @@ class ProjectsController extends BaseController {
     }
 
     public function myWork() {
-        $user = auth()->user();
         $userID = auth()->id();
 
-        // Ensure the user is authenticated.
+        // Ensure the user is logged in
         if (!$userID) {
             return redirect()->to('/login')->with('error', 'You must login to access this page.');
         }
 
+        // Try statement to catch any exceptions
         try {
-            // Fetch assigned projects using the new model method.
+            // Fetch assigned projects for the user using the model method.
             $assignedProjects = $this->projectModel->getAssignedProjects($userID);
-            // print_r statement for the assigned projects
+
+            // Debugging statement.
+            log_message('debug', 'Assigned Projects for User ID ' . $userID . ': ' . print_r($assignedProjects, true));
+            // print_r statement for the $assignedProjects variable.
             print_r($assignedProjects);
 
-            // Debgging statement.
-            log_message('debug', 'Assigned Projects for User ID ' . $userID . ': ' . print_r($assignedProjects, true));
-
             $data = [
-                'assignedProjects' => $assignedProjects,
-                'userID' => $userID
+                'assignedProjects' => $assignedProjects
             ];
 
+            // return the view with the data passed to it as an array.
             return view('PMS/mywork', $data);
         } catch (\Exception $e) {
+            // Log the error message to the log file.
             log_message('error', 'Error in myWork: ' . $e->getMessage());
+            // Return a JSON response with an error message.
             return $this->response->setStatusCode(500)->setJSON(['error' => 'Internal server error']);
         }
     }
     
-
     public function unassignUsersView() {
         $user = auth()->user();
         $userID = auth()->id();
