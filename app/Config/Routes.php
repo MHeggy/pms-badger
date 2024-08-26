@@ -115,7 +115,7 @@ $routes->get('/accountantpayroll/week/(:segment)', 'PayrollController::viewWeek/
 $routes->post('/change_password', 'UserController::changePassword');
 service('auth')->routes($routes, ['register' => false]);
 // Custom route for the register action.
-$routes->match(['get', 'post'], 'register', 'RegisterController::register');
+$routes->match(['get', 'post'], 'doRegister', 'RegisterController::register');
 // test email route
 $routes->get('/send-test-email', 'EmailController::sendTestEmail');
 $routes->get('timesheets/export/(:num)', 'TimesheetsController::exportTimesheet/$1');

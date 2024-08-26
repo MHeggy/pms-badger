@@ -31,7 +31,7 @@
                 </div>
             <?php endif ?>
 
-            <form action="<?= url_to('register') ?>" method="post">
+            <form action="<?= url_to('doRegister') ?>" method="post">
                 <?= csrf_field() ?>
 
                 <!-- Email -->
