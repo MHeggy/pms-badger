@@ -114,6 +114,8 @@ $routes->get('/accountantpayroll/week/(:segment)', 'PayrollController::viewWeek/
 // route for actually changing the user's password in the database.
 $routes->post('/change_password', 'UserController::changePassword');
 service('auth')->routes($routes);
+$routes->match(['get', 'post'], 'register', 'RegisterController::register');
+
 // test email route
 $routes->get('/send-test-email', 'EmailController::sendTestEmail');
 $routes->get('timesheets/export/(:num)', 'TimesheetsController::exportTimesheet/$1');
