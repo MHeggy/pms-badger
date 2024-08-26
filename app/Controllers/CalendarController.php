@@ -16,11 +16,11 @@ class CalendarController extends Controller {
     public function index() {
         $events = $this->calendarModel->getAllEvents();
         $userID = auth()->id();
-    
+   
         if (!$userID) {
             return redirect()->to('/login')->with('error', 'You must login to access this page.');
         }
-    
+   
         $formattedEvents = [];
         foreach($events as $event) {
             $formattedEvents[] = [
@@ -31,13 +31,13 @@ class CalendarController extends Controller {
                 'id' => $event['id']
             ];
         }
-    
+   
         return view('PMS/calendar.php', [
             'events' => json_encode($formattedEvents),
             'eventIds' => array_column($formattedEvents, 'id'),
         ]);
     }
-    
+
     public function create()
     {
         $data = [

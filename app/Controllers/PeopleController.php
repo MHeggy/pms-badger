@@ -5,17 +5,20 @@ namespace App\Controllers;
 use App\Models\ProjectModel;
 use CodeIgniter\Shield\Models\UserModel;
 use App\Models\ForumModel;
+use App\Models\CalendarModel;
 
 
 class PeopleController extends BaseController {
     protected $userModel;
     protected $projectModel;
     protected $forumModel;
+    protected $calendarModel;
 
     public function __construct() {
         $this->userModel = new UserModel();
         $this->projectModel = new ProjectModel();
         $this->forumModel = new ForumModel();
+        $this->calendarModel = new CalendarModel();
     }
 
     public function index() {
@@ -48,21 +51,22 @@ class PeopleController extends BaseController {
             $upcomingEvents = $calendarModel->where('start_date >=', date('Y-m-d H:i:s'))
                 ->orderBy('start_date', 'ASC')
                 ->findAll();
-            
+            $upcomingEventsCount = count($upcomingEvents); // Count the number of upcoming events
+        
             $forumPosts = $this->forumModel->getAllPosts();
-            
+        
             return view('PMS/home.php', [
                 'totalProjects' => $totalProjects,
                 'assignedProjects' => $assignedProjects,
                 'completedProjects' => $completedProjects,
                 'ongoingProjects' => $ongoingProjects,
-                'upcomingEvents' => $upcomingEvents,
+                'upcomingEventsCount' => $upcomingEventsCount,
                 'forumPosts' => $forumPosts,
                 'errorMessage' => session()->getFlashdata('error')
             ]);
         }
     }
-
+    
     // function to display the My Settings page to users.
     public function myProfileView($userId)
     {

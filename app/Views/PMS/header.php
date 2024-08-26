@@ -15,13 +15,22 @@
             top: 10px;
             right: 10px;
         }
+        .notification-badge {
+            background-color: red;
+            color: white;
+            border-radius: 50%;
+            padding: 0 6px;
+            font-size: 12px;
+            vertical-align: top;
+            margin-left: 5px;
+        }
     </style>
 </head>
 <body>
 <?php $user = auth()->user(); ?>
 <!-- Main title of header -->
 <div id="titleContainer">
-    <h2 id="headerTitle"><?= $pageTitle ?></h2>
+    <h2 id="headerTitle"><?= $pageTitle ?> <?php if (isset($upcomingEventsCount) && $upcomingEventsCount > 0): ?><span class="notification-badge"><?= $upcomingEventsCount ?></span><?php endif; ?></h2>
 
     <!-- Profile dropdown -->
     <?php if (auth()->loggedIn()) : ?>
@@ -80,3 +89,5 @@
 </div>
 
 <script src="<?php echo base_url('/assets/js/main.js')?>"></script>
+</body>
+</html>

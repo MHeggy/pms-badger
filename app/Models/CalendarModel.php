@@ -30,4 +30,14 @@ class CalendarModel extends Model
     {
         return $this->findAll();
     }
+
+    // function to retrieve the upcoming events on the calendar.
+    public function getUpcomingEvents($days = 2) {
+        $now = date('Y-m-d');
+        $dateRange = date('Y-m-d', strtotime($now . ' + ' . $days . ' days'));
+
+        return $this->where('start_date >=', $now)
+                    ->where('start_date <=', $dateRange)
+                    ->findAll();
+    }
 }
