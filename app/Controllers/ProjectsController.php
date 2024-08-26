@@ -205,7 +205,7 @@ class ProjectsController extends BaseController {
             log_message('debug', 'Assigned Projects for User ID ' . $userID . ': ' . print_r($assignedProjects, true));
 
             $data = [
-                'projects' => $assignedProjects,
+                'assignedProjects' => $assignedProjects,
                 'userID' => $userID
             ];
 
