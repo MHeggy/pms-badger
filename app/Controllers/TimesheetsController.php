@@ -191,15 +191,16 @@ class TimesheetsController extends BaseController {
         $sheet->setCellValue('B4', $timesheet['userID']); // Example cell for User ID
         $sheet->setCellValue('R31', $timesheet['totalHours']); // Example cell for Total Hours
 
-        // Fill in the employee name across cells K9, L9, M9, and N9
+        // Combine the firstName and lastName into one string.
+        $fullName = '';
         if ($user) {
-            $sheet->setCellValue('K9', $user['firstName']);
-            $sheet->setCellValue('L9', $user['lastName']);
-            $sheet->setCellValue('M9', $user['firstName']);
-            $sheet->setCellValue('N9', $user['lastName']);
+            $fullName = $user['firstName'] . ' ' . $user['lastName'];
         }
 
-    
+        // Merge cells for the name.
+        $sheet->mergeCells('K9:N9');
+        $sheet->setCellValue('K9', $fullName); // User's Full Name exported into cells K9:N9.
+
         // Start filling timesheet entries at a specific row (e.g., row 12)
         $startRow = 12;
         foreach ($entries as $index => $entry) {
