@@ -239,6 +239,7 @@ class TimesheetsController extends BaseController {
     
     private function getTimesheetEntriesFromRequest() {
         $entries = [];
+        $entryIDs = $this->request->getPost('entryID');
         $projectNumbers = $this->request->getPost('projectNumber');
         $projectNames = $this->request->getPost('projectName');
         $activityDescriptions = $this->request->getPost('activityDescription');
@@ -255,6 +256,7 @@ class TimesheetsController extends BaseController {
             // Only add entries if there is valid data
             if (!empty($projectNumber) || !empty($projectNames[$index]) || !empty($totalHours[$index])) {
                 $entries[] = [
+                    'entryID' => $entryIDs[$index] ?? null,
                     'projectNumber' => $projectNumber,
                     'projectName' => $projectNames[$index] ?? '',
                     'activityDescription' => $activityDescriptions[$index] ?? '',
