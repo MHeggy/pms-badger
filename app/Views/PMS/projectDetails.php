@@ -2,21 +2,21 @@
 <link rel="stylesheet" href="<?= base_url('/assets/css/projectDetails.css') ?>">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <style>
-.table-dark th {
-    background-color: #343a40;
-    color: #ffffff;
-    font-weight: bold;
-}
+    .table-dark th {
+        background-color: #343a40;
+        color: #ffffff;
+        font-weight: bold;
+    }
 
 
-.table-striped tbody tr:nth-of-type(odd) {
-    background-color: #f9f9f9;
-}
+    .table-striped tbody tr:nth-of-type(odd) {
+        background-color: #f9f9f9;
+    }
 
 
-.table-striped tbody tr:nth-of-type(even) {
-    background-color: #ffffff;
-}
+    .table-striped tbody tr:nth-of-type(even) {
+        background-color: #ffffff;
+    }
 
 </style>
 
