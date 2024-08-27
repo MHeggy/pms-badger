@@ -263,8 +263,8 @@ class TimesheetsController extends BaseController {
 
     // function to export multiple timesheets to excel (accountant payroll)
     public function exportMultipleTimesheets() {
-        $timesheetIds = $this->request->getPost('timesheet_ids'); // Assume this comes as an array of timesheet IDs
-    
+        $timesheetIds = $this->request->getPost('timesheet_ids');
+        
         if (empty($timesheetIds)) {
             return redirect()->back()->with('error_message', 'No timesheets selected for export.');
         }
@@ -272,7 +272,6 @@ class TimesheetsController extends BaseController {
         $zipFileName = 'timesheets_' . date('YmdHis') . '.zip';
         $zipFilePath = WRITEPATH . 'uploads/' . $zipFileName;
     
-        // Ensure the uploads directory exists and is writable
         if (!is_dir(WRITEPATH . 'uploads')) {
             mkdir(WRITEPATH . 'uploads', 0755, true);
         }
@@ -281,14 +280,13 @@ class TimesheetsController extends BaseController {
             return redirect()->back()->with('error_message', 'Uploads directory is not writable.');
         }
     
-        // Create a new ZIP archive
         $zip = new ZipArchive();
         if ($zip->open($zipFilePath, ZipArchive::CREATE) !== true) {
             return redirect()->back()->with('error_message', 'Failed to create ZIP archive.');
         }
     
         foreach ($timesheetIds as $timesheetId) {
-            $templatePath = WRITEPATH . 'templates/badgerspreadsheet.xlsx'; // Path to your Excel template
+            $templatePath = WRITEPATH . 'templates/badgerspreadsheet.xlsx';
             $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($templatePath);
             $sheet = $spreadsheet->getActiveSheet();
     
@@ -296,7 +294,7 @@ class TimesheetsController extends BaseController {
             $entries = $this->timesheetsModel->getTimesheetEntriesByTimesheetId($timesheetId);
     
             if (!$timesheet) {
-                continue; // Skip if the timesheet is not found
+                continue;
             }
     
             $userId = $timesheet['userID'];
@@ -347,7 +345,6 @@ class TimesheetsController extends BaseController {
                 $zip->close();
                 return redirect()->back()->with('error_message', 'Failed to save one or more files: ' . $e->getMessage());
             } finally {
-                // Cleanup: remove the temporary file
                 if (file_exists($filePath)) {
                     unlink($filePath);
                 }
@@ -356,12 +353,10 @@ class TimesheetsController extends BaseController {
     
         $zip->close();
     
-        // Trigger file download
         return $this->response->download($zipFilePath, null)->setFileName($zipFileName);
     }
     
-    
-    
+
     private function getTimesheetEntriesFromRequest() {
         $entries = [];
         $entryIDs = $this->request->getPost('entryID');
