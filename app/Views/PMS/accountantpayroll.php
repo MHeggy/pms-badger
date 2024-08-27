@@ -45,10 +45,11 @@
 
     <!-- Display Filtered Timesheets -->
     <?php if (!empty($filteredTimesheets)): ?>
-        <div class="table-responsive">
+        <form method="post" action="/timesheets/export_multiple" class="table-responsive">
             <table class="table table-striped table-bordered text-center">
                 <thead class="table-dark">
                     <tr>
+                        <th>Select</th>
                         <th>Name</th>
                         <th>Week</th>
                         <th>Total Hours</th>
@@ -58,6 +59,9 @@
                 <tbody>
                     <?php foreach ($filteredTimesheets as $timesheet): ?>
                         <tr>
+                            <td>
+                                <input type="checkbox" name="timesheet_ids[]" value="<?= esc($timesheet['timesheetID']); ?>">
+                            </td>
                             <td><?= esc($timesheet['firstName'] . ' ' . $timesheet['lastName']) ?></td>
                             <td><?= esc($timesheet['weekOf']); ?></td>
                             <td><?= esc($timesheet['totalHours']); ?></td>
@@ -69,7 +73,10 @@
                     <?php endforeach; ?>
                 </tbody>
             </table>
-        </div>
+            <div class="text-center mt-3">
+                <button type="submit" class="btn btn-success">Export Selected Timesheets</button>
+            </div>
+        </form>
     <?php else: ?>
         <p class="text-center mt-4">No timesheets found for the selected filters.</p>
     <?php endif; ?>
