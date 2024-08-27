@@ -26,6 +26,7 @@
         <?= session()->get('info_message') ?>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
+    <button onclick="goBack()" class="btn btn-primary btn-back">Back to Timesheets</button>
     <form id="timesheet-form" action="/timesheets/update" method="post">
         <input type="hidden" name="id" value="<?= esc($timesheet['timesheetID']) ?>">
 
@@ -164,6 +165,10 @@
         addEventListenersToRow(newRow);
         calculateAllTotals();
     });
+
+    function goBack() {
+        window.history.back();
+    }
 
     // Initial calculation
     calculateAllTotals();
