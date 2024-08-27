@@ -101,7 +101,6 @@
             <table class="table table-striped mt-4">
                 <thead class="table-dark">
                     <tr>
-                        <th>Update ID</th>
                         <th>User</th>
                         <th>Update</th>
                         <th>Timestamp</th>
@@ -110,7 +109,6 @@
                 <tbody>
                     <?php foreach ($updates as $update): ?>
                         <tr>
-                            <td><?= esc($update['updateID']) ?></td>
                             <td><?= esc($update['username']) ?></td>
                             <td><?= esc($update['updateText']) ?></td>
                             <td><?= esc(date('n/j/Y \@ g:ia', strtotime($update['timestamp']))) ?></td>
