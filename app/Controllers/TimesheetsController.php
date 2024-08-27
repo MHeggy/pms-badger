@@ -228,7 +228,8 @@ class TimesheetsController extends BaseController {
     
         // Save the filled template as a new file
         $writer = new Xlsx($spreadsheet);
-        $fileName = 'Timesheet_' . $timesheetId . '.xlsx';
+        // Construct the filename using user’s name and week of
+        $fileName = $fullName . '_' . $formattedStartDate . '.xlsx';
         $filePath = WRITEPATH . 'uploads/' . $fileName;
     
         $writer->save($filePath);
