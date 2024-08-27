@@ -37,8 +37,10 @@
                     <?php endforeach; ?>
                 </select>
             </div>
+            <!-- Reset and Filter buttons -->
             <div class="col-12 text-center">
                 <button type="submit" class="btn btn-primary">Filter</button>
+                <a href="<?= current_url(); ?>" class="btn btn-secondary ms-2">Reset</a>
             </div>
         </form>
     </div>
