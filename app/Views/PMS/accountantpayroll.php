@@ -60,7 +60,7 @@
                     <?php foreach ($filteredTimesheets as $timesheet): ?>
                         <tr>
                             <td>
-                                <input type="checkbox" name="timesheet_ids[]" value="<?= esc($timesheet['timesheetID']); ?>">
+                                <input type="checkbox" name="timesheet_ids[]" value="<?= esc($timesheet['timesheetID']); ?>" class="timesheet-checkbox">
                             </td>
                             <td><?= esc($timesheet['firstName'] . ' ' . $timesheet['lastName']) ?></td>
                             <td><?= esc($timesheet['weekOf']); ?></td>
@@ -74,7 +74,7 @@
                 </tbody>
             </table>
             <div class="text-center mt-3">
-                <button type="submit" class="btn btn-success">Export Selected Timesheets</button>
+                <button type="submit" class="btn btn-success" id="exportButton" style="display: none;">Export <span id="exportCount">0</span> Timesheet(s)</button>
             </div>
         </form>
     <?php else: ?>
@@ -83,3 +83,28 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const checkboxes = selectAll('input[type="checkbox"]');
+        const exportButton = document.getElementById('exportButton');
+        const exportCount = document.getElementById('exportCount');
+
+        function updateExportButton() {
+            const checkedCount = document.querySelectorAll('.timesheet-checkbox:checked').length;
+            exportCount.textContent = checkedCount;
+
+            if (checkedCount > 0) {
+                exportButton.style.display = 'block';
+            } else {
+                exportButton.style.display = 'none';
+            }
+        }
+
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', updateExportButton);
+        });
+
+        // Initial check in case of pre-selected checkboxes.
+        updateExportButton();
+    });
+</script>
