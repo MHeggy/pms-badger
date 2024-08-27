@@ -377,6 +377,7 @@ class ProjectsController extends BaseController {
 
     // function to add the updates that other users provide from the updates table in the database.
     public function addUpdate($projectID) {
+        $projectID = $this->request->getPost('projectID');
         $userID = auth()->id();
         $updateText = $this->request->getPost('updateText');
 
