@@ -22,3 +22,13 @@ td {
 h1 {
     margin-bottom: 20px;
 }
+
+.table-dark th {
+    background-color: #343a40;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #f9f9f9;
+}
