@@ -55,6 +55,8 @@ $routes->post('/timesheets/update', 'TimesheetsController::updateTimesheet');
 $routes->get('/timesheets/delete/(:num)', 'TimesheetsController::deleteTimesheet/$1');
 // route for viewing specific timesheet.
 $routes->get('/timesheets/view/(:num)', 'TimesheetsController::viewTimesheet/$1');
+// route for exporting multiple timesheets at once.
+$routes->post('/timesheets/export_multiple', 'TimesheetsController::exportMultipleTimesheets');
 // route for displaying projects page.
 $routes->get('/projects', 'ProjectsController::index');
 // route for handling searching of projects.
