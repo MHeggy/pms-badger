@@ -119,7 +119,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <form method="post" action="/timesheets/delete" id="deleteForm">
+                <form method="post" id="deleteForm">
                     <input type="hidden" name="timesheetID" id="deleteTimesheetID">
                     <button type="submit" class="btn btn-danger">Delete</button>
                 </form>
@@ -167,6 +167,8 @@
         deleteModal.addEventListener('show.bs.modal', function (event) {
             const button = event.relatedTarget;
             const timesheetId = button.getAttribute('data-id');
+            const deleteForm = document.getElementById('deleteForm');
+            deleteForm.action = '/timesheets/delete/' + timesheetId;
             document.getElementById('deleteTimesheetID').value = timesheetId;
         });
     });
