@@ -226,13 +226,11 @@ class TimesheetsController extends BaseController {
             $sheet->setCellValue('R' . $row, $entry['totalHours']); // Project Total Hours
         }
     
-        
-        // Construct the filename using user’s name and week of
-        $fileName = $fullName . '_' . $formattedStartDate . '.xlsx';
-        $filePath = WRITEPATH . 'uploads/' . $fileName;
-        
         // Save the filled template as a new file
         $writer = new Xlsx($spreadsheet);
+        $fileName = 'Timesheet_' . $timesheetId . '.xlsx';
+        $filePath = WRITEPATH . 'uploads/' . $fileName;
+    
         $writer->save($filePath);
     
         // Trigger file download
