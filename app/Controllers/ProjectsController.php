@@ -129,26 +129,27 @@ class ProjectsController extends BaseController {
         try {
             // Fetch project details from the model.
             $project = $this->projectModel->findProjectDetails($projectID);
-
+    
             if (!$project) {
                 return $this->response->setStatusCode(404)->setJSON(['error' => 'Project not found']);
             }
-
+    
             // Fetch updates for the given project.
             $updates = $this->updatesModel->getUpdatesByProject($projectID);
-
+    
             // Pass the data to the view.
             $data = [
                 'project' => $project,
                 'updates' => $updates
             ];
-
+    
             return view('PMS/projectDetails', $data);
         } catch (\Exception $e) {
             log_message('error', 'Error in projectDetails: ' . $e->getMessage());
             return $this->response->setStatusCode(500)->setJSON(['error' => 'Internal server error']);
         }
     }
+    
 
     public function assignUsersView() {
         $user = auth()->user();
