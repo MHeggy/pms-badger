@@ -9,10 +9,12 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 class TimesheetsController extends BaseController {
     protected $timesheetsModel;
     protected $session;
+    protected $auth;
 
     public function __construct() {
         $this->timesheetsModel = new TimesheetsModel();
         $this->session = \Config\Services::session();
+        $this->auth = \Config\Services::auth();
     }
 
     public function index() {
