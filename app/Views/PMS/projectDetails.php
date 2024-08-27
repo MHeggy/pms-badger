@@ -95,7 +95,7 @@
                             <td><?= esc($update['updateID']) ?></td>
                             <td><?= esc($update['username']) ?></td>
                             <td><?= esc($update['updateText']) ?></td>
-                            <td><?= esc(date('Y-m-d H:i:s', strtotime($update['timestamp']))) ?></td>
+                            <td><?= esc(date('n/j/Y \@ g:ia', strtotime($update['timestamp']))) ?></td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
