@@ -273,5 +273,4 @@ class TimesheetsController extends BaseController {
         return $entries;
     }
     
-    
 }
