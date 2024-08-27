@@ -176,7 +176,11 @@ class TimesheetsController extends BaseController {
         $templatePath = WRITEPATH . 'templates/badgerspreadsheet.xlsx'; // Path to your Excel template
     
         // Load the template
-        $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($templatePath);
+        try {
+            $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($templatePath);
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error_message', 'Failed to load the template: ' . $e->getMessage());
+        }
         $sheet = $spreadsheet->getActiveSheet();
     
         // Fetch the timesheet and entries
@@ -213,9 +217,17 @@ class TimesheetsController extends BaseController {
         $sheet->mergeCells('K9:N9');
         $sheet->setCellValue('K9', $fullName); // User's Full Name
     
+        // Variables to hold the last entry with projectNumber = 13-000
+        $specialEntry = null;
+    
         // Fill timesheet entries
         $startRow = 12;
         foreach ($entries as $index => $entry) {
+            if ($entry['projectNumber'] === '13-000') {
+                $specialEntry = $entry;
+                continue; // Skip this entry in the loop
+            }
+    
             $row = $startRow + $index;
             $sheet->setCellValue('B' . $row, $entry['projectNumber']);
             $sheet->mergeCells('C' . $row . ':E' . $row);
@@ -231,29 +243,22 @@ class TimesheetsController extends BaseController {
             $sheet->setCellValue('Q' . $row, $entry['sundayHours']);
             $sheet->setCellValue('R' . $row, $entry['totalHours']);
         }
-
-        // Get the last entry
-        $lastEntry = end($entries);
-
-        // insert the last entries into line 29.
-        if ($lastEntry) {
-            $sheet->setCellValue('K29', $lastEntry['mondayHours']);
-            $sheet->setCellValue('L29', $lastEntry['tuesdayHours']);
-            $sheet->setCellValue('M29', $lastEntry['wednesdayHours']);
-            $sheet->setCellValue('N29', $lastEntry['thursdayHours']);
-            $sheet->setCellValue('O29', $lastEntry['fridayHours']);
-            $sheet->setCellValue('P29', $lastEntry['saturdayHours']);
-            $sheet->setCellValue('Q29', $lastEntry['sundayHours']);
-            $sheet->setCellValue('R29', $lastEntry['totalHours']);
+    
+        // Insert the special entry into line 29 if it exists
+        if ($specialEntry) {
+            $sheet->setCellValue('K29', $specialEntry['mondayHours']);
+            $sheet->setCellValue('L29', $specialEntry['tuesdayHours']);
+            $sheet->setCellValue('M29', $specialEntry['wednesdayHours']);
+            $sheet->setCellValue('N29', $specialEntry['thursdayHours']);
+            $sheet->setCellValue('O29', $specialEntry['fridayHours']);
+            $sheet->setCellValue('P29', $specialEntry['saturdayHours']);
+            $sheet->setCellValue('Q29', $specialEntry['sundayHours']);
+            $sheet->setCellValue('R29', $specialEntry['totalHours']);
         }
     
         // Generate filename
         $fileName = $fullName . '_' . $formattedStartDate . '.xlsx';
         $filePath = WRITEPATH . 'uploads/' . $fileName;
-    
-        // Debug output
-        echo 'Filename: ' . $fileName . '<br>';
-        echo 'Filepath: ' . $filePath . '<br>';
     
         // Ensure the uploads directory exists and is writable
         if (!is_dir(WRITEPATH . 'uploads')) {
@@ -266,7 +271,7 @@ class TimesheetsController extends BaseController {
     
         // Save the filled template as a new file
         try {
-            $writer = new Xlsx($spreadsheet);
+            $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
             $writer->save($filePath);
         } catch (\Exception $e) {
             return redirect()->back()->with('error_message', 'Failed to save the file: ' . $e->getMessage());
@@ -275,6 +280,7 @@ class TimesheetsController extends BaseController {
         // Trigger file download
         return $this->response->download($filePath, null)->setFileName($fileName);
     }
+    
 
     // function to export multiple timesheets to excel (accountant payroll)
     public function exportMultipleTimesheets() {
