@@ -104,9 +104,23 @@ class TimesheetsModel extends Model {
 
     public function updateTimesheetEntries($timesheetId, $entries) {
         $this->db->transStart();
-        $this->db->table('timesheetEntries')->where('timesheetID', $timesheetId)->delete();
-        
-        $batchData = [];
+    
+        // Fetch existing entries for the timesheet
+        $existingEntries = $this->db->table('timesheetEntries')
+                                    ->where('timesheetID', $timesheetId)
+                                    ->get()
+                                    ->getResultArray();
+    
+        // Create a map of existing entries by their entryID
+        $existingEntriesMap = [];
+        foreach ($existingEntries as $existingEntry) {
+            $existingEntriesMap[$existingEntry['entryID']] = $existingEntry;
+        }
+    
+        $updatedEntriesMap = [];
+        $batchInsertData = [];
+        $totalHours = 0;
+    
         foreach ($entries as $entry) {
             if (empty($entry['projectNumber']) && empty($entry['projectName']) && empty($entry['activityDescription']) &&
                 empty($entry['mondayHours']) && empty($entry['tuesdayHours']) && empty($entry['wednesdayHours']) &&
@@ -114,28 +128,69 @@ class TimesheetsModel extends Model {
                 empty($entry['sundayHours'])) {
                 continue;
             }
-
-            $batchData[] = [
-                'timesheetID' => $timesheetId,
-                'projectNumber' => $entry['projectNumber'],
-                'projectName' => $entry['projectName'],
-                'activityDescription' => $entry['activityDescription'],
-                'mondayHours' => $entry['mondayHours'],
-                'tuesdayHours' => $entry['tuesdayHours'],
-                'wednesdayHours' => $entry['wednesdayHours'],
-                'thursdayHours' => $entry['thursdayHours'],
-                'fridayHours' => $entry['fridayHours'],
-                'saturdayHours' => $entry['saturdayHours'],
-                'sundayHours' => $entry['sundayHours'],
-                'createdAt' => date('Y-m-d H:i:s'),
-                'updatedAt' => date('Y-m-d H:i:s')
-            ];
+    
+            // Calculate the total hours for this entry
+            $entryTotalHours = array_sum([
+                $entry['mondayHours'], $entry['tuesdayHours'], $entry['wednesdayHours'],
+                $entry['thursdayHours'], $entry['fridayHours'], $entry['saturdayHours'], $entry['sundayHours']
+            ]);
+            $totalHours += $entryTotalHours;
+    
+            if (isset($existingEntriesMap[$entry['entryID']])) {
+                // If the entry already exists, update it
+                $this->db->table('timesheetEntries')
+                         ->where('entryID', $entry['entryID'])
+                         ->update([
+                             'projectNumber' => $entry['projectNumber'],
+                             'projectName' => $entry['projectName'],
+                             'activityDescription' => $entry['activityDescription'],
+                             'mondayHours' => $entry['mondayHours'],
+                             'tuesdayHours' => $entry['tuesdayHours'],
+                             'wednesdayHours' => $entry['wednesdayHours'],
+                             'thursdayHours' => $entry['thursdayHours'],
+                             'fridayHours' => $entry['fridayHours'],
+                             'saturdayHours' => $entry['saturdayHours'],
+                             'sundayHours' => $entry['sundayHours'],
+                             'totalHours' => $entryTotalHours,
+                             'updatedAt' => date('Y-m-d H:i:s')
+                         ]);
+                $updatedEntriesMap[$entry['entryID']] = true;
+            } else {
+                // If the entry doesn't exist, prepare to insert it
+                $batchInsertData[] = [
+                    'timesheetID' => $timesheetId,
+                    'projectNumber' => $entry['projectNumber'],
+                    'projectName' => $entry['projectName'],
+                    'activityDescription' => $entry['activityDescription'],
+                    'mondayHours' => $entry['mondayHours'],
+                    'tuesdayHours' => $entry['tuesdayHours'],
+                    'wednesdayHours' => $entry['wednesdayHours'],
+                    'thursdayHours' => $entry['thursdayHours'],
+                    'fridayHours' => $entry['fridayHours'],
+                    'saturdayHours' => $entry['saturdayHours'],
+                    'sundayHours' => $entry['sundayHours'],
+                    'totalHours' => $entryTotalHours,
+                    'createdAt' => date('Y-m-d H:i:s'),
+                    'updatedAt' => date('Y-m-d H:i:s')
+                ];
+            }
         }
-
-        if (!empty($batchData)) {
-            $this->db->table('timesheetEntries')->insertBatch($batchData);
+    
+        // Insert any new entries
+        if (!empty($batchInsertData)) {
+            $this->db->table('timesheetEntries')->insertBatch($batchInsertData);
         }
-
+    
+        // Delete entries that are no longer present
+        foreach ($existingEntriesMap as $entryID => $existingEntry) {
+            if (!isset($updatedEntriesMap[$entryID])) {
+                $this->db->table('timesheetEntries')->where('entryID', $entryID)->delete();
+            }
+        }
+    
+        // Update the total hours in the timesheets table
+        $this->db->table('timesheets')->where('timesheetID', $timesheetId)->update(['totalHours' => $totalHours]);
+    
         $this->db->transComplete();
     
         if (!$this->db->transStatus()) {
@@ -164,4 +219,5 @@ class TimesheetsModel extends Model {
                     ->get()
                     ->getResultArray();
     }
+    
 }
