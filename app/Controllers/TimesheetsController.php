@@ -262,7 +262,7 @@ class TimesheetsController extends BaseController {
 
     // function to export multiple timesheets to excel (accountant payroll)
     public function exportMultipleTimesheets() {
-        $timesheetIds = $this->request->getPost('timesheetIds'); // Assume this comes as an array of timesheet IDs
+        $timesheetIds = $this->request->getPost('timesheet_ids'); // Assume this comes as an array of timesheet IDs
     
         if (empty($timesheetIds)) {
             return redirect()->back()->with('error_message', 'No timesheets selected for export.');
