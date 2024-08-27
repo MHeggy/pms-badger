@@ -171,8 +171,8 @@ class TimesheetsController extends BaseController {
         if (!$timesheet) {
             return redirect()->back()->with('error_message', 'Timesheet not found.');
         }
-
-        // Fetch user details.
+    
+        // Fetch user details
         $userId = $timesheet['userID'];
         $user = $this->timesheetsModel->getUserInfo($userId);
     
@@ -181,57 +181,66 @@ class TimesheetsController extends BaseController {
         $endDate = clone $weekOf;
         $endDate->modify('+6 days');
     
-        // Format the dates as needed (e.g., 'Y-m-d' or 'm/d/Y')
-        $formattedStartDate = $weekOf->format('m/d/Y');
-        $formattedEndDate = $endDate->format('m/d/Y');
+        // Format the dates
+        $formattedStartDate = $weekOf->format('Y-m-d');
+        $formattedEndDate = $endDate->format('Y-m-d');
     
         // Fill in the template data
-        $sheet->setCellValue('K6', $formattedStartDate); // Start Date (Week Of)
-        $sheet->setCellValue('K7', $formattedEndDate); // End Date (Sunday)
-        $sheet->setCellValue('B4', $timesheet['userID']); // Example cell for User ID
-        $sheet->setCellValue('R31', $timesheet['totalHours']); // Example cell for Total Hours
-
-        // Combine the firstName and lastName into one string.
-        $fullName = '';
-        if ($user) {
-            $fullName = $user['firstName'] . ' ' . $user['lastName'];
-        }
-
-        // Merge cells for the name.
+        $sheet->setCellValue('K6', $formattedStartDate); // Start Date
+        $sheet->setCellValue('K7', $formattedEndDate); // End Date
+        $sheet->setCellValue('B4', $timesheet['userID']); // User ID
+        $sheet->setCellValue('R31', $timesheet['totalHours']); // Total Hours
+    
+        // Combine the firstName and lastName
+        $fullName = $user ? $user['firstName'] . '_' . $user['lastName'] : 'Unknown_User';
+    
+        // Merge cells for the name
         $sheet->mergeCells('K9:N9');
-        $sheet->setCellValue('K9', $fullName); // User's Full Name exported into cells K9:N9.
-
-        // Start filling timesheet entries at a specific row (e.g., row 12)
+        $sheet->setCellValue('K9', $fullName); // User's Full Name
+    
+        // Fill timesheet entries
         $startRow = 12;
         foreach ($entries as $index => $entry) {
             $row = $startRow + $index;
-    
-            // Align cells based on your provided layout
-            $sheet->setCellValue('B' . $row, $entry['projectNumber']); // Project Number
-            $sheet->mergeCells('C' . $row . ':E' . $row); // Merge cells for Project Name
-            $sheet->setCellValue('C' . $row, $entry['projectName']); // Project Name
-    
-            // Merge cells for activity description across columns F to J
+            $sheet->setCellValue('B' . $row, $entry['projectNumber']);
+            $sheet->mergeCells('C' . $row . ':E' . $row);
+            $sheet->setCellValue('C' . $row, $entry['projectName']);
             $sheet->mergeCells('F' . $row . ':J' . $row);
-            $sheet->setCellValue('F' . $row, $entry['activityDescription']); // Activity Description
+            $sheet->setCellValue('F' . $row, $entry['activityDescription']);
+            $sheet->setCellValue('K' . $row, $entry['mondayHours']);
+            $sheet->setCellValue('L' . $row, $entry['tuesdayHours']);
+            $sheet->setCellValue('M' . $row, $entry['wednesdayHours']);
+            $sheet->setCellValue('N' . $row, $entry['thursdayHours']);
+            $sheet->setCellValue('O' . $row, $entry['fridayHours']);
+            $sheet->setCellValue('P' . $row, $entry['saturdayHours']);
+            $sheet->setCellValue('Q' . $row, $entry['sundayHours']);
+            $sheet->setCellValue('R' . $row, $entry['totalHours']);
+        }
     
-            $sheet->setCellValue('K' . $row, $entry['mondayHours']); // Monday Hours
-            $sheet->setCellValue('L' . $row, $entry['tuesdayHours']); // Tuesday Hours
-            $sheet->setCellValue('M' . $row, $entry['wednesdayHours']); // Wednesday Hours
-            $sheet->setCellValue('N' . $row, $entry['thursdayHours']); // Thursday Hours
-            $sheet->setCellValue('O' . $row, $entry['fridayHours']); // Friday Hours
-            $sheet->setCellValue('P' . $row, $entry['saturdayHours']); // Saturday Hours
-            $sheet->setCellValue('Q' . $row, $entry['sundayHours']); // Sunday Hours
+        // Generate filename
+        $fileName = $fullName . '_' . $formattedStartDate . '.xlsx';
+        $filePath = WRITEPATH . 'uploads/' . $fileName;
     
-            $sheet->setCellValue('R' . $row, $entry['totalHours']); // Project Total Hours
+        // Debug output
+        echo 'Filename: ' . $fileName . '<br>';
+        echo 'Filepath: ' . $filePath . '<br>';
+    
+        // Ensure the uploads directory exists and is writable
+        if (!is_dir(WRITEPATH . 'uploads')) {
+            mkdir(WRITEPATH . 'uploads', 0755, true);
+        }
+    
+        if (!is_writable(WRITEPATH . 'uploads')) {
+            return redirect()->back()->with('error_message', 'Uploads directory is not writable.');
         }
     
         // Save the filled template as a new file
-        $writer = new Xlsx($spreadsheet);
-        $fileName = '_' . $formattedStartDate . '.xlsx';
-        $filePath = WRITEPATH . 'uploads/' . $fileName;
-    
-        $writer->save($filePath);
+        try {
+            $writer = new Xlsx($spreadsheet);
+            $writer->save($filePath);
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error_message', 'Failed to save the file: ' . $e->getMessage());
+        }
     
         // Trigger file download
         return $this->response->download($filePath, null)->setFileName($fileName);
