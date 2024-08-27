@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\TimesheetsModel;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use ZipArchive;
 
 class TimesheetsController extends BaseController {
     protected $timesheetsModel;
