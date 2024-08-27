@@ -9,7 +9,7 @@ class UpdatesModel extends Model {
     protected $primaryKey = 'updateID';
     protected $allowedFields = ['projectID', 'userID', 'updateText', 'timestamp'];
 
-    public function getUpdatesByProject($proejctID) {
+    public function getUpdatesByProject($projectID) {
         return $this->where('projectID', $projectID)
                     ->join('users', 'users.id = updates.userID')
                     ->orderBy('timestamp', 'DESC')
