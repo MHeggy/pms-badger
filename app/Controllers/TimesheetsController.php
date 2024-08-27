@@ -159,6 +159,18 @@ class TimesheetsController extends BaseController {
         }
     }
 
+    // function to get a timesheet to populate the data in the edit modal for the accountant.
+    public function getTimesheet($timesheetId) {
+        $timesheet = $this->timesheetsModel->find($timesheetId);
+        $entries = $this->timesheetsModel->getTimesheetEntriesByTimesheetId($timesheetId);
+
+        return $this->response->setJSON([
+            'timesheet' => $timesheet,
+            'entries' => $entries
+        ]);
+    }
+    
+    // function to export timesheet to excel (individual timesheets)
     public function exportTimesheet($timesheetId) {
         $templatePath = WRITEPATH . 'templates/badgerspreadsheet.xlsx'; // Path to your Excel template
     

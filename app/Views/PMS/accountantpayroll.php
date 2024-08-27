@@ -158,8 +158,38 @@
         editModal.addEventListener('show.bs.modal', function (event) {
             const button = event.relatedTarget;
             const timesheetId = button.getAttribute('data-id');
-            // Load and populate the edit form based on timesheetId if needed
-            console.log('Edit Timesheet ID:', timesheetId);
+            const modalBody = editModal.querySelector('.modal-body');
+
+            // Perform an AJAX request to fetch the timesheet data
+            fetch(`/timesheets/get/${timesheetId}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        modalBody.innerHTML = `<p class="text-danger">${data.error}</p>`;
+                    } else {
+                        modalBody.innerHTML = `
+                            <form id="editTimesheetForm" method="post" action="/timesheets/update">
+                                <input type="hidden" name="timesheetID" value="${data.timesheetID}">
+                                <div class="mb-3">
+                                    <label for="weekOf" class="form-label">Week Of</label>
+                                    <input type="text" class="form-control" id="weekOf" name="weekOf" value="${data.weekOf}">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="totalHours" class="form-label">Total Hours</label>
+                                    <input type="number" class="form-control" id="totalHours" name="totalHours" value="${data.totalHours}">
+                                </div>
+                                <!-- Add other fields as needed -->
+                                <button type="submit" class="btn btn-primary">Save Changes</button>
+                            </form>
+                        `;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching timesheet data:', error);
+                    modalBody.innerHTML = `<p class="text-danger">Failed to load timesheet data.</p>`;
+                });
+                // Load and populate the edit form based on timesheetId if needed
+                console.log('Edit Timesheet ID:', timesheetId);
         });
 
         // Handle Delete Modal

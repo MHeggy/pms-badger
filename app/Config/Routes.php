@@ -43,6 +43,8 @@ $routes->get('/calendar', 'CalendarController::index');
 $routes->post('/calendar/create', 'CalendarController::create');
 // route for submitting timesheet to the database.
 $routes->post('/submit-timesheets', 'TimesheetsController::submit');
+// route for getting the timesheet information.
+$routes->get('/timesheets/get/(:num)', 'TimesheetsController::getTimesheet/$1');
 // route for showing the accountant specific user timesheets.
 $routes->get('/timesheets/user/(:num)', 'TimesheetsController::viewTimesheets/$1');
 // route for displaying the edit timesheet page.
