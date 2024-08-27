@@ -48,6 +48,7 @@
     <!-- Display Filtered Timesheets -->
     <?php if (!empty($filteredTimesheets)): ?>
         <form method="post" action="/timesheets/export_multiple" class="table-responsive">
+            <?= csrf_field(); ?>
             <table class="table table-striped table-bordered text-center">
                 <thead class="table-dark">
                     <tr>
@@ -62,7 +63,7 @@
                     <?php foreach ($filteredTimesheets as $timesheet): ?>
                         <tr>
                             <td>
-                                <input type="checkbox" name="timesheet_ids[]" value="<?= esc($timesheet['timesheetID']); ?>" class="timesheet-checkbox">
+                                <input type="checkbox" name="timesheet_ids[]" value="<?= esc($timesheet['timesheetID']); ?>" class="timesheet-checkbox" aria-label="Select timesheet <?= esc($timesheet['timesheetID']); ?>">
                             </td>
                             <td><?= esc($timesheet['firstName'] . ' ' . $timesheet['lastName']) ?></td>
                             <td><?= esc($timesheet['weekOf']); ?></td>
@@ -100,6 +101,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                 <form method="post" id="deleteForm">
+                    <?= csrf_field(); ?>
                     <input type="hidden" name="timesheetID" id="deleteTimesheetID">
                     <button type="submit" class="btn btn-danger">Delete</button>
                 </form>

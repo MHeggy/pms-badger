@@ -259,6 +259,106 @@ class TimesheetsController extends BaseController {
         // Trigger file download
         return $this->response->download($filePath, null)->setFileName($fileName);
     }
+
+    // function to export multiple timesheets to excel (accountant payroll)
+    public function exportMultipleTimesheets() {
+        $timesheetIds = $this->request->getPost('timesheetIds'); // Assume this comes as an array of timesheet IDs
+    
+        if (empty($timesheetIds)) {
+            return redirect()->back()->with('error_message', 'No timesheets selected for export.');
+        }
+    
+        $zipFileName = 'timesheets_' . date('YmdHis') . '.zip';
+        $zipFilePath = WRITEPATH . 'uploads/' . $zipFileName;
+        
+        // Create a new ZIP archive
+        $zip = new ZipArchive();
+        if ($zip->open($zipFilePath, ZipArchive::CREATE) !== true) {
+            return redirect()->back()->with('error_message', 'Failed to create ZIP archive.');
+        }
+    
+        foreach ($timesheetIds as $timesheetId) {
+            $templatePath = WRITEPATH . 'templates/badgerspreadsheet.xlsx'; // Path to your Excel template
+            $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($templatePath);
+            $sheet = $spreadsheet->getActiveSheet();
+        
+            $timesheet = $this->timesheetsModel->find($timesheetId);
+            $entries = $this->timesheetsModel->getTimesheetEntriesByTimesheetId($timesheetId);
+        
+            if (!$timesheet) {
+                continue; // Skip if the timesheet is not found
+            }
+        
+            $userId = $timesheet['userID'];
+            $user = $this->timesheetsModel->getUserInfo($userId);
+        
+            $weekOf = new \DateTime($timesheet['weekOf']);
+            $endDate = clone $weekOf;
+            $endDate->modify('+6 days');
+        
+            $formattedStartDate = $weekOf->format('Y-m-d');
+            $formattedEndDate = $endDate->format('Y-m-d');
+        
+            $sheet->setCellValue('K6', $formattedStartDate);
+            $sheet->setCellValue('K7', $formattedEndDate);
+            $sheet->setCellValue('B4', $timesheet['userID']);
+            $sheet->setCellValue('R31', $timesheet['totalHours']);
+        
+            $fullName = $user ? $user['firstName'] . '_' . $user['lastName'] : 'Unknown_User';
+            $sheet->mergeCells('K9:N9');
+            $sheet->setCellValue('K9', $fullName);
+        
+            $startRow = 12;
+            foreach ($entries as $index => $entry) {
+                $row = $startRow + $index;
+                $sheet->setCellValue('B' . $row, $entry['projectNumber']);
+                $sheet->mergeCells('C' . $row . ':E' . $row);
+                $sheet->setCellValue('C' . $row, $entry['projectName']);
+                $sheet->mergeCells('F' . $row . ':J' . $row);
+                $sheet->setCellValue('F' . $row, $entry['activityDescription']);
+                $sheet->setCellValue('K' . $row, $entry['mondayHours']);
+                $sheet->setCellValue('L' . $row, $entry['tuesdayHours']);
+                $sheet->setCellValue('M' . $row, $entry['wednesdayHours']);
+                $sheet->setCellValue('N' . $row, $entry['thursdayHours']);
+                $sheet->setCellValue('O' . $row, $entry['fridayHours']);
+                $sheet->setCellValue('P' . $row, $entry['saturdayHours']);
+                $sheet->setCellValue('Q' . $row, $entry['sundayHours']);
+                $sheet->setCellValue('R' . $row, $entry['totalHours']);
+            }
+        
+            $fileName = $fullName . '_' . $formattedStartDate . '.xlsx';
+            $filePath = WRITEPATH . 'uploads/' . $fileName;
+        
+            if (!is_dir(WRITEPATH . 'uploads')) {
+                mkdir(WRITEPATH . 'uploads', 0755, true);
+            }
+        
+            if (!is_writable(WRITEPATH . 'uploads')) {
+                $zip->close();
+                return redirect()->back()->with('error_message', 'Uploads directory is not writable.');
+            }
+        
+            try {
+                $writer = new Xlsx($spreadsheet);
+                $writer->save($filePath);
+                $zip->addFile($filePath, $fileName);
+            } catch (\Exception $e) {
+                $zip->close();
+                return redirect()->back()->with('error_message', 'Failed to save one or more files: ' . $e->getMessage());
+            } finally {
+                // Cleanup: remove the temporary file
+                if (file_exists($filePath)) {
+                    unlink($filePath);
+                }
+            }
+        }
+    
+        $zip->close();
+    
+        // Trigger file download
+        return $this->response->download($zipFilePath, null)->setFileName($zipFileName);
+    }
+    
     
     private function getTimesheetEntriesFromRequest() {
         $entries = [];
