@@ -124,9 +124,12 @@ class ProjectsController extends BaseController {
         }
     }
     
-
     public function projectDetails($projectID) {
         try {
+            // Fetch project ID from the URL if not provided
+            if ($projectID === null) {
+                $projectID = $this->request->getUri()->getSegment(3); // Assumes it's the 3rd segment in the URL
+            }
             // Fetch project details from the model.
             $project = $this->projectModel->findProjectDetails($projectID);
     
