@@ -271,7 +271,16 @@ class TimesheetsController extends BaseController {
     
         $zipFileName = 'timesheets_' . date('YmdHis') . '.zip';
         $zipFilePath = WRITEPATH . 'uploads/' . $zipFileName;
-        
+    
+        // Ensure the uploads directory exists and is writable
+        if (!is_dir(WRITEPATH . 'uploads')) {
+            mkdir(WRITEPATH . 'uploads', 0755, true);
+        }
+    
+        if (!is_writable(WRITEPATH . 'uploads')) {
+            return redirect()->back()->with('error_message', 'Uploads directory is not writable.');
+        }
+    
         // Create a new ZIP archive
         $zip = new ZipArchive();
         if ($zip->open($zipFilePath, ZipArchive::CREATE) !== true) {
@@ -282,33 +291,33 @@ class TimesheetsController extends BaseController {
             $templatePath = WRITEPATH . 'templates/badgerspreadsheet.xlsx'; // Path to your Excel template
             $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($templatePath);
             $sheet = $spreadsheet->getActiveSheet();
-        
+    
             $timesheet = $this->timesheetsModel->find($timesheetId);
             $entries = $this->timesheetsModel->getTimesheetEntriesByTimesheetId($timesheetId);
-        
+    
             if (!$timesheet) {
                 continue; // Skip if the timesheet is not found
             }
-        
+    
             $userId = $timesheet['userID'];
             $user = $this->timesheetsModel->getUserInfo($userId);
-        
+    
             $weekOf = new \DateTime($timesheet['weekOf']);
             $endDate = clone $weekOf;
             $endDate->modify('+6 days');
-        
+    
             $formattedStartDate = $weekOf->format('Y-m-d');
             $formattedEndDate = $endDate->format('Y-m-d');
-        
+    
             $sheet->setCellValue('K6', $formattedStartDate);
             $sheet->setCellValue('K7', $formattedEndDate);
             $sheet->setCellValue('B4', $timesheet['userID']);
             $sheet->setCellValue('R31', $timesheet['totalHours']);
-        
+    
             $fullName = $user ? $user['firstName'] . '_' . $user['lastName'] : 'Unknown_User';
             $sheet->mergeCells('K9:N9');
             $sheet->setCellValue('K9', $fullName);
-        
+    
             $startRow = 12;
             foreach ($entries as $index => $entry) {
                 $row = $startRow + $index;
@@ -326,19 +335,10 @@ class TimesheetsController extends BaseController {
                 $sheet->setCellValue('Q' . $row, $entry['sundayHours']);
                 $sheet->setCellValue('R' . $row, $entry['totalHours']);
             }
-        
+    
             $fileName = $fullName . '_' . $formattedStartDate . '.xlsx';
             $filePath = WRITEPATH . 'uploads/' . $fileName;
-        
-            if (!is_dir(WRITEPATH . 'uploads')) {
-                mkdir(WRITEPATH . 'uploads', 0755, true);
-            }
-        
-            if (!is_writable(WRITEPATH . 'uploads')) {
-                $zip->close();
-                return redirect()->back()->with('error_message', 'Uploads directory is not writable.');
-            }
-        
+    
             try {
                 $writer = new Xlsx($spreadsheet);
                 $writer->save($filePath);
@@ -359,6 +359,7 @@ class TimesheetsController extends BaseController {
         // Trigger file download
         return $this->response->download($zipFilePath, null)->setFileName($zipFileName);
     }
+    
     
     
     private function getTimesheetEntriesFromRequest() {
