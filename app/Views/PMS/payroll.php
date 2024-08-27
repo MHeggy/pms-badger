@@ -184,6 +184,20 @@
                     <td><input type="text" class="form-control total-hours" name="totalHours[]" readonly></td>
                     <td><button type="button" class="btn btn-danger remove-row">Remove</button></td>
                 </tr>
+                <tr>
+                    <td><input type="text" class="form-control" name="projectNumber[]" value="13-000" readonly></td>
+                    <td><input type="text" class="form-control" name="projectName[]" value="General Office" readonly></td>
+                    <td><input type="text" class="form-control" name="activityDescription[]" value="Phone Calls / Accounting / emails / cleaning" readonly></td>
+                    <td><input type="number" class="form-control day-input" name="monday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="tuesday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="wednesday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="thursday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="friday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="saturday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="sunday[]" step="0.01"></td>
+                    <td><input type="text" class="form-control total-hours" name="totalHours[]" readonly></td>
+                    <td></td>
+        </tr>
             </tbody>
             <tfoot>
                 <tr>
@@ -210,7 +224,7 @@
 <script>
     let rowCount = 8;  // Adjusting row count for existing rows
 
-    function calculateRowTotal(row) {
+function calculateRowTotal(row) {
     let totalHours = 0;
     const daysOfWeek = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
     daysOfWeek.forEach(day => {
@@ -225,9 +239,11 @@
 function calculateAllTotals() {
     let weeklyTotal = 0;
     document.querySelectorAll('#timesheet-rows tr').forEach(row => {
-        calculateRowTotal(row);
-        const rowTotal = parseFloat(row.querySelector('.total-hours').value) || 0;
-        weeklyTotal += rowTotal;
+        if (!row.querySelector('input[name="projectNumber[]"]').readonly) {  // Exclude fixed row
+            calculateRowTotal(row);
+            const rowTotal = parseFloat(row.querySelector('.total-hours').value) || 0;
+            weeklyTotal += rowTotal;
+        }
     });
     document.getElementById('weekly-total').value = weeklyTotal.toFixed(2);
 }
@@ -257,7 +273,7 @@ document.querySelectorAll('#timesheet-rows .remove-row').forEach(button => {
 
 document.getElementById('add-row').addEventListener('click', () => {
     rowCount++;
-    const newRow = document.querySelector('#timesheet-rows tr').cloneNode(true);
+    const newRow = document.querySelector('#timesheet-rows tr:not(:last-child)').cloneNode(true);
     
     newRow.querySelectorAll('input').forEach(input => {
         input.value = '';
@@ -266,7 +282,7 @@ document.getElementById('add-row').addEventListener('click', () => {
     });
 
     newRow.querySelector('.remove-row').classList.remove('disabled');
-    document.querySelector('#timesheet-rows').appendChild(newRow);
+    document.querySelector('#timesheet-rows').insertBefore(newRow, document.querySelector('#timesheet-rows tr:last-child'));
     addEventListenersToRow(newRow);
 });
 
