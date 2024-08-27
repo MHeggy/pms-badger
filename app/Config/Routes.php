@@ -75,6 +75,8 @@ $routes->post('/projects/unassign', 'ProjectsController::unassignProjectsFromUse
 $routes->get('/addProject', 'ProjectsController::addProjectsView');
 // route to add projects to the database.
 $routes->post('/projects/add', 'ProjectsController::add');
+// route for adding updates to a project.
+$routes->post('/projects/add_update', 'ProjectsController::addUpdate');
 // route for posting messages to messages page.
 $routes->post('/messages/create', 'MessageController::store');
 // route for deleting messages.
