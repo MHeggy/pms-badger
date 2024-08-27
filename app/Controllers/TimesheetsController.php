@@ -241,7 +241,7 @@ class TimesheetsController extends BaseController {
             $sheet->setCellValue('O' . $row, $entry['fridayHours']);
             $sheet->setCellValue('P' . $row, $entry['saturdayHours']);
             $sheet->setCellValue('Q' . $row, $entry['sundayHours']);
-            //$sheet->setCellValue('R' . $row, $entry['totalHours']);
+            $sheet->setCellValue('R' . $row, $entry['totalHours']);
         }
     
         // Insert the special entry into line 29 if it exists
