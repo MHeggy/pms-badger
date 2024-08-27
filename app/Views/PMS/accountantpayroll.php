@@ -70,7 +70,7 @@
                             <td>
                                 <a href="/timesheets/view/<?= esc($timesheet['timesheetID']); ?>" class="btn btn-info btn-sm">View Details</a>
                                 <a href="/timesheets/export/<?= esc($timesheet['timesheetID']); ?>" class="btn btn-success btn-sm ms-2">Export</a>
-                                <a href="#" class="btn btn-warning btn-sm ms-2" data-bs-toggle="modal" data-bs-target="#editModal" data-id="<?= esc($timesheet['timesheetID']); ?>">Edit</a>
+                                <a href="/timesheets/edit/<?= esc($timesheet['timesheetID']); ?>" class="btn btn-warning btn-sm ms-2">Edit</a>
                                 <a href="#" class="btn btn-danger btn-sm ms-2" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="<?= esc($timesheet['timesheetID']); ?>">Delete</a>
                             </td>
                         </tr>
@@ -84,26 +84,6 @@
     <?php else: ?>
         <p class="text-center mt-4">No timesheets found for the selected filters.</p>
     <?php endif; ?>
-</div>
-
-<!-- Edit Modal -->
-<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editModalLabel">Edit Timesheet</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <!-- Include a form or other content to edit the timesheet here -->
-                <p>Form to edit timesheet will be loaded here.</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="saveEdit">Save Changes</button>
-            </div>
-        </div>
-    </div>
 </div>
 
 <!-- Delete Modal -->
@@ -152,45 +132,6 @@
 
         // Initial check in case of pre-selected checkboxes.
         updateExportButton();
-
-        // Handle Edit Modal
-        const editModal = document.getElementById('editModal');
-        editModal.addEventListener('show.bs.modal', function (event) {
-            const button = event.relatedTarget;
-            const timesheetId = button.getAttribute('data-id');
-            const modalBody = editModal.querySelector('.modal-body');
-
-            // Perform an AJAX request to fetch the timesheet data
-            fetch(`/timesheets/get/${timesheetId}`)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.error) {
-                        modalBody.innerHTML = `<p class="text-danger">${data.error}</p>`;
-                    } else {
-                        modalBody.innerHTML = `
-                            <form id="editTimesheetForm" method="post" action="/timesheets/update">
-                                <input type="hidden" name="timesheetID" value="${data.timesheetID}">
-                                <div class="mb-3">
-                                    <label for="weekOf" class="form-label">Week Of</label>
-                                    <input type="text" class="form-control" id="weekOf" name="weekOf" value="${data.weekOf}">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="totalHours" class="form-label">Total Hours</label>
-                                    <input type="number" class="form-control" id="totalHours" name="totalHours" value="${data.totalHours}">
-                                </div>
-                                <!-- Add other fields as needed -->
-                                <button type="submit" class="btn btn-primary">Save Changes</button>
-                            </form>
-                        `;
-                    }
-                })
-                .catch(error => {
-                    console.error('Error fetching timesheet data:', error);
-                    modalBody.innerHTML = `<p class="text-danger">Failed to load timesheet data.</p>`;
-                });
-                // Load and populate the edit form based on timesheetId if needed
-                console.log('Edit Timesheet ID:', timesheetId);
-        });
 
         // Handle Delete Modal
         const deleteModal = document.getElementById('deleteModal');
