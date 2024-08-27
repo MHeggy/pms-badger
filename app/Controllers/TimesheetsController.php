@@ -204,7 +204,7 @@ class TimesheetsController extends BaseController {
         $sheet->setCellValue('K6', $formattedStartDate); // Start Date
         $sheet->setCellValue('K7', $formattedEndDate); // End Date
         $sheet->setCellValue('B4', $timesheet['userID']); // User ID
-        $sheet->setCellValue('R29', $timesheet['totalHours']); // Total Hours updated to line 29
+        $sheet->setCellValue('R31', $timesheet['totalHours']); // Total Hours
     
         // Combine the firstName and lastName
         $fullName = $user ? $user['firstName'] . '_' . $user['lastName'] : 'Unknown_User';
@@ -230,6 +230,21 @@ class TimesheetsController extends BaseController {
             $sheet->setCellValue('P' . $row, $entry['saturdayHours']);
             $sheet->setCellValue('Q' . $row, $entry['sundayHours']);
             $sheet->setCellValue('R' . $row, $entry['totalHours']);
+        }
+
+        // Get the last entry
+        $lastEntry = end($entries);
+
+        // insert the last entries into line 29.
+        if ($lastEntry) {
+            $sheet->setCellValue('K29', $lastEntry['mondayHours']);
+            $sheet->setCellValue('L29', $lastEntry['tuesdayHours']);
+            $sheet->setCellValue('M29', $lastEntry['wednesdayHours']);
+            $sheet->setCellValue('N29', $lastEntry['thursdayHours']);
+            $sheet->setCellValue('O29', $lastEntry['fridayHours']);
+            $sheet->setCellValue('P29', $lastEntry['saturdayHours']);
+            $sheet->setCellValue('Q29', $lastEntry['sundayHours']);
+            $sheet->setCellValue('R29', $lastEntry['totalHours']);
         }
     
         // Generate filename
@@ -260,7 +275,7 @@ class TimesheetsController extends BaseController {
         // Trigger file download
         return $this->response->download($filePath, null)->setFileName($fileName);
     }
-    
+
     // function to export multiple timesheets to excel (accountant payroll)
     public function exportMultipleTimesheets() {
         $timesheetIds = $this->request->getPost('timesheet_ids');
