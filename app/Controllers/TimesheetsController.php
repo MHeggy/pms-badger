@@ -354,8 +354,7 @@ class TimesheetsController extends BaseController {
         $zip->close();
     
         return $this->response->download($zipFilePath, null)->setFileName($zipFileName);
-    }
-    
+    }    
 
     private function getTimesheetEntriesFromRequest() {
         $entries = [];
