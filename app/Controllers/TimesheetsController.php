@@ -204,7 +204,7 @@ class TimesheetsController extends BaseController {
         $sheet->setCellValue('K6', $formattedStartDate); // Start Date
         $sheet->setCellValue('K7', $formattedEndDate); // End Date
         $sheet->setCellValue('B4', $timesheet['userID']); // User ID
-        $sheet->setCellValue('R31', $timesheet['totalHours']); // Total Hours
+        $sheet->setCellValue('R29', $timesheet['totalHours']); // Total Hours updated to line 29
     
         // Combine the firstName and lastName
         $fullName = $user ? $user['firstName'] . '_' . $user['lastName'] : 'Unknown_User';
@@ -260,7 +260,7 @@ class TimesheetsController extends BaseController {
         // Trigger file download
         return $this->response->download($filePath, null)->setFileName($fileName);
     }
-
+    
     // function to export multiple timesheets to excel (accountant payroll)
     public function exportMultipleTimesheets() {
         $timesheetIds = $this->request->getPost('timesheet_ids');
