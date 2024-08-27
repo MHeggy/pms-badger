@@ -85,7 +85,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const checkboxes = selectAll('input[type="checkbox"]');
+        const checkboxes = document.querySelectorAll('.timesheet-checkbox');
         const exportButton = document.getElementById('exportButton');
         const exportCount = document.getElementById('exportCount');
 
