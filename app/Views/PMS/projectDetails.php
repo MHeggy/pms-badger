@@ -93,7 +93,7 @@
                     <?php foreach ($updates as $update): ?>
                         <tr>
                             <td><?= esc($update['updateID']) ?></td>
-                            <td><?= esc($update['userName']) ?></td>
+                            <td><?= esc($update['username']) ?></td>
                             <td><?= esc($update['updateText']) ?></td>
                             <td><?= esc(date('Y-m-d H:i:s', strtotime($update['timestamp']))) ?></td>
                         </tr>

@@ -12,10 +12,11 @@ class UpdatesModel extends Model {
     public function getUpdatesByProject($projectID) {
         return $this->where('projectID', $projectID)
                     ->join('users', 'users.id = updates.userID')
+                    ->select('updates.*, users.username')
                     ->orderBy('timestamp', 'DESC')
                     ->findAll();
     }
-
+    
     public function addUpdate($data) {
         return $this->insert($data);
     }
