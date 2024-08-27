@@ -376,16 +376,16 @@ class ProjectsController extends BaseController {
     }
 
     // function to add the updates that other users provide from the updates table in the database.
-    public function addUpdate($projectID) {
+    public function addUpdate() {
         $projectID = $this->request->getPost('projectID');
         $userID = auth()->id();
         $updateText = $this->request->getPost('updateText');
-
+    
         // Validate the input.
         if (empty($updateText)) {
             return redirect()->back()->withInput()->with('error', 'Update text is required.');
         }
-
+    
         // Insert the data into the database.
         $this->updatesModel->save([
             'projectID' => $projectID,
@@ -393,7 +393,8 @@ class ProjectsController extends BaseController {
             'updateText' => $updateText,
             'timestamp' => date('Y-m-d H:i:s')
         ]);
-
+    
         return redirect()->to('/projects/details/' . $projectID)->with('success', 'Update added successfully.');
     }
+    
 }
