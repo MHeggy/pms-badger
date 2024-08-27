@@ -13,7 +13,7 @@
 </header>
 
 <div class="container mt-5"><br><br>
-<button onclick="goBack()" class="btn btn-primary btn-back">Back to Timesheets</button>
+<button onclick="goBack()" class="btn btn-primary btn-back">Go Back</button>
 <br><br>
     <table class="table table-striped">
         <thead>
