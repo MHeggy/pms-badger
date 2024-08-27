@@ -7,7 +7,8 @@ use App\Models\UserModel;
 use App\Models\StateModel;
 use App\Models\CountryModel;
 use App\Models\TaskModel;
-use App\Models\CategoryModel; 
+use App\Models\CategoryModel;
+use App\Models\UpdatesModel;
 
 class ProjectsController extends BaseController {
 
@@ -17,6 +18,7 @@ class ProjectsController extends BaseController {
     protected $countryModel;
     protected $taskModel;
     protected $categoryModel;
+    protected $updatesModel;
 
     public function __construct() {
         $this->projectModel = new ProjectModel();
@@ -25,6 +27,7 @@ class ProjectsController extends BaseController {
         $this->countryModel = new CountryModel();
         $this->taskModel = new TaskModel();
         $this->categoryModel = new CategoryModel();
+        $this->updatesModel = new UpdatesModel();
     }
 
     public function index() {
@@ -122,21 +125,24 @@ class ProjectsController extends BaseController {
     }
     
 
-    public function projectDetails($projectId) {
+    public function projectDetails($projectID) {
         try {
-            // Fetch project details including status and address
-            $project = $this->projectModel->findProjectDetails($projectId);
-        
-            // Check if project exists
+            // Fetch project details from the model.
+            $project = $this->projectModel->findProjectDetails($projectID);
+
             if (!$project) {
                 return $this->response->setStatusCode(404)->setJSON(['error' => 'Project not found']);
             }
-        
-            // Pass project details to the view
+
+            // Fetch updates for the given project.
+            $updates = $this->updatesModel->getUpdatesByProject($projectID);
+
+            // Pass the data to the view.
             $data = [
-                'project' => $project
+                'project' => $project,
+                'updates' => $updates
             ];
-        
+
             return view('PMS/projectDetails', $data);
         } catch (\Exception $e) {
             log_message('error', 'Error in projectDetails: ' . $e->getMessage());
@@ -364,5 +370,26 @@ class ProjectsController extends BaseController {
             log_message('error', 'An error occurred: ' . $e->getMessage());
             return redirect()->back()->with('error', 'An error occurred: ' . $e->getMessage());
         }
-    }  
+    }
+
+    // function to add the updates that other users provide from the updates table in the database.
+    public function addUpdate($projectID) {
+        $userID = auth()->id();
+        $updateText = $this->request->getPost('updateText');
+
+        // Validate the input.
+        if (empty($updateText)) {
+            return redirect()->back()->withInput()->with('error', 'Update text is required.');
+        }
+
+        // Insert the data into the database.
+        $this->updatesModel->save([
+            'projectID' => $projectID,
+            'userID' => $userID,
+            'updateText' => $updateText,
+            'timestamp' => date('Y-m-d H:i:s')
+        ]);
+
+        return redirect()->to('/projects/details/' . $projectID)->with('success', 'Update added successfully.');
+    }
 }
