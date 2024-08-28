@@ -26,13 +26,21 @@
 <header>
     <?php include 'header.php'; ?>
 </header>
-
 <br>
+
+<!-- Main content -->
 <div class="container mt-4">
     <h1><?= esc($project['projectName']) ?>'s Details</h1>
     
-    <!-- Go Back Button -->
-    <button class="btn btn-secondary mb-4" onclick="window.history.back()">Go Back</button>
+    <!-- Button Row -->
+    <div class="d-flex justify-content-between mb-4">
+        <!-- Go Back Button -->
+        <button class="btn btn-secondary" onclick="window.history.back()">Go Back</button>
+        <!-- Button to Open Modal for Project Updates -->
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updatesModal">
+            View Project Updates
+        </button>
+    </div>
 
     <!-- Project Details Table -->
     <table class="table">
@@ -83,6 +91,8 @@
             </tr>
         </tbody>
     </table>
+</div>
+
 
     <!-- Button to Open Modal for Project Updates -->
     <button type="button" class="btn btn-primary mt-4" data-bs-toggle="modal" data-bs-target="#updatesModal">
