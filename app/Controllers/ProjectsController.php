@@ -265,7 +265,7 @@ class ProjectsController extends BaseController {
     }
 
     public function getProjectsForUser() {
-        $userId = $this->request->getPost('userId');
+        $userId = $this->request->getGet('userId');
 
         if (!$userId) {
             return $this->response->setJSON(['error' => 'No user ID provided']);
