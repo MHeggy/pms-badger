@@ -401,8 +401,6 @@ class TimesheetsController extends BaseController {
         return $downloadResponse;
     }
     
-        
-
     private function getTimesheetEntriesFromRequest() {
         $entries = [];
         $entryIDs = $this->request->getPost('entryID');
