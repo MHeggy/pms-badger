@@ -230,12 +230,12 @@ class ProjectsController extends BaseController {
     public function unassignUsersView() {
         $users = auth()->getProvider();
         $user = auth()->user();
-        $userModel = new UserModel();
+        //$userModel = new UserModel();
         if (!$user->inGroup('superadmin')) {
             return redirect()->to('/dashboard')->with('error', 'You do not have proper permissions to view this page.');
         }
 
-        $data['users'] = $userModel->findAll();
+        $data['users'] = $users->findAll();
         // Print selected user ID to log
         $userID = $this->request->getPost('unassign_user');
         log_message('debug', 'Selected user ID: ' . $userID);
