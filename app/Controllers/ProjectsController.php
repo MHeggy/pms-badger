@@ -265,18 +265,18 @@ class ProjectsController extends BaseController {
     }
 
     public function getProjectsForUser($userId) {
-        $userId = $this->request->getGet('unassign_user');
-
+        // No need to fetch from the request here, $userId is already provided by the URL
         if (!$userId) {
             return $this->response->setJSON(['error' => 'No user ID provided']);
         }
-
+    
         // Fetch projects associated with the user
         $assignedProjects = $this->projectModel->getAssignedProjects($userId);
-
+    
         // Return the projects as a JSON response
         return $this->response->setJSON(['projects' => $assignedProjects]);
     }
+    
 
 
     // functions for categories and tasks start here.
