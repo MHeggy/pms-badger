@@ -361,8 +361,12 @@ class TimesheetsController extends BaseController {
             try {
                 $writer = new Xlsx($spreadsheet);
                 $writer->save($filePath);
+                if (!file_exists($filePath)) {
+                    log_message('error', 'Failed to save spreadsheet to ' . $filePath);
+                }
                 $zip->addFile($filePath, $fileName);
             } catch (\Exception $e) {
+                log_message('error', 'Exception occurred: ' . $e->getMessage());
                 $zip->close();
                 return redirect()->back()->with('error_message', 'Failed to save one or more files: ' . $e->getMessage());
             } finally {
@@ -372,10 +376,14 @@ class TimesheetsController extends BaseController {
             }
         }
     
-        $zip->close();
+        if ($zip->close() !== true) {
+            log_message('error', 'Failed to close ZIP archive at ' . $zipFilePath);
+            return redirect()->back()->with('error_message', 'Failed to close ZIP archive.');
+        }
     
         return $this->response->download($zipFilePath, null)->setFileName($zipFileName);
-    }    
+    }
+        
 
     private function getTimesheetEntriesFromRequest() {
         $entries = [];
