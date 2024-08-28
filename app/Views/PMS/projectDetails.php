@@ -8,16 +8,13 @@
         font-weight: bold;
     }
 
-
     .table-striped tbody tr:nth-of-type(odd) {
         background-color: #f9f9f9;
     }
 
-
     .table-striped tbody tr:nth-of-type(even) {
         background-color: #ffffff;
     }
-
 </style>
 
 <!-- Header content -->
@@ -82,45 +79,58 @@
         </tbody>
     </table>
 
-    <!-- Updates Section -->
-    <div class="mt-5">
-        <h2>Project Updates</h2>
-        
-        <!-- Add New Update Form -->
-        <form action="<?= site_url('projects/add_update') ?>" method="post">
-            <input type="hidden" name="projectID" value="<?= esc($project['projectID']) ?>">
-            <div class="mb-3">
-                <label for="updateText" class="form-label">Add a new update</label>
-                <textarea class="form-control" id="updateText" name="updateText" rows="3" required></textarea>
+    <!-- Button to Open Modal for Project Updates -->
+    <button type="button" class="btn btn-primary mt-4" data-bs-toggle="modal" data-bs-target="#updatesModal">
+        View Project Updates
+    </button>
+</div>
+
+<!-- Modal Structure -->
+<div class="modal fade" id="updatesModal" tabindex="-1" aria-labelledby="updatesModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="updatesModalLabel">Project Updates</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <button type="submit" class="btn btn-primary">Submit Update</button>
-        </form>
-        
-        <!-- Display Updates -->
-        <?php if (isset($updates) && !empty($updates)): ?>
-            <table class="table table-striped mt-4">
-                <thead class="table-dark">
-                    <tr>
-                        <th>User</th>
-                        <th>Update</th>
-                        <th>Timestamp</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($updates as $update): ?>
-                        <tr>
-                            <td><?= esc($update['username']) ?></td>
-                            <td><?= esc($update['updateText']) ?></td>
-                            <td><?= esc(date('n/j/Y \@ g:ia', strtotime($update['timestamp']))) ?></td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
-        <?php else: ?>
-            <div class="alert alert-info mt-4" role="alert">
-                No updates available for this project.
+            <div class="modal-body">
+                <!-- Add New Update Form -->
+                <form action="<?= site_url('projects/add_update') ?>" method="post">
+                    <input type="hidden" name="projectID" value="<?= esc($project['projectID']) ?>">
+                    <div class="mb-3">
+                        <label for="updateText" class="form-label">Add a new update</label>
+                        <textarea class="form-control" id="updateText" name="updateText" rows="3" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit Update</button>
+                </form>
+
+                <!-- Display Updates -->
+                <?php if (isset($updates) && !empty($updates)): ?>
+                    <table class="table table-striped mt-4">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>User</th>
+                                <th>Update</th>
+                                <th>Timestamp</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($updates as $update): ?>
+                                <tr>
+                                    <td><?= esc($update['username']) ?></td>
+                                    <td><?= esc($update['updateText']) ?></td>
+                                    <td><?= esc(date('n/j/Y \@ g:ia', strtotime($update['timestamp']))) ?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                <?php else: ?>
+                    <div class="alert alert-info mt-4" role="alert">
+                        No updates available for this project.
+                    </div>
+                <?php endif; ?>
             </div>
-        <?php endif; ?>
+        </div>
     </div>
 </div>
 
