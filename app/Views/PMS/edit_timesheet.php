@@ -57,7 +57,7 @@
                 <?php if (!empty($entries)): ?>
                     <?php foreach ($entries as $entry): ?>
                         <tr>
-                            <td><input type="hidden" name="entryID[]" value="<?= esc($entry['entryID']) ?>"></td>
+                            
                             <td><input type="text" class="form-control" name="projectNumber[]" value="<?= esc($entry['projectNumber']) ?>"></td>
                             <td><input type="text" class="form-control" name="projectName[]" value="<?= esc($entry['projectName']) ?>"></td>
                             <td><input type="text" class="form-control" name="description[]" value="<?= esc($entry['activityDescription']) ?>"></td>
