@@ -230,24 +230,27 @@ class ProjectsController extends BaseController {
     public function unassignUsersView() {
         $users = auth()->getProvider();
         $user = auth()->user();
-        //$userModel = new UserModel();
+    
+        // Superadmin permission check
         if (!$user->inGroup('superadmin')) {
             return redirect()->to('/dashboard')->with('error', 'You do not have proper permissions to view this page.');
         }
-
+    
         $data['users'] = $users->findAll();
-        // Print selected user ID to log
+    
+        // Get selected user ID from POST data
         $userID = $this->request->getPost('unassign_user');
         log_message('debug', 'Selected user ID: ' . $userID);
-
+    
         // Fetch projects associated with the selected user
         if ($userID) {
             $data['projects'] = $this->projectModel->getAssignedProjects($userID);
         } else {
             $data['projects'] = [];
         }
-
-        log_message('debug', 'Retrieved users: ' . print_r($data['projects'], true));
+    
+        log_message('debug', 'Retrieved projects for selected user: ' . print_r($data['projects'], true));
+    
         return view('PMS/unassignusers', $data);
     }
 
