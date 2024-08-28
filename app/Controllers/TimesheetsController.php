@@ -306,6 +306,8 @@ class TimesheetsController extends BaseController {
             return redirect()->back()->with('error_message', 'Failed to create ZIP archive.');
         }
     
+        $tempFiles = []; // Array to store temporary file paths
+    
         foreach ($timesheetIds as $timesheetId) {
             $templatePath = WRITEPATH . 'templates/badgerspreadsheet.xlsx';
             $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($templatePath);
@@ -365,12 +367,13 @@ class TimesheetsController extends BaseController {
                     log_message('error', 'Failed to save spreadsheet to ' . $filePath);
                 } else {
                     $zip->addFile($filePath, $fileName);
+                    $tempFiles[] = $filePath; // Store file path for later deletion
                 }
             } catch (\Exception $e) {
                 log_message('error', 'Exception occurred: ' . $e->getMessage());
                 $zip->close();
                 return redirect()->back()->with('error_message', 'Failed to save one or more files: ' . $e->getMessage());
-            } 
+            }
         } // end foreach loop
     
         if ($zip->close() !== true) {
@@ -378,8 +381,26 @@ class TimesheetsController extends BaseController {
             return redirect()->back()->with('error_message', 'Failed to close ZIP archive.');
         }
     
-        return $this->response->download($zipFilePath, null)->setFileName($zipFileName);
+        // Use the response object to initiate the download
+        $downloadResponse = $this->response->download($zipFilePath, null)->setFileName($zipFileName);
+    
+        // Clean up temporary files after the response has been sent
+        foreach ($tempFiles as $tempFile) {
+            if (file_exists($tempFile)) {
+                unlink($tempFile);
+            }
+        }
+    
+        // Optionally, delete the ZIP file as well if it's no longer needed
+        register_shutdown_function(function() use ($zipFilePath) {
+            if (file_exists($zipFilePath)) {
+                unlink($zipFilePath);
+            }
+        });
+    
+        return $downloadResponse;
     }
+    
         
 
     private function getTimesheetEntriesFromRequest() {
