@@ -30,9 +30,11 @@
     <form id="timesheet-form" action="/timesheets/update" method="post">
         <input type="hidden" name="id" value="<?= esc($timesheet['timesheetID']) ?>">
 
-        <div class="mb-3">
-            <label for="week" class="form-label">Week</label>
-            <input type="date" class="form-control" id="week" name="week" value="<?= esc($timesheet['weekOf']) ?>" required>
+        <div class="row mb-3">
+            <label for="week" class="col-sm-2 col-form-label">Week</label>
+            <div class="col-sm-10">
+                <input type="date" class="form-control" id="week" name="week" required>
+            </div>
         </div>
 
         <!-- Timesheet table -->
