@@ -276,8 +276,6 @@ class ProjectsController extends BaseController {
         // Return the projects as a JSON response
         return $this->response->setJSON(['projects' => $assignedProjects]);
     }
-    
-
 
     // functions for categories and tasks start here.
     public function addCategoriesToProject($projectID, $categoryIDs) {
