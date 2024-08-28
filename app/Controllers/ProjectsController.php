@@ -228,8 +228,8 @@ class ProjectsController extends BaseController {
     }
     
     public function unassignUsersView() {
+        $users = auth()->getProvider();
         $user = auth()->user();
-        $userID = auth()->id();
         $userModel = new UserModel();
         if (!$user->inGroup('superadmin')) {
             return redirect()->to('/dashboard')->with('error', 'You do not have proper permissions to view this page.');
