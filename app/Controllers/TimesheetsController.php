@@ -365,8 +365,6 @@ class TimesheetsController extends BaseController {
                     log_message('error', 'Failed to save spreadsheet to ' . $filePath);
                 } else {
                     $zip->addFile($filePath, $fileName);
-                    // Only delete the file after it has been added to the ZIP archive
-                    unlink($filePath);
                 }
             } catch (\Exception $e) {
                 log_message('error', 'Exception occurred: ' . $e->getMessage());
