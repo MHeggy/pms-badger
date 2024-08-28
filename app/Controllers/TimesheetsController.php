@@ -363,18 +363,17 @@ class TimesheetsController extends BaseController {
                 $writer->save($filePath);
                 if (!file_exists($filePath)) {
                     log_message('error', 'Failed to save spreadsheet to ' . $filePath);
+                } else {
+                    $zip->addFile($filePath, $fileName);
+                    // Only delete the file after it has been added to the ZIP archive
+                    unlink($filePath);
                 }
-                $zip->addFile($filePath, $fileName);
             } catch (\Exception $e) {
                 log_message('error', 'Exception occurred: ' . $e->getMessage());
                 $zip->close();
                 return redirect()->back()->with('error_message', 'Failed to save one or more files: ' . $e->getMessage());
-            } finally {
-                if (file_exists($filePath)) {
-                    unlink($filePath);
-                }
-            }
-        }
+            } 
+        } // end foreach loop
     
         if ($zip->close() !== true) {
             log_message('error', 'Failed to close ZIP archive at ' . $zipFilePath);
