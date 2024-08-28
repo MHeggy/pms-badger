@@ -93,13 +93,6 @@
     </table>
 </div>
 
-
-    <!-- Button to Open Modal for Project Updates -->
-    <button type="button" class="btn btn-primary mt-4" data-bs-toggle="modal" data-bs-target="#updatesModal">
-        View Project Updates
-    </button>
-</div>
-
 <!-- Modal Structure -->
 <div class="modal fade" id="updatesModal" tabindex="-1" aria-labelledby="updatesModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
