@@ -301,7 +301,7 @@ class TimesheetsController extends BaseController {
             return redirect()->back()->with('error_message', 'Uploads directory is not writable.');
         }
     
-        $zip = new ZipArchive();
+        $zip = new \ZipArchive();
         if ($zip->open($zipFilePath, ZipArchive::CREATE) !== true) {
             return redirect()->back()->with('error_message', 'Failed to create ZIP archive.');
         }
