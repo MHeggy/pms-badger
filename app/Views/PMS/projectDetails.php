@@ -25,7 +25,7 @@
     <?php include 'header.php'; ?>
 </header>
 
-<br><br><br>
+<br>
 <div class="container mt-4">
     <h1><?= esc($project['projectName']) ?>'s Details</h1>
     
