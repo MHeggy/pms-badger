@@ -35,7 +35,7 @@
     <div class="card view-timesheets-card">
         <div class="card-body">
             <h5 class="card-title">View Timesheets</h5>
-            <p class="card-text">Click below to view your timesheets.</p>
+            <p class="card-text">Click below to view, edit, or delete your timesheets.</p>
             <a href="/timesheets/user/<?= $user->id ?>" class="btn btn-primary">My Timesheets</a>
         </div>
     </div>
