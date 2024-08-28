@@ -22,10 +22,12 @@
 </header>
 
 <div class="container mt-5">
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        <?= session()->get('info_message') ?>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
+    <?php if ($info_message = session()->get('info_message')): ?>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <?= esc($info_message) ?>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    <?php endif; ?>
     <button onclick="goBack()" class="btn btn-primary btn-back">Go Back</button><br><br>
     <form id="timesheet-form" action="/timesheets/update" method="post">
         <input type="hidden" name="id" value="<?= esc($timesheet['timesheetID']) ?>">
