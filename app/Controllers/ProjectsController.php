@@ -280,7 +280,7 @@ class ProjectsController extends BaseController {
     public function getProjectsForUser($userId)
     {
         // Fetch the user's ID using the auth helper.
-        $userId = $this->request->getPost('unassign_user');
+        $userId = $this->request->getGet('unassign_user');
 
         // Fetch projects associated with the user
         $assignedProjects = $this->projectModel->getAssignedProjects($userId);

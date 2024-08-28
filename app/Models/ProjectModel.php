@@ -167,7 +167,7 @@ class ProjectModel extends Model {
         
         $query = $builder->get();
         return $query->getResultArray();
-    }    
+    }
     
     public function getCompletedProjects($userID) {
         $builder = $this->db->table('user_project');
