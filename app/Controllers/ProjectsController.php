@@ -264,7 +264,7 @@ class ProjectsController extends BaseController {
         return redirect()->to('/unassignUsers');
     }
 
-    public function getProjectsForUser() {
+    public function getProjectsForUser($userId) {
         $userId = $this->request->getGet('unassign_user');
 
         if (!$userId) {
