@@ -15,16 +15,6 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     <?php endif; ?>
-
-    <div class="container">
-        <!-- Display flash message if available -->
-        <?php if (session()->has('success')): ?>
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <?= session('success') ?>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        <?php endif; ?>
-
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
@@ -38,7 +28,6 @@
                                 <?php endforeach; ?>
                             </select>
                         </div>
-
                 </div>
                 <div class="col-md-6">
                     <div class="mb-3" id="projectSelection" style="display: none;">
