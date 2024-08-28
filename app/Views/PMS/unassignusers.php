@@ -33,11 +33,9 @@
                     <div class="mb-3" id="projectSelection" style="display: none;">
                         <label for="projects" class="form-label">Select Projects:</label>
                         <select class="form-select" name="unassign_projects[]" id="unassign_projects" multiple>
-                            <?php foreach ($projects as $project): ?>
-                                <option value="<?= $project['projectID'] ?>"><?= $project['projectName'] ?></option>
-                            <?php endforeach; ?>
+                            <!-- Options will be populated dynamically -->
                         </select>
-                        <button type="submit" class="btn btn-primary">Unassign User from Project(s)</button> <!-- Change class to btn-primary -->
+                        <button type="submit" class="btn btn-primary">Unassign User from Project(s)</button>
                     </div>
                     </form>
                 </div>
