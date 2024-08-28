@@ -15,6 +15,11 @@
     .table-striped tbody tr:nth-of-type(even) {
         background-color: #ffffff;
     }
+
+    .modal-xl-custom {
+    max-width: 90%;
+    width: 90%;
+}
 </style>
 
 <!-- Header content -->
@@ -87,7 +92,7 @@
 
 <!-- Modal Structure -->
 <div class="modal fade" id="updatesModal" tabindex="-1" aria-labelledby="updatesModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="updatesModalLabel">Project Updates</h5>
