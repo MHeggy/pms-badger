@@ -101,7 +101,7 @@
                     <tr>
                         <th>User</th>
                         <th>Update</th>
-                        <th>Timestamp</th>
+                        <th>Date & Time</th>
                     </tr>
                 </thead>
                 <tbody>
