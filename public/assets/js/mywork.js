@@ -54,6 +54,8 @@ function updateProjectList(projects) {
             <td>${project.projectNumber}</td>
             <td>${project.projectName}</td>
             <td>${project.statusName}</td>
+            <td>${project.categoryNames ? project.categoryNames.split(',').join(', ') : ''}</td>
+            <td>${project.dateAccepted}</td>
             <td>${assignedUsersHTML}</td>
         `;
 

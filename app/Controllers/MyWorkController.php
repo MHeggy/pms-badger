@@ -64,26 +64,28 @@ class MyWorkController extends Controller {
 
     public function filter() {
         $status = $this->request->getGet('status');
-    
+        
         // Ensure the user is logged in
         $userID = auth()->id();
         if (!$userID) {
             return $this->response->setStatusCode(401)->setJSON(['error' => 'Unauthorized']);
         }
     
-        $query = $this->projectModel->getAssignedProjects($userID);
+        // Fetch assigned projects
+        $assignedProjects = $this->projectModel->getAssignedProjects($userID);
         if ($status) {
-            $query->where('statusID', $status);
+            // Filter projects based on status
+            $assignedProjects = array_filter($assignedProjects, function($project) use ($status) {
+                return $project['statusID'] == $status;
+            });
         }
     
-        $assignedProjects = $query->findAll();
-    
-        // Return JSON response if request is via AJAX
+        // Return JSON response
         if ($this->request->isAJAX()) {
             return $this->response->setJSON(['projects' => $assignedProjects]);
         }
     
-        // Return the view with filtered data for non-AJAX requests
+        // Return the view with filtered data
         $data['assignedProjects'] = $assignedProjects;
         return view('PMS/mywork', $data);
     }
