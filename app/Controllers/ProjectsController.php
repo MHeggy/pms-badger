@@ -411,33 +411,12 @@ class ProjectsController extends BaseController {
 
     public function editUpdate() {
         $updateID = $this->request->getPost('updateID');
-        $projectID = $this->request->getPost('projectID');
         $updateText = $this->request->getPost('updateText');
-        
-        $update = $this->updatesModel->getUpdateByID($updateID);
     
-        // Check if the current user is the owner of the update or a superadmin
-        if ($update['userID'] !== auth()->id() && !auth()->user()->inGroup('superadmin')) {
-            return redirect()->back()->with('error_message', 'You do not have permission to edit this update.');
-        }
-    
-        $data = [
-            'updateText' => $updateText,
-            'timestamp' => date('Y-m-d H:i:s')
-        ];
-    
-        $success = $this->updatesModel->updateUpdate($updateID, $data);
-    
-        if ($success) {
-            $this->session->setFlashdata('info_message', 'Update edited successfully.');
-        } else {
-            $this->session->setFlashdata('error_message', 'Unable to edit update, please try again.');
-        }
-    
-        return redirect()->to('/projects/details/' . $projectID);
+        $this->updatesModel->updateUpdate($updateID, ['updateText' => $updateText]);
+        return $this->response->setJSON(['success' => true]);
     }
     
-
     public function deleteUpdate($updateID) {
         $update = $this->updatesModel->getUpdateByID($updateID);
 
