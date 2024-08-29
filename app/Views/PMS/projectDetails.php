@@ -112,7 +112,7 @@
                         <td><?= esc($update['updateText']) ?></td>
                         <td><?= esc(date('n/j/Y \@ g:ia', strtotime($update['timestamp']))) ?></td>
                         <td>
-                            <?php if ($update['userID'] === auth()->id() || auth()->user()->isSuperadmin()): ?>
+                            <?php if ($update['userID'] === auth()->id() || auth()->user()->inGroup('superadmin')): ?>
                                 <!-- Edit Button -->
                                 <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editUpdateModal-<?= $update['updateID'] ?>">
                                     Edit
