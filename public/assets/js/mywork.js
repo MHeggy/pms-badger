@@ -59,10 +59,6 @@ function updateProjectList(projects) {
             <td>${assignedUsersHTML}</td>
         `;
 
-        projectRow.addEventListener('click', function () {
-            fetchProjectDetails(project.projectID);
-        });
-
         projectList.appendChild(projectRow);
     });
 }
