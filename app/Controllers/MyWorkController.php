@@ -109,7 +109,7 @@ class MyWorkController extends Controller {
     
         try {
             // Fetch searched projects for the user
-            $projects = $this->projectModel->searchProjects($userID, $searchTerm);
+            $projects = $this->projectModel->searchProjectsForUsers($userID, $searchTerm);
     
             // Pass the searched projects to the view
             $data = [
