@@ -103,7 +103,7 @@ class MyWorkController extends Controller {
     
             // Pass the filtered projects to the view
             $data = [
-                'projects' => $projects,
+                'assignedProjects' => $projects,
                 'selectedStatus' => $status,
                 'selectedCategory' => $category,
                 'selectedUser' => $assignedUser,
