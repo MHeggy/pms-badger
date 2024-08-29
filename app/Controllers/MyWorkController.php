@@ -110,12 +110,11 @@ class MyWorkController extends Controller {
                 'selectedDateRange' => $dateRange
             ];
     
-            return view('PMS/projects', $data);
+            return view('PMS/mywork', $data);
         } catch (\Exception $e) {
             log_message('error', 'Error in filter: ' . $e->getMessage());
             return $this->response->setStatusCode(500)->setJSON(['error' => 'Internal server error']);
         }
-    }
-    
+    }    
     
 }
