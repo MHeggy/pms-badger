@@ -427,7 +427,7 @@ class ProjectsController extends BaseController {
         }
 
         // Update the update text
-        $updateModel->updateUpdate($updateID, ['updateText' => $updateText]);
+        $this->updatesModel->updateUpdate($updateID, ['updateText' => $updateText]);
 
         return redirect()->to('/projects/details/' . $update['projectID'])->with('success', 'Update successfully edited.');
     }
