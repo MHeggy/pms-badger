@@ -77,25 +77,25 @@
         </thead>
         <!-- Table body -->
         <tbody id="project_list">
-        <?php foreach ($projects as $project): ?>
-            <tr data-project-id="<?= $project['projectID'] ?>">
+        <?php foreach ($assignedProjects as $assignedProject): ?>
+            <tr data-project-id="<?= $assignedProject['projectID'] ?>">
                 <td>
-                    <a href="<?= base_url('projects/details/' . $project['projectID']) ?>">
-                        <?= $project['projectNumber'] ?>
+                    <a href="<?= base_url('projects/details/' . $assignedProject['projectID']) ?>">
+                        <?= $assignedProject['projectNumber'] ?>
                     </a>
                 </td>
                 <td>
-                    <a href="<?= base_url('projects/details/' . $project['projectID']) ?>">
-                        <?= esc($project['projectName']) ?>
+                    <a href="<?= base_url('projects/details/' . $assignedProject['projectID']) ?>">
+                        <?= esc($assignedProject['projectName']) ?>
                     </a>
                 </td>
-                <td><?= esc($project['statusName']) ?></td>
-                <td><?= esc(str_replace(',', ', ', $project['categoryNames'])) ?></td> <!-- Updated Data -->
-                <td><?= esc($project['dateAccepted']) ?></td>
+                <td><?= esc($assignedProject['statusName']) ?></td>
+                <td><?= esc(str_replace(',', ', ', $assignedProject['categoryNames'])) ?></td> <!-- Updated Data -->
+                <td><?= esc($assignedProject['dateAccepted']) ?></td>
                 <td>
-                    <?php if (!empty($project['assignedUsers'])): ?>
+                    <?php if (!empty($assignedProject['assignedUsers'])): ?>
                         <ul>
-                            <?php foreach ($project['assignedUsers'] as $user): ?>
+                            <?php foreach ($assignedProject['assignedUsers'] as $user): ?>
                                 <li><?= esc($user['username']) ?></li>
                             <?php endforeach; ?>
                         </ul>

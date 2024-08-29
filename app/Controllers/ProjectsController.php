@@ -227,15 +227,15 @@ class ProjectsController extends BaseController {
         // Try statement to catch any exceptions
         try {
             // Fetch assigned projects for the user using the model method.
-            $projects = $this->projectModel->getAssignedProjects($userID);
+            $assignedProjects = $this->projectModel->getAssignedProjects($userID);
 
             // Debugging statement.
-            log_message('debug', 'Assigned Projects for User ID ' . $userID . ': ' . print_r($projects, true));
+            log_message('debug', 'Assigned Projects for User ID ' . $userID . ': ' . print_r($assignedProjects, true));
             // print_r statement for the $assignedProjects variable.
-            print_r($projects);
+            print_r($assignedProjects);
 
             $data = [
-                'projects' => $projects
+                'projects' => $assignedProjects
             ];
 
             // return the view with the data passed to it as an array.
