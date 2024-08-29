@@ -433,14 +433,25 @@ class ProjectsController extends BaseController {
     }
     
     public function deleteUpdate($updateID) {
+        // Retrieve the update details
         $update = $this->updatesModel->getUpdateByID($updateID);
-
-        if ($update['userID'] !== auth()->id() && !auth()->user()->inGroup('superadmin')) {
-            return redirect()->back()->with('error', 'You do not have permission to edit this update.');
+    
+        // Check if the update exists
+        if (!$update) {
+            return redirect()->back()->with('error', 'Update not found.');
         }
-
+    
+        // Check if the user is allowed to delete this update
+        if ($update['userID'] !== auth()->id() && !auth()->user()->inGroup('superadmin')) {
+            return redirect()->back()->with('error', 'You do not have permission to delete this update.');
+        }
+    
+        // Delete the update
         $this->updatesModel->deleteUpdate($updateID);
+    
+        // Redirect back to the project details page with a success message
         return redirect()->to('/projects/details/' . $update['projectID'])->with('success', 'Update deleted successfully.');
     }
+    
     
 }

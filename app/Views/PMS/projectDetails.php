@@ -112,19 +112,16 @@
                             <td><?= esc($update['updateText']) ?></td>
                             <td><?= esc(date('n/j/Y \@ g:ia', strtotime($update['timestamp']))) ?></td>
                             <td>
+                            <td>
                                 <?php if ($update['userID'] === auth()->id() || auth()->user()->inGroup('superadmin')): ?>
                                     <!-- Edit Button -->
                                     <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editUpdateModal-<?= $update['updateID'] ?>">
                                         Edit
                                     </button>
-
                                     <!-- Delete Button -->
-                                    <form action="<?= base_url('projects/delete_update/' . $update['updateID']) ?>" method="post" class="d-inline">
-                                        <?= csrf_field() ?>
-                                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this update?');">
-                                            Delete
-                                        </button>
-                                    </form>
+                                    <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteUpdateModal-<?= $update['updateID'] ?>">
+                                        Delete
+                                    </button>
                                 <?php endif; ?>
                             </td>
                         </tr>
@@ -186,6 +183,29 @@
         </div>
     </div>
 </div>
+
+<!-- Modal for Delete Confirmation -->
+<div class="modal fade" id="deleteUpdateModal-<?= $update['updateID'] ?>" tabindex="-1" aria-labelledby="deleteUpdateModalLabel-<?= $update['updateID'] ?>" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteUpdateModalLabel-<?= $update['updateID'] ?>">Confirm Deletion</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete this update? This action cannot be undone.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <form action="<?= base_url('projects/delete_update/' . $update['updateID']) ?>" method="post">
+                    <?= csrf_field() ?>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
