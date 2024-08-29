@@ -412,9 +412,24 @@ class ProjectsController extends BaseController {
     public function editUpdate() {
         $updateID = $this->request->getPost('updateID');
         $updateText = $this->request->getPost('updateText');
-    
-        $this->updatesModel->updateUpdate($updateID, ['updateText' => $updateText]);
-        return $this->response->setJSON(['success' => true]);
+
+        $update = $this->updatesModel->getUpdateByID($updateID);
+
+        // Check if the update exists.
+        if (!$update) {
+            return redirect()->back()->with('error', 'Update not found.');
+        }
+
+        // Check if user is allowed to edit the update.
+        // Check if the user is allowed to edit this update
+        if ($update['userID'] !== auth()->id() && !auth()->user()->inGroup('superadmin')) {
+            return redirect()->back()->with('error', 'You do not have permission to edit this update.');
+        }
+
+        // Update the update text
+        $updateModel->updateUpdate($updateID, ['updateText' => $updateText]);
+
+        return redirect()->to('/projects/details/' . $update['projectID'])->with('success', 'Update successfully edited.');
     }
     
     public function deleteUpdate($updateID) {
