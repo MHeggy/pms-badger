@@ -232,7 +232,7 @@ class ProjectsController extends BaseController {
             // Debugging statement.
             log_message('debug', 'Assigned Projects for User ID ' . $userID . ': ' . print_r($assignedProjects, true));
             // print_r statement for the $assignedProjects variable.
-            print_r($assignedProjects);
+            //print_r($assignedProjects);
 
             $data = [
                 'assignedProjects' => $assignedProjects

@@ -53,6 +53,8 @@
 
 <!-- Projects Table -->
 <div class="container" id="project_table" style="margin-top: 20px;">
+<?php print_r($assignedProjects); ?>
+
     <table class="table table-striped">
         <!-- Table headers -->
         <thead>
