@@ -95,6 +95,33 @@ class MyWorkController extends Controller {
             log_message('error', 'Error in filter: ' . $e->getMessage());
             return $this->response->setStatusCode(500)->setJSON(['error' => 'Internal server error']);
         }
+    }
+
+    public function search() {
+        $userID = auth()->id();
+    
+        // Ensure the user is logged in
+        if (!$userID) {
+            return $this->response->setStatusCode(401)->setJSON(['error' => 'Unauthorized']);
+        }
+    
+        $searchTerm = $this->request->getGet('search');
+    
+        try {
+            // Fetch searched projects for the user
+            $projects = $this->projectModel->searchProjects($userID, $searchTerm);
+    
+            // Pass the searched projects to the view
+            $data = [
+                'assignedProjects' => $projects,
+                'searchTerm' => $searchTerm
+            ];
+    
+            return view('PMS/mywork', $data);
+        } catch (\Exception $e) {
+            log_message('error', 'Error in search: ' . $e->getMessage());
+            return $this->response->setStatusCode(500)->setJSON(['error' => 'Internal server error']);
+        }
     }    
 
 }
