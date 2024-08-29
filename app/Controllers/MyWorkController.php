@@ -93,7 +93,12 @@ class MyWorkController extends Controller {
     
             // Filter projects to ensure they are assigned to the logged-in user
             $projects = array_filter($projects, function($project) use ($userID) {
-                return in_array($userID, $project['assignedUsers']);
+                // Ensure $project['assignedUsers'] is an array
+                $assignedUsers = isset($project['assignedUsers']) && is_array($project['assignedUsers']) 
+                    ? $project['assignedUsers'] 
+                    : [];
+    
+                return in_array($userID, $assignedUsers);
             });
     
             // Pass the filtered projects to the view
@@ -111,5 +116,6 @@ class MyWorkController extends Controller {
             return $this->response->setStatusCode(500)->setJSON(['error' => 'Internal server error']);
         }
     }
+    
     
 }
