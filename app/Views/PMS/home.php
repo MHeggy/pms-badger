@@ -45,7 +45,7 @@
         </a>
     </div>
     <div id="myProjects" class="box">
-        <a href="<?php echo base_url('/myWork') ?>">
+        <a href="<?php echo base_url('/my_work') ?>">
             <p id="myProjectsText">My Projects... <?= count($assignedProjects) ?></p>
         </a>
     </div>
