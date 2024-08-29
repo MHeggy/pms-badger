@@ -93,34 +93,75 @@
     </table>
 
     <!-- Display Updates -->
-    <div class="mt-4">
-        <h2>Project Updates</h2>
-        <?php if (isset($updates) && !empty($updates)): ?>
-            <table class="table table-striped mt-4">
-                <thead class="table-dark">
+<div class="mt-4">
+    <h2>Project Updates</h2>
+    <?php if (isset($updates) && !empty($updates)): ?>
+        <table class="table table-striped mt-4">
+            <thead class="table-dark">
+                <tr>
+                    <th>User</th>
+                    <th>Update</th>
+                    <th>Date & Time</th>
+                    <th>Actions</th> <!-- Added Actions column -->
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($updates as $update): ?>
                     <tr>
-                        <th>User</th>
-                        <th>Update</th>
-                        <th>Date & Time</th>
+                        <td><?= esc($update['username']) ?></td>
+                        <td><?= esc($update['updateText']) ?></td>
+                        <td><?= esc(date('n/j/Y \@ g:ia', strtotime($update['timestamp']))) ?></td>
+                        <td>
+                            <?php if ($update['userID'] === auth()->id() || auth()->user()->isSuperadmin()): ?>
+                                <!-- Edit Button -->
+                                <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editUpdateModal-<?= $update['updateID'] ?>">
+                                    Edit
+                                </button>
+
+                                <!-- Delete Button -->
+                                <form action="<?= site_url('projects/delete_update/' . $update['updateID']) ?>" method="post" class="d-inline">
+                                    <?= csrf_field() ?>
+                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this update?');">
+                                        Delete
+                                    </button>
+                                </form>
+                            <?php endif; ?>
+                        </td>
                     </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($updates as $update): ?>
-                        <tr>
-                            <td><?= esc($update['username']) ?></td>
-                            <td><?= esc($update['updateText']) ?></td>
-                            <td><?= esc(date('n/j/Y \@ g:ia', strtotime($update['timestamp']))) ?></td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
-        <?php else: ?>
-            <div class="alert alert-info mt-4" role="alert">
-                No updates available for this project.
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    <?php else: ?>
+        <div class="alert alert-info mt-4" role="alert">
+            No updates available for this project.
+        </div>
+    <?php endif; ?>
+</div>
+
+<!-- Modal Structure for Editing Update -->
+<?php foreach ($updates as $update): ?>
+<div class="modal fade" id="editUpdateModal-<?= $update['updateID'] ?>" tabindex="-1" aria-labelledby="editUpdateModalLabel-<?= $update['updateID'] ?>" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editUpdateModalLabel-<?= $update['updateID'] ?>">Edit Update</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-        <?php endif; ?>
+            <div class="modal-body">
+                <form action="<?= site_url('projects/edit_update/' . $update['updateID']) ?>" method="post">
+                    <?= csrf_field() ?>
+                    <input type="hidden" name="projectID" value="<?= esc($project['projectID']) ?>">
+                    <div class="mb-3">
+                        <label for="updateText" class="form-label">Type Here</label>
+                        <textarea class="form-control" id="updateText" name="updateText" rows="3" required><?= esc($update['updateText']) ?></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
+<?php endforeach; ?>
 
 <!-- Modal Structure for Adding Update -->
 <div class="modal fade" id="addUpdateModal" tabindex="-1" aria-labelledby="addUpdateModalLabel" aria-hidden="true">
