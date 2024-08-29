@@ -235,7 +235,7 @@ class ProjectsController extends BaseController {
             print_r($assignedProjects);
 
             $data = [
-                'projects' => $assignedProjects
+                'assignedProjects' => $assignedProjects
             ];
 
             // return the view with the data passed to it as an array.
