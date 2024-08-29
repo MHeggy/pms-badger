@@ -100,7 +100,9 @@ $routes->post('/projects/assign', 'ProjectsController::assignProjectsToUser');
 // route for unassigning users from a project.
 $routes->get('/unassignUsers', 'ProjectsController::unassignUsersView');
 // route for displaying the page showing the user their current work.
-$routes->get('/myWork', 'ProjectsController::myWork');
+$routes->get('/my_work', 'MyWorkController::index');
+// route for filtering the my work page.
+$routes->get('/myWork/filter', 'MyWorkController::filter');
 // route for searching the mywork table.
 $routes->get('/myWork/search', 'ProjectsController::search');
 // route for pulling up the my profile page.

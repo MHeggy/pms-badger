@@ -65,6 +65,50 @@ function updateProjectList(projects) {
     });
 }
 
+// Add this function to your existing mywork.js file
+function fetchFilteredProjects(status) {
+    fetch(`/myWork/filter?status=${encodeURIComponent(status)}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+            return response.json();
+        })
+        .then(data => {
+            updateProjectList(data.projects);
+        })
+        .catch(error => {
+            console.error('There was a problem with the fetch operation:', error);
+            alert('An error occurred while fetching projects. Please try again.');
+        });
+}
+
+// Update the initializeEventListeners function
+function initializeEventListeners() {
+    // Existing search form event listener
+    document.getElementById('searchForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+        const searchTerm = document.getElementById('search').value;
+        fetchProjects(searchTerm);
+    });
+
+    // Add event listener for filter form
+    document.getElementById('filterForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+        const status = document.getElementById('status').value;
+        fetchFilteredProjects(status);
+    });
+
+    // Existing project row click event listener
+    document.querySelectorAll('#project_list tr').forEach(row => {
+        row.addEventListener('click', function () {
+            const projectId = this.dataset.projectId;
+            fetchProjectDetails(projectId);
+        });
+    });
+}
+
+
 // Function to sort projects based on project number
 function sortProjects(order) {
     const projectList = document.getElementById('project_list');
