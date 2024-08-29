@@ -92,17 +92,6 @@
                 <td><?= esc($assignedProject['statusName']) ?></td>
                 <td><?= esc(str_replace(',', ', ', $assignedProject['categoryNames'])) ?></td>
                 <td><?= esc($assignedProject['dateAccepted']) ?></td>
-                <td>
-                    <?php if (!empty($assignedProject['assignedUsers'])): ?>
-                        <ul>
-                            <?php foreach ($assignedProject['assignedUsers'] as $user): ?>
-                                <li><?= esc($user['username']) ?></li>
-                            <?php endforeach; ?>
-                        </ul>
-                    <?php else: ?>
-                        No users assigned.
-                    <?php endif; ?>
-                </td>
             </tr>
         <?php endforeach; ?>
         </tbody>
