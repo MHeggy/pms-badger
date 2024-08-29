@@ -451,7 +451,6 @@ class ProjectsController extends BaseController {
     
         // Redirect back to the project details page with a success message
         return redirect()->to('/projects/details/' . $update['projectID'])->with('success', 'Update deleted successfully.');
-    }
-    
+    }    
     
 }
