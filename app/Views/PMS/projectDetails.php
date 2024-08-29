@@ -97,37 +97,36 @@
         <h2>Project Updates</h2>
         <?php if (isset($updates) && !empty($updates)): ?>
             <table class="table table-striped mt-4">
-                <thead class="table-dark">
-                    <tr>
-                        <th>User</th>
-                        <th>Update</th>
-                        <th>Date & Time</th>
-                        <th>Actions</th> <!-- Added Actions column -->
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($updates as $update): ?>
-                        <tr>
-                            <td><?= esc($update['username']) ?></td>
-                            <td><?= esc($update['updateText']) ?></td>
-                            <td><?= esc(date('n/j/Y \@ g:ia', strtotime($update['timestamp']))) ?></td>
-                            <td>
-                            <td>
-                                <?php if ($update['userID'] === auth()->id() || auth()->user()->inGroup('superadmin')): ?>
-                                    <!-- Edit Button -->
-                                    <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editUpdateModal-<?= $update['updateID'] ?>">
-                                        Edit
-                                    </button>
-                                    <!-- Delete Button -->
-                                    <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteUpdateModal-<?= $update['updateID'] ?>">
-                                        Delete
-                                    </button>
-                                <?php endif; ?>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
+    <thead class="table-dark">
+        <tr>
+            <th>User</th>
+            <th>Update</th>
+            <th>Date & Time</th>
+            <th>Actions</th> <!-- Added Actions column -->
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($updates as $update): ?>
+            <tr>
+                <td><?= esc($update['username']) ?></td>
+                <td><?= esc($update['updateText']) ?></td>
+                <td><?= esc(date('n/j/Y \@ g:ia', strtotime($update['timestamp']))) ?></td>
+                <td>
+                    <?php if ($update['userID'] === auth()->id() || auth()->user()->inGroup('superadmin')): ?>
+                        <!-- Edit Button -->
+                        <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editUpdateModal-<?= $update['updateID'] ?>">
+                            Edit
+                        </button>
+                        <!-- Delete Button -->
+                        <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteUpdateModal-<?= $update['updateID'] ?>">
+                            Delete
+                        </button>
+                    <?php endif; ?>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
         <?php else: ?>
             <div class="alert alert-info mt-4" role="alert">
                 No updates available for this project.
@@ -184,7 +183,8 @@
     </div>
 </div>
 
-<!-- Modal for Delete Confirmation -->
+<!-- Modal Structure for Deleting Update -->
+<?php foreach ($updates as $update): ?>
 <div class="modal fade" id="deleteUpdateModal-<?= $update['updateID'] ?>" tabindex="-1" aria-labelledby="deleteUpdateModalLabel-<?= $update['updateID'] ?>" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -205,6 +205,7 @@
         </div>
     </div>
 </div>
+<?php endforeach; ?>
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
