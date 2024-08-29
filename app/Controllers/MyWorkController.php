@@ -79,20 +79,15 @@ class MyWorkController extends Controller {
     
             // Filter projects by status
             if ($status) {
-                // Pass all projects to filterProjectsByStatus
-                $filteredProjects = $this->projectModel->filterProjectsByStatus($status);
-                // Ensure the filtered projects are also assigned to the user
-                $filteredProjects = array_filter($filteredProjects, function($project) use ($userID) {
-                    return in_array($userID, $project['assignedUsers']);
+                $projects = array_filter($projects, function($project) use ($status) {
+                    return $project['statusID'] == $status;
                 });
-            } else {
-                $filteredProjects = $projects;
             }
     
             // Pass the filtered projects to the view
             $data = [
-                'assignedProjects' => $filteredProjects,
-                'selectedStatus' => $status
+                'assignedProjects' => $projects,
+                'status' => $status
             ];
     
             return view('PMS/mywork', $data);
@@ -101,5 +96,6 @@ class MyWorkController extends Controller {
             return $this->response->setStatusCode(500)->setJSON(['error' => 'Internal server error']);
         }
     }
+    
 
 }
