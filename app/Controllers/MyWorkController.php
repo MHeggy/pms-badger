@@ -91,6 +91,8 @@ class MyWorkController extends Controller {
                 'endDate' => $endDate
             ]);
     
+            log_message('debug', 'Filtered Projects: ' . print_r($projects, true));
+    
             // Filter projects to ensure they are assigned to the logged-in user
             $projects = array_filter($projects, function($project) use ($userID) {
                 // Ensure $project['assignedUsers'] is an array
@@ -115,6 +117,6 @@ class MyWorkController extends Controller {
             log_message('error', 'Error in filter: ' . $e->getMessage());
             return $this->response->setStatusCode(500)->setJSON(['error' => 'Internal server error']);
         }
-    }    
+    }        
     
 }

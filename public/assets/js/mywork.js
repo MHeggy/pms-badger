@@ -77,6 +77,7 @@ function fetchFilteredProjects(status) {
             return response.json();
         })
         .then(data => {
+            console.log('Filtered Projects Data:', data);
             updateProjectList(data.projects);
         })
         .catch(error => {
