@@ -171,30 +171,40 @@ class ProjectsController extends BaseController {
         // Get the user ID and selected projects from the form submission.
         $userID = $this->request->getPost('user');
         $selectedProjects = $this->request->getPost('projects');
-
+    
         // Check each selected project for existing associations and save new associations.
         foreach ($selectedProjects as $projectID) {
             $existingAssociation = $this->projectModel->getUserProjectAssociation($userID, $projectID);
-
+    
             // If no existing association found, save the association to the database.
             if (!$existingAssociation) {
                 $this->projectModel->createUserProjectAssociation($userID, $projectID);
             }
         }
-
+    
         // Set a success message to display to the user.
         session()->setFlashdata('success', 'Projects assigned successfully.');
-
-        // Load the users and projects data again to populate the view.
+    
+        // Reload the users and filter out already assigned projects.
         $userModel = new UserModel();
         $projectModel = new ProjectModel();
         $data['users'] = $userModel->findAll();
-        $data['projects'] = $projectModel->findAll();
-
+    
+        // Get all projects and the projects the user is already assigned to.
+        $allProjects = $projectModel->findAll();
+        $assignedProjects = $projectModel->getAssignedProjects($userID);
+    
+        // Filter out projects that are already assigned to the user.
+        $unassignedProjects = array_filter($allProjects, function($project) use ($assignedProjects) {
+            return !in_array($project['projectID'], array_column($assignedProjects, 'projectID'));
+        });
+    
+        $data['projects'] = $unassignedProjects;
+    
         // Return the view with the updated data.
         return view('PMS/assignusers', $data);
     }
-
+    
     public function myWork() {
         $userID = auth()->id();
 
