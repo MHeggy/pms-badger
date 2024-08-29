@@ -73,43 +73,26 @@ class MyWorkController extends Controller {
         try {
             // Get filter criteria from the request
             $status = $this->request->getGet('status');
-            $category = $this->request->getGet('category');
-            $assignedUser = $this->request->getGet('assigned_user');
-            $dateRange = $this->request->getGet('date_range'); // Expected in format "start_date - end_date"
     
-            // Extract date range if provided
-            $dates = explode(' - ', $dateRange);
-            $startDate = isset($dates[0]) ? $dates[0] : null;
-            $endDate = isset($dates[1]) ? $dates[1] : null;
+            // Fetch assigned projects for the user
+            $projects = $this->projectModel->getAssignedProjects($userID);
     
-            // Fetch assigned projects for the user with filters applied
-            $projects = $this->projectModel->filterProjects([
-                'status' => $status,
-                'category' => $category,
-                'assignedUser' => $assignedUser,
-                'startDate' => $startDate,
-                'endDate' => $endDate
-            ]);
-    
-            log_message('debug', 'Filtered Projects: ' . print_r($projects, true));
-    
-            // Filter projects to ensure they are assigned to the logged-in user
-            $projects = array_filter($projects, function($project) use ($userID) {
-                // Ensure $project['assignedUsers'] is an array
-                $assignedUsers = isset($project['assignedUsers']) && is_array($project['assignedUsers']) 
-                    ? $project['assignedUsers'] 
-                    : [];
-    
-                return in_array($userID, $assignedUsers);
-            });
+            // Filter projects by status
+            if ($status) {
+                // Pass all projects to filterProjectsByStatus
+                $filteredProjects = $this->projectModel->filterProjectsByStatus($status);
+                // Ensure the filtered projects are also assigned to the user
+                $filteredProjects = array_filter($filteredProjects, function($project) use ($userID) {
+                    return in_array($userID, $project['assignedUsers']);
+                });
+            } else {
+                $filteredProjects = $projects;
+            }
     
             // Pass the filtered projects to the view
             $data = [
-                'assignedProjects' => $projects,
-                'selectedStatus' => $status,
-                'selectedCategory' => $category,
-                'selectedUser' => $assignedUser,
-                'selectedDateRange' => $dateRange
+                'assignedProjects' => $filteredProjects,
+                'selectedStatus' => $status
             ];
     
             return view('PMS/mywork', $data);
@@ -117,6 +100,6 @@ class MyWorkController extends Controller {
             log_message('error', 'Error in filter: ' . $e->getMessage());
             return $this->response->setStatusCode(500)->setJSON(['error' => 'Internal server error']);
         }
-    }        
-    
+    }
+
 }
