@@ -410,6 +410,8 @@ class ProjectsController extends BaseController {
     }
 
     public function editUpdate() {
+        // debugging statement.
+        log_message('debug', 'editUpdate method reached');
         $updateID = $this->request->getPost('updateID');
         $update = $this->updatesModel->getUpdateByID($updateID);
     

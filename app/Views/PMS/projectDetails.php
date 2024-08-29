@@ -148,7 +148,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="<?= base_url('projects/edit_update/') ?>" method="post">
+                <form action="<?= site_url('projects/edit_update/') ?>" method="post">
                     <?= csrf_field() ?>
                     <input type="hidden" name="updateID" value="<?= esc($update['updateID']) ?>">
                     <input type="hidden" name="projectID" value="<?= esc($project['projectID']) ?>">
