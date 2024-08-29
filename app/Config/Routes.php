@@ -78,7 +78,7 @@ $routes->post('/projects/add', 'ProjectsController::add');
 // route for adding updates to a project.
 $routes->post('/projects/add_update', 'ProjectsController::addUpdate');
 // route for editing updates to a project.
-$routes->post('projects/edit_update', 'ProjectsController::editUpdate');
+$routes->post('projects/editUpdate', 'ProjectsController::editUpdate');
 // route for deleting updates from a project.
 $routes->delete('projects/delete_update/(:num)', 'ProjectsController::deleteUpdate/$1');
 // route for posting messages to messages page.
