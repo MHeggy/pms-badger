@@ -17,8 +17,8 @@
     }
 
     .modal-xl-custom {
-    max-width: 90%;
-    width: 90%;
+        max-width: 90%;
+        width: 90%;
     }
 </style>
 
@@ -36,6 +36,10 @@
     <div class="d-flex justify-content-between mb-4">
         <!-- Go Back Button -->
         <button class="btn btn-secondary" onclick="window.history.back()">Go Back</button>
+        <!-- Button to Open Modal for Adding Update -->
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addUpdateModal">
+            Add Update
+        </button>
     </div>
 
     <!-- Project Details Table -->
@@ -88,19 +92,6 @@
         </tbody>
     </table>
 
-    <!-- Add New Update Form -->
-    <div class="mt-4">
-        <h2>Add a New Update</h2>
-        <form action="<?= site_url('projects/add_update') ?>" method="post">
-            <input type="hidden" name="projectID" value="<?= esc($project['projectID']) ?>">
-            <div class="mb-3">
-                <label for="updateText" class="form-label">Update</label>
-                <textarea class="form-control" id="updateText" name="updateText" rows="3" required></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">Submit Update</button>
-        </form>
-    </div>
-
     <!-- Display Updates -->
     <div class="mt-4">
         <h2>Project Updates</h2>
@@ -128,6 +119,28 @@
                 No updates available for this project.
             </div>
         <?php endif; ?>
+    </div>
+</div>
+
+<!-- Modal Structure for Adding Update -->
+<div class="modal fade" id="addUpdateModal" tabindex="-1" aria-labelledby="addUpdateModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addUpdateModalLabel">Add a New Update</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="<?= site_url('projects/add_update') ?>" method="post">
+                    <input type="hidden" name="projectID" value="<?= esc($project['projectID']) ?>">
+                    <div class="mb-3">
+                        <label for="updateText" class="form-label">Update</label>
+                        <textarea class="form-control" id="updateText" name="updateText" rows="3" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit Update</button>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
 
