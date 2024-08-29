@@ -65,7 +65,7 @@
                 <a href="<?php echo base_url('/addProject') ?>"><li>Add Projects</li></a>
             <?php endif; ?>
             <a href="<?php echo base_url('/projects') ?>"><li>Projects</li></a>
-            <a href="<?php echo base_url('/myWork') ?>"><li>My Work</li></a>
+            <a href="<?php echo base_url('/my_work') ?>"><li>My Work</li></a>
             <a href="<?php echo base_url('/calendar') ?>"><li>Calendar</li></a>
             <a href="<?php echo base_url('/forums') ?>"><li>Forums</li></a>
         <?php else : ?>
