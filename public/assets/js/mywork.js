@@ -29,8 +29,9 @@ function fetchProjects(searchTerm) {
             return response.json();
         })
         .then(data => {
+            console.log('Fetched Projects Data:', data); // Inspect the structure of data
             updateProjectList(data.projects);
-        })
+        })        
         .catch(error => {
             console.error('There was a problem with the fetch operation:', error);
             alert('An error occurred while fetching projects. Please try again.');
