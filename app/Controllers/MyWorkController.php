@@ -63,31 +63,53 @@ class MyWorkController extends Controller {
     }
 
     public function filter() {
-        $status = $this->request->getGet('status');
-        
-        // Ensure the user is logged in
         $userID = auth()->id();
+    
+        // Ensure the user is logged in
         if (!$userID) {
             return $this->response->setStatusCode(401)->setJSON(['error' => 'Unauthorized']);
         }
     
-        // Fetch assigned projects
-        $assignedProjects = $this->projectModel->getAssignedProjects($userID);
-        if ($status) {
-            // Filter projects based on status
-            $assignedProjects = array_filter($assignedProjects, function($project) use ($status) {
-                return $project['statusID'] == $status;
+        try {
+            // Get filter criteria from the request
+            $status = $this->request->getGet('status');
+            $category = $this->request->getGet('category');
+            $assignedUser = $this->request->getGet('assigned_user');
+            $dateRange = $this->request->getGet('date_range'); // Expected in format "start_date - end_date"
+    
+            // Extract date range if provided
+            $dates = explode(' - ', $dateRange);
+            $startDate = isset($dates[0]) ? $dates[0] : null;
+            $endDate = isset($dates[1]) ? $dates[1] : null;
+    
+            // Fetch assigned projects for the user with filters applied
+            $projects = $this->projectModel->filterProjects([
+                'status' => $status,
+                'category' => $category,
+                'assignedUser' => $assignedUser,
+                'startDate' => $startDate,
+                'endDate' => $endDate
+            ]);
+    
+            // Filter projects to ensure they are assigned to the logged-in user
+            $projects = array_filter($projects, function($project) use ($userID) {
+                return in_array($userID, $project['assignedUsers']);
             });
-        }
     
-        // Return JSON response
-        if ($this->request->isAJAX()) {
-            return $this->response->setJSON(['projects' => $assignedProjects]);
-        }
+            // Pass the filtered projects to the view
+            $data = [
+                'projects' => $projects,
+                'selectedStatus' => $status,
+                'selectedCategory' => $category,
+                'selectedUser' => $assignedUser,
+                'selectedDateRange' => $dateRange
+            ];
     
-        // Return the view with filtered data
-        $data['assignedProjects'] = $assignedProjects;
-        return view('PMS/mywork', $data);
+            return view('PMS/projects', $data);
+        } catch (\Exception $e) {
+            log_message('error', 'Error in filter: ' . $e->getMessage());
+            return $this->response->setStatusCode(500)->setJSON(['error' => 'Internal server error']);
+        }
     }
     
 }
