@@ -50,7 +50,7 @@
         </div>
     </div>
 </div>
-
+<p><?= esc($assignedProjects[0]['projectName']); ?></p>
 <!-- Projects Table -->
 <div class="container" id="project_table" style="margin-top: 20px;">
 <?php print_r($assignedProjects); ?>
@@ -83,7 +83,7 @@
             <tr data-project-id="<?= $assignedProject['projectID'] ?>">
                 <td>
                     <a href="<?= base_url('projects/details/' . $assignedProject['projectID']) ?>">
-                        <?= $assignedProject['projectNumber'] ?>
+                        <?= esc($assignedProject['projectNumber']) ?>
                     </a>
                 </td>
                 <td>
@@ -92,7 +92,7 @@
                     </a>
                 </td>
                 <td><?= esc($assignedProject['statusName']) ?></td>
-                <td><?= esc(str_replace(',', ', ', $assignedProject['categoryNames'])) ?></td> <!-- Updated Data -->
+                <td><?= esc(str_replace(',', ', ', $assignedProject['categoryNames'])) ?></td>
                 <td><?= esc($assignedProject['dateAccepted']) ?></td>
                 <td>
                     <?php if (!empty($assignedProject['assignedUsers'])): ?>
