@@ -108,7 +108,6 @@ function initializeEventListeners() {
     });
 }
 
-
 // Function to sort projects based on project number
 function sortProjects(order) {
     const projectList = document.getElementById('project_list');
