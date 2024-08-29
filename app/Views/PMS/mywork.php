@@ -1,24 +1,25 @@
 <?= $pageTitle = "My Work"; ?>
 <link rel="stylesheet" href="<?php echo base_url('/assets/css/projects.css') ?>">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="<?php echo base_url('/assets/css/main.css') ?>">
 
 <!-- Header content -->
 <div id="header">
-<?php include 'header.php' ?>
+    <header>
+        <?php include 'header.php' ?>
+    </header>
 </div>
 
 <!-- Search and Filter -->
 <div class="container" id="filter-container" style="margin-top: 100px;">
-    <div class="row justify-content-center"> <!-- Centering the row -->
+    <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="search-filter-container">
                 <div class="card search-filter-card">
                     <div class="card-body">
                         <h5 class="card-title">Search Projects</h5>
-                        <form action="<?= base_url('myWork/search') ?>" method="get">
-                            <!-- Search input -->
+                        <form id="searchForm" action="<?= base_url('myWork/search') ?>" method="get">
                             <input type="text" id="search" name="search" class="form-control" placeholder="Search Projects by name">
-                            <!-- Apply button -->
                             <button type="submit" class="btn btn-primary">Search</button>
                         </form>
                     </div>
@@ -30,8 +31,7 @@
                 <div class="card search-filter-card">
                     <div class="card-body">
                         <h5 class="card-title">Filter Projects</h5>
-                        <form action="<?= base_url('myWork/filter') ?>" method="get">
-                            <!-- Status select -->
+                        <form id="filterForm" action="<?= base_url('myWork/filter') ?>" method="get">
                             <select name="status" id="status" class="form-select">
                                 <option value="">All Projects</option>
                                 <option value="1">In Progress</option>
@@ -39,7 +39,6 @@
                                 <option value="3">Cancelled</option>
                                 <option value="4">Postponed</option>
                             </select>
-                            <!-- Apply button -->
                             <button type="submit" class="btn btn-primary">Apply</button>
                         </form>
                     </div>
@@ -48,11 +47,9 @@
         </div>
     </div>
 </div>
-<p><?= esc($assignedProjects[0]['projectName']); ?></p>
+
 <!-- Projects Table -->
 <div class="container" id="project_table" style="margin-top: 20px;">
-<?php print_r($assignedProjects); ?>
-
     <table class="table table-striped">
         <!-- Table headers -->
         <thead>
@@ -77,25 +74,25 @@
         </thead>
         <!-- Table body -->
         <tbody id="project_list">
-        <?php foreach ($assignedProjects as $assignedProject): ?>
-            <tr data-project-id="<?= $assignedProject['projectID'] ?>">
+        <?php foreach ($assignedProjects as $project): ?>
+            <tr data-project-id="<?= $project['projectID'] ?>">
                 <td>
-                    <a href="<?= base_url('projects/details/' . $assignedProject['projectID']) ?>">
-                        <?= esc($assignedProject['projectNumber']) ?>
+                    <a href="<?= base_url('projects/details/' . $project['projectID']) ?>">
+                        <?= esc($project['projectNumber']) ?>
                     </a>
                 </td>
                 <td>
-                    <a href="<?= base_url('projects/details/' . $assignedProject['projectID']) ?>">
-                        <?= esc($assignedProject['projectName']) ?>
+                    <a href="<?= base_url('projects/details/' . $project['projectID']) ?>">
+                        <?= esc($project['projectName']) ?>
                     </a>
                 </td>
-                <td><?= esc($assignedProject['statusName']) ?></td>
-                <td><?= esc(str_replace(',', ', ', $assignedProject['categoryNames'])) ?></td>
-                <td><?= esc($assignedProject['dateAccepted']) ?></td>
+                <td><?= esc($project['statusName']) ?></td>
+                <td><?= esc(str_replace(',', ', ', $project['categoryNames'])) ?></td>
+                <td><?= esc($project['dateAccepted']) ?></td>
                 <td>
-                    <?php if (!empty($assignedProject['assignedUsers'])): ?>
+                    <?php if (!empty($project['assignedUsers'])): ?>
                         <ul>
-                            <?php foreach ($assignedProject['assignedUsers'] as $user): ?>
+                            <?php foreach ($project['assignedUsers'] as $user): ?>
                                 <li><?= esc($user['username']) ?></li>
                             <?php endforeach; ?>
                         </ul>
@@ -112,6 +109,6 @@
 <!-- Scripts -->
 <script src="<?php echo base_url('/assets/js/projects.js') ?>"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-<script src="<?php echo base_url('/assets/js/main.js')?>"></script>
+<script src="<?php echo base_url('/assets/js/main.js') ?>"></script>
 </body>
 </html>
