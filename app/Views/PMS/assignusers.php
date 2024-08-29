@@ -27,7 +27,6 @@
                         <?php endforeach; ?>
                     </select>
                 </div>
-
         </div>
         <div class="col-md-6">
             <div class="mb-3" id="projectSelection" style="display: none;">

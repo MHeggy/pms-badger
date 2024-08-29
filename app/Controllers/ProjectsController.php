@@ -161,11 +161,22 @@ class ProjectsController extends BaseController {
             return redirect()->to('/dashboard')->with('error', 'You do not have proper permissions to view this page.');
         }
         $data['users'] = $userModel->findAll();
-        $data['projects'] = $this->projectModel->findAll();
-
+    
+        // Get all projects and the projects the user is already assigned to.
+        $allProjects = $this->projectModel->findAll();
+        $assignedProjects = $this->projectModel->getAssignedProjects($userID);
+    
+        // Filter out projects that are already assigned to the user.
+        $unassignedProjects = array_filter($allProjects, function($project) use ($assignedProjects) {
+            return !in_array($project['projectID'], array_column($assignedProjects, 'projectID'));
+        });
+    
+        $data['projects'] = $unassignedProjects;
+    
         log_message('debug', 'Retrieved users: ' . print_r($data['users'], true));
+        log_message('debug', 'Filtered projects: ' . print_r($data['projects'], true));
         return view('PMS/assignusers', $data);
-    }
+    }    
 
     public function assignProjectsToUser() {
         // Get the user ID and selected projects from the form submission.
