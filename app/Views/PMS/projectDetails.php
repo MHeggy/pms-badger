@@ -134,7 +134,7 @@
                 <form action="<?= site_url('projects/add_update') ?>" method="post">
                     <input type="hidden" name="projectID" value="<?= esc($project['projectID']) ?>">
                     <div class="mb-3">
-                        <label for="updateText" class="form-label">Update</label>
+                        <label for="updateText" class="form-label">Type Here</label>
                         <textarea class="form-control" id="updateText" name="updateText" rows="3" required></textarea>
                     </div>
                     <button type="submit" class="btn btn-primary">Submit Update</button>
