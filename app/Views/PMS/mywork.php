@@ -4,9 +4,7 @@
 
 <!-- Header content -->
 <div id="header">
-    <header>
-        <?php include 'header.php' ?>
-    </header>
+<?php include 'header.php' ?>
 </div>
 
 <!-- Search and Filter -->
