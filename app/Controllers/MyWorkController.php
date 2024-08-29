@@ -10,7 +10,7 @@ use App\Models\TaskModel;
 use App\Models\CategoryModel;
 use App\Models\UpdatesModel;
 
-class MyWorkController {
+class MyWorkController extends Controller {
     protected $projectModel;
     protected $authGroups;
     protected $stateModel;
