@@ -21,7 +21,7 @@ function initializeEventListeners() {
 }
 
 function fetchProjects(searchTerm) {
-    fetch(`/projects/search?search=${encodeURIComponent(searchTerm)}`)
+    fetch(`/myWork/search?search=${encodeURIComponent(searchTerm)}`)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok ' + response.statusText);
@@ -89,15 +89,9 @@ function sortProjects(order) {
         }
     });
 
-    // Clear and re-append sorted rows (excluding header row)
+    // Clear and re-append sorted rows
+    projectList.innerHTML = ''; // Clear current rows
     sortedRows.forEach(row => {
         projectList.appendChild(row);
     });
 }
-
-
-// Clear and re-append sorted rows
-document.querySelector('#project_list').innerHTML = '';
-sortedRows.forEach(row => {
-    document.querySelector('#project_list').appendChild(row);
-});
