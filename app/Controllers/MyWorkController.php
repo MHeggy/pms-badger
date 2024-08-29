@@ -80,7 +80,7 @@ class MyWorkController extends Controller {
             // Filter projects by status
             if ($status) {
                 $projects = array_filter($projects, function($project) use ($status) {
-                    return $project['statusID'] == $status;
+                    return isset($project['statusID']) && $project['statusID'] == $status;
                 });
             }
     
@@ -95,7 +95,6 @@ class MyWorkController extends Controller {
             log_message('error', 'Error in filter: ' . $e->getMessage());
             return $this->response->setStatusCode(500)->setJSON(['error' => 'Internal server error']);
         }
-    }
-    
+    }    
 
 }
