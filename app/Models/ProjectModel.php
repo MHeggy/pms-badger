@@ -53,7 +53,6 @@ class ProjectModel extends Model {
         return $builder->get()->getResultArray();
     }
     
-
     public function filterProjectsByStatus($status) {
         $builder = $this->db->table('projects');
         $builder->select('projects.*, projectstatuses.statusName, GROUP_CONCAT(DISTINCT pcategories.categoryName) AS categoryNames, GROUP_CONCAT(DISTINCT tasks.taskName) AS taskNames')
