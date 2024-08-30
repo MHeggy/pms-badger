@@ -62,19 +62,22 @@ class ProjectsController extends BaseController {
     public function search() {
         try {
             $searchTerm = $this->request->getGet('search');
+    
+            // Fetch data from the model
             $projects = $this->projectModel->searchProjects($searchTerm);
-
-            // Process assigned users.
+    
+            // Fetch assigned users for each project
             foreach ($projects as &$project) {
-                $project['assignedUsers'] = explode(',', $project['assignedUsers']);
+                $project['assignedUsers'] = $this->projectModel->getAssignedUsers($project['projectID']);
             }
-
-            return $this->response->setJSON(['projects' => $projects]);
+    
+            // Pretty print the JSON response
+            return $this->response->setJSON(['projects' => $projects], 200, JSON_PRETTY_PRINT);
         } catch (\Exception $e) {
             log_message('error', 'Error in search: ' . $e->getMessage());
             return $this->response->setStatusCode(500)->setJSON(['error' => 'Internal server error']);
         }
-    }
+    }    
 
     // function to filter projects based on status.
     public function filter() {
