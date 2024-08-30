@@ -46,7 +46,7 @@ class RegisterController extends Controller {
 
             // Generate a unique token
             $data['verification_token'] = bin2hex(random_bytes(50));
-            $data['is_active'] = 0; // Mark user as inactive until email is verified
+            $data['active'] = 0; // Mark user as inactive until email is verified
 
             // Create a new User entity
             $user = new User($data);
@@ -84,7 +84,7 @@ class RegisterController extends Controller {
 
         if ($user) {
             $users->update($user['id'], [
-                'is_active' => 1,
+                'active' => 1,
                 'verification_token' => null
             ]);
 

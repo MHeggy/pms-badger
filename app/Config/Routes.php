@@ -128,6 +128,8 @@ $routes->post('/change_password', 'UserController::changePassword');
 service('auth')->routes($routes, ['register' => false]);
 // Custom route for the register action.
 $routes->match(['get', 'post'], 'doRegister', 'RegisterController::register');
+// Custom route for verification action.
+$routes->get('register/verify/(:any)', 'RegisterController::verify/$1');
 // test email route
 $routes->get('/send-test-email', 'EmailController::sendTestEmail');
 $routes->get('timesheets/export/(:num)', 'TimesheetsController::exportTimesheet/$1');
