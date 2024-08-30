@@ -45,15 +45,16 @@ function updateProjectList(projects) {
         const projectRow = document.createElement('tr');
         projectRow.setAttribute('data-project-id', project.projectID);
 
-        // Check if assignedUsers is defined and not empty
-        const assignedUsersHTML = project.assignedUsers && project.assignedUsers.length
-            ? '<ul>' + project.assignedUsers.map(user => `<li>${user.username}</li>`).join('') + '</ul>'
+        const assignedUsersHTML = project.assignedUsers.length
+            ? '<ul>' + project.assignedUsers.map(user => `<li>${user}</li>`).join('') + '</ul>'
             : 'No users assigned.';
 
         projectRow.innerHTML = `
             <td>${project.projectNumber}</td>
             <td>${project.projectName}</td>
             <td>${project.statusName}</td>
+            <td>${project.categoryNames}</td> <!-- Display categories -->
+            <td>${project.dateAccepted}</td>
             <td>${assignedUsersHTML}</td>
         `;
 
@@ -64,6 +65,7 @@ function updateProjectList(projects) {
         projectList.appendChild(projectRow);
     });
 }
+
 
 // Function to sort projects based on project number
 function sortProjects(order) {

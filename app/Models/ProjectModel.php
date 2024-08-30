@@ -31,14 +31,18 @@ class ProjectModel extends Model {
     
     public function searchProjects($searchTerm) {
         $builder = $this->db->table('projects');
-        $builder->select('projects.*, projectstatuses.statusName, GROUP_CONCAT(DISTINCT pcategories.categoryName) AS categoryNames, GROUP_CONCAT(DISTINCT users.username) AS assignedUsers')
-                ->join('projectstatuses', 'projects.statusID = projectstatuses.statusID', 'left')
-                ->join('project_categories', 'projects.projectID = project_categories.projectID', 'left')
-                ->join('pcategories', 'project_categories.categoryID = pcategories.categoryID', 'left')
-                ->join('user_project', 'projects.projectID = user_project.project_id', 'left')
-                ->join('users', 'user_project.user_id = users.id', 'left');
+        $builder->select('
+            projects.*, 
+            projectstatuses.statusName, 
+            GROUP_CONCAT(DISTINCT pcategories.categoryName ORDER BY pcategories.categoryName ASC) AS categoryNames,
+            GROUP_CONCAT(DISTINCT users.username ORDER BY users.username ASC) AS assignedUsers
+        ')
+        ->join('projectstatuses', 'projects.statusID = projectstatuses.statusID', 'left')
+        ->join('project_categories', 'projects.projectID = project_categories.projectID', 'left')
+        ->join('pcategories', 'project_categories.categoryID = pcategories.categoryID', 'left')
+        ->join('user_project', 'projects.projectID = user_project.project_id', 'left')
+        ->join('users', 'user_project.user_id = users.id', 'left');
         
-        // Expand the search criteria to search across more fields
         if (!empty($searchTerm)) {
             $builder->groupStart()
                     ->like('projects.projectName', $searchTerm)
@@ -49,9 +53,10 @@ class ProjectModel extends Model {
                     ->groupEnd();
         }
         
+        // Include all fields being selected and grouped
         $builder->groupBy('projects.projectID, projectstatuses.statusName');
         return $builder->get()->getResultArray();
-    }
+    }    
     
     public function filterProjectsByStatus($status) {
         $builder = $this->db->table('projects');
