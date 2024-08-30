@@ -72,7 +72,10 @@ class ProjectsController extends BaseController {
             }
 
             // Pass the data to the view.
-            return view('PMS/projects', ['projects' => $projects]);
+            return view('PMS/projects', [
+                'projects' => $projects,
+                'searchTerm' => $searchTerm
+            ]);
         } catch (\Exception $e) {
             log_message('error', 'Error in search: ' . $e->getMessage());
             return redirect()->back()->with('error', 'An error occurred while searching. Please try again.');
