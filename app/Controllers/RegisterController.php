@@ -5,12 +5,14 @@ namespace App\Controllers;
 use CodeIgniter\Controller;
 use CodeIgniter\Shield\Entities\User;
 use CodeIgniter\Shield\Models\UserModel;
+use CodeIgniter\Email\Email;
 
 class RegisterController extends Controller {
     public function register()
     {
         if ($this->request->getMethod() === 'post') {
             $users = model(UserModel::class);
+            $emailService = service('email');
 
             // Capture input data
             $data = [
@@ -42,6 +44,10 @@ class RegisterController extends Controller {
             $data['password_hash'] = service('passwords')->hash($data['password']);
             unset($data['password']); // Don’t store the plain password
 
+            // Generate a unique token
+            $data['verification_token'] = bin2hex(random_bytes(50));
+            $data['is_active'] = 0; // Mark user as inactive until email is verified
+
             // Create a new User entity
             $user = new User($data);
 
@@ -50,9 +56,41 @@ class RegisterController extends Controller {
                 return redirect()->back()->with('error', 'Failed to register the user.');
             }
 
-            return redirect()->to('/login')->with('message', 'Registration successful. Please login.');
+            // Prepare email
+            $emailService->setTo($data['email']);
+            $emailService->setFrom('no-reply@pmsbadger.com', 'PMSBadger');
+            $emailService->setSubject('Email Verification');
+            $emailService->setMessage(
+                "Please click the following link to verify your email address: " .
+                site_url("register/verify/{$data['verification_token']}")
+            );
+
+            // Send email
+            if ($emailService->send()) {
+                return redirect()->to('/login')->with('message', 'Registration successful. Please check your email to verify your account.');
+            } else {
+                return redirect()->to('/register')->with('error', 'Failed to send verification email.');
+            }
         }
 
-        return view('PMS/home.php');
+        return view('auth/register');
+    }
+
+    public function verify($token)
+    {
+        $users = model(UserModel::class);
+
+        $user = $users->where('verification_token', $token)->first();
+
+        if ($user) {
+            $users->update($user['id'], [
+                'is_active' => 1,
+                'verification_token' => null
+            ]);
+
+            return redirect()->to('/login')->with('message', 'Email verified successfully! You can now log in.');
+        } else {
+            return redirect()->to('/login')->with('error', 'Invalid or expired token.');
+        }
     }
 }
