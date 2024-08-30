@@ -50,26 +50,11 @@ function fetchFilteredProjects(status) {
 
 // Update the initializeEventListeners function
 function initializeEventListeners() {
-    // Existing search form event listener
-    document.getElementById('searchForm').addEventListener('submit', function (e) {
-        e.preventDefault();
-        const searchTerm = document.getElementById('search').value;
-        fetchProjects(searchTerm);
-    });
-
     // Add event listener for filter form
     document.getElementById('filterForm').addEventListener('submit', function (e) {
         e.preventDefault();
         const status = document.getElementById('status').value;
         fetchFilteredProjects(status);
-    });
-
-    // Existing project row click event listener
-    document.querySelectorAll('#project_list tr').forEach(row => {
-        row.addEventListener('click', function () {
-            const projectId = this.dataset.projectId;
-            fetchProjectDetails(projectId);
-        });
     });
 }
 
