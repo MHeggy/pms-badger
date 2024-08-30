@@ -3,41 +3,6 @@ document.addEventListener('DOMContentLoaded', function () {
     initializeEventListeners();
 });
 
-function initializeEventListeners() {
-    // Event listener for search form
-    document.getElementById('searchForm').addEventListener('submit', function (e) {
-        e.preventDefault();
-        const searchTerm = document.getElementById('search').value;
-        fetchProjects(searchTerm);
-    });
-
-    // Event listener for project row click
-    document.querySelectorAll('#project_list tr').forEach(row => {
-        row.addEventListener('click', function () {
-            const projectId = this.dataset.projectId;
-            fetchProjectDetails(projectId);
-        });
-    });
-}
-
-function fetchProjects(searchTerm) {
-    fetch(`/myWork/search?search=${encodeURIComponent(searchTerm)}`)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok ' + response.statusText);
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log('Fetched Projects Data:', data); // Inspect the structure of data
-            updateProjectList(data.projects);
-        })        
-        .catch(error => {
-            console.error('There was a problem with the fetch operation:', error);
-            alert('An error occurred while fetching projects. Please try again.');
-        });
-}
-
 function updateProjectList(projects) {
     const projectList = document.getElementById('project_list');
     projectList.innerHTML = ''; // Clear the current list

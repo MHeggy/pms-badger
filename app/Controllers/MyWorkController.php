@@ -99,45 +99,30 @@ class MyWorkController extends Controller {
 
     public function search() {
         $userID = auth()->id();
-        
-        // Ensure the user is logged in
+
         if (!$userID) {
             return $this->response->setStatusCode(401)->setJSON(['error' => 'Unauthorized']);
         }
-    
-        // Debugging statement for the logged-in user ID
-        log_message('debug', 'search() called by User ID: ' . $userID);
-        
+
+        // Get the search term from the request.
         $searchTerm = $this->request->getGet('search');
-        
-        // Debugging statement for the search term
-        log_message('debug', 'Search term: ' . $searchTerm);
-    
+
         try {
-            // Fetch assigned projects for the user
-            $projects = $this->projectModel->getAssignedProjects($userID);
-    
-            // Debugging statement to see what projects are fetched
-            log_message('debug', 'Assigned Projects for User ID ' . $userID . ': ' . print_r($projects, true));
-            
-            // Perform search on the fetched projects
-            $searchResults = $this->projectModel->searchProjects($searchTerm, $projects);
-    
-            // Debugging statement to see the search results
-            log_message('debug', 'Search Results for term "' . $searchTerm . '": ' . print_r($searchResults, true));
+            // Fetch and search assigned projects for the user
+            $searchResults = $this->projectModel->searchAssignedProjects($userID, $searchTerm);
     
             // Pass the searched projects to the view
             $data = [
                 'assignedProjects' => $searchResults,
-                'searchTerm' => $searchTerm
+                'searchTerm' => $searchTerm,
             ];
     
-            return $this->response->setJSON(['projects' => $searchResults]);
+            // Render the view with search results
+            return view('mywork', $data);
         } catch (\Exception $e) {
             log_message('error', 'Error in search: ' . $e->getMessage());
             return $this->response->setStatusCode(500)->setJSON(['error' => 'Internal server error']);
         }
     }
        
-
 }

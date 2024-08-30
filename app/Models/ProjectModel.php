@@ -51,6 +51,29 @@ class ProjectModel extends Model {
         $builder->groupBy('projects.projectID, projectstatuses.statusName');
         return $builder->get()->getResultArray();
     }    
+
+    public function searchAssignedProjects($userID, $searchTerm) {
+        $builder = $this->db->table('projects');
+        $builder->select('
+            projects.*, 
+            projectstatuses.statusName, 
+            GROUP_CONCAT(DISTINCT pcategories.categoryName ORDER BY pcategories.categoryName ASC) AS categoryNames,
+            GROUP_CONCAT(DISTINCT users.username ORDER BY users.username ASC) AS assignedUsers
+        ')
+        ->join('projectstatuses', 'projects.statusID = projectstatuses.statusID', 'left')
+        ->join('project_categories', 'projects.projectID = project_categories.projectID', 'left')
+        ->join('pcategories', 'project_categories.categoryID = pcategories.categoryID', 'left')
+        ->join('user_project', 'projects.projectID = user_project.project_id', 'left')
+        ->join('users', 'user_project.user_id = users.id', 'left')
+        ->where('users.id', $userID);
+
+        if (!empty($searchTerm)) {
+            $builder->like('projects.projectName', $searchTerm);
+        }
+
+        $builder->groupBy('projects.projectID, projectstatuses.statusName');
+        return $builder->get()->getResultArray();
+    }
     
     public function filterProjectsByStatus($status) {
         $builder = $this->db->table('projects');
