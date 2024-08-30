@@ -125,7 +125,8 @@ $routes->get('/user/change_password', 'UserController::changePasswordView');
 $routes->get('/accountantpayroll/week/(:segment)', 'PayrollController::viewWeek/$1');
 // route for actually changing the user's password in the database.
 $routes->post('/change_password', 'UserController::changePassword');
-service('auth')->routes($routes, ['register' => false]);
+// auth routes but excluding the register and login routes as I have custom controllers for these that I want to use.
+service('auth')->routes($routes, ['register' => false, 'login' => false]);
 // Custom route for the register action.
 $routes->match(['get', 'post'], 'doRegister', 'RegisterController::register');
 // Custom route for verification action.
