@@ -38,7 +38,7 @@ class LoginController extends Controller
             }
         }
 
-        return view('auth/login');
+        return view('PMS/login.php');
     }
 
     public function resendVerification()
