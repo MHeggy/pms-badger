@@ -7,18 +7,18 @@ use CodeIgniter\Email\Email;
 
 class EmailController extends Controller {
     public function sendTestEmail() {
-        $email = \Config\Services::Email();
+        $email = \Config\Services::email();
 
-        $email->setFrom('mhegeduis@badgerengr.com', 'PMSBadger');
         $email->setTo('mhegeduis@gmail.com');
+        $email->setFrom('no-reply@pmsbadger.com', 'PMSBadger');
         $email->setSubject('Test Email');
-        $email->setMessage('This is a test email sent from the application.');
+        $email->setMessage('This is a test email to check the configuration.');
 
         if ($email->send()) {
-            echo 'Email sent successfully.';
+            echo 'Email sent successfully!';
         } else {
             $data = $email->printDebugger();
-            print_r($data);
+            echo 'Failed to send email. Debug info: <pre>' . print_r($data, true) . '</pre>';
         }
     }
 }
