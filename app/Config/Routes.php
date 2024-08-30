@@ -130,6 +130,7 @@ service('auth')->routes($routes, ['register' => false]);
 $routes->match(['get', 'post'], 'doRegister', 'RegisterController::register');
 // Custom route for verification action.
 $routes->get('register/verify/(:any)', 'RegisterController::verify/$1');
-// test email route
-$routes->get('/send-test-email', 'EmailController::sendTestEmail');
+// Route to resend verification email.
+$routes->post('resend-verification', 'RegisterController::resendVerification', ['as' => 'resend_verification']);
+// route for exporting timesheet
 $routes->get('timesheets/export/(:num)', 'TimesheetsController::exportTimesheet/$1');

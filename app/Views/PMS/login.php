@@ -33,6 +33,18 @@
                 <div class="alert alert-success" role="alert"><?= session('message') ?></div>
             <?php endif ?>
 
+            <!-- Resend Verification Email Form -->
+            <?php if (session('resend_verification')) : ?>
+                <div class="alert alert-info" role="alert">
+                    <?= lang('Auth.verificationPending') ?>
+                    <form action="<?= url_to('resend_verification') ?>" method="post" class="mt-2">
+                        <?= csrf_field() ?>
+                        <input type="hidden" name="email" value="<?= session('email') ?>">
+                        <button type="submit" class="btn btn-warning"><?= lang('Auth.resendVerificationEmail') ?></button>
+                    </form>
+                </div>
+            <?php endif ?>
+
             <form action="<?= url_to('login') ?>" method="post">
                 <?= csrf_field() ?>
 
