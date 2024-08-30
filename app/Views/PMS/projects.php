@@ -17,7 +17,7 @@
                     <div class="card search-filter-card">
                         <div class="card-body">
                             <h5 class="card-title">Search Projects</h5>
-                            <form id="searchForm">
+                            <form id="searchForm" action="<?= base_url('projects/search') ?>" method="get">
                                 <input type="text" id="search" name="search" class="form-control" placeholder="Search Projects by name">
                                 <button type="submit" class="btn btn-primary">Search</button>
                             </form>
