@@ -44,13 +44,7 @@ class ProjectModel extends Model {
         ->join('users', 'user_project.user_id = users.id', 'left');
         
         if (!empty($searchTerm)) {
-            $builder->groupStart()
-                    ->like('projects.projectName', $searchTerm)
-                    ->orLike('projects.projectNumber', $searchTerm)
-                    ->orLike('projectstatuses.statusName', $searchTerm)
-                    ->orLike('pcategories.categoryName', $searchTerm)
-                    ->orLike('users.username', $searchTerm)
-                    ->groupEnd();
+            $builder->like('projects.projectName', $searchTerm);
         }
         
         // Include all fields being selected and grouped
