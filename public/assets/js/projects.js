@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
     initializeEventListeners();
 });
 
-function initializeEventListeners() {
+/*function initializeEventListeners() {
     // Event listener for search form
     document.getElementById('searchForm').addEventListener('submit', function (e) {
         e.preventDefault();
@@ -18,7 +18,7 @@ function initializeEventListeners() {
             fetchProjectDetails(projectId);
         });
     });
-}
+} */
 
 function updateProjectList(projects) {
     const projectList = document.getElementById('project_list');
