@@ -29,6 +29,7 @@ function fetchProjects(searchTerm) {
             return response.json();
         })
         .then(data => {
+            console.log('JSON Response:', data); // Log the JSON response
             updateProjectList(data.projects);
         })
         .catch(error => {
