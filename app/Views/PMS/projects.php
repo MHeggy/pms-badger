@@ -48,36 +48,27 @@
     </div>
 
     <div class="container" id="project_table" style="margin-top: 20px;">
-        <table class="table table-striped">
-            <!-- Table headers -->
-            <thead>
-            <tr>
-                <th>
-                    Project Number
-                    <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-sm btn-primary" onclick="sortProjects('asc')">
-                            <i class="bi bi-arrow-up"></i>
-                        </button>
-                        <button type="button" class="btn btn-sm btn-primary" onclick="sortProjects('desc')">
-                            <i class="bi bi-arrow-down"></i>
-                        </button>
-                    </div>
-                </th>
-                <th>Project Name</th>
-                <th>Project Status</th>
-                <th>Category</th> <!-- New Column -->
-                <th>Date Accepted</th>
-                <th>Assigned Users</th>
-            </tr>
-            </thead>
-            <!-- Table body -->
-            <tbody id="project_list">
+    <table class="table table-striped">
+        <!-- Table headers -->
+        <thead>
+        <tr>
+            <th>Project Number</th>
+            <th>Project Name</th>
+            <th>Project Status</th>
+            <th>Category</th>
+            <th>Date Accepted</th>
+            <th>Assigned Users</th>
+        </tr>
+        </thead>
+        <!-- Table body -->
+        <tbody id="project_list">
+        <?php if (!empty($projects)): ?>
             <?php foreach ($projects as $project): ?>
                 <!-- Table rows -->
                 <tr data-project-id="<?= $project['projectID'] ?>">
                     <td>
                         <a href="<?= base_url('projects/details/' . $project['projectID']) ?>">
-                            <?= $project['projectNumber'] ?>
+                            <?= esc($project['projectNumber']) ?>
                         </a>
                     </td>
                     <td>
@@ -86,7 +77,7 @@
                         </a>
                     </td>
                     <td><?= esc($project['statusName']) ?></td>
-                    <td><?= esc(str_replace(',', ', ', $project['categoryNames'])) ?></td> <!-- Updated Data -->
+                    <td><?= esc(str_replace(',', ', ', $project['categoryNames'])) ?></td>
                     <td><?= esc($project['dateAccepted']) ?></td>
                     <td>
                         <?php if (!empty($project['assignedUsers'])): ?>
@@ -101,9 +92,14 @@
                     </td>
                 </tr>
             <?php endforeach; ?>
-            </tbody>
-        </table>
-    </div>
+        <?php else: ?>
+            <tr>
+                <td colspan="6">No projects found.</td>
+            </tr>
+        <?php endif; ?>
+        </tbody>
+    </table>
+</div>
                             
     <script src="<?php echo base_url('/assets/js/main.js')?>"></script>
 </body>

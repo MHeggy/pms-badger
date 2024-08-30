@@ -20,31 +20,6 @@ function initializeEventListeners() {
     });
 }
 
-function fetchProjects(searchTerm) {
-    // Update the URL in the browser without reloading the page
-    if (searchTerm) {
-        history.pushState({}, '', `/projects/search?search=${encodeURIComponent(searchTerm)}`);
-    } else {
-        history.pushState({}, '', '/projects/search');
-    }
-
-    fetch(`/projects/search?search=${encodeURIComponent(searchTerm)}`)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok ' + response.statusText);
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log('JSON Response:', data); // Log the JSON response
-            updateProjectList(data.projects);
-        })
-        .catch(error => {
-            console.error('There was a problem with the fetch operation:', error);
-            alert('An error occurred while fetching projects. Please try again.');
-        });
-}
-
 function updateProjectList(projects) {
     const projectList = document.getElementById('project_list');
     projectList.innerHTML = ''; // Clear the current list
