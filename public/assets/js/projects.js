@@ -21,6 +21,13 @@ function initializeEventListeners() {
 }
 
 function fetchProjects(searchTerm) {
+    // Update the URL in the browser without reloading the page
+    if (searchTerm) {
+        history.pushState({}, '', `/projects/search?search=${encodeURIComponent(searchTerm)}`);
+    } else {
+        history.pushState({}, '', '/projects/search');
+    }
+
     fetch(`/projects/search?search=${encodeURIComponent(searchTerm)}`)
         .then(response => {
             if (!response.ok) {
