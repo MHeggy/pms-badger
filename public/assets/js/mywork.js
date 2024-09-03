@@ -29,24 +29,24 @@ function updateProjectList(projects) {
     });
 }
 
-// Add this function to your existing mywork.js file
-function fetchFilteredProjects(status) {
-    fetch(`/myWork/filter?status=${encodeURIComponent(status)}`)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok ' + response.statusText);
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log('Filtered Projects Data:', data);
-            updateProjectList(data.projects);
-        })
-        .catch(error => {
-            console.error('There was a problem with the fetch operation:', error);
-            alert('An error occurred while fetching projects. Please try again.');
-        });
-}
+// // Add this function to your existing mywork.js file
+// function fetchFilteredProjects(status) {
+//     fetch(`/myWork/filter?status=${encodeURIComponent(status)}`)
+//         .then(response => {
+//             if (!response.ok) {
+//                 throw new Error('Network response was not ok ' + response.statusText);
+//             }
+//             return response.json();
+//         })
+//         .then(data => {
+//             console.log('Filtered Projects Data:', data);
+//             updateProjectList(data.projects);
+//         })
+//         .catch(error => {
+//             console.error('There was a problem with the fetch operation:', error);
+//             alert('An error occurred while fetching projects. Please try again.');
+//         });
+// }
 
 // Update the initializeEventListeners function
 function initializeEventListeners() {
