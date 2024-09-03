@@ -51,6 +51,23 @@ class LoginController extends ShieldLogin
         return redirect()->to(config('Auth')->loginRedirect())->withCookies();
     }
 
+    public function loginView() {
+        if (auth()->loggedIn()) {
+            return redirect()->to(config('Auth')->loginRedirect());
+        }
+
+        /** @var Session $authenticator */
+        $authenticator = auth('session')->getAuthenticator();
+
+        // If an action has been defined, start it up.
+        if ($authenticator->hasAction()) {
+            return redirect()->route('auth-action-show');
+        }
+
+        // Load the custom login view
+        return view('PMS/login.php');
+    }
+
     // Resend verification email method (if needed)
     public function resendVerification()
     {

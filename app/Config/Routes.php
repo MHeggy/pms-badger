@@ -135,5 +135,7 @@ $routes->get('register/verify/(:any)', 'RegisterController::verify/$1');
 $routes->post('resend-verification', 'RegisterController::resendVerification', ['as' => 'resend_verification']);
 // custom route for loginAction.
 $routes->post('login', 'LoginController::loginAction');
+// custom route for loginView.
+$routes->get('login', 'LoginController::loginView', ['as' => 'login']);
 // route for exporting timesheets
 $routes->get('timesheets/export/(:num)', 'TimesheetsController::exportTimesheet/$1');
