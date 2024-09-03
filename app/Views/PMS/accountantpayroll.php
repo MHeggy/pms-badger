@@ -37,7 +37,6 @@
                     <?php endforeach; ?>
                 </select>
             </div>
-            <!-- Reset and Filter buttons -->
             <div class="col-12 text-center">
                 <button type="submit" class="btn btn-primary">Filter</button>
                 <a href="<?= current_url(); ?>" class="btn btn-secondary ms-2">Reset</a>
@@ -54,19 +53,27 @@
                     <tr>
                         <th>Select</th>
                         <th>Name</th>
-                        <th>Week</th>
                         <th>Total Hours</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($filteredTimesheets as $timesheet): ?>
+                    <?php
+                    $currentWeek = '';
+                    foreach ($filteredTimesheets as $timesheet):
+                        // Check if we need to start a new week section
+                        if ($currentWeek !== $timesheet['weekOf']):
+                            $currentWeek = $timesheet['weekOf'];
+                            ?>
+                            <tr class="table-info">
+                                <td colspan="4"><strong>Week of <?= esc($currentWeek); ?></strong></td>
+                            </tr>
+                        <?php endif; ?>
                         <tr>
                             <td>
                                 <input type="checkbox" name="timesheet_ids[]" value="<?= esc($timesheet['timesheetID']); ?>" class="timesheet-checkbox" aria-label="Select timesheet <?= esc($timesheet['timesheetID']); ?>">
                             </td>
                             <td><?= esc($timesheet['firstName'] . ' ' . $timesheet['lastName']) ?></td>
-                            <td><?= esc($timesheet['weekOf']); ?></td>
                             <td><?= esc($timesheet['totalHours']); ?></td>
                             <td>
                                 <a href="/timesheets/view/<?= esc($timesheet['timesheetID']); ?>" class="btn btn-info btn-sm">View Details</a>
@@ -87,28 +94,6 @@
     <?php endif; ?>
 </div>
 
-<!-- Delete Modal -->
-<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="deleteModalLabel">Confirm Deletion</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                Are you sure you want to delete this timesheet? This action cannot be undone.
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <form method="post" id="deleteForm">
-                    <?= csrf_field(); ?>
-                    <input type="hidden" name="timesheetID" id="deleteTimesheetID">
-                    <button type="submit" class="btn btn-danger">Delete</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
