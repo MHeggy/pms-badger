@@ -29,7 +29,7 @@ class RegisterController extends Controller {
         }
 
         // Customize or use the default registration view
-        return $this->view('PMS/register');  // Use a custom view
+        return view('PMS/register');  // Use a custom view
     }
     
     public function register() {
