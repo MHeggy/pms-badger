@@ -32,6 +32,13 @@
 <div class="container mt-4">
     <h1><?= esc($project['projectName']) ?>'s Details</h1>
     
+    <!-- Success Message -->
+    <?php if (session()->getFlashdata('success')): ?>
+        <div class="alert alert-success">
+            <?= session()->getFlashdata('success') ?>
+        </div>
+    <?php endif; ?>
+    
     <!-- Button Row -->
     <div class="d-flex justify-content-between mb-4">
         <!-- Go Back Button -->
