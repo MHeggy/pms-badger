@@ -8,6 +8,29 @@ use CodeIgniter\Shield\Models\UserModel;
 use CodeIgniter\Email\Email;
 
 class RegisterController extends Controller {
+
+    public function registerView()
+    {
+        // Customize the view logic if needed
+        if (auth()->loggedIn()) {
+            return redirect()->to(config('Auth')->registerRedirect());
+        }
+
+        // Check if registration is allowed
+        if (! setting('Auth.allowRegistration')) {
+            return redirect()->back()->withInput()
+                ->with('error', lang('Auth.registerDisabled'));
+        }
+
+        // If an action has been defined, start it up.
+        $authenticator = auth('session')->getAuthenticator();
+        if ($authenticator->hasAction()) {
+            return redirect()->route('auth-action-show');
+        }
+
+        // Customize or use the default registration view
+        return $this->view('PMS/register');  // Use a custom view
+    }
     
     public function register() {
         if ($this->request->getMethod() === 'post') {

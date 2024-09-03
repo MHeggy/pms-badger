@@ -128,7 +128,9 @@ $routes->post('/change_password', 'UserController::changePassword');
 // auth routes but excluding the register and login routes as I have custom controllers for these that I want to use.
 service('auth')->routes($routes, ['except' => ['register', 'login']]);
 // Custom route for the register action.
-$routes->match(['get', 'post'], 'doRegister', 'RegisterController::register');
+$routes->post('doRegister', 'RegisterController::register');
+// Custom route for the register view.
+$routes->get('register', 'RegisterController::registerView', ['as' => 'register']);
 // Custom route for verification action.
 $routes->get('register/verify/(:any)', 'RegisterController::verify/$1');
 // Route to resend verification email.
