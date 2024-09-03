@@ -27,12 +27,14 @@ class LoginController extends ShieldLogin
         $users = model(UserModel::class);
         $user = $users->where(setting('Auth.validFields')[0], $credentials[setting('Auth.validFields')[0]])->first();
 
-        // Check if the account is active (email verified)
         if ($user && $user->active == 0) {
+            error_log('User account is inactive');
             return redirect()->back()->withInput()->with('error', 'Your account is not verified. Please check your email for the verification link.')
-                         ->with('resend_verification', true)
-                         ->with('email', $user->email);
-        }
+                ->with('resend_verification', true)
+                ->with('email', $user->email);
+        } else {
+            error_log('User account is active or user not found');
+        }        
 
         // Attempt to log the user in
         $authenticator = auth('session')->getAuthenticator();
