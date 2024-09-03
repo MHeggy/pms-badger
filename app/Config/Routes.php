@@ -133,6 +133,6 @@ $routes->match(['get', 'post'], 'doRegister', 'RegisterController::register');
 $routes->get('register/verify/(:any)', 'RegisterController::verify/$1');
 // Route to resend verification email.
 $routes->post('resend-verification', 'RegisterController::resendVerification', ['as' => 'resend_verification']);
-$routes->post('resend_verification', 'LoginController::resendVerification');
+//$routes->post('resend_verification', 'LoginController::resendVerification');
 // route for exporting timesheet
 $routes->get('timesheets/export/(:num)', 'TimesheetsController::exportTimesheet/$1');
