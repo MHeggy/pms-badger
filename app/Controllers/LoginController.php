@@ -2,45 +2,56 @@
 
 namespace App\Controllers;
 
-use CodeIgniter\Controller;
+use CodeIgniter\Shield\Controllers\LoginController as ShieldLogin;
+use CodeIgniter\HTTP\RedirectResponse;
 use CodeIgniter\Shield\Models\UserModel;
 
-class LoginController extends Controller
+class LoginController extends ShieldLogin
 {
-    public function login()
-    {
-        if ($this->request->getMethod() === 'post') {
-            $users = model(UserModel::class);
+    
+    public function loginAction(): RedirectResponse {
+        // Validate the login form input
+        $rules = $this->getValidationRules();
 
-            // Capture input data
-            $email = $this->request->getPost('email');
-            $password = $this->request->getPost('password');
-
-            // Find the user by email
-            $user = $users->where('email', $email)->first();
-
-            // Check if the user exists and the password is correct
-            if ($user && service('passwords')->verify($password, $user->password_hash)) {
-                
-                // Check if the account is active
-                if ($user->active == 0) {
-                    return redirect()->back()->with('resend_verification', true)
-                                             ->with('email', $email)
-                                             ->with('error', 'Your account is not verified. Please check your email for the verification link.');
-                }
-
-                // Log the user in
-                service('auth')->login($user);
-
-                return redirect()->to('/dashboard')->with('message', 'Login successful.');
-            } else {
-                return redirect()->back()->with('error', 'Invalid credentials.');
-            }
+        if (! $this->validateData($this->request->getPost(), $rules, [], config('Auth')->DBGroup)) {
+            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
 
-        return view('PMS/login.php');
+        /** @var array $credentials */
+        $credentials = $this->request->getPost(setting('Auth.validFields')) ?? [];
+        $credentials = array_filter($credentials);
+        $credentials['password'] = $this->request->getPost('password');
+        $remember = (bool) $this->request->getPost('remember');
+
+        // Find the user by the credentials provided (usually email or username)
+        $users = model(UserModel::class);
+        $user = $users->where(setting('Auth.validFields')[0], $credentials[setting('Auth.validFields')[0]])->first();
+
+        // Check if the account is active (email verified)
+        if ($user && $user->active == 0) {
+            return redirect()->back()->withInput()->with('error', 'Your account is not verified. Please check your email for the verification link.')
+                         ->with('resend_verification', true)
+                         ->with('email', $user->email);
+        }
+
+        // Attempt to log the user in
+        $authenticator = auth('session')->getAuthenticator();
+        $result = $authenticator->remember($remember)->attempt($credentials);
+
+        if (! $result->isOK()) {
+            return redirect()->route('login')->withInput()->with('error', $result->reason());
+        }
+
+        // If an action has been defined for login, start it up
+        if ($authenticator->hasAction()) {
+            return redirect()->route('auth-action-show')->withCookies();
+        }
+
+        // Redirect to the desired page after login
+        return redirect()->to(config('Auth')->loginRedirect())->withCookies();
     }
 
+    // Resend verification email method (if needed)
     public function resendVerification()
     {
         $email = $this->request->getPost('email');
