@@ -126,13 +126,12 @@ $routes->get('/accountantpayroll/week/(:segment)', 'PayrollController::viewWeek/
 // route for actually changing the user's password in the database.
 $routes->post('/change_password', 'UserController::changePassword');
 // auth routes but excluding the register and login routes as I have custom controllers for these that I want to use.
-service('auth')->routes($routes, ['except' => ['register']]);
+service('auth')->routes($routes, ['register' => false]);
 // Custom route for the register action.
 $routes->match(['get', 'post'], 'doRegister', 'RegisterController::register');
 // Custom route for verification action.
 $routes->get('register/verify/(:any)', 'RegisterController::verify/$1');
 // Route to resend verification email.
 $routes->post('resend-verification', 'RegisterController::resendVerification', ['as' => 'resend_verification']);
-//$routes->post('resend_verification', 'LoginController::resendVerification');
-// route for exporting timesheet
+// route for exporting timesheets
 $routes->get('timesheets/export/(:num)', 'TimesheetsController::exportTimesheet/$1');
