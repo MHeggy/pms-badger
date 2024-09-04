@@ -124,6 +124,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var title = $('#title').val();
     var start = $('#start').val();
     var end = $('#end').val();
+    var allDay = $('#all_day').is(':checked') ? 1 : 0; // Convert to 1 or 0
 
     $.ajax({
         type: 'POST',
@@ -131,7 +132,8 @@ document.addEventListener('DOMContentLoaded', function() {
         data: {
             title: title,
             start_date: start,
-            end_date: end
+            end_date: end,
+            all_day: allDay // Include all_day in the data
         },
         success: function(response) {
             window.location.reload();
@@ -142,12 +144,13 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-$('#editEventForm').submit(function(e) {
-    e.preventDefault();
-    var eventId = $('#editEventForm input[name="eventId"]').val();
-    var title = $('#editTitle').val();
-    var start = $('#editStart').val();
-    var end = $('#editEnd').val();
+    $('#editEventForm').submit(function(e) {
+        e.preventDefault();
+        var eventId = $('#editEventForm input[name="eventId"]').val();
+        var title = $('#editTitle').val();
+        var start = $('#editStart').val();
+        var end = $('#editEnd').val();
+        var allDay = $('#editAllDay').is(':checked') ? 1 : 0; // Convert to 1 or 0
 
     $.ajax({
         type: 'POST',
@@ -156,7 +159,8 @@ $('#editEventForm').submit(function(e) {
             eventId: eventId,
             title: title,
             start_date: start,
-            end_date: end
+            end_date: end,
+            all_day: allDay // Include all_day in the data
         },
         success: function(response) {
             window.location.reload();
@@ -166,7 +170,6 @@ $('#editEventForm').submit(function(e) {
         }
     });
 });
-
 
     $('#deleteEventBtn').click(function() {
         var eventId = $('#editEventForm input[name="eventId"]').val();
