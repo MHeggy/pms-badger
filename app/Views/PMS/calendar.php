@@ -97,6 +97,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
             $('#editStart').val(startLocal);
             $('#editEnd').val(endLocal);
+        },
+        eventContent: function(arg) {
+            let eventTime = arg.event.end ? arg.event.end.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '';
+            return {
+                html: '<div class="fc-event-title fc-sticky">' + arg.event.title + '</div>' +
+                      '<div class="fc-event-time">' + eventTime + '</div>'
+            };
         }
     });
 
