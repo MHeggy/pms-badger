@@ -109,12 +109,22 @@ document.addEventListener('DOMContentLoaded', function() {
             $('#editAllDay').prop('checked', info.event.allDay);
         },
         eventContent: function(arg) {
-            let eventTime = arg.event.end ? arg.event.end.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '';
+            let eventTime = '';
+            if (!arg.event.allDay) {
+                eventTime = arg.event.start.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                if (arg.event.end) {
+                    eventTime += ' - ' + arg.event.end.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                }
+            } else {
+                eventTime = 'All Day';  // Display "All Day" if the event is marked as such
+            }
+    
             return {
                 html: '<div class="fc-event-title fc-sticky">' + arg.event.title + '</div>' +
                       '<div class="fc-event-time">' + eventTime + '</div>'
             };
-        }
+    }
+
     });
 
     calendar.render();
