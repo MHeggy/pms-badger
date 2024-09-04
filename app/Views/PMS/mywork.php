@@ -18,7 +18,7 @@
                 <div class="card search-filter-card">
                     <div class="card-body">
                         <h5 class="card-title">Search Projects</h5>
-                        <form id="searchForm" action="<?= base_url('myWork/search') ?>" method="get">
+                        <form id="searchForm" action="<?= base_url('my_work/search') ?>" method="get">
                             <input type="text" id="search" name="search" class="form-control" placeholder="Search Projects by name">
                             <button type="submit" class="btn btn-primary">Search</button>
                         </form>
@@ -31,7 +31,7 @@
                 <div class="card search-filter-card">
                     <div class="card-body">
                         <h5 class="card-title">Filter Projects</h5>
-                        <form id="filterForm" action="<?= base_url('myWork/filter') ?>" method="get">
+                        <form id="filterForm" action="<?= base_url('my_work/filter') ?>" method="get">
                             <select name="status" id="status" class="form-select">
                                 <option value="">All Projects</option>
                                 <option value="1">In Progress</option>

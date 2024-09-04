@@ -102,9 +102,9 @@ $routes->get('/unassignUsers', 'ProjectsController::unassignUsersView');
 // route for displaying the page showing the user their current work.
 $routes->get('/my_work', 'MyWorkController::index');
 // route for filtering the my work page.
-$routes->get('/myWork/filter', 'MyWorkController::filter');
+$routes->get('/my_work/filter', 'MyWorkController::filter');
 // route for searching the mywork table.
-$routes->get('/myWork/search', 'ProjectsController::search');
+$routes->get('/my_work/search', 'ProjectsController::search');
 // route for pulling up the my profile page.
 $routes->get('/myprofile/(:num)', 'PeopleController::myProfileView/$1');
 // route for displaying the form to update the user's profile.
