@@ -43,30 +43,30 @@ class CalendarController extends Controller {
         $data = [
             'title' => $this->request->getPost('title'),
             'start_date' => $this->request->getPost('start_date'),
-            'end_date' => $this->request->getPost('end_date')
+            'end_date' => $this->request->getPost('end_date'),
+            'all_day' => $this->request->getPost('all_day') ? 1 : 0,
         ];
-    
+
         $this->calendarModel->insertEvent($data);
-    
+
         return $this->response->setJSON(['success' => true]);
     }
-    
+
     public function updateEvent()
     {
         $eventId = $this->request->getPost('eventId');
         $data = [
             'title' => $this->request->getPost('title'),
             'start_date' => $this->request->getPost('start_date'),
-            'end_date' => $this->request->getPost('end_date')
+            'end_date' => $this->request->getPost('end_date'),
+            'all_day' => $this->request->getPost('all_day') ? 1 : 0,
         ];
-    
+
         $this->calendarModel->updateEvent($eventId, $data);
-    
+
         return $this->response->setJSON(['success' => true]);
     }
     
-    
-
     public function deleteEvent() {
         // Get the event ID from the request
         $eventId = $this->request->getPost('eventId');

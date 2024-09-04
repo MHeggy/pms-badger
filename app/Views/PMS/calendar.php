@@ -26,11 +26,16 @@
                 <form id="eventForm" method="post" action="/calendar/create">
                     <label for="title">Title:</label>
                     <input type="text" id="title" name="title" required class="form-control"><br><br>
+
                     <label for="start">Start Date:</label>
                     <input type="datetime-local" id="start" name="start" required class="form-control"><br><br>
+
                     <label for="end">End Date:</label>
                     <input type="datetime-local" id="end" name="end" class="form-control"><br><br>
-                    <br>
+
+                    <label for="allDay">All Day:</label>
+                    <input type="checkbox" id="allDay" name="all_day" value="1"><br><br>
+
                     <button type="submit" class="btn btn-primary" id="addEventBtn">Add Event</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </form>
@@ -48,15 +53,21 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="editEventForm" method="post" action="/calendar/update">
+                <form id="editEventForm" method="post" action="/calendar/updateEvent">
                     <input type="hidden" name="eventId" id="eventId">
+        
                     <label for="editTitle">Title:</label>
                     <input type="text" id="editTitle" name="title" required class="form-control"><br><br>
+
                     <label for="editStart">Start Date:</label>
                     <input type="datetime-local" id="editStart" name="start" required class="form-control"><br><br>
+
                     <label for="editEnd">End Date:</label>
                     <input type="datetime-local" id="editEnd" name="end" class="form-control"><br><br>
-                    <br>
+
+                    <label for="editAllDay">All Day:</label>
+                    <input type="checkbox" id="editAllDay" name="all_day" value="1"><br><br>
+
                     <button type="submit" class="btn btn-primary" id="updateEventBtn">Update Event</button>
                     <button type="button" class="btn btn-danger" id="deleteEventBtn">Delete Event</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -72,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
-        displayEventTime: true,
+        displayEventTime: false,
         headerToolbar: {
             left: 'prev,next',
             center: 'title',
@@ -91,12 +102,11 @@ document.addEventListener('DOMContentLoaded', function() {
             $('#editEventModal').modal('show');
             $('#editEventForm input[name="eventId"]').val(info.event.id);
             $('#editTitle').val(info.event.title);
-            // Convert the start and end times to local time strings
             var startLocal = new Date(info.event.start).toLocaleString('sv-SE', { timeZoneName: 'short' }).slice(0, 16);
             var endLocal = info.event.end ? new Date(info.event.end).toLocaleString('sv-SE', { timeZoneName: 'short' }).slice(0, 16) : '';
-
             $('#editStart').val(startLocal);
             $('#editEnd').val(endLocal);
+            $('#editAllDay').prop('checked', info.event.allDay);
         },
         eventContent: function(arg) {
             let eventTime = arg.event.end ? arg.event.end.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '';

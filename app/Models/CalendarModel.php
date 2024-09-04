@@ -9,7 +9,7 @@ class CalendarModel extends Model
     protected $table = 'events';
     protected $primaryKey = 'id';
 
-    protected $allowedFields = ['id', 'title', 'start_date', 'end_date', 'created_at', 'updated_at'];
+    protected $allowedFields = ['id', 'title', 'start_date', 'end_date', 'created_at', 'updated_at', 'all_day'];
 
     public function insertEvent($data)
     {
