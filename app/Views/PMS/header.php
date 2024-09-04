@@ -64,7 +64,7 @@
             <?php if ($user->inGroup('superadmin')): ?>
                 <a href="<?php echo base_url('/assign_users') ?>"><li>Assign Users</li></a>
                 <a href="<?php echo base_url('/unassign_users') ?>"><li>Unassign Users</li></a>
-                <a href="<?php echo base_url('/addProject') ?>"><li>Add Projects</li></a>
+                <a href="<?php echo base_url('/add_project') ?>"><li>Add Projects</li></a>
             <?php endif; ?>
             <a href="<?php echo base_url('/projects') ?>"><li>Projects</li></a>
             <a href="<?php echo base_url('/my_work') ?>"><li>My Work</li></a>

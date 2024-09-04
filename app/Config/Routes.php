@@ -72,7 +72,7 @@ $routes->get('projects/getProjectsForUser/(:num)', 'ProjectsController::getProje
 // route for unassociating users from a specific project(s)
 $routes->post('/projects/unassign', 'ProjectsController::unassignProjectsFromUser');
 // route to add project view.
-$routes->get('/addProject', 'ProjectsController::addProjectsView');
+$routes->get('/add_project', 'ProjectsController::addProjectsView');
 // route to add projects to the database.
 $routes->post('/projects/add', 'ProjectsController::add');
 // route for adding updates to a project.
