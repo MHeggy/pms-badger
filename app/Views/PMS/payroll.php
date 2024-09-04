@@ -288,8 +288,38 @@ document.getElementById('add-row').addEventListener('click', () => {
 
 calculateAllTotals();  // Initial calculation
 
-</script>
+function isMonday(date) {
+    return date.getDay() === 1;
+}
 
+function setMondayRestriction() {
+        const weekInput = document.getElementById('week');
+        const today = new Date();
+        
+        // Set the minimum date to the current date or the nearest past Monday
+        while (!isMonday(today)) {
+            today.setDate(today.getDate() - 1);
+        }
+        const minDate = today.toISOString().split('T')[0];
+        weekInput.setAttribute('min', minDate);
+        
+        // Set the maximum date to 1 year from the current Monday (if you want to restrict future dates)
+        const maxDate = new Date(today);
+        maxDate.setFullYear(maxDate.getFullYear() + 1);
+        weekInput.setAttribute('max', maxDate.toISOString().split('T')[0]);
+
+        weekInput.addEventListener('change', function () {
+            const selectedDate = new Date(weekInput.value);
+            if (!isMonday(selectedDate)) {
+                alert('Please select a Monday.');
+                weekInput.value = ''; // Clear the invalid selection
+            }
+        });
+    }
+
+    // Initialize the restriction on page load
+    document.addEventListener('DOMContentLoaded', setMondayRestriction);
+</script>
 <script src="<?php echo base_url('/assets/js/main.js')?>"></script>
 </body>
 </html>
