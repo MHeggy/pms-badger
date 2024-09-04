@@ -3,31 +3,31 @@ document.addEventListener('DOMContentLoaded', function () {
     initializeEventListeners();
 });
 
-function updateProjectList(projects) {
-    const projectList = document.getElementById('project_list');
-    projectList.innerHTML = ''; // Clear the current list
+// function updateProjectList(projects) {
+//     const projectList = document.getElementById('project_list');
+//     projectList.innerHTML = ''; // Clear the current list
 
-    projects.forEach(project => {
-        const projectRow = document.createElement('tr');
-        projectRow.setAttribute('data-project-id', project.projectID);
+//     projects.forEach(project => {
+//         const projectRow = document.createElement('tr');
+//         projectRow.setAttribute('data-project-id', project.projectID);
 
-        // Check if assignedUsers is defined and not empty
-        const assignedUsersHTML = project.assignedUsers && project.assignedUsers.length
-            ? '<ul>' + project.assignedUsers.map(user => `<li>${user.username}</li>`).join('') + '</ul>'
-            : 'No users assigned.';
+//         // Check if assignedUsers is defined and not empty
+//         const assignedUsersHTML = project.assignedUsers && project.assignedUsers.length
+//             ? '<ul>' + project.assignedUsers.map(user => `<li>${user.username}</li>`).join('') + '</ul>'
+//             : 'No users assigned.';
 
-        projectRow.innerHTML = `
-            <td>${project.projectNumber}</td>
-            <td>${project.projectName}</td>
-            <td>${project.statusName}</td>
-            <td>${project.categoryNames ? project.categoryNames.split(',').join(', ') : ''}</td>
-            <td>${project.dateAccepted}</td>
-            <td>${assignedUsersHTML}</td>
-        `;
+//         projectRow.innerHTML = `
+//             <td>${project.projectNumber}</td>
+//             <td>${project.projectName}</td>
+//             <td>${project.statusName}</td>
+//             <td>${project.categoryNames ? project.categoryNames.split(',').join(', ') : ''}</td>
+//             <td>${project.dateAccepted}</td>
+//             <td>${assignedUsersHTML}</td>
+//         `;
 
-        projectList.appendChild(projectRow);
-    });
-}
+//         projectList.appendChild(projectRow);
+//     });
+// }
 
 // // Add this function to your existing mywork.js file
 // function fetchFilteredProjects(status) {
@@ -49,14 +49,14 @@ function updateProjectList(projects) {
 // }
 
 // Update the initializeEventListeners function
-function initializeEventListeners() {
-    // Add event listener for filter form
-    document.getElementById('filterForm').addEventListener('submit', function (e) {
-        e.preventDefault();
-        const status = document.getElementById('status').value;
-        fetchFilteredProjects(status);
-    });
-}
+// function initializeEventListeners() {
+//     // Add event listener for filter form
+//     document.getElementById('filterForm').addEventListener('submit', function (e) {
+//         e.preventDefault();
+//         const status = document.getElementById('status').value;
+//         fetchFilteredProjects(status);
+//     });
+// }
 
 // Function to sort projects based on project number
 function sortProjects(order) {
