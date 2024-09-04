@@ -91,8 +91,12 @@ document.addEventListener('DOMContentLoaded', function() {
             $('#editEventModal').modal('show');
             $('#editEventForm input[name="eventId"]').val(info.event.id);
             $('#editTitle').val(info.event.title);
-            $('#editStart').val(new Date(info.event.start).toISOString().slice(0, 16));
-            $('#editEnd').val(info.event.end ? new Date(info.event.end).toISOString().slice(0, 16) : '');
+            // Convert the start and end times to local time strings
+            var startLocal = new Date(info.event.start).toLocaleString('sv-SE', { timeZoneName: 'short' }).slice(0, 16);
+            var endLocal = info.event.end ? new Date(info.event.end).toLocaleString('sv-SE', { timeZoneName: 'short' }).slice(0, 16) : '';
+
+            $('#editStart').val(startLocal);
+            $('#editEnd').val(endLocal);
         }
     });
 
