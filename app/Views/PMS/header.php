@@ -22,26 +22,20 @@
             padding: 0 6px;
             font-size: 12px;
             vertical-align: top;
-            margin-left: 5px;
+            position: absolute;
+            top: -10px;
+            right: -10px;
         }
         /* Additional styling for the taskbar */
         #taskbarItems li {
             display: inline;
             margin-right: 15px;
             list-style: none;
+            position: relative; /* Ensure relative positioning for badge */
         }
         #taskbarItems a {
             text-decoration: none;
             color: black;
-        }
-        #taskbarItems li:last-child {
-            position: relative;
-            display: inline-block;
-        }
-        #taskbarItems .notification-badge {
-            position: absolute;
-            top: -10px;
-            right: -10px;
         }
     </style>
 </head>
@@ -85,10 +79,12 @@
             <?php endif; ?>
             <a href="<?php echo base_url('/projects') ?>"><li>Projects</li></a>
             <a href="<?php echo base_url('/my_work') ?>"><li>My Work</li></a>
-            <a href="<?php echo base_url('/calendar') ?>"><li>Calendar</li></a>
-            <?php if (isset($upcomingEventsCount) && $upcomingEventsCount > 0): ?>
-                <span class="notification-badge"><?= $upcomingEventsCount ?></span>
-            <?php endif; ?>
+            <li>
+                <a href="<?php echo base_url('/calendar') ?>">Calendar</a>
+                <?php if (isset($upcomingEventsCount) && $upcomingEventsCount > 0): ?>
+                    <span class="notification-badge"><?= $upcomingEventsCount ?></span>
+                <?php endif; ?>
+            </li>
             <a href="<?php echo base_url('/forums') ?>"><li>Forums</li></a>
         <?php else : ?>
             <!-- Show these if user is not logged in. -->
