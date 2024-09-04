@@ -111,11 +111,11 @@ document.addEventListener('DOMContentLoaded', function() {
         eventContent: function(arg) {
             let eventTime = '';
 
-            // Check if the event is not all-day and has an end time
-            if (!arg.event.allDay && arg.event.end) {
-                eventTime = arg.event.end.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-            } else if (arg.event.allDay) {
+            // Check if the event is marked as "all day"
+            if (arg.event.extendedProps.all_day === 1) {
                 eventTime = 'All Day';  // Display "All Day" if the event is marked as such
+            } else if (arg.event.end) {
+                eventTime = arg.event.end.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
             }
 
             return {
