@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
-        displayEventTime: false,
+        displayEventTime: false, // Disable default time display
         headerToolbar: {
             left: 'prev,next',
             center: 'title',
@@ -110,49 +110,47 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         eventContent: function(arg) {
             let eventTime = '';
-            if (!arg.event.allDay) {
-                eventTime = arg.event.start.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-                if (arg.event.end) {
-                    eventTime += ' - ' + arg.event.end.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-                }
-            } else {
+
+            // Check if the event is not all-day and has an end time
+            if (!arg.event.allDay && arg.event.end) {
+                eventTime = arg.event.end.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            } else if (arg.event.allDay) {
                 eventTime = 'All Day';  // Display "All Day" if the event is marked as such
             }
-    
+
             return {
                 html: '<div class="fc-event-title fc-sticky">' + arg.event.title + '</div>' +
                       '<div class="fc-event-time">' + eventTime + '</div>'
             };
-    }
-
+        }
     });
 
     calendar.render();
 
     $('#eventForm').submit(function(e) {
-    e.preventDefault();
-    var title = $('#title').val();
-    var start = $('#start').val();
-    var end = $('#end').val();
-    var allDay = $('#all_day').is(':checked') ? 1 : 0; // Convert to 1 or 0
+        e.preventDefault();
+        var title = $('#title').val();
+        var start = $('#start').val();
+        var end = $('#end').val();
+        var allDay = $('#all_day').is(':checked') ? 1 : 0;
 
-    $.ajax({
-        type: 'POST',
-        url: '/calendar/create',
-        data: {
-            title: title,
-            start_date: start,
-            end_date: end,
-            all_day: allDay // Include all_day in the data
-        },
-        success: function(response) {
-            window.location.reload();
-        },
-        error: function(xhr, status, error) {
-            console.error(error);
-        }
+        $.ajax({
+            type: 'POST',
+            url: '/calendar/create',
+            data: {
+                title: title,
+                start_date: start,
+                end_date: end,
+                all_day: allDay
+            },
+            success: function(response) {
+                window.location.reload();
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
+            }
+        });
     });
-});
 
     $('#editEventForm').submit(function(e) {
         e.preventDefault();
@@ -160,26 +158,26 @@ document.addEventListener('DOMContentLoaded', function() {
         var title = $('#editTitle').val();
         var start = $('#editStart').val();
         var end = $('#editEnd').val();
-        var allDay = $('#editAllDay').is(':checked') ? 1 : 0; // Convert to 1 or 0
+        var allDay = $('#editAllDay').is(':checked') ? 1 : 0;
 
-    $.ajax({
-        type: 'POST',
-        url: '/calendar/updateEvent',
-        data: {
-            eventId: eventId,
-            title: title,
-            start_date: start,
-            end_date: end,
-            all_day: allDay // Include all_day in the data
-        },
-        success: function(response) {
-            window.location.reload();
-        },
-        error: function(xhr, status, error) {
-            console.error(error);
-        }
+        $.ajax({
+            type: 'POST',
+            url: '/calendar/updateEvent',
+            data: {
+                eventId: eventId,
+                title: title,
+                start_date: start,
+                end_date: end,
+                all_day: allDay
+            },
+            success: function(response) {
+                window.location.reload();
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
+            }
+        });
     });
-});
 
     $('#deleteEventBtn').click(function() {
         var eventId = $('#editEventForm input[name="eventId"]').val();
