@@ -26,17 +26,6 @@
             top: -10px;
             right: -10px;
         }
-        /* Additional styling for the taskbar */
-        #taskbarItems li {
-            display: inline;
-            margin-right: 15px;
-            list-style: none;
-            position: relative; /* Ensure relative positioning for badge */
-        }
-        #taskbarItems a {
-            text-decoration: none;
-            color: black;
-        }
     </style>
 </head>
 <body>
