@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', function() {
             center: 'title',
             right: 'dayGridMonth,timeGridWeek,timeGridDay'
         },
-        timezone: 'local',
+        timezone: 'utc',
         selectable: true,
         events: <?= $events ?>,
         select: function(info) {
