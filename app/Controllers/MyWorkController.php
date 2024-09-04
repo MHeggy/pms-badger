@@ -67,12 +67,15 @@ class MyWorkController extends Controller {
     
         // Ensure the user is logged in
         if (!$userID) {
-            return $this->response->setStatusCode(401)->setJSON(['error' => 'Unauthorized']);
+            return redirect()->to('/login')->with('error', 'You must login to access this page.');
         }
     
         try {
             // Get filter criteria from the request
             $status = $this->request->getGet('status');
+
+            // Debugging statement for the status variable.
+            log_message('debug', 'Status: ' . $status);
     
             // Fetch assigned projects for the user
             $projects = $this->projectModel->getAssignedProjects($userID);
