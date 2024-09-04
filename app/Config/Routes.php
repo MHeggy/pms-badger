@@ -34,7 +34,7 @@ $routes->post('/personalMessages/mark-as-read', 'PersonalMessagesController::mar
 // route for displaying the payroll page.
 $routes->get('/timesheets', 'TimesheetsController::index');
 // route for displaying the accountant payroll page
-$routes->get('/accountantpayroll', 'PayrollController::index');
+$routes->get('/accountant_payroll', 'PayrollController::index');
 // route for searching accountant payroll view page.
 $routes->get('/search_payroll', 'PayrollController::search');
 // route for displaying the calendar.
@@ -94,11 +94,11 @@ $routes->post('/calendar/updateEvent', 'CalendarController::updateEvent');
 // routes for deleting events from the calendar.
 $routes->post('/calendar/deleteEvent', 'CalendarController::deleteEvent');
 // route for displaying the assign users page.
-$routes->get('/assignUsers', 'ProjectsController::assignUsersView');
+$routes->get('/assign_users', 'ProjectsController::assignUsersView');
 // route for assigning projects to a user.
 $routes->post('/projects/assign', 'ProjectsController::assignProjectsToUser');
 // route for unassigning users from a project.
-$routes->get('/unassignUsers', 'ProjectsController::unassignUsersView');
+$routes->get('/unassign_users', 'ProjectsController::unassignUsersView');
 // route for displaying the page showing the user their current work.
 $routes->get('/my_work', 'MyWorkController::index');
 // route for filtering the my work page.

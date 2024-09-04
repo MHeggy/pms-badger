@@ -58,12 +58,12 @@
             <!-- Show these if user is logged in. -->
             <a href="<?php echo base_url('/dashboard') ?>"><li>Dashboard</li></a>
             <?php if ($user->inGroup('accountant') || $user->inGroup('superadmin')): ?>
-                <a href="<?php echo base_url('/accountantpayroll') ?>"><li>Payroll</li></a>
+                <a href="<?php echo base_url('/accountant_payroll') ?>"><li>Payroll</li></a>
             <?php endif; ?>
             <a href="<?php echo base_url('/timesheets') ?>"><li>Timesheets</li></a>
             <?php if ($user->inGroup('superadmin')): ?>
-                <a href="<?php echo base_url('/assignUsers') ?>"><li>Assign Users</li></a>
-                <a href="<?php echo base_url('/unassignUsers') ?>"><li>Unassign Users</li></a>
+                <a href="<?php echo base_url('/assign_users') ?>"><li>Assign Users</li></a>
+                <a href="<?php echo base_url('/unassign_users') ?>"><li>Unassign Users</li></a>
                 <a href="<?php echo base_url('/addProject') ?>"><li>Add Projects</li></a>
             <?php endif; ?>
             <a href="<?php echo base_url('/projects') ?>"><li>Projects</li></a>
