@@ -132,7 +132,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-
 $('#editEventForm').submit(function(e) {
     e.preventDefault();
     var eventId = $('#editEventForm input[name="eventId"]').val();
