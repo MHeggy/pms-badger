@@ -87,8 +87,6 @@ $routes->post('/messages/create', 'MessageController::store');
 $routes->delete('/messages/delete/(:num)', 'MessageController::delete/$1');
 // route for updating messages.
 $routes->post('/messages/update', 'MessageController::update');
-// route for project 3D test.
-$routes->get('/projectsTest', 'ProjectsController::projectsTest');
 // route for updating calendar event information.
 $routes->post('/calendar/updateEvent', 'CalendarController::updateEvent');
 // routes for deleting events from the calendar.
