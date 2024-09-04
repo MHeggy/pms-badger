@@ -27,37 +27,15 @@
             right: -10px;
         }
         /* Additional styling for the taskbar */
-        #taskbarContainer {
-            background-color: #333; /* Background color of the taskbar */
-            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2); /* Add a shadow at the bottom */
-            position: fixed; /* Fixed positioning */
-            top: 48px; /* Align below the header */
-            left: 0; /* Align to the left side of the viewport */
-            width: 100%; /* Full width */
-            z-index: 999; /* Ensure taskbar is below header */
-            padding: 10px 0; /* Add padding to the taskbar */
-        }
-        #taskbarItems {
-            list-style-type: none; /* Remove bullet points */
-            padding: 0; /* Remove default padding */
-            margin: 0; /* Remove default margin */
-            text-align: center; /* Center-align items */
-        }
         #taskbarItems li {
-            color: white; /* Text color */
-            padding: 10px; /* Add padding to list items */
-            text-align: center; /* Center-align text */
-            cursor: pointer; /* Show pointer cursor on hover */
+            display: inline;
+            margin-right: 15px;
+            list-style: none;
             position: relative; /* Ensure relative positioning for badge */
-            display: inline-block; /* Align items inline */
-            margin-right: 15px; /* Add space between items */
-        }
-        #taskbarItems li:hover {
-            background-color: #444; /* Darken background on hover */
         }
         #taskbarItems a {
             text-decoration: none;
-            color: white; /* Ensure text is white */
+            color: black;
         }
     </style>
 </head>
@@ -89,29 +67,29 @@
     <ul id="taskbarItems">
         <?php if (auth()->loggedIn()) : ?>
             <!-- Show these if user is logged in. -->
-            <li><a href="<?php echo base_url('/dashboard') ?>">Dashboard</a></li>
+            <a href="<?php echo base_url('/dashboard') ?>"><li>Dashboard</li></a>
             <?php if ($user->inGroup('accountant') || $user->inGroup('superadmin')): ?>
-                <li><a href="<?php echo base_url('/accountantpayroll') ?>">Payroll</a></li>
+                <a href="<?php echo base_url('/accountantpayroll') ?>"><li>Payroll</li></a>
             <?php endif; ?>
-            <li><a href="<?php echo base_url('/timesheets') ?>">Timesheets</a></li>
+            <a href="<?php echo base_url('/timesheets') ?>"><li>Timesheets</li></a>
             <?php if ($user->inGroup('superadmin')): ?>
-                <li><a href="<?php echo base_url('/assignUsers') ?>">Assign Users</a></li>
-                <li><a href="<?php echo base_url('/unassignUsers') ?>">Unassign Users</a></li>
-                <li><a href="<?php echo base_url('/addProject') ?>">Add Projects</a></li>
+                <a href="<?php echo base_url('/assignUsers') ?>"><li>Assign Users</li></a>
+                <a href="<?php echo base_url('/unassignUsers') ?>"><li>Unassign Users</li></a>
+                <a href="<?php echo base_url('/addProject') ?>"><li>Add Projects</li></a>
             <?php endif; ?>
-            <li><a href="<?php echo base_url('/projects') ?>">Projects</a></li>
-            <li><a href="<?php echo base_url('/my_work') ?>">My Work</a></li>
+            <a href="<?php echo base_url('/projects') ?>"><li>Projects</li></a>
+            <a href="<?php echo base_url('/my_work') ?>"><li>My Work</li></a>
             <li>
                 <a href="<?php echo base_url('/calendar') ?>">Calendar</a>
                 <?php if (isset($upcomingEventsCount) && $upcomingEventsCount > 0): ?>
                     <span class="notification-badge"><?= $upcomingEventsCount ?></span>
                 <?php endif; ?>
             </li>
-            <li><a href="<?php echo base_url('/forums') ?>">Forums</a></li>
+            <a href="<?php echo base_url('/forums') ?>"><li>Forums</li></a>
         <?php else : ?>
             <!-- Show these if user is not logged in. -->
-            <li><a href="<?php echo base_url('/login') ?>">Login</a></li>
-            <li><a href="<?php echo base_url('/register') ?>">Register</a></li>
+            <a href="<?php echo base_url('/login') ?>"><li>Login</li></a>
+            <a href="<?php echo base_url('/register') ?>"><li>Register</li></a>
         <?php endif; ?>
     </ul>
 </div>
