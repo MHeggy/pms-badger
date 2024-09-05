@@ -65,7 +65,7 @@ class AuthController extends Controller {
         $token = $this->request->getPost('token');
         $newPassword = $this->request->getPost('password');
 
-        $confirmPassword = $this->request->getPost('confirm_password');
+        $confirmPassword = $this->request->getPost('password_confirm');
 
         if ($newPassword !== $confirmPassword) {
             return redirect()->back()->with('error', 'Passwords do not match.');
