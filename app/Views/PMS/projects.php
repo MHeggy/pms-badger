@@ -1,6 +1,3 @@
-<?php
-$user = auth()->user(); // Ensure this returns a user object
-?>
 <?= $pageTitle = "Projects"; ?>
 <link rel="stylesheet" href="<?php echo base_url('/assets/css/projects.css') ?>">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -13,6 +10,7 @@ $user = auth()->user(); // Ensure this returns a user object
 </div>
 
 <script src="<?php echo base_url('/assets/js/projects.js')?>"></script>
+
 <div class="container" id="filter-container" style="margin-top: 100px;">
     <div class="row justify-content-center">
         <div class="col-md-6">
@@ -62,7 +60,7 @@ $user = auth()->user(); // Ensure this returns a user object
             <th>Category</th>
             <th>Date Accepted</th>
             <th>Assigned Users</th>
-            <?php if ($user && $user->inGroup('admin')): // Check if the user object is valid and in the 'admin' group ?>
+            <?php if ($user->inGroup('superadmin')): // Check if the user is in the 'admin' group ?>
                 <th>Edit</th>
             <?php endif; ?>
         </tr>
@@ -97,7 +95,7 @@ $user = auth()->user(); // Ensure this returns a user object
                             No users assigned.
                         <?php endif; ?>
                     </td>
-                    <?php if ($user && $user->inGroup('admin')): ?>
+                    <?php if ($user->inGroup('superadmin')): ?>
                         <td>
                             <a href="<?= base_url('projects/edit/' . $project['projectID']) ?>" class="btn btn-warning btn-sm">Edit</a>
                         </td>
