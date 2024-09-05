@@ -291,11 +291,7 @@ class ProjectsController extends BaseController {
     }
 
     public function getProjectsForUser($userId) {
-        // No need to fetch from the request here, $userId is already provided by the URL
-        if (!$userID) {
-            return redirect()->to('/login')->with('error', 'You must login to access this page.');
-        }
-    
+        
         // Fetch projects associated with the user
         $assignedProjects = $this->projectModel->getAssignedProjects($userId);
     
