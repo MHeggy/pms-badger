@@ -41,14 +41,16 @@ class ProjectsController extends BaseController {
             }
     
             $userID = auth()->id();
-    
+            $user = auth()->user();
+
             if (!$userID) {
                 return redirect()->to('/login')->with('error', 'You must login to access this page.');
             }
     
             // Pass projects and data to the view
             $data = [
-                "projects" => $projects
+                "projects" => $projects,
+                'user' => $user,
             ];
     
             // Load the projects view and pass the data

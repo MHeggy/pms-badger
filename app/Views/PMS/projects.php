@@ -8,8 +8,9 @@
         <?php include 'header.php' ?>
     </header>
 </div>
-<?php $user = auth()->user(); ?>
+
 <script src="<?php echo base_url('/assets/js/projects.js')?>"></script>
+
 <div class="container" id="filter-container" style="margin-top: 100px;">
     <div class="row justify-content-center">
         <div class="col-md-6">
@@ -59,7 +60,7 @@
             <th>Category</th>
             <th>Date Accepted</th>
             <th>Assigned Users</th>
-            <?php if (auth()->user()->inGroup('admin')): // Check if the user is in the 'admin' group ?>
+            <?php if ($user->inGroup('superadmin')): // Check if the user is in the 'admin' group ?>
                 <th>Edit</th>
             <?php endif; ?>
         </tr>
