@@ -5,7 +5,10 @@
         <?php include 'header.php' ?>
     </header>
 </div>
-
+<!-- Style sheet -->
+<link rel="stylesheet" href="<?= base_url('/assets/css/login.css') ?>">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Body content -->
 <div class="container">
     <h2>Forgot Password</h2>
 
