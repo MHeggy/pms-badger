@@ -342,18 +342,31 @@ class ProjectsController extends BaseController {
     }
 
     // function to show the edit_projects view page.
-    public function edit($projectID) {
+    public function edit($projectID = null) {
+        // Initialize the ProjectModel
         $projectModel = new ProjectModel();
-        $project = $projectModel->findProjectDetails($projectID);
     
+        // Handle the case where projectID might not be provided
         if ($projectID === null) {
-            $projectID = $this->request->getUri()->getSegment(3); // Assumes it's the 3rd segment in the URL
+            $projectID = $this->request->getUri()->getSegment(3); // Fetch projectID from URL segment if not provided
         }
     
+        // Fetch project details using the findProjectDetails method
+        try {
+            $project = $projectModel->findProjectDetails($projectID);
+        } catch (\Exception $e) {
+            // Handle the case where the project isn't found or invalid projectID is given
+            return redirect()->to('/projects')->with('error', 'Project not found');
+        }
+    
+        // Prepare data to pass to the view, including categories and tasks
         $data = [
-            'project' => $project
+            'project' => $project,
+            'categories' => $project['categories'], // Extract categories
+            'tasks' => $project['tasks'], // Extract tasks
         ];
     
+        // Load the edit_project view with all necessary data
         return view('PMS/edit_project.php', $data);
     }
 
