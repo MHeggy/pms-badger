@@ -222,22 +222,6 @@ class ProjectsController extends BaseController {
         // Return the view with the updated data.
         return view('PMS/assignusers', $data);
     }
-
-    public function getProjectForUser($userId) {
-        // Fetch all projects
-        $allProjects = $this->projectModel->findAll();
-    
-        // Fetch projects assigned to the selected user
-        $assignedProjects = $this->projectModel->getAssignedProjects($userId);
-    
-        // Filter out projects that are already assigned to the selected user
-        $unassignedProjects = array_filter($allProjects, function($project) use ($assignedProjects) {
-            return !in_array($project['projectID'], array_column($assignedProjects, 'projectID'));
-        });
-    
-        // Return the filtered projects as a JSON response
-        return $this->response->setJSON(['projects' => $unassignedProjects]);
-    }
     
     public function myWork() {
         $userID = auth()->id();
@@ -313,6 +297,25 @@ class ProjectsController extends BaseController {
     
         // Return the projects as a JSON response
         return $this->response->setJSON(['projects' => $assignedProjects]);
+    }
+
+    public function getUnassignedProjectsForUser($userId) {
+        // Fetch all projects
+        $allProjects = $this->projectModel->findAll();
+    
+        // Fetch projects already assigned to the selected user
+        $assignedProjects = $this->projectModel->getAssignedProjects($userId);
+    
+        // Extract project IDs that are already assigned
+        $assignedProjectIds = array_column($assignedProjects, 'projectID');
+    
+        // Filter out assigned projects from the list of all projects
+        $unassignedProjects = array_filter($allProjects, function($project) use ($assignedProjectIds) {
+            return !in_array($project['projectID'], $assignedProjectIds);
+        });
+    
+        // Return the unassigned projects as a JSON response
+        return $this->response->setJSON(['projects' => array_values($unassignedProjects)]);
     }
 
     // functions for categories and tasks start here.

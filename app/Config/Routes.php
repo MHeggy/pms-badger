@@ -69,8 +69,8 @@ $routes->get('/people', 'PeopleController::index');
 $routes->get('projects/details/(:num)', 'ProjectsController::projectDetails/$1');
 // route for getting projects associated with a specific user
 $routes->get('projects/getProjectsForUser/(:num)', 'ProjectsController::getProjectsForUser/$1');
-// route for getting projects associated with a specific user for the assign users page.
-$routes->get('projects/getProjectForUser/(:num)', 'ProjectsController::getProjectForUser/$1');
+// route for getting unassigned projects associated with a specific user
+$routes->get('projects/getUnassignedProjectsForUser/(:num)', 'ProjectsController::getUnassignedProjectsForUser/$1');
 // route for unassociating users from a specific project(s)
 $routes->post('/projects/unassign', 'ProjectsController::unassignProjectsFromUser');
 // route to add project view.
