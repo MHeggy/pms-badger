@@ -22,7 +22,7 @@ class AuthController extends Controller {
 
         // Use Shield's auth() provider to find the user by their email (identity)
         $user = auth()->getProvider()->findByCredentials([
-            'identity' => $email
+            'email' => $email
         ]);
 
         if (!$user) {
