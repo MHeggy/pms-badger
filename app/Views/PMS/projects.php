@@ -59,7 +59,7 @@
             <th>Category</th>
             <th>Date Accepted</th>
             <th>Assigned Users</th>
-            <?php if (session()->get('is_admin')): // Assuming 'is_admin' indicates admin role ?>
+            <?php if (auth()->user()->inGroup('admin')): // Check if the user is in the 'admin' group ?>
                 <th>Edit</th>
             <?php endif; ?>
         </tr>
@@ -94,7 +94,7 @@
                             No users assigned.
                         <?php endif; ?>
                     </td>
-                    <?php if (session()->get('is_admin')): ?>
+                    <?php if (auth()->user()->inGroup('admin')): ?>
                         <td>
                             <a href="<?= base_url('projects/edit/' . $project['projectID']) ?>" class="btn btn-warning btn-sm">Edit</a>
                         </td>
