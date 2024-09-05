@@ -13,7 +13,7 @@
         <div class="alert alert-danger"><?= session('error') ?></div>
     <?php endif ?>
 
-    <form action="<?= url_to('resetPassword') ?>" method="post">
+    <form action="<?= url_to('reset-password') ?>" method="post">
         <?= csrf_field() ?>
         <input type="hidden" name="token" value="<?= $token ?>">
 
