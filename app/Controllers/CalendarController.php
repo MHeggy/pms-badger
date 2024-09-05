@@ -74,8 +74,6 @@ class CalendarController extends Controller {
         // Check if the event exists
         $event = $this->calendarModel->getEventById($eventId);
         if (!$event) {
-            // Handle case where event with given ID does not exist
-            // For example, redirect back to calendar with an error message
             return redirect()->to('/calendar')->with('error', 'Event not found.');
         }
 

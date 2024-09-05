@@ -102,7 +102,7 @@ class MyWorkController extends Controller {
         $userID = auth()->id();
 
         if (!$userID) {
-            return $this->response->setStatusCode(401)->setJSON(['error' => 'Unauthorized']);
+            return redirect()->to('/login')->with('error', 'You must login to access this page.');
         }
 
         // Get the search term from the request.

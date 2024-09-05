@@ -128,6 +128,11 @@ class ProjectsController extends BaseController {
     
     public function projectDetails($projectID) {
         try {
+            $userID = auth()->id();
+            if (!$userID) {
+                return redirect()->to('/login')->with('error', 'You must login to access this page.');
+            }
+
             // Fetch project ID from the URL if not provided
             if ($projectID === null) {
                 $projectID = $this->request->getUri()->getSegment(3); // Assumes it's the 3rd segment in the URL
