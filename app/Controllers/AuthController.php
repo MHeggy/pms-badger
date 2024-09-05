@@ -16,32 +16,19 @@ class AuthController extends Controller {
     public function processForgotPassword() {
         $email = $this->request->getPost('email');
 
-        if (!$email) {
+        if (empty($email)) {
             return redirect()->back()->with('error', 'Please enter your email address.');
         }
 
-        // Query the auth_identities table for the user's email
-        $db = db_connect();
-        $builder = $db->table('auth_identities');
-
-        // Find user identity where the secret is the email and type is 'email_password'
-        $identity = $builder->where('secret', $email)
-                            ->where('type', 'email_password')  // Ensure it's the correct identity type
-                            ->first();
-
-        if (!$identity) {
-            return redirect()->back()->with('error', 'No user found with that email address.');
-        }
-
-        // Now retrieve the user by the user_id from the auth_identities table
-        $userModel = model(UserModel::class);
-        $user = $userModel->find($identity['user_id']);  // Fetch the user by their ID
+        $user = auth()->getProvider()->findByCredentials([
+            'identity' => $email
+        ]);
 
         if (!$user) {
             return redirect()->back()->with('error', 'No user found with that email address.');
         }
 
-        // Generate a password reset token and send an email
+        // Use Shield's passwordReset service to send a reset email
         $resetter = service('passwordReset');
         $resetter->send($user);
 
