@@ -5,7 +5,8 @@ namespace App\Controllers;
 use CodeIgniter\Controller;
 use CodeIgniter\Shield\Entities\User;
 use CodeIgniter\Shield\Models\UserModel;
-use CodeIgniter\Shield\Authentication\Passwords\PasswordReset;
+use CodeIgniter\I18n\Time;
+use CodeIgniter\Email\Email;
 
 class AuthController extends Controller {
 
