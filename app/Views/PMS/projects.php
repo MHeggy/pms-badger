@@ -8,7 +8,7 @@
         <?php include 'header.php' ?>
     </header>
 </div>
-
+<?php $user = auth()->user(); ?>
 <script src="<?php echo base_url('/assets/js/projects.js')?>"></script>
 <div class="container" id="filter-container" style="margin-top: 100px;">
     <div class="row justify-content-center">
@@ -94,7 +94,7 @@
                             No users assigned.
                         <?php endif; ?>
                     </td>
-                    <?php if (auth()->user()->inGroup('admin')): ?>
+                    <?php if ($user->inGroup('superadmin')): ?>
                         <td>
                             <a href="<?= base_url('projects/edit/' . $project['projectID']) ?>" class="btn btn-warning btn-sm">Edit</a>
                         </td>
