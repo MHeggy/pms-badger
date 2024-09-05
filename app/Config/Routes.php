@@ -139,3 +139,5 @@ $routes->post('login', 'LoginController::loginAction');
 $routes->get('login', 'LoginController::loginView', ['as' => 'login']);
 // route for exporting timesheets
 $routes->get('timesheets/export/(:num)', 'TimesheetsController::exportTimesheet/$1');
+// route for forgot-password view.
+$routes->get('forgot-password', 'ForgotPasswordController::forgotPasswordView');
