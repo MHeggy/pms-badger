@@ -3,6 +3,7 @@
 <link rel="stylesheet" href="<?php echo base_url('/assets/css/main.css') ?>">
 <link rel="stylesheet" href="<?php echo base_url('/assets/css/edit_project.css') ?>">
 <link rel="stylesheet" href="<?php echo base_url('/assets/css/projects.css') ?>">
+
 <!-- Header content -->
 <div id="header">
     <header>
@@ -16,16 +17,19 @@
     <form action="<?= base_url('projects/update') ?>" method="post">
         <input type="hidden" name="projectID" value="<?= esc($project['projectID']) ?>">
         
+        <!-- Project Name -->
         <div class="mb-3">
             <label for="projectName" class="form-label">Project Name</label>
             <input type="text" class="form-control" id="projectName" name="projectName" value="<?= esc($project['projectName']) ?>" required>
         </div>
         
+        <!-- Project Number -->
         <div class="mb-3">
             <label for="projectNumber" class="form-label">Project Number</label>
             <input type="text" class="form-control" id="projectNumber" name="projectNumber" value="<?= esc($project['projectNumber']) ?>" required>
         </div>
         
+        <!-- Project Status -->
         <div class="mb-3">
             <label for="statusID" class="form-label">Status</label>
             <select class="form-select" id="statusID" name="statusID" required>
@@ -36,13 +40,59 @@
             </select>
         </div>
         
+        <!-- Date Accepted -->
         <div class="mb-3">
             <label for="dateAccepted" class="form-label">Date Accepted</label>
             <input type="date" class="form-control" id="dateAccepted" name="dateAccepted" value="<?= esc($project['dateAccepted']) ?>" required>
         </div>
-        
-        <!-- Add additional fields as needed -->
 
+        <!-- Address Fields -->
+        <h4>Address</h4>
+        <div class="mb-3">
+            <label for="street" class="form-label">Street</label>
+            <input type="text" class="form-control" id="street" name="street" value="<?= esc($project['street']) ?>" required>
+        </div>
+        <div class="mb-3">
+            <label for="city" class="form-label">City</label>
+            <input type="text" class="form-control" id="city" name="city" value="<?= esc($project['city']) ?>" required>
+        </div>
+        <div class="mb-3">
+            <label for="stateName" class="form-label">State</label>
+            <input type="text" class="form-control" id="stateName" name="stateName" value="<?= esc($project['stateName']) ?>" required>
+        </div>
+        <div class="mb-3">
+            <label for="zipCode" class="form-label">Zip Code</label>
+            <input type="text" class="form-control" id="zipCode" name="zipCode" value="<?= esc($project['zipCode']) ?>" required>
+        </div>
+        <div class="mb-3">
+            <label for="countryName" class="form-label">Country</label>
+            <input type="text" class="form-control" id="countryName" name="countryName" value="<?= esc($project['countryName']) ?>" required>
+        </div>
+        
+        <!-- Categories Section -->
+        <h4>Categories</h4>
+        <div class="mb-3">
+            <label for="categories" class="form-label">Select Categories</label>
+            <select multiple class="form-select" id="categories" name="categories[]">
+                <?php foreach ($categories as $category): ?>
+                    <option value="<?= esc($category) ?>" selected><?= esc($category) ?></option>
+                <?php endforeach; ?>
+                <!-- Add new category selection logic if necessary -->
+            </select>
+        </div>
+
+        <!-- Tasks Section -->
+        <h4>Tasks</h4>
+        <div class="mb-3">
+            <label for="tasks" class="form-label">Tasks</label>
+            <ul class="list-group">
+                <?php foreach ($tasks as $task): ?>
+                    <li class="list-group-item"><?= esc($task) ?></li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+
+        <!-- Update Button -->
         <button type="submit" class="btn btn-primary">Update Project</button>
     </form>
 </div>
