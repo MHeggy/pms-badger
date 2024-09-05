@@ -45,8 +45,6 @@ class MyWorkController extends Controller {
 
             // Debugging statement.
             log_message('debug', 'Assigned Projects for User ID ' . $userID . ': ' . print_r($assignedProjects, true));
-            // print_r statement for the $assignedProjects variable.
-            //print_r($assignedProjects);
 
             $data = [
                 'assignedProjects' => $assignedProjects
@@ -58,7 +56,7 @@ class MyWorkController extends Controller {
             // Log the error message to the log file.
             log_message('error', 'Error in myWork: ' . $e->getMessage());
             // Return a JSON response with an error message.
-            return $this->response->setStatusCode(500)->setJSON(['error' => 'Internal server error']);
+            return redirect()->back()->with('error', 'Unable to fetch your projects, please try again later or speak with an admin');
         }
     }
 

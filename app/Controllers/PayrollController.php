@@ -61,7 +61,6 @@ class PayrollController extends BaseController {
             'selectedWeek' => $selectedWeek,
         ]);
     }
-    
 
     public function viewWeek($weekOf) {
         $timesheets = $this->timesheetsModel->getTimesheetsWithUsernames($weekOf);
