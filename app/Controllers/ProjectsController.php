@@ -343,7 +343,8 @@ class ProjectsController extends BaseController {
 
     // function to show the edit_projects view page.
     public function edit($projectID) {
-        $project = $this->$projectModel->findProjectDetails($projectID);
+        $projectModel = new ProjectModel();
+        $project = $projectModel->findProjectDetails($projectID);
     
         if ($projectID === null) {
             $projectID = $this->request->getUri()->getSegment(3); // Assumes it's the 3rd segment in the URL
