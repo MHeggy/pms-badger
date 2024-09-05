@@ -345,9 +345,9 @@ class ProjectsController extends BaseController {
     public function edit($projectID) {
         $project = $this->$projectModel->findProjectDetails($projectID);
     
-        // if (!$project) {
-        //     throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound('Project not found');
-        // }
+        if ($projectID === null) {
+            $projectID = $this->request->getUri()->getSegment(3); // Assumes it's the 3rd segment in the URL
+        }
     
         $data = [
             'project' => $project
