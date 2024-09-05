@@ -1,3 +1,11 @@
-.container {
-    margin-top: 80px;
+/* Style for active tasks */
+.list-group-item.active {
+    background-color: #007bff; /* Bootstrap primary color */
+    color: white;
+}
+
+/* Optional: Style the multi-select dropdown so selected items are clearer */
+select.form-select option:checked {
+    background-color: #007bff; /* Bootstrap primary color */
+    color: white;
 }
