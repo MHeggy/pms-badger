@@ -74,10 +74,11 @@
         <div class="mb-3">
             <label for="categories" class="form-label">Select Categories</label>
             <select multiple class="form-select" id="categories" name="categories[]">
-                <?php foreach ($categories as $category): ?>
-                    <option value="<?= esc($category) ?>" selected><?= esc($category) ?></option>
+                <?php foreach ($allCategories as $category): ?>
+                    <option value="<?= esc($category['categoryID']) ?>" <?= in_array($category['categoryID'], $selectedCategories) ? 'selected' : '' ?>>
+                        <?= esc($category['categoryName']) ?>
+                    </option>
                 <?php endforeach; ?>
-                <!-- Add new category selection logic if necessary -->
             </select>
         </div>
 
@@ -86,8 +87,11 @@
         <div class="mb-3">
             <label for="tasks" class="form-label">Tasks</label>
             <ul class="list-group">
-                <?php foreach ($tasks as $task): ?>
-                    <li class="list-group-item"><?= esc($task) ?></li>
+                <?php foreach ($allTasks as $task): ?>
+                    <li class="list-group-item">
+                        <input type="checkbox" id="task_<?= esc($task['taskID']) ?>" name="tasks[]" value="<?= esc($task['taskID']) ?>" <?= in_array($task['taskID'], $selectedTasks) ? 'checked' : '' ?>>
+                        <label for="task_<?= esc($task['taskID']) ?>"><?= esc($task['taskName']) ?></label>
+                    </li>
                 <?php endforeach; ?>
             </ul>
         </div>
