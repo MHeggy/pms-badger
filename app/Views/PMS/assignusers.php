@@ -53,6 +53,31 @@
             projectSelection.style.display = 'none';
         }
     });
+
+    function fetchProjectsForUser(userId) {
+    fetch('<?= base_url('/projects/getProjectsForUser/') ?>' + userId)
+        .then(response => response.json())
+        .then(data => {
+            const selectProjects = document.getElementById('projects');
+            selectProjects.innerHTML = ''; // Clear previous options
+
+            // Check if data.projects is defined
+            if (data.projects) {
+                // Add options for each project
+                data.projects.forEach(project => {
+                    const option = document.createElement('option');
+                    option.value = project.projectID;
+                    option.textContent = project.projectName;
+                    selectProjects.appendChild(option);
+                });
+            } else {
+                console.error('No projects found in response:', data);
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching projects:', error);
+        });
+}
 </script>
     <script src="<?php echo base_url('/assets/js/main.js')?>"></script>
 </body>
