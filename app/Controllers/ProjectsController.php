@@ -222,6 +222,22 @@ class ProjectsController extends BaseController {
         // Return the view with the updated data.
         return view('PMS/assignusers', $data);
     }
+
+    public function getProjectForUser($userId) {
+        // Fetch all projects
+        $allProjects = $this->projectModel->findAll();
+    
+        // Fetch projects assigned to the selected user
+        $assignedProjects = $this->projectModel->getAssignedProjects($userId);
+    
+        // Filter out projects that are already assigned to the selected user
+        $unassignedProjects = array_filter($allProjects, function($project) use ($assignedProjects) {
+            return !in_array($project['projectID'], array_column($assignedProjects, 'projectID'));
+        });
+    
+        // Return the filtered projects as a JSON response
+        return $this->response->setJSON(['projects' => $unassignedProjects]);
+    }
     
     public function myWork() {
         $userID = auth()->id();

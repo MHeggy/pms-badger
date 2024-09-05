@@ -55,7 +55,7 @@
     });
 
     function fetchProjectsForUser(userId) {
-    fetch('<?= base_url('/projects/getProjectsForUser/') ?>' + userId)
+    fetch('<?= base_url('/projects/getProjectForUser/') ?>' + userId)
         .then(response => response.json())
         .then(data => {
             const selectProjects = document.getElementById('projects');
