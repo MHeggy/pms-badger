@@ -40,8 +40,8 @@ class PayrollController extends BaseController {
         $selectedUserId = $this->request->getGet('userID');
         $selectedWeek = $this->request->getGet('week');
     
-        $query = $this->timesheetsModel->select('timesheets.*, users.firstName, users.lastName')
-                                       ->join('users', 'users.id = timesheets.userID', 'left');
+        $query = $this->timesheetsModel->select('timesheets.*, users.firstName, users.lastName, users.username')
+                                ->join('users', 'users.id = timesheets.userID', 'left');
     
         if (!empty($selectedUserId)) {
             $query->where('users.id', $selectedUserId);
