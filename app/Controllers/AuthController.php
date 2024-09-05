@@ -56,7 +56,7 @@ class AuthController extends Controller {
         return redirect()->back()->with('message', 'Password reset link sent to your email.');
     }
 
-    public function resetPasswordView($token) {
+    public function resetPasswordView($token = null) {
         return view('PMS/reset_password', ['token' => $token]);
     }
 
