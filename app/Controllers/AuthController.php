@@ -21,7 +21,7 @@ class AuthController extends Controller {
         }
 
         $user = auth()->getProvider()->findByCredentials([
-            'identity' => $email
+            'email' => $email
         ]);
 
         if (!$user) {
