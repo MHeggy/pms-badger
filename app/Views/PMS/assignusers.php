@@ -47,38 +47,53 @@
     // Show project selection when user is selected.
     document.getElementById('user').addEventListener('change', function() {
         var projectSelection = document.getElementById('projectSelection');
-        if (this.value !== '') {
+        var selectedUserId = this.value;
+        
+        console.log('Selected User ID:', selectedUserId);
+        
+        if (selectedUserId !== '') {
             projectSelection.style.display = 'block';
+            // Fetch and display projects associated with the selected user
+            fetchProjectsForUser(selectedUserId);
         } else {
             projectSelection.style.display = 'none';
         }
     });
 
     function fetchProjectsForUser(userId) {
-    fetch('<?= base_url('/projects/getProjectForUser/') ?>' + userId)
-        .then(response => response.json())
-        .then(data => {
-            const selectProjects = document.getElementById('projects');
-            selectProjects.innerHTML = ''; // Clear previous options
+        console.log('Fetching projects for User ID:', userId);
+        
+        fetch('<?= base_url('/projects/getProjectsForUser/') ?>' + userId)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Data received:', data);
+                
+                const selectProjects = document.getElementById('projects');
+                selectProjects.innerHTML = ''; // Clear previous options
 
-            // Check if data.projects is defined
-            if (data.projects) {
-                // Add options for each project
-                data.projects.forEach(project => {
-                    const option = document.createElement('option');
-                    option.value = project.projectID;
-                    option.textContent = project.projectName;
-                    selectProjects.appendChild(option);
-                });
-            } else {
-                console.error('No projects found in response:', data);
-            }
-        })
-        .catch(error => {
-            console.error('Error fetching projects:', error);
-        });
-}
+                // Check if data.projects is defined
+                if (data.projects) {
+                    // Add options for each project
+                    data.projects.forEach(project => {
+                        const option = document.createElement('option');
+                        option.value = project.projectID;
+                        option.textContent = project.projectName;
+                        selectProjects.appendChild(option);
+                    });
+                } else {
+                    console.error('No projects found in response:', data);
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching projects:', error);
+            });
+    }
 </script>
-    <script src="<?php echo base_url('/assets/js/main.js')?>"></script>
+<script src="<?php echo base_url('/assets/js/main.js')?>"></script>
 </body>
 </html>
