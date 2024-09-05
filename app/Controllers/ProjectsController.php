@@ -354,7 +354,7 @@ class ProjectsController extends BaseController {
             'project' => $project
         ];
     
-        return view('edit_project', $data);
+        return view('PMS/edit_project.php', $data);
     }
 
     // function to show the addProjects view page.
