@@ -73,7 +73,13 @@
                             <td>
                                 <input type="checkbox" name="timesheet_ids[]" value="<?= esc($timesheet['timesheetID']); ?>" class="timesheet-checkbox" aria-label="Select timesheet <?= esc($timesheet['timesheetID']); ?>">
                             </td>
-                            <td><?= esc($timesheet['firstName'] . ' ' . $timesheet['lastName']) ?></td>
+                            <td>
+                                <?php if (empty($timesheet['firstName']) && empty($timesheet['lastName'])): ?>
+                                    <?= esc($timesheet['username']) ?>
+                                <?php else: ?>
+                                    <?= esc($timesheet['firstName'] . ' ' . $timesheet['lastName']) ?>
+                                <?php endif; ?>
+                            </td>
                             <td><?= esc($timesheet['totalHours']); ?></td>
                             <td>
                                 <a href="/timesheets/view/<?= esc($timesheet['timesheetID']); ?>" class="btn btn-info btn-sm">View Details</a>
