@@ -339,6 +339,22 @@ class ProjectsController extends BaseController {
         }
     }
 
+    // function to show the edit_projects view page.
+    public function edit($projectID) {
+        $projectModel = new \App\Models\ProjectModel();
+        $project = $projectModel->find($projectID);
+    
+        if (!$project) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound('Project not found');
+        }
+    
+        $data = [
+            'project' => $project
+        ];
+    
+        return view('edit_project', $data);
+    }
+
     // function to show the addProjects view page.
     public function addProjectsView() {
         // Fetch states and countries from the models

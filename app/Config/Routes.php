@@ -63,6 +63,8 @@ $routes->get('/projects', 'ProjectsController::index');
 $routes->get('/projects/search', 'ProjectsController::search');
 // route for handling the filter function.
 $routes->get('/projects/filter', 'ProjectsController::filter');
+// route for displaying the edit project page.
+$routes->get('/projects/edit/(:num)', 'ProjectsController::editProject/$1');
 // route for showing the people page.
 $routes->get('/people', 'PeopleController::index');
 // route for displaying more detials of project in the projectdetails page.
