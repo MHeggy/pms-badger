@@ -70,31 +70,31 @@
         </div>
         
         <!-- Categories Section -->
-        <h4>Categories</h4>
-        <div class="mb-3">
-            <label for="categories" class="form-label">Select Categories</label>
-            <select multiple class="form-select" id="categories" name="categories[]">
-                <?php foreach ($allCategories as $category): ?>
-                    <option value="<?= esc($category['categoryID']) ?>" <?= in_array($category['categoryID'], $selectedCategories) ? 'selected' : '' ?>>
-                        <?= esc($category['categoryName']) ?>
-                    </option>
-                <?php endforeach; ?>
-            </select>
-        </div>
+            <h4>Categories</h4>
+            <div class="mb-3">
+                <label for="categories" class="form-label">Select Categories</label>
+                <select multiple class="form-select" id="categories" name="categories[]">
+                    <?php foreach ($allCategories as $category): ?>
+                        <option value="<?= esc($category['id']) ?>" <?= in_array($category['id'], array_column($selectedCategories, 'id')) ? 'selected' : '' ?>>
+                            <?= esc($category['name']) ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+
 
         <!-- Tasks Section -->
         <h4>Tasks</h4>
-        <div class="mb-3">
-            <label for="tasks" class="form-label">Tasks</label>
-            <ul class="list-group">
-                <?php foreach ($allTasks as $task): ?>
-                    <li class="list-group-item">
-                        <input type="checkbox" id="task_<?= esc($task['taskID']) ?>" name="tasks[]" value="<?= esc($task['taskID']) ?>" <?= in_array($task['taskID'], $selectedTasks) ? 'checked' : '' ?>>
-                        <label for="task_<?= esc($task['taskID']) ?>"><?= esc($task['taskName']) ?></label>
-                    </li>
-                <?php endforeach; ?>
-            </ul>
-        </div>
+            <div class="mb-3">
+                <label for="tasks" class="form-label">Tasks</label>
+                <ul class="list-group">
+                    <?php foreach ($allTasks as $task): ?>
+                        <li class="list-group-item <?= in_array($task['id'], array_column($selectedTasks, 'id')) ? 'active' : '' ?>">
+                            <?= esc($task['name']) ?>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
 
         <!-- Update Button -->
         <button type="submit" class="btn btn-primary">Update Project</button>
