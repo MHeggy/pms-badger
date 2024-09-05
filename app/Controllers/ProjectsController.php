@@ -345,9 +345,9 @@ class ProjectsController extends BaseController {
     public function edit($projectID) {
         $project = $this->$projectModel->findProjectDetails($projectID);
     
-        if (!$project) {
-            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound('Project not found');
-        }
+        // if (!$project) {
+        //     throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound('Project not found');
+        // }
     
         $data = [
             'project' => $project
