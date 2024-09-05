@@ -50,7 +50,7 @@ class ProjectsController extends BaseController {
             // Pass projects and data to the view
             $data = [
                 "projects" => $projects,
-                'user' => $user,
+                'user1' => $user,
             ];
     
             // Load the projects view and pass the data

@@ -1,4 +1,4 @@
-<?php var_dump($user); ?>
+<?php var_dump($user1); ?>
 <?= $pageTitle = "Projects"; ?>
 <link rel="stylesheet" href="<?php echo base_url('/assets/css/projects.css') ?>">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -61,7 +61,7 @@
             <th>Category</th>
             <th>Date Accepted</th>
             <th>Assigned Users</th>
-            <?php if ($user->inGroup('superadmin')): // Check if the user is in the 'admin' group ?>
+            <?php if ($user1->inGroup('superadmin')): // Check if the user is in the 'admin' group ?>
                 <th>Edit</th>
             <?php endif; ?>
         </tr>
@@ -96,11 +96,11 @@
                             No users assigned.
                         <?php endif; ?>
                     </td>
-                    <?php //if ($user->inGroup('superadmin')): ?>
+                    <?php if ($user1->inGroup('superadmin')): ?>
                         <td>
                             <a href="<?= base_url('projects/edit/' . $project['projectID']) ?>" class="btn btn-warning btn-sm">Edit</a>
                         </td>
-                    <?php //endif; ?>
+                    <?php endif; ?>
                 </tr>
             <?php endforeach; ?>
         <?php else: ?>
