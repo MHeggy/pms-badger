@@ -343,8 +343,7 @@ class ProjectsController extends BaseController {
 
     // function to show the edit_projects view page.
     public function edit($projectID) {
-        $projectModel = new \App\Models\ProjectModel();
-        $project = $projectModel->find($projectID);
+        $project = $this->$projectModel->findProjectDetails($projectID);
     
         if (!$project) {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound('Project not found');
