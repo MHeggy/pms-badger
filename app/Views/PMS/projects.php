@@ -61,9 +61,9 @@
             <th>Category</th>
             <th>Date Accepted</th>
             <th>Assigned Users</th>
-            <?php if ($user->inGroup('superadmin')): // Check if the user is in the 'admin' group ?>
+            <?php //if ($user->inGroup('superadmin')): // Check if the user is in the 'admin' group ?>
                 <th>Edit</th>
-            <?php endif; ?>
+            <?php //endif; ?>
         </tr>
         </thead>
         <!-- Table body -->
@@ -96,11 +96,11 @@
                             No users assigned.
                         <?php endif; ?>
                     </td>
-                    <?php if ($user->inGroup('superadmin')): ?>
+                    <?php //if ($user->inGroup('superadmin')): ?>
                         <td>
                             <a href="<?= base_url('projects/edit/' . $project['projectID']) ?>" class="btn btn-warning btn-sm">Edit</a>
                         </td>
-                    <?php endif; ?>
+                    <?php //endif; ?>
                 </tr>
             <?php endforeach; ?>
         <?php else: ?>
