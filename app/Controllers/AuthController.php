@@ -20,13 +20,28 @@ class AuthController extends Controller {
             return redirect()->back()->with('error', 'Please enter your email address.');
         }
 
+        // Query the auth_identities table for the user's email
+        $db = db_connect();
+        $builder = $db->table('auth_identities');
+
+        // Find user identity where the secret is the email and type is 'email_password'
+        $identity = $builder->where('secret', $email)
+                            ->where('type', 'email_password')  // Ensure it's the correct identity type
+                            ->first();
+
+        if (!$identity) {
+            return redirect()->back()->with('error', 'No user found with that email address.');
+        }
+
+        // Now retrieve the user by the user_id from the auth_identities table
         $userModel = model(UserModel::class);
-        $user = $userModel->where('email', $email)->first();
+        $user = $userModel->find($identity['user_id']);  // Fetch the user by their ID
 
         if (!$user) {
             return redirect()->back()->with('error', 'No user found with that email address.');
         }
 
+        // Generate a password reset token and send an email
         $resetter = service('passwordReset');
         $resetter->send($user);
 
