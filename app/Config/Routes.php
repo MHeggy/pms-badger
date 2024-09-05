@@ -139,5 +139,8 @@ $routes->post('login', 'LoginController::loginAction');
 $routes->get('login', 'LoginController::loginView', ['as' => 'login']);
 // route for exporting timesheets
 $routes->get('timesheets/export/(:num)', 'TimesheetsController::exportTimesheet/$1');
-// route for forgot-password view.
-$routes->get('forgot-password', 'ForgotPasswordController::forgotPasswordView');
+// routes for configuring password resets.
+$routes->get('auth/forgot-password', 'AuthController::forgotPasswordView');
+$routes->post('auth/processForgotPassword', 'AuthController::processForgotPassword');
+$routes->get('auth/reset-password/(:segment)', 'AuthController::resetPasswordForm/$1');
+$routes->post('auth/reset-password', 'AuthController::resetPassword');
