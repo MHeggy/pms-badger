@@ -80,7 +80,7 @@
 
                 <p class="text-center">
                     <?= lang('Auth.forgotPassword') ?> 
-                    <a href="<?= url_to('forgot-password') ?>"><?= lang('Auth.resetPassword') ?></a>
+                    <a href="<?= url_to('forgot-password') ?>">Click here</a>
                 </p>
 
                 <?php if (setting('Auth.allowRegistration')) : ?>
