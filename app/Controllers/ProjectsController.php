@@ -238,8 +238,6 @@ class ProjectsController extends BaseController {
 
             // Debugging statement.
             log_message('debug', 'Assigned Projects for User ID ' . $userID . ': ' . print_r($assignedProjects, true));
-            // print_r statement for the $assignedProjects variable.
-            //print_r($assignedProjects);
 
             $data = [
                 'assignedProjects' => $assignedProjects
@@ -294,8 +292,8 @@ class ProjectsController extends BaseController {
 
     public function getProjectsForUser($userId) {
         // No need to fetch from the request here, $userId is already provided by the URL
-        if (!$userId) {
-            return $this->response->setJSON(['error' => 'No user ID provided']);
+        if (!$userID) {
+            return redirect()->to('/login')->with('error', 'You must login to access this page.');
         }
     
         // Fetch projects associated with the user
@@ -428,7 +426,6 @@ class ProjectsController extends BaseController {
         }
 
         // Check if user is allowed to edit the update.
-        // Check if the user is allowed to edit this update
         if ($update['userID'] !== auth()->id() && !auth()->user()->inGroup('superadmin')) {
             return redirect()->back()->with('error', 'You do not have permission to edit this update.');
         }
