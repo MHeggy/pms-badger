@@ -10,6 +10,7 @@
     </header>
 </div>
 
+<br><br><br><br><br>
 <div class="container" style="margin-top: 20px;">
     <h2>Edit Project</h2>
     <form action="<?= base_url('projects/update') ?>" method="post">
