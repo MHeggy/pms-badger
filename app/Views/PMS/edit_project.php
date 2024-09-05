@@ -75,7 +75,7 @@
             <label for="categories" class="form-label">Select Categories</label>
             <select multiple class="form-select" id="categories" name="categories[]">
                 <?php foreach ($allCategories as $category): ?>
-                    <option value="<?= esc($category['categoryID']) ?>" <?= in_array($category['categoryID'], array_column($selectedCategories, 'categoryID')) ? 'selected' : '' ?>>
+                    <option value="<?= esc($category['categoryID']) ?>">
                         <?= esc($category['categoryName']) ?>
                     </option>
                 <?php endforeach; ?>
@@ -86,20 +86,43 @@
         <h4>Tasks</h4>
         <div class="mb-3">
             <label for="tasks" class="form-label">Tasks</label>
-            <ul class="list-group">
+            <ul class="list-group" id="taskList">
                 <?php foreach ($allTasks as $task): ?>
-                    <li class="list-group-item <?= in_array($task['taskID'], array_column($selectedTasks, 'taskID')) ? 'active' : '' ?>">
+                    <li class="list-group-item" data-task-id="<?= esc($task['taskID']) ?>">
                         <?= esc($task['taskName']) ?>
                     </li>
                 <?php endforeach; ?>
             </ul>
         </div>
 
-
         <!-- Update Button -->
         <button type="submit" class="btn btn-primary">Update Project</button>
     </form>
 </div>
+
+<script>
+    // JavaScript to highlight previously selected categories and tasks
+    document.addEventListener('DOMContentLoaded', function() {
+        var selectedCategories = <?= json_encode(array_column($selectedCategories, 'categoryID')) ?>;
+        var selectedTasks = <?= json_encode(array_column($selectedTasks, 'taskID')) ?>;
+        
+        // Highlight selected categories
+        var categorySelect = document.getElementById('categories');
+        for (var i = 0; i < categorySelect.options.length; i++) {
+            if (selectedCategories.includes(parseInt(categorySelect.options[i].value))) {
+                categorySelect.options[i].selected = true;
+            }
+        }
+
+        // Highlight selected tasks
+        var taskItems = document.querySelectorAll('#taskList li');
+        taskItems.forEach(function(taskItem) {
+            if (selectedTasks.includes(parseInt(taskItem.getAttribute('data-task-id')))) {
+                taskItem.classList.add('active');
+            }
+        });
+    });
+</script>
 
 <script src="<?php echo base_url('/assets/js/main.js')?>"></script>
 </body>
