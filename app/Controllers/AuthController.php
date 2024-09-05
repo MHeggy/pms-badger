@@ -20,16 +20,22 @@ class AuthController extends Controller {
             return redirect()->back()->with('error', 'Please enter your email address.');
         }
 
+        // Use Shield's auth() provider to find the user by their email (identity)
         $user = auth()->getProvider()->findByCredentials([
-            'email' => $email
+            'identity' => $email
         ]);
 
         if (!$user) {
             return redirect()->back()->with('error', 'No user found with that email address.');
         }
 
-        // Use Shield's passwordReset service to send a reset email
-        $resetter = service('passwordReset');
+        // Use auth()->getPasswordReset() instead of service('passwordReset')
+        $resetter = auth()->getPasswordReset();
+        if (!$resetter) {
+            return redirect()->back()->with('error', 'Password reset service unavailable.');
+        }
+
+        // Send the password reset email
         $resetter->send($user);
 
         return redirect()->back()->with('message', 'Password reset link sent to your email.');
