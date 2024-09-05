@@ -7,6 +7,7 @@
 </div>
 <!-- Style sheet -->
 <link rel="stylesheet" href="<?= base_url('/assets/css/login.css') ?>">
+<link rel="stylesheet" href="<?= base_url('/assets/css/forgot_password.css') ?>">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <div class="container">
     <h2>Reset Your Password</h2>
