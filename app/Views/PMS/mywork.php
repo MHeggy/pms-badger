@@ -93,7 +93,7 @@
                     <?php if (!empty($project['assignedUsers'])): ?>
                         <ul>
                             <?php foreach ($project['assignedUsers'] as $user): ?>
-                                <li><?= esc($user['username']) ?></li>
+                                <li><?= esc($user->username) ?></li>
                             <?php endforeach; ?>
                         </ul>
                     <?php else: ?>
