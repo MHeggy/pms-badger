@@ -101,31 +101,37 @@ class MyWorkController extends Controller {
     public function search() {
         $userID = auth()->id();
         $user = auth()->user();
-
+    
         if (!$userID) {
             return redirect()->to('/login')->with('error', 'You must login to access this page.');
         }
-
+    
         // Get the search term from the request.
         $searchTerm = $this->request->getGet('search');
-
+    
         try {
+            // Debugging statement for search term
+            log_message('debug', 'Search Term: ' . $searchTerm);
+    
             // Fetch and search assigned projects for the user
             $searchResults = $this->projectModel->searchAssignedProjects($userID, $searchTerm);
     
+            // Debugging statement for search results
+            log_message('debug', 'Search Results: ' . print_r($searchResults, true));
+        
             // Pass the searched projects to the view
             $data = [
                 'assignedProjects' => $searchResults,
                 'searchTerm' => $searchTerm,
                 'user1' => $user
             ];
-    
+        
             // Render the view with search results
-            return view('PMS/mywork.php', $data);
+            return view('PMS/mywork', $data);
         } catch (\Exception $e) {
             log_message('error', 'Error in search: ' . $e->getMessage());
             return $this->response->setStatusCode(500)->setJSON(['error' => 'Internal server error']);
         }
-    }
+    }    
        
 }
