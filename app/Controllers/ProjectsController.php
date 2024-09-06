@@ -98,7 +98,6 @@ class ProjectsController extends BaseController {
             }
             // Call the model method to retrieve all projects
             $projects = $this->projectModel->getProjects();
-            var_dump($projects); exit;
     
             // Filter the projects by status if a status is selected
             if (!empty($status)) {
