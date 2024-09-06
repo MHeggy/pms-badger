@@ -13,10 +13,10 @@ body {
 /* Header search and filter styling */
 .search-filter-container {
     display: flex;
-    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
 .search-filter-container form {
@@ -27,19 +27,19 @@ body {
 }
 
 #searchForm {
-    position: relative;
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
 }
 
 #search {
-    width: 100%;
-    padding-right: 60px; /* Adjust to ensure button stays inside the input without too much space */
+    flex-grow: 1;
+    padding-right: 45px;
+    max-width: 300px; /* Adjust this value to fit next to the filter button */
 }
 
 #searchButton {
-    position: absolute;
-    right: 10px; /* Moved closer to the search bar */
-    top: 50%;
-    transform: translateY(-50%);
+    margin-left: 10px;
 }
 
 #searchButton i {
@@ -48,15 +48,7 @@ body {
 }
 
 #clearSearchButton {
-    position: absolute;
-    right: 10px; /* Place inside the search bar */
-    top: 50%;
-    transform: translateY(-50%);
-    background: none;
-    border: none;
-    color: #6c757d;
-    cursor: pointer;
-    display: none; /* Initially hidden */
+    margin-left: 10px;
 }
 
 #clearSearchButton.active {
@@ -123,6 +115,14 @@ body {
 .dropdown-menu {
     min-width: 250px;
     padding: 10px;
+}
+
+.dropdown {
+    white-space: nowrap;
+}
+
+.dropdown-toggle {
+    margin-left: 10px;
 }
 
 /* Mobile responsiveness */
