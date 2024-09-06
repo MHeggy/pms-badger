@@ -90,6 +90,12 @@ class ProjectsController extends BaseController {
         $status = $this->request->getGet('status');
     
         try {
+            $userID = auth()->id();
+            $user = auth()->user();
+
+            if (!$userID) {
+                return redirect()->to('/login')->with('error', 'You must login to access this page.');
+            }
             // Call the model method to retrieve all projects
             $projects = $this->projectModel->getProjects();
     
@@ -103,7 +109,8 @@ class ProjectsController extends BaseController {
             // Pass the filtered projects and selected status to the view
             $data = [
                 'projects' => $projects,
-                'selectedStatus' => $status
+                'selectedStatus' => $status,
+                'user1' => $user
             ];
     
             // Load the view to display the filtered projects
