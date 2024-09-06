@@ -50,6 +50,7 @@ class ProjectsController extends BaseController {
             // Get selected status from the request if available
             $selectedStatus = $this->request->getGet('status') ?? '';
             $categories = $this->categoryModel->findAll();
+            $category = $this->request->getGet('category');
     
             // Pass projects and data to the view
             $data = [
@@ -57,6 +58,7 @@ class ProjectsController extends BaseController {
                 'user1' => $user,
                 'selectedStatus' => $selectedStatus,
                 'categories' => $categories,
+                'selectedCategory' => $category
             ];
         
             // Load the projects view and pass the data
