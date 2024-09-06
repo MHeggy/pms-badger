@@ -87,38 +87,21 @@ class ProjectsController extends BaseController {
     // function to filter projects based on status.
     public function filter() {
         try {
-            // Get filter criteria from the request
+            // Get the status filter from the request
             $status = $this->request->getGet('status');
-            $category = $this->request->getGet('category');
-            $assignedUser = $this->request->getGet('assigned_user');
-            $dateRange = $this->request->getGet('date_range'); // Expected in format "start_date - end_date"
             
-            // Extract date range if provided
-            $dates = explode(' - ', $dateRange);
-            $startDate = isset($dates[0]) ? $dates[0] : null;
-            $endDate = isset($dates[1]) ? $dates[1] : null;
-    
-            // Filter projects using the model's filtering methods
-            $projects = $this->projectModel->filterProjects([
-                'status' => $status,
-                'category' => $category,
-                'assignedUser' => $assignedUser,
-                'startDate' => $startDate,
-                'endDate' => $endDate
-            ]);
+            // Filter projects by status
+            $projects = $this->projectModel->filterProjects(['status' => $status]);
     
             // Fetch assigned users for each project
             foreach ($projects as &$project) {
                 $project['assignedUsers'] = $this->projectModel->getAssignedUsers($project['projectID']);
             }
     
-            // Pass the filtered projects to the view
+            // Pass filtered projects to the view
             $data = [
                 'projects' => $projects,
-                'selectedStatus' => $status,
-                'selectedCategory' => $category,
-                'selectedUser' => $assignedUser,
-                'selectedDateRange' => $dateRange
+                'selectedStatus' => $status
             ];
     
             return view('PMS/projects', $data);
