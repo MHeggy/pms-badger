@@ -125,11 +125,11 @@ var_dump($selectedTasks);
     document.addEventListener('DOMContentLoaded', function() {
         var selectedCategories = <?= json_encode(array_column($selectedCategories, 'categoryID')) ?>;
         var selectedTasks = <?= json_encode(array_column($selectedTasks, 'taskID')) ?>;
-        
+    
         // Highlight selected categories
         var categorySelect = document.getElementById('categories');
         for (var i = 0; i < categorySelect.options.length; i++) {
-            if (selectedCategories.includes(parseInt(categorySelect.options[i].value))) {
+            if (selectedCategories.includes(categorySelect.options[i].value)) {
                 categorySelect.options[i].selected = true;
             }
         }
