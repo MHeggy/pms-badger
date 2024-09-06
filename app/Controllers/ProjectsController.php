@@ -372,7 +372,42 @@ class ProjectsController extends BaseController {
     
         // Load the edit_project view with all necessary data
         return view('PMS/edit_project.php', $data);
-    }    
+    }
+
+    public function updateProject() {
+        $projectID = $this->request->getPost('projectID');
+        $projectName = $this->request->getPost('projectName');
+        $projectNumber = $this->request->getPost('projectNumber');
+        $statusID = $this->request->getPost('statusID');
+        $dateAccepted = $this->request->getPost('dateAccepted');
+        $categories = $this->request->getPost('categories');
+        $tasks = $this->request->getPost('tasks');
+
+        $projectModel = new ProjectModel();
+        $categoryModel = new CategoryModel();
+        $taskModel = new TaskModel();
+
+        try {
+            // Update project details
+            $projectModel->update($projectID, [
+                'projectName' => $projectName,
+                'projectNumber' => $projectNumber,
+                'statusID' => $statusID,
+                'dateAccepted' => $dateAccepted,
+            ]);
+    
+            // Update project categories
+            $projectModel->updateProjectCategories($projectID, $categories);
+    
+            // Update project tasks
+            $projectModel->updateProjectTasks($projectID, $tasks);
+    
+            return redirect()->to('/projects')->with('success', 'Project updated successfully');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'An error occurred while updating the project');
+        }
+
+    }
 
     // function to show the addProjects view page.
     public function addProjectsView() {

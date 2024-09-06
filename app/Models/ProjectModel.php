@@ -249,4 +249,58 @@ class ProjectModel extends Model {
         return $this->insert($data);
     }
 
+    public function updateProjectTasks($projectID, $taskIDs) {
+        // Start a transaction to ensure atomicity
+        $this->db->transStart();
+    
+        // Delete existing tasks for the project
+        $this->db->table('project_tasks')->where('projectID', $projectID)->delete();
+    
+        // Insert new tasks
+        if (!empty($taskIDs)) {
+            $data = [];
+            foreach ($taskIDs as $taskID) {
+                $data[] = [
+                    'projectID' => $projectID,
+                    'taskID' => $taskID
+                ];
+            }
+            $this->db->table('project_tasks')->insertBatch($data);
+        }
+    
+        // Complete the transaction
+        $this->db->transComplete();
+    
+        if ($this->db->transStatus() === FALSE) {
+            throw new \Exception('Error updating project tasks.');
+        }
+    }    
+
+    public function updateProjectCategories($projectID, $categoryIDs) {
+        // Start a transaction to ensure atomicity
+        $this->db->transStart();
+    
+        // Delete existing categories for the project
+        $this->db->table('project_categories')->where('projectID', $projectID)->delete();
+    
+        // Insert new categories
+        if (!empty($categoryIDs)) {
+            $data = [];
+            foreach ($categoryIDs as $categoryID) {
+                $data[] = [
+                    'projectID' => $projectID,
+                    'categoryID' => $categoryID
+                ];
+            }
+            $this->db->table('project_categories')->insertBatch($data);
+        }
+    
+        // Complete the transaction
+        $this->db->transComplete();
+    
+        if ($this->db->transStatus() === FALSE) {
+            throw new \Exception('Error updating project categories.');
+        }
+    }
+    
 }
