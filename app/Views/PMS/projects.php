@@ -92,7 +92,7 @@
                             ?>
                             <ul>
                                 <?php foreach ($users as $user): ?>
-                                    <li><?= esc(trim($user)) ?></li>
+                                    <li><?= esc(trim($user['username'])) ?></li>
                                 <?php endforeach; ?>
                             </ul>
                         <?php else: ?>
