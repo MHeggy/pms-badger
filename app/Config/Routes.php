@@ -65,6 +65,8 @@ $routes->get('/projects/search', 'ProjectsController::search');
 $routes->get('/projects/filter', 'ProjectsController::filter');
 // route for displaying the edit project page.
 $routes->get('/projects/edit/(:num)', 'ProjectsController::edit/$1');
+// route for updating the project in the database.
+$routes->post('/projects/update', 'ProjectsController::updateProject');
 // route for showing the people page.
 $routes->get('/people', 'PeopleController::index');
 // route for displaying more detials of project in the projectdetails page.
