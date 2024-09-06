@@ -41,7 +41,7 @@ class ProjectsController extends BaseController {
             }
 
             // Fetch all projects and categories
-            $projects = $this->projectModel->getFilteredProjects();
+            $projects = $this->projectModel->getProjects();
             foreach ($projects as &$project) {
                 $project['assignedUsers'] = $this->projectModel->getAssignedUsers($project['projectID']);
             }
