@@ -13,23 +13,23 @@
 
 <br><br><br>
 
-<div class="container" style="margin-top: 20px;">
-    <h2>Edit Project</h2>
+<div class="container my-4">
+    <h2 class="mb-4">Edit Project</h2>
     <form action="<?= base_url('projects/update') ?>" method="post">
         <input type="hidden" name="projectID" value="<?= esc($project['projectID']) ?>">
-        
+
         <!-- Project Name -->
         <div class="mb-3">
             <label for="projectName" class="form-label">Project Name</label>
             <input type="text" class="form-control" id="projectName" name="projectName" value="<?= esc($project['projectName']) ?>" required>
         </div>
-        
+
         <!-- Project Number -->
         <div class="mb-3">
             <label for="projectNumber" class="form-label">Project Number</label>
             <input type="text" class="form-control" id="projectNumber" name="projectNumber" value="<?= esc($project['projectNumber']) ?>" required>
         </div>
-        
+
         <!-- Project Status -->
         <div class="mb-3">
             <label for="statusID" class="form-label">Status</label>
@@ -40,7 +40,7 @@
                 <option value="4" <?= $project['statusID'] == 4 ? 'selected' : '' ?>>Postponed</option>
             </select>
         </div>
-        
+
         <!-- Date Accepted -->
         <div class="mb-3">
             <label for="dateAccepted" class="form-label">Date Accepted</label>
@@ -48,7 +48,7 @@
         </div>
 
         <!-- Address Fields -->
-        <h4>Address</h4>
+        <h4 class="mt-4">Address</h4>
         <div class="mb-3">
             <label for="street" class="form-label">Street</label>
             <input type="text" class="form-control" id="street" name="street" value="<?= esc($project['street']) ?>" required>
@@ -82,12 +82,12 @@
                 <?php endforeach; ?>
             </select>
         </div>
-        
+
         <!-- Categories Section -->
-        <h4>Categories</h4>
+        <h4 class="mt-4">Categories</h4>
         <div class="mb-3">
             <label for="categories" class="form-label">Select Categories</label>
-            <select multiple class="form-select" id="categories" name="categories[]">
+            <select multiple class="form-select" id="categories" name="categories[]" size="5">
                 <?php foreach ($allCategories as $category): ?>
                     <option value="<?= esc($category['categoryID']) ?>">
                         <?= esc($category['categoryName']) ?>
@@ -97,10 +97,10 @@
         </div>
 
         <!-- Tasks Section -->
-        <h4>Tasks</h4>
+        <h4 class="mt-4">Tasks</h4>
         <div class="mb-3">
             <label for="tasks" class="form-label">Select Tasks</label>
-            <select multiple class="form-select" id="tasks" name="tasks[]">
+            <select multiple class="form-select" id="tasks" name="tasks[]" size="5">
                 <?php foreach ($allTasks as $task): ?>
                     <option value="<?= esc($task['taskID']) ?>" 
                         <?= in_array($task['taskID'], array_column($selectedTasks, 'taskID')) ? 'selected' : '' ?>>
@@ -111,7 +111,7 @@
         </div>
 
         <!-- Update Button -->
-        <button type="submit" class="btn btn-primary">Update Project</button>
+        <button type="submit" class="btn btn-primary mt-3">Update Project</button>
     </form>
 </div>
 
