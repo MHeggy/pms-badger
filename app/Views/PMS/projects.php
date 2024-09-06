@@ -9,8 +9,6 @@
     </header>
 </div>
 
-<script src="<?php echo base_url('/assets/js/projects.js')?>"></script>
-
 <div class="container" id="filter-container" style="margin-top: 100px;">
     <div class="row justify-content-center">
         <div class="col-md-6">
