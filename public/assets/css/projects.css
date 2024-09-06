@@ -37,18 +37,30 @@ body {
 
 #searchButton {
     position: absolute;
-    right: 10px; /* Adjusts the distance from the right edge */
+    right: 40px; /* Reserve space for the clear button */
     top: 50%;
     transform: translateY(-50%);
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0;
 }
 
 #searchButton i {
     font-size: 1.2rem;
     color: #6c757d; /* Bootstrap's default gray color */
+}
+
+#clearSearchButton {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #6c757d;
+    cursor: pointer;
+    display: none; /* Initially hidden */
+}
+
+#clearSearchButton.active {
+    display: block;
 }
 
 #filterToggle {
@@ -127,4 +139,20 @@ body {
         font-size: 0.75rem;
         padding: 0.4rem 0.8rem;
     }
+}
+
+#activeFilters {
+    margin-top: 10px;
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.4rem;
+    cursor: pointer;
+}
+
+.badge i {
+    margin-left: 5px;
+    cursor: pointer;
 }

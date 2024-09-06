@@ -23,14 +23,16 @@
     <!-- Search and Filter Container Above the Table -->
     <div class="row mb-4">
         <!-- Search Form -->
-        <div class="col-md-8">
-            <form id="searchForm" action="<?= base_url('projects/search') ?>" method="get" class="position-relative">
-                <input type="text" id="search" name="search" class="form-control" placeholder="Search Projects" value="<?= esc($searchTerm ?? '') ?>">
-                <button type="submit" id="searchButton">
-                    <i class="bi bi-search"></i>
-                </button>
-            </form>
-        </div>
+        <form id="searchForm" action="<?= base_url('projects/search') ?>" method="get" class="position-relative">
+            <input type="text" id="search" name="search" class="form-control" placeholder="Search Projects" value="<?= esc($searchTerm ?? '') ?>">
+            <button type="submit" id="searchButton" class="btn">
+                <i class="bi bi-search"></i>
+            </button>
+            <button type="button" id="clearSearchButton" class="btn btn-clear">
+                <i class="bi bi-x-circle"></i>
+            </button>
+        </form>
+    </div>
 
 <!-- Filter Dropdown -->
 <div class="col-md-4">
@@ -67,7 +69,15 @@
         </ul>
     </div>
 </div>
-
+<!-- Filter Display (hidden initially) -->
+<div id="activeFilters" class="d-none">
+    <span id="statusFilter" class="badge bg-secondary me-2 d-none">
+        Status: <span id="statusName"></span> <i class="bi bi-x" id="clearStatus"></i>
+    </span>
+    <span id="categoryFilter" class="badge bg-secondary me-2 d-none">
+        Category: <span id="categoryName"></span> <i class="bi bi-x" id="clearCategory"></i>
+    </span>
+</div>
 
     <!-- Table for Projects -->
     <table class="table table-striped">

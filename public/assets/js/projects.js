@@ -98,3 +98,68 @@ function toggleSortArrows(order) {
         sortDesc.classList.add('active');
     }
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+    const searchInput = document.getElementById('search');
+    const clearSearchButton = document.getElementById('clearSearchButton');
+
+    searchInput.addEventListener('input', function () {
+        clearSearchButton.style.display = searchInput.value ? 'block' : 'none';
+    });
+
+    // Clear the search input when the X button is clicked
+    clearSearchButton.addEventListener('click', function() {
+        searchInput.value = '';
+        clearSearchButton.style.display = 'none';
+        document.getElementById('searchForm').submit(); // Optionally auto-submit after clearing
+    });
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    const statusSelect = document.getElementById('status');
+    const categorySelect = document.getElementById('category');
+    const statusFilter = document.getElementById('statusFilter');
+    const categoryFilter = document.getElementById('categoryFilter');
+    const activeFilters = document.getElementById('activeFilters');
+    
+    // Display active filters when selected
+    function updateFilters() {
+        if (statusSelect.value) {
+            document.getElementById('statusName').textContent = statusSelect.options[statusSelect.selectedIndex].text;
+            statusFilter.classList.remove('d-none');
+        } else {
+            statusFilter.classList.add('d-none');
+        }
+
+        if (categorySelect.value) {
+            document.getElementById('categoryName').textContent = categorySelect.options[categorySelect.selectedIndex].text;
+            categoryFilter.classList.remove('d-none');
+        } else {
+            categoryFilter.classList.add('d-none');
+        }
+
+        // Show or hide the filter component
+        activeFilters.classList.toggle('d-none', !statusSelect.value && !categorySelect.value);
+    }
+
+    // Initially set filters based on current selection
+    updateFilters();
+
+    // Clear status filter
+    document.getElementById('clearStatus').addEventListener('click', function() {
+        statusSelect.value = '';
+        updateFilters();
+        document.getElementById('filterForm').submit(); // Optionally auto-submit after clearing
+    });
+
+    // Clear category filter
+    document.getElementById('clearCategory').addEventListener('click', function() {
+        categorySelect.value = '';
+        updateFilters();
+        document.getElementById('filterForm').submit(); // Optionally auto-submit after clearing
+    });
+
+    // Update displayed filters when dropdowns change
+    statusSelect.addEventListener('change', updateFilters);
+    categorySelect.addEventListener('change', updateFilters);
+});
