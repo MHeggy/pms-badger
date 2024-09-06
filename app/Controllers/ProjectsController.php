@@ -72,6 +72,8 @@ class ProjectsController extends BaseController {
 
             // Fetch data from the model.
             $projects = $this->projectModel->searchProjects($searchTerm);
+            // Get all categories to pass them to view.
+            $categories = $this->categoryModel->findAll();
 
             // Fetch assigned users for each project
             foreach ($projects as &$project) {
@@ -82,7 +84,8 @@ class ProjectsController extends BaseController {
             return view('PMS/projects', [
                 'projects' => $projects,
                 'searchTerm' => $searchTerm,
-                'user1' => $user
+                'user1' => $user,
+                'categories' => $categories
             ]);
         } catch (\Exception $e) {
             log_message('error', 'Error in search: ' . $e->getMessage());
