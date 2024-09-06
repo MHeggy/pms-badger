@@ -142,6 +142,7 @@ class ProjectModel extends Model {
                        address.street, 
                        address.city, 
                        address.zipCode, 
+                       address.stateID,   -- Added stateID to select clause
                        states.stateName AS stateName, 
                        countries.countryName AS countryName');
         $this->join('projectstatuses', 'projectstatuses.statusID = projects.statusID');
@@ -156,24 +157,25 @@ class ProjectModel extends Model {
         }
         
         $categories = $this->db->table('project_categories')
-            ->select('pcategories.categoryName')
+            ->select('pcategories.categoryID, pcategories.categoryName')   // Also select categoryID
             ->join('pcategories', 'pcategories.categoryID = project_categories.categoryID')
             ->where('project_categories.projectID', $projectId)
             ->get()
             ->getResultArray();
-
+    
         $tasks = $this->db->table('project_tasks')
-            ->select('tasks.taskName')
+            ->select('tasks.taskID, tasks.taskName')   // Also select taskID
             ->join('tasks', 'tasks.taskID = project_tasks.taskID')
             ->where('project_tasks.projectID', $projectId)
             ->get()
             ->getResultArray();
-
-        $project['categories'] = array_column($categories, 'categoryName');
-        $project['tasks'] = array_column($tasks, 'taskName');
+    
+        // Ensure categories and tasks are available
+        $project['categories'] = $categories;
+        $project['tasks'] = $tasks;
         
         return $project;
-    }
+    }    
     
     public function getUserProjectAssociation($userID, $projectID) {
         return $this->db->table('user_project')

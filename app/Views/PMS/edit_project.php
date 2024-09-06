@@ -12,11 +12,6 @@
 </div>
 
 <br><br><br>
-<?php
-echo '<pre>';
-print_r($project);
-echo '</pre>';
-?>
 
 <div class="container" style="margin-top: 20px;">
     <h2>Edit Project</h2>
@@ -66,7 +61,7 @@ echo '</pre>';
             <label for="stateID" class="form-label">State</label>
             <select class="form-select" id="stateID" name="stateID" required>
                 <?php foreach ($states as $state): ?>
-                    <option value="<?= esc($state['stateID']) ?>" <?= $state['stateID'] == $stateID ? 'selected' : '' ?>>
+                    <option value="<?= esc($state['stateID']) ?>" <?= $state['stateID'] == $project['stateID'] ? 'selected' : '' ?>>
                         <?= esc($state['stateName']) ?>
                     </option>
                 <?php endforeach; ?>
