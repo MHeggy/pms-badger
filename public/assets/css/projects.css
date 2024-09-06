@@ -1,30 +1,47 @@
-/* projects.css */
+/* General adjustments */
+body {
+    font-family: Arial, sans-serif;
+}
+
+/* Container */
+.container {
+    margin-top: 40px; /* Increase margin for more spacing */
+    max-width: 1200px; /* Limit container width for better readability */
+    padding: 20px;
+}
 
 /* Header search and filter styling */
 .search-filter-container {
-    margin-bottom: 1rem;
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap; /* Allow items to wrap on smaller screens */
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
 }
 
 .search-filter-container form {
     display: flex;
     align-items: center;
     gap: 10px;
+    width: 100%; /* Ensure form takes full width */
 }
 
 #searchForm {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+    flex-grow: 1;
+    margin-bottom: 10px; /* Space out forms */
 }
 
 #search {
     flex: 1;
 }
 
+#filterToggle {
+    width: 100%;
+}
+
 #filterToggle, .btn-primary {
     margin-left: 10px;
+    white-space: nowrap; /* Prevent button text from wrapping */
 }
 
 .filter-options {
@@ -41,16 +58,17 @@
 
 .btn-primary, .btn-secondary {
     border-radius: 0.25rem;
-    padding: 0.5rem 1rem; /* Adjust padding for button size */
-    font-size: 0.875rem; /* Adjust font size for button size */
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
 }
 
 /* Style adjustments for the table header */
 .table th {
-    padding: 10px;
+    padding: 15px;
     background-color: #f2f2f2;
     text-align: center;
     vertical-align: middle;
+    white-space: nowrap; /* Prevent column headers from wrapping */
 }
 
 .table td {
@@ -61,13 +79,13 @@
 
 .sort-arrow {
     display: inline-block;
-    margin-left: 10px;
+    margin-left: 5px;
     cursor: pointer;
 }
 
 .sort-arrow .bi {
     font-size: 1.2rem;
-    margin: 0 5px;
+    margin: 0 3px;
     color: gray;
 }
 
@@ -75,17 +93,50 @@
     color: black;
 }
 
-/* Additional styling for icons */
-.icon-btn {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
+/* Style for the dropdown */
 .dropdown-menu {
-    min-width: 300px; /* Adjust as needed */
+    min-width: 250px;
+    padding: 10px; /* Add padding inside dropdown */
 }
 
 .dropdown-menu .form-select {
     margin-bottom: 1rem;
+}
+
+/* Adjustments for mobile responsiveness */
+@media (max-width: 768px) {
+    .search-filter-container {
+        flex-direction: column;
+    }
+
+    .table th, .table td {
+        font-size: 0.85rem; /* Reduce font size for smaller screens */
+    }
+
+    .sort-arrow .bi {
+        font-size: 1rem; /* Adjust icon size for mobile */
+    }
+
+    .btn-primary, .btn-secondary {
+        font-size: 0.75rem;
+        padding: 0.4rem 0.8rem; /* Smaller buttons on mobile */
+    }
+}
+
+/* Adjust table row hover for better interaction */
+.table-striped tbody tr:hover {
+    background-color: #f0f8ff; /* Light background on hover */
+}
+
+/* Icon and button alignments */
+.icon-btn {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+}
+
+.btn-edit, .btn-delete {
+    font-size: 0.875rem;
+    padding: 0.4rem 0.6rem; /* Adjust button size */
 }
