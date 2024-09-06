@@ -129,8 +129,7 @@ class MyWorkController extends Controller {
             // Render the view with search results
             return view('PMS/mywork', $data);
         } catch (\Exception $e) {
-            log_message('error', 'Error in search: ' . $e->getMessage());
-            return $this->response->setStatusCode(500)->setJSON(['error' => 'Internal server error']);
+            echo 'Error rendering the view: ' . $e->getMessage();
         }
     }    
        
