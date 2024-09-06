@@ -1,56 +1,35 @@
 /* projects.css */
 
-
-/* Adjusting spacing for content below header */
-body {
-    padding-top: 20px; /* Adjust this value according to the header height */
-    padding-left: 100px;
-    font-family: 'Roboto', sans-serif;
+/* Header search and filter styling */
+.search-filter-container {
+    flex: 1;
 }
 
-/* Adjusted styles for search input */
-.form-control {
-    margin-bottom: 10px; /* Adjusted margin */
-    border-radius: 0.25rem; /* Added border-radius */
+.search-filter-container form {
+    display: flex;
+    align-items: center;
 }
 
-/* Adjusted styles for status select */
-.form-select {
-    margin-bottom: 10px; /* Adjusted margin */
-    border-radius: 0.25rem; /* Added border-radius */
+.form-control, .form-select {
+    border-radius: 0.25rem;
 }
 
-/* Adjusted styles for apply buttons */
 .btn-primary {
-    width: 100%;
+    margin-left: 10px;
 }
 
-/* Table styles */
-.table {
-    width: 100%;
-}
-
-.table th,
-.table td {
-    padding: 10px; /* Add padding for spacing */
-    text-align: center; /* Align text to the center */
-    vertical-align: middle; /* Vertically center content */
-}
-
+/* Style adjustments for the table header */
 .table th {
+    padding: 10px;
     background-color: #f2f2f2;
+    text-align: center;
+    vertical-align: middle;
 }
 
-/* Success message styling */
-.alert-dismissible {
-    position: relative;
-}
-
-.alert-dismissible .btn-close {
-    position: absolute;
-    top: 0;
-    right: 0;
-    padding: 0.5rem 1rem;
+.table td {
+    padding: 10px;
+    text-align: center;
+    vertical-align: middle;
 }
 
 .sort-arrow {
@@ -62,10 +41,9 @@ body {
 .sort-arrow .bi {
     font-size: 1.2rem;
     margin: 0 5px;
-    color: gray; /* Default color for inactive arrows */
+    color: gray;
 }
 
 .sort-arrow .bi.active {
-    font-weight: bold; /* Bold for active arrow */
-    color: black; /* Color for active arrow */
+    color: black;
 }

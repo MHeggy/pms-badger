@@ -51,7 +51,7 @@ function updateProjectList(projects) {
             <td>${project.projectNumber}</td>
             <td>${project.projectName}</td>
             <td>${project.statusName}</td>
-            <td>${project.categoryNames}</td> <!-- Display categories -->
+            <td>${project.categoryNames}</td>
             <td>${project.dateAccepted}</td>
             <td>${assignedUsersHTML}</td>
         `;
