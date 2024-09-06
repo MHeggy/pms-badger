@@ -5,10 +5,20 @@
     margin-bottom: 1rem;
 }
 
+.search-filter-container form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
 .filter-container {
     display: flex;
     align-items: center;
     gap: 10px;
+}
+
+.filter-container .btn-secondary {
+    border-radius: 0.25rem;
 }
 
 .filter-options {
@@ -24,7 +34,7 @@
 }
 
 .btn-primary, .btn-secondary {
-    margin-left: 10px;
+    border-radius: 0.25rem;
 }
 
 /* Style adjustments for the table header */
@@ -55,4 +65,11 @@
 
 .sort-arrow .bi.active {
     color: black;
+}
+
+/* Additional styling for icons */
+.icon-btn {
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }
