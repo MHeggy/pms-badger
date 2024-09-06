@@ -62,24 +62,16 @@ function updateProjectList(projects) {
 
 function sortProjects(order) {
     const projectList = document.getElementById('project_list');
-    const rows = Array.from(projectList.querySelectorAll('tr')); // Get all rows including header
+    const rows = Array.from(projectList.querySelectorAll('tr'));
+    const headerRow = rows.shift();
 
-    // Ensure that header row remains at the top
-    const headerRow = rows.shift(); // Remove header row
-
-    // Sort rows based on project number
     const sortedRows = rows.sort((a, b) => {
-        // Split project number into year and number parts
-        const aParts = a.cells[0].textContent.trim().split('-');
-        const bParts = b.cells[0].textContent.trim().split('-');
+        const aText = a.cells[0].textContent.trim();
+        const bText = b.cells[0].textContent.trim();
 
-        // Parse year and number parts into integers
-        const aYear = parseInt(aParts[0]);
-        const bYear = parseInt(bParts[0]);
-        const aNumber = parseInt(aParts[1]);
-        const bNumber = parseInt(bParts[1]);
+        const [aYear, aNumber] = aText.split('-').map(Number);
+        const [bYear, bNumber] = bText.split('-').map(Number);
 
-        // Compare years first, then numbers
         if (aYear !== bYear) {
             return order === 'asc' ? aYear - bYear : bYear - aYear;
         } else {
@@ -87,9 +79,8 @@ function sortProjects(order) {
         }
     });
 
-    // Reinsert header row and append sorted rows
-    projectList.innerHTML = ''; // Clear existing rows
-    projectList.appendChild(headerRow); // Add header row back
+    projectList.innerHTML = '';
+    projectList.appendChild(headerRow);
     sortedRows.forEach(row => {
         projectList.appendChild(row);
     });
