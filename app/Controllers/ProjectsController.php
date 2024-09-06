@@ -128,24 +128,25 @@ class ProjectsController extends BaseController {
         try {
             $userID = auth()->id();
             if (!$userID) {
-                return redirect()->to('/login')->with('error', 'You must login to access this page.');
+                return redirect()->to('/login')->with('error', 'You must log in to access this page.');
             }
-
+    
             // Fetch project ID from the URL if not provided
             if ($projectID === null) {
                 $projectID = $this->request->getUri()->getSegment(3); // Assumes it's the 3rd segment in the URL
             }
-            // Fetch project details from the model.
+            
+            // Fetch project details from the model
             $project = $this->projectModel->findProjectDetails($projectID);
     
             if (!$project) {
-                return $this->response->setStatusCode(404)->setJSON(['error' => 'Project not found']);
+                return view('PMS/projectDetails', ['error' => 'Project not found']);
             }
     
-            // Fetch updates for the given project.
+            // Fetch updates for the given project
             $updates = $this->updatesModel->getUpdatesByProject($projectID);
     
-            // Pass the data to the view.
+            // Pass the data to the view
             $data = [
                 'project' => $project,
                 'updates' => $updates
@@ -154,9 +155,10 @@ class ProjectsController extends BaseController {
             return view('PMS/projectDetails', $data);
         } catch (\Exception $e) {
             log_message('error', 'Error in projectDetails: ' . $e->getMessage());
-            return $this->response->setStatusCode(500)->setJSON(['error' => 'Internal server error']);
+            // Pass the error message to the view
+            return view('PMS/projectDetails', ['error' => 'An internal server error occurred.']);
         }
-    }
+    }    
 
     public function assignUsersView() {
         $user = auth()->user();
