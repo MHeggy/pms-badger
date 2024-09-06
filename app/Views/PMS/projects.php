@@ -57,7 +57,7 @@
                     <select name="category" id="category" class="form-select">
                         <option value="">All Categories</option>
                         <?php foreach ($categories as $cat): ?>
-                            <option value="<?= $cat['id'] ?>"><?= $cat['name'] ?></option>
+                            <option value="<?= $cat['categoryID'] ?>"><?= $cat['categoryName'] ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
