@@ -59,7 +59,12 @@ body {
     cursor: pointer;
 }
 
-.sort-arrow i {
-    font-size: 1rem;
+.sort-arrow .bi {
+    font-size: 1.2rem;
     margin: 0 5px;
+    display: none; /* Hide arrows initially */
+}
+
+.sort-arrow .bi.active {
+    display: inline; /* Show active arrow */
 }

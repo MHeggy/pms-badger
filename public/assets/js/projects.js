@@ -1,6 +1,28 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Initialize event listeners
-    initializeEventListeners();
+    const sortAsc = document.getElementById('sortAsc');
+    const sortDesc = document.getElementById('sortDesc');
+    const sortOrderSelect = document.getElementById('sortOrder');
+
+    sortOrderSelect.addEventListener('change', function () {
+        const order = this.value;
+        if (order === 'asc') {
+            sortAsc.classList.add('active');
+            sortDesc.classList.remove('active');
+        } else {
+            sortAsc.classList.remove('active');
+            sortDesc.classList.add('active');
+        }
+    });
+
+    // Initial display based on default sort order
+    const defaultOrder = sortOrderSelect.value;
+    if (defaultOrder === 'asc') {
+        sortAsc.classList.add('active');
+        sortDesc.classList.remove('active');
+    } else {
+        sortAsc.classList.remove('active');
+        sortDesc.classList.add('active');
+    }
 });
 
 function initializeEventListeners() {
