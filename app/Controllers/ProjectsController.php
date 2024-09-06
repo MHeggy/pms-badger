@@ -368,12 +368,12 @@ class ProjectsController extends BaseController {
         // Prepare data to pass to the view
         $data = [
             'project' => $project,
-            'selectedCategories' => $project['categories'], // Currently selected categories for the project
-            'selectedTasks' => $project['tasks'], // Currently selected tasks for the project
-            'allCategories' => $allCategories, // All available categories
-            'allTasks' => $allTasks, // All available tasks
-            'states' => $states, // All available states
-            'countries' => $countries // All available countries
+            'selectedCategories' => array_column($project['categories'], 'categoryID'), // Ensure this is an array of IDs
+            'selectedTasks' => array_column($project['tasks'], 'taskID'), // Ensure this is an array of IDs
+            'allCategories' => $allCategories,
+            'allTasks' => $allTasks,
+            'states' => $states,
+            'countries' => $countries
         ];
     
         // Load the edit_project view with all necessary data
