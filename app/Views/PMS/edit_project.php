@@ -57,17 +57,29 @@
             <input type="text" class="form-control" id="city" name="city" value="<?= esc($project['city']) ?>" required>
         </div>
         <div class="mb-3">
-            <label for="stateName" class="form-label">State</label>
-            <input type="text" class="form-control" id="stateName" name="stateName" value="<?= esc($project['stateName']) ?>" required>
+            <label for="stateID" class="form-label">State</label>
+            <select class="form-select" id="stateID" name="stateID" required>
+                <?php foreach ($states as $state): ?>
+                    <option value="<?= esc($state['stateID']) ?>" <?= $project['stateID'] == $state['stateID'] ? 'selected' : '' ?>>
+                        <?= esc($state['stateName']) ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
         </div>
         <div class="mb-3">
             <label for="zipCode" class="form-label">Zip Code</label>
             <input type="text" class="form-control" id="zipCode" name="zipCode" value="<?= esc($project['zipCode']) ?>" required>
         </div>
         <div class="mb-3">
-            <label for="countryName" class="form-label">Country</label>
-            <input type="text" class="form-control" id="countryName" name="countryName" value="<?= esc($project['countryName']) ?>" required>
-        </div>
+            <label for="countryID" class="form-label">Country</label>
+            <select class="form-select" id="countryID" name="countryID" required>
+                <?php foreach ($countries as $country): ?>
+                    <option value="<?= esc($country['countryID']) ?>" <?= $project['countryID'] == $country['countryID'] ? 'selected' : '' ?>>
+                        <?= esc($country['countryName']) ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+        </div>>
         
         <!-- Categories Section -->
         <h4>Categories</h4>

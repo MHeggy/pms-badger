@@ -341,9 +341,13 @@ class ProjectsController extends BaseController {
     public function edit($projectID = null) {
         // Initialize the ProjectModel and any other required models
         $projectModel = new ProjectModel();
-        $categoryModel = new CategoryModel(); // Assuming you have a model to fetch categories
-        $taskModel = new TaskModel(); // Assuming you have a model to fetch tasks
+        $categoryModel = new CategoryModel();
+        $taskModel = new TaskModel();
     
+        $states = $this->stateModel->findAll();
+        $countries = $this->countryModel->findAll();
+
+
         // Handle the case where projectID might not be provided
         if ($projectID === null) {
             $projectID = $this->request->getUri()->getSegment(3); // Fetch projectID from URL segment if not provided
@@ -368,6 +372,8 @@ class ProjectsController extends BaseController {
             'selectedTasks' => $project['tasks'], // Currently selected tasks for the project
             'allCategories' => $allCategories, // All available categories
             'allTasks' => $allTasks, // All available tasks
+            'states' => $states, // All available states
+            'countries' => $countries // All available countries
         ];
     
         // Load the edit_project view with all necessary data
