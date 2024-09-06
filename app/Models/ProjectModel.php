@@ -75,15 +75,15 @@ class ProjectModel extends Model {
         ->join('pcategories', 'project_categories.categoryID = pcategories.categoryID', 'left')
         ->join('user_project', 'projects.projectID = user_project.project_id', 'left')
         ->join('users', 'user_project.user_id = users.id', 'left')
-        ->where('users.id', $userID);
-
+        ->where('users.id', $userID);  // Ensure filtering by user
+    
         if (!empty($searchTerm)) {
-            $builder->like('projects.projectName', $searchTerm);
+            $builder->like('projects.projectName', $searchTerm);  // Apply search term
         }
-
+    
         $builder->groupBy('projects.projectID, projectstatuses.statusName');
         return $builder->get()->getResultArray();
-    }
+    }    
     
     public function filterProjectsByStatus($status) {
         $builder = $this->db->table('projects');
