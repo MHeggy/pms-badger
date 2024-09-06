@@ -5,15 +5,15 @@ body {
 
 /* Container */
 .container {
-    margin-top: 40px; /* Increase margin for more spacing */
-    max-width: 1200px; /* Limit container width for better readability */
+    margin-top: 40px;
+    max-width: 1200px;
     padding: 20px;
 }
 
 /* Header search and filter styling */
 .search-filter-container {
     display: flex;
-    flex-wrap: wrap; /* Allow items to wrap on smaller screens */
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
@@ -23,25 +23,37 @@ body {
     display: flex;
     align-items: center;
     gap: 10px;
-    width: 100%; /* Ensure form takes full width */
+    width: 100%;
 }
 
 #searchForm {
     flex-grow: 1;
-    margin-bottom: 10px; /* Space out forms */
+    margin-bottom: 10px;
 }
 
 #search {
     flex: 1;
+    border-radius: 0.25rem 0 0 0.25rem; /* Rounded left side only */
+    padding-right: 40px; /* Space for the search icon */
+    position: relative;
+}
+
+#searchButton {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
 }
 
 #filterToggle {
-    width: 100%;
-}
-
-#filterToggle, .btn-primary {
-    margin-left: 10px;
-    white-space: nowrap; /* Prevent button text from wrapping */
+    width: auto;
+    white-space: nowrap;
+    padding: 0.3rem 0.75rem; /* Smaller filter button */
+    font-size: 0.75rem;
 }
 
 .filter-options {
@@ -68,7 +80,7 @@ body {
     background-color: #f2f2f2;
     text-align: center;
     vertical-align: middle;
-    white-space: nowrap; /* Prevent column headers from wrapping */
+    white-space: nowrap;
 }
 
 .table td {
@@ -96,47 +108,21 @@ body {
 /* Style for the dropdown */
 .dropdown-menu {
     min-width: 250px;
-    padding: 10px; /* Add padding inside dropdown */
+    padding: 10px;
 }
 
-.dropdown-menu .form-select {
-    margin-bottom: 1rem;
-}
-
-/* Adjustments for mobile responsiveness */
+/* Mobile responsiveness */
 @media (max-width: 768px) {
     .search-filter-container {
         flex-direction: column;
     }
 
     .table th, .table td {
-        font-size: 0.85rem; /* Reduce font size for smaller screens */
-    }
-
-    .sort-arrow .bi {
-        font-size: 1rem; /* Adjust icon size for mobile */
+        font-size: 0.85rem;
     }
 
     .btn-primary, .btn-secondary {
         font-size: 0.75rem;
-        padding: 0.4rem 0.8rem; /* Smaller buttons on mobile */
+        padding: 0.4rem 0.8rem;
     }
-}
-
-/* Adjust table row hover for better interaction */
-.table-striped tbody tr:hover {
-    background-color: #f0f8ff; /* Light background on hover */
-}
-
-/* Icon and button alignments */
-.icon-btn {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    cursor: pointer;
-}
-
-.btn-edit, .btn-delete {
-    font-size: 0.875rem;
-    padding: 0.4rem 0.6rem; /* Adjust button size */
 }

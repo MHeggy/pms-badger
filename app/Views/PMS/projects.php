@@ -23,50 +23,51 @@
     <!-- Search and Filter Container Above the Table -->
     <div class="row mb-4">
         <!-- Search Form -->
-        <div class="col-md-8">
-            <form id="searchForm" action="<?= base_url('projects/search') ?>" method="get" class="d-flex">
-                <input type="text" id="search" name="search" class="form-control me-2" placeholder="Search Projects by name" value="<?= esc($searchTerm ?? '') ?>">
-                <button type="submit" class="btn btn-primary">
-                    <i class="bi bi-search"></i> Search
-                </button>
-            </form>
-        </div>
+<div class="col-md-8">
+    <form id="searchForm" action="<?= base_url('projects/search') ?>" method="get" class="position-relative">
+        <input type="text" id="search" name="search" class="form-control" placeholder="Search Projects" value="<?= esc($searchTerm ?? '') ?>">
+        <button type="submit" id="searchButton">
+            <i class="bi bi-search"></i>
+        </button>
+    </form>
+</div>
 
-        <!-- Filter Dropdown -->
-        <div class="col-md-4">
-            <div class="dropdown">
-                <button id="filterToggle" class="btn btn-secondary dropdown-toggle w-100" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="bi bi-filter"></i> Filter By
-                </button>
-                <ul id="filterOptions" class="dropdown-menu p-3">
-                    <form id="filterForm" action="<?= base_url('projects/filter') ?>" method="get">
-                        <div class="mb-3">
-                            <label for="status" class="form-label">Project Status</label>
-                            <select name="status" id="status" class="form-select">
-                                <option value="">All Projects</option>
-                                <option value="1">In Progress</option>
-                                <option value="2">Completed</option>
-                                <option value="3">Cancelled</option>
-                                <option value="4">Postponed</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="category" class="form-label">Category</label>
-                            <select name="category" id="category" class="form-select">
-                                <option value="">All Categories</option>
-                                <?php foreach ($categories as $cat): ?>
-                                    <option value="<?= esc($cat['categoryID']) ?>">
-                                        <?= esc($cat['categoryName']) ?>
-                                    </option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-                        <button type="submit" class="btn btn-primary w-100">Apply Filter</button>
-                    </form>
-                </ul>
-            </div>
-        </div>
+<!-- Filter Dropdown -->
+<div class="col-md-4">
+    <div class="dropdown">
+        <button id="filterToggle" class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="bi bi-filter"></i> Filter
+        </button>
+        <ul id="filterOptions" class="dropdown-menu p-3">
+            <!-- Filter Form -->
+            <form id="filterForm" action="<?= base_url('projects/filter') ?>" method="get">
+                <div class="mb-3">
+                    <label for="status" class="form-label">Project Status</label>
+                    <select name="status" id="status" class="form-select">
+                        <option value="">All Projects</option>
+                        <option value="1">In Progress</option>
+                        <option value="2">Completed</option>
+                        <option value="3">Cancelled</option>
+                        <option value="4">Postponed</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="category" class="form-label">Category</label>
+                    <select name="category" id="category" class="form-select">
+                        <option value="">All Categories</option>
+                        <?php foreach ($categories as $cat): ?>
+                            <option value="<?= esc($cat['categoryID']) ?>">
+                                <?= esc($cat['categoryName']) ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Apply Filter</button>
+            </form>
+        </ul>
     </div>
+</div>
+
 
     <!-- Table for Projects -->
     <table class="table table-striped">
