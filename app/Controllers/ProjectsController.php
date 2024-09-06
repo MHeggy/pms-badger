@@ -364,10 +364,6 @@ class ProjectsController extends BaseController {
         $states = $stateModel->findAll(); // Fetch all states
         $countries = $countryModel->findAll(); // Fetch all countries
     
-        // Debug output for selected categories and tasks
-        var_dump($project['categories']);
-        var_dump($project['tasks']);
-    
         // Prepare data to pass to the view
         $data = [
             'project' => $project,

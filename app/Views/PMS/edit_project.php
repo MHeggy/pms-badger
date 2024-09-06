@@ -12,11 +12,6 @@
 </div>
 
 <br><br><br>
-<?php
-// Debug output for the view
-var_dump($selectedCategories);
-var_dump($selectedTasks);
-?>
 
 <div class="container" style="margin-top: 20px;">
     <h2>Edit Project</h2>
