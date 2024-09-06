@@ -61,11 +61,6 @@
         <!-- Extra row for search and filter -->
         <thead>
             <tr>
-                <th colspan="7" class="search-filter-row">
-                    <!-- Empty cell to maintain table structure -->
-                </th>
-            </tr>
-            <tr>
                 <th>
                     Project Number
                     <span id="sortArrow" class="sort-arrow">
