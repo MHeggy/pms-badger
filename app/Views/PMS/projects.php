@@ -23,14 +23,14 @@
     <!-- Search and Filter Container Above the Table -->
     <div class="row mb-4">
         <!-- Search Form -->
-<div class="col-md-8">
-    <form id="searchForm" action="<?= base_url('projects/search') ?>" method="get" class="position-relative">
-        <input type="text" id="search" name="search" class="form-control" placeholder="Search Projects" value="<?= esc($searchTerm ?? '') ?>">
-        <button type="submit" id="searchButton">
-            <i class="bi bi-search"></i>
-        </button>
-    </form>
-</div>
+        <div class="col-md-8">
+            <form id="searchForm" action="<?= base_url('projects/search') ?>" method="get" class="position-relative">
+                <input type="text" id="search" name="search" class="form-control" placeholder="Search Projects" value="<?= esc($searchTerm ?? '') ?>">
+                <button type="submit" id="searchButton">
+                    <i class="bi bi-search"></i>
+                </button>
+            </form>
+        </div>
 
 <!-- Filter Dropdown -->
 <div class="col-md-4">

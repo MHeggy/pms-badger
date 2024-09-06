@@ -27,26 +27,28 @@ body {
 }
 
 #searchForm {
-    flex-grow: 1;
-    margin-bottom: 10px;
+    position: relative;
 }
 
 #search {
-    flex: 1;
-    border-radius: 0.25rem 0 0 0.25rem; /* Rounded left side only */
-    padding-right: 40px; /* Space for the search icon */
-    position: relative;
+    width: 100%;
+    padding-right: 40px; /* Adds space for the button inside the input */
 }
 
 #searchButton {
     position: absolute;
-    right: 5px;
+    right: 10px; /* Adjusts the distance from the right edge */
     top: 50%;
     transform: translateY(-50%);
     background: none;
     border: none;
-    padding: 0;
     cursor: pointer;
+    padding: 0;
+}
+
+#searchButton i {
+    font-size: 1.2rem;
+    color: #6c757d; /* Bootstrap's default gray color */
 }
 
 #filterToggle {
