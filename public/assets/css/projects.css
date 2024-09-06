@@ -52,3 +52,14 @@ body {
     right: 0;
     padding: 0.5rem 1rem;
 }
+
+.sort-arrow {
+    display: inline-block;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.sort-arrow i {
+    font-size: 1rem;
+    margin: 0 5px;
+}
