@@ -17,67 +17,53 @@
     </div>
 <?php endif; ?>
 
-<script src="<?= base_url('/assets/js/projects.js') ?>"></script>
-
-<div class="container" id="filter-container" style="margin-top: 100px;">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="search-filter-container">
-                <div class="card search-filter-card">
-                    <div class="card-body">
-                        <h5 class="card-title">Search Projects</h5>
-                        <form id="searchForm" action="<?= base_url('projects/search') ?>" method="get">
-                            <input type="text" id="search" name="search" class="form-control" 
-                                   placeholder="Search Projects by name" value="<?= esc($searchTerm ?? '') ?>">
-                            <button type="submit" class="btn btn-primary">Search</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="search-filter-container">
-                <div class="card search-filter-card">
-                    <div class="card-body">
-                        <h5 class="card-title">Filter Projects</h5>
-                        <form id="filterForm" action="<?= base_url('projects/filter') ?>" method="get">
-                            <select name="status" id="status" class="form-select">
-                                <option value="">All Projects</option>
-                                <option value="1">In Progress</option>
-                                <option value="2">Completed</option>
-                                <option value="3">Cancelled</option>
-                                <option value="4">Postponed</option>
-                            </select>
-                            <button type="submit" class="btn btn-primary">Apply</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
 <div class="container" id="project_table" style="margin-top: 20px;">
     <table class="table table-striped">
         <!-- Table headers -->
         <thead>
-        <tr>
-            <th>
-                Project Number
-                <span id="sortArrow" class="sort-arrow">
-                    <i class="bi bi-arrow-up" id="sortAsc"></i>
-                    <i class="bi bi-arrow-down" id="sortDesc"></i>
-                </span>
-            </th>
-            <th>Project Name</th>
-            <th>Project Status</th>
-            <th>Category</th>
-            <th>Date Accepted</th>
-            <th>Assigned Users</th>
-            <?php if ($user1->inGroup('superadmin')): // Check if the user is in the 'admin' group ?>
-                <th>Edit</th>
-            <?php endif; ?>
-        </tr>
+            <tr>
+                <th colspan="7">
+                    <!-- Search and Filter Container -->
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="search-filter-container">
+                            <form id="searchForm" action="<?= base_url('projects/search') ?>" method="get" class="d-flex">
+                                <input type="text" id="search" name="search" class="form-control me-2" 
+                                       placeholder="Search Projects by name" value="<?= esc($searchTerm ?? '') ?>">
+                                <button type="submit" class="btn btn-primary">Search</button>
+                            </form>
+                        </div>
+                        <div class="search-filter-container">
+                            <form id="filterForm" action="<?= base_url('projects/filter') ?>" method="get" class="d-flex">
+                                <select name="status" id="status" class="form-select me-2">
+                                    <option value="">All Projects</option>
+                                    <option value="1">In Progress</option>
+                                    <option value="2">Completed</option>
+                                    <option value="3">Cancelled</option>
+                                    <option value="4">Postponed</option>
+                                </select>
+                                <button type="submit" class="btn btn-primary">Apply</button>
+                            </form>
+                        </div>
+                    </div>
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    Project Number
+                    <span id="sortArrow" class="sort-arrow">
+                        <i class="bi bi-arrow-up" id="sortAsc"></i>
+                        <i class="bi bi-arrow-down" id="sortDesc"></i>
+                    </span>
+                </th>
+                <th>Project Name</th>
+                <th>Project Status</th>
+                <th>Category</th>
+                <th>Date Accepted</th>
+                <th>Assigned Users</th>
+                <?php if ($user1->inGroup('superadmin')): ?>
+                    <th>Edit</th>
+                <?php endif; ?>
+            </tr>
         </thead>
         <!-- Table body -->
         <tbody id="project_list">
