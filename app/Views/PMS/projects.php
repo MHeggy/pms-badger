@@ -21,28 +21,26 @@
 
 <div class="container" id="project_table" style="margin-top: 20px;">
     <!-- Search and Filter Container Above the Table -->
-    <div class="row mb-4">
-        <!-- Search Form -->
-        <form id="searchForm" action="<?= base_url('projects/search') ?>" method="get" class="position-relative">
-            <input type="text" id="search" name="search" class="form-control" placeholder="Search Projects" value="<?= esc($searchTerm ?? '') ?>">
-            <button type="submit" id="searchButton" class="btn">
-                <i class="bi bi-search"></i>
-            </button>
-            <button type="button" id="clearSearchButton" class="btn btn-clear">
-                <i class="bi bi-x-circle"></i>
-            </button>
-        </form>
-    </div>
+    <div class="row mb-4 search-filter-container">
+    <!-- Search Form -->
+    <form id="searchForm" action="<?= base_url('projects/search') ?>" method="get" class="position-relative">
+        <input type="text" id="search" name="search" class="form-control" placeholder="Search Projects" value="<?= esc($searchTerm ?? '') ?>">
+        <button type="submit" id="searchButton" class="btn">
+            <i class="bi bi-search"></i>
+        </button>
+        <button type="button" id="clearSearchButton" class="btn btn-clear">
+            <i class="bi bi-x-circle"></i>
+        </button>
+    </form>
 
-<!-- Filter Dropdown -->
-<div class="col-md-4">
+    <!-- Filter Dropdown -->
     <div class="dropdown">
-        <button id="filterToggle" class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <button id="filterToggle" class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
             <i class="bi bi-filter"></i> Filter
         </button>
-        <ul id="filterOptions" class="dropdown-menu p-3">
-            <!-- Filter Form -->
+        <ul id="filterOptions" class="dropdown-menu p-3 collapse">
             <form id="filterForm" action="<?= base_url('projects/filter') ?>" method="get">
+                <!-- Filter status -->
                 <div class="mb-3">
                     <label for="status" class="form-label">Project Status</label>
                     <select name="status" id="status" class="form-select">
@@ -53,22 +51,21 @@
                         <option value="4">Postponed</option>
                     </select>
                 </div>
+                <!-- Filter category -->
                 <div class="mb-3">
                     <label for="category" class="form-label">Category</label>
                     <select name="category" id="category" class="form-select">
                         <option value="">All Categories</option>
                         <?php foreach ($categories as $cat): ?>
-                            <option value="<?= esc($cat['categoryID']) ?>">
-                                <?= esc($cat['categoryName']) ?>
-                            </option>
+                            <option value="<?= $cat['id'] ?>"><?= $cat['name'] ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
-                <button type="submit" class="btn btn-primary w-100">Apply Filter</button>
             </form>
         </ul>
     </div>
 </div>
+
 <!-- Filter Display (hidden initially) -->
 <div id="activeFilters" class="d-none">
     <span id="statusFilter" class="badge bg-secondary me-2 d-none">

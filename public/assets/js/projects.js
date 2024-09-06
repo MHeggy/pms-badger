@@ -124,24 +124,17 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Display active filters when selected
     function updateFilters() {
-        if (statusSelect.value) {
-            document.getElementById('statusName').textContent = statusSelect.options[statusSelect.selectedIndex].text;
-            statusFilter.classList.remove('d-none');
-        } else {
-            statusFilter.classList.add('d-none');
-        }
-
-        if (categorySelect.value) {
-            document.getElementById('categoryName').textContent = categorySelect.options[categorySelect.selectedIndex].text;
-            categoryFilter.classList.remove('d-none');
-        } else {
-            categoryFilter.classList.add('d-none');
-        }
-
-        // Show or hide the filter component
-        activeFilters.classList.toggle('d-none', !statusSelect.value && !categorySelect.value);
+        // Show the filter if there's a selection, otherwise hide it
+        const statusSelect = document.getElementById('status').value;
+        const categorySelect = document.getElementById('category').value;
+    
+        document.getElementById('statusFilter').classList.toggle('d-none', !statusSelect);
+        document.getElementById('categoryFilter').classList.toggle('d-none', !categorySelect);
+        
+        // Update the filter component's visibility
+        document.getElementById('activeFilters').classList.toggle('d-none', !statusSelect && !categorySelect);
     }
-
+    
     // Initially set filters based on current selection
     updateFilters();
 
@@ -159,6 +152,10 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('filterForm').submit(); // Optionally auto-submit after clearing
     });
 
+    document.getElementById('filterToggle').addEventListener('click', function () {
+        document.getElementById('filterOptions').classList.toggle('collapse');
+    });
+    
     // Update displayed filters when dropdowns change
     statusSelect.addEventListener('change', updateFilters);
     categorySelect.addEventListener('change', updateFilters);
