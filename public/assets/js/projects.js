@@ -1,21 +1,19 @@
 document.addEventListener('DOMContentLoaded', function () {
     const sortAsc = document.getElementById('sortAsc');
     const sortDesc = document.getElementById('sortDesc');
-    const sortOrderSelect = document.getElementById('sortOrder');
 
-    sortOrderSelect.addEventListener('change', function () {
-        const order = this.value;
-        if (order === 'asc') {
-            sortAsc.classList.add('active');
-            sortDesc.classList.remove('active');
-        } else {
-            sortAsc.classList.remove('active');
-            sortDesc.classList.add('active');
-        }
+    // Event listeners for sorting
+    sortAsc.addEventListener('click', function () {
+        sortProjects('asc');
+        toggleSortArrows('asc');
+    });
+    sortDesc.addEventListener('click', function () {
+        sortProjects('desc');
+        toggleSortArrows('desc');
     });
 
     // Initial display based on default sort order
-    const defaultOrder = sortOrderSelect.value;
+    const defaultOrder = 'asc'; // or get from some configuration
     if (defaultOrder === 'asc') {
         sortAsc.classList.add('active');
         sortDesc.classList.remove('active');
@@ -64,8 +62,12 @@ function updateProjectList(projects) {
 
 function sortProjects(order) {
     const projectList = document.getElementById('project_list');
-    const rows = Array.from(projectList.querySelectorAll('tr:not(:first-child)')); // Exclude header row
+    const rows = Array.from(projectList.querySelectorAll('tr')); // Get all rows including header
 
+    // Ensure that header row remains at the top
+    const headerRow = rows.shift(); // Remove header row
+
+    // Sort rows based on project number
     const sortedRows = rows.sort((a, b) => {
         // Split project number into year and number parts
         const aParts = a.cells[0].textContent.trim().split('-');
@@ -85,8 +87,9 @@ function sortProjects(order) {
         }
     });
 
-    // Clear and re-append sorted rows
+    // Reinsert header row and append sorted rows
     projectList.innerHTML = ''; // Clear existing rows
+    projectList.appendChild(headerRow); // Add header row back
     sortedRows.forEach(row => {
         projectList.appendChild(row);
     });
@@ -97,10 +100,10 @@ function toggleSortArrows(order) {
     const sortDesc = document.getElementById('sortDesc');
 
     if (order === 'asc') {
-        sortAsc.style.display = 'inline';
-        sortDesc.style.display = 'none';
+        sortAsc.classList.add('active');
+        sortDesc.classList.remove('active');
     } else {
-        sortAsc.style.display = 'none';
-        sortDesc.style.display = 'inline';
+        sortAsc.classList.remove('active');
+        sortDesc.classList.add('active');
     }
 }

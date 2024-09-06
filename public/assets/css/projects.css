@@ -62,9 +62,10 @@ body {
 .sort-arrow .bi {
     font-size: 1.2rem;
     margin: 0 5px;
-    display: none; /* Hide arrows initially */
+    color: gray; /* Default color for inactive arrows */
 }
 
 .sort-arrow .bi.active {
-    display: inline; /* Show active arrow */
+    font-weight: bold; /* Bold for active arrow */
+    color: black; /* Color for active arrow */
 }
