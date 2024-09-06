@@ -65,6 +65,9 @@ class ProjectsController extends BaseController {
         try {
             $searchTerm = $this->request->getGet('search');
 
+            $userID = auth()->id();
+            $user = auth()->user();
+
             // Fetch data from the model.
             $projects = $this->projectModel->searchProjects($searchTerm);
 
@@ -76,7 +79,8 @@ class ProjectsController extends BaseController {
             // Pass the data to the view.
             return view('PMS/projects', [
                 'projects' => $projects,
-                'searchTerm' => $searchTerm
+                'searchTerm' => $searchTerm,
+                'user1' => $user
             ]);
         } catch (\Exception $e) {
             log_message('error', 'Error in search: ' . $e->getMessage());
