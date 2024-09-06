@@ -18,22 +18,6 @@
 <?php endif; ?>
 
 <script src="<?= base_url('/assets/js/projects.js') ?>"></script>
-<!-- Sorting section -->
-<div class="container" id="sort-container" style="margin-top: 20px;">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card sort-card">
-                <div class="card-body">
-                    <h5 class="card-title">Sort Projects</h5>
-                    <select id="sortOrder" class="form-select">
-                        <option value="asc">Ascending</option>
-                        <option value="desc">Descending</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 <div class="container" id="filter-container" style="margin-top: 100px;">
     <div class="row justify-content-center">
@@ -78,7 +62,13 @@
         <!-- Table headers -->
         <thead>
         <tr>
-            <th>Project Number</th>
+            <th>
+                Project Number
+                <span id="sortArrow" class="sort-arrow">
+                    <i class="bi bi-arrow-up" id="sortAsc"></i>
+                    <i class="bi bi-arrow-down" id="sortDesc"></i>
+                </span>
+            </th>
             <th>Project Name</th>
             <th>Project Status</th>
             <th>Category</th>

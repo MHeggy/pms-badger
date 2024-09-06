@@ -3,22 +3,17 @@ document.addEventListener('DOMContentLoaded', function () {
     initializeEventListeners();
 });
 
-/*function initializeEventListeners() {
-    // Event listener for search form
-    document.getElementById('searchForm').addEventListener('submit', function (e) {
-        e.preventDefault();
-        const searchTerm = document.getElementById('search').value;
-        fetchProjects(searchTerm);
+function initializeEventListeners() {
+    // Event listener for sorting arrows
+    document.getElementById('sortAsc').addEventListener('click', function () {
+        sortProjects('asc');
+        toggleSortArrows('asc');
     });
-
-    // Event listener for project row click
-    document.querySelectorAll('#project_list tr').forEach(row => {
-        row.addEventListener('click', function () {
-            const projectId = this.dataset.projectId;
-            fetchProjectDetails(projectId);
-        });
+    document.getElementById('sortDesc').addEventListener('click', function () {
+        sortProjects('desc');
+        toggleSortArrows('desc');
     });
-} */
+}
 
 function updateProjectList(projects) {
     const projectList = document.getElementById('project_list');
@@ -45,8 +40,6 @@ function updateProjectList(projects) {
     });
 }
 
-
-// Function to sort projects based on project number
 function sortProjects(order) {
     const projectList = document.getElementById('project_list');
     const rows = Array.from(projectList.querySelectorAll('tr:not(:first-child)')); // Exclude header row
@@ -77,8 +70,15 @@ function sortProjects(order) {
     });
 }
 
-// Clear and re-append sorted rows
-document.querySelector('#project_list').innerHTML = '';
-sortedRows.forEach(row => {
-    document.querySelector('#project_list').appendChild(row);
-});
+function toggleSortArrows(order) {
+    const sortAsc = document.getElementById('sortAsc');
+    const sortDesc = document.getElementById('sortDesc');
+
+    if (order === 'asc') {
+        sortAsc.style.display = 'inline';
+        sortDesc.style.display = 'none';
+    } else {
+        sortAsc.style.display = 'none';
+        sortDesc.style.display = 'inline';
+    }
+}
