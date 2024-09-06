@@ -9,6 +9,14 @@
     </header>
 </div>
 
+<!-- Success Message Section -->
+<?php if (session()->getFlashdata('success')): ?>
+    <div id="success-message" class="alert alert-success alert-dismissible fade show" role="alert">
+        <?= session()->getFlashdata('success') ?>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+<?php endif; ?>
+
 <script src="<?= base_url('/assets/js/projects.js') ?>"></script>
 
 <div class="container" id="filter-container" style="margin-top: 100px;">
