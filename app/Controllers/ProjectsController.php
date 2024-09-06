@@ -86,30 +86,27 @@ class ProjectsController extends BaseController {
 
     // function to filter projects based on status.
     public function filter() {
+        // Get the status filter from the request (GET parameter)
+        $status = $this->request->getGet('status');
+    
         try {
-            // Get the status filter from the request
-            $status = $this->request->getGet('status');
-            
-            // Filter projects by status
-            $projects = $this->projectModel->filterProjects(['status' => $status]);
+            // Call the model method to filter projects by status
+            $projects = $this->projectModel->filterProjectsByStatus($status);
     
-            // Fetch assigned users for each project
-            foreach ($projects as &$project) {
-                $project['assignedUsers'] = $this->projectModel->getAssignedUsers($project['projectID']);
-            }
-    
-            // Pass filtered projects to the view
+            // Pass the filtered projects and selected status to the view
             $data = [
                 'projects' => $projects,
                 'selectedStatus' => $status
             ];
     
+            // Load the view to display the filtered projects
             return view('PMS/projects', $data);
         } catch (\Exception $e) {
-            log_message('error', 'Error in filter: ' . $e->getMessage());
+            // Log any exceptions for debugging purposes
+            log_message('error', 'Error in filtering projects: ' . $e->getMessage());
             return $this->response->setStatusCode(500)->setJSON(['error' => 'Internal server error']);
         }
-    }
+    }    
     
     public function projectDetails($projectID) {
         try {

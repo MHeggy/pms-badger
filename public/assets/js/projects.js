@@ -76,7 +76,6 @@ function sortProjects(order) {
     });
 }
 
-
 // Clear and re-append sorted rows
 document.querySelector('#project_list').innerHTML = '';
 sortedRows.forEach(row => {
