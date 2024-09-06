@@ -137,20 +137,6 @@
             }
         });
     });
-    // console log statement for categories, specifically selected categories.
-    console.log('Selected Categories:', <?= json_encode(array_column($selectedCategories, 'categoryID')) ?>);
-
-    document.addEventListener('DOMContentLoaded', function() {
-    var selectedCategories = <?= json_encode(array_column($selectedCategories, 'categoryID')) ?>;
-
-    var categorySelect = document.getElementById('categories');
-    for (var i = 0; i < categorySelect.options.length; i++) {
-        if (selectedCategories.includes(parseInt(categorySelect.options[i].value))) {
-            categorySelect.options[i].selected = true;
-        }
-    }
-});
-
 </script>
 
 <script src="<?php echo base_url('/assets/js/main.js')?>"></script>
