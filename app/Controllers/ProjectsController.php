@@ -34,32 +34,36 @@ class ProjectsController extends BaseController {
         try {
             // Fetch projects from the model
             $projects = $this->projectModel->getProjects();
-    
+        
             // Fetch assigned users for each project
             foreach ($projects as &$project) {
                 $project['assignedUsers'] = $this->projectModel->getAssignedUsers($project['projectID']);
             }
-    
+        
             $userID = auth()->id();
             $user = auth()->user();
-
+    
             if (!$userID) {
                 return redirect()->to('/login')->with('error', 'You must login to access this page.');
             }
+        
+            // Get selected status from the request if available
+            $selectedStatus = $this->request->getGet('status') ?? '';
     
             // Pass projects and data to the view
             $data = [
                 "projects" => $projects,
                 'user1' => $user,
+                'selectedStatus' => $selectedStatus, // Add this line
             ];
-    
+        
             // Load the projects view and pass the data
             return view('PMS/projects', $data);
         } catch (\Exception $e) {
             log_message('error', 'Error in index: ' . $e->getMessage());
             return $this->response->setStatusCode(500)->setJSON(['error' => 'Internal server error']);
         }
-    }
+    }    
     
     public function search() {
         try {
