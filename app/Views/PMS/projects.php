@@ -70,7 +70,7 @@
         <?php if (!empty($projects)): ?>
             <?php foreach ($projects as $project): ?>
                 <!-- Table rows -->
-                <tr data-project-id="<?= $project['projectID'] ?>">
+                <tr data-project-id="<?= esc($project['projectID']) ?>">
                     <td>
                         <a href="<?= base_url('projects/details/' . $project['projectID']) ?>">
                             <?= esc($project['projectNumber']) ?>
@@ -86,9 +86,13 @@
                     <td><?= esc($project['dateAccepted']) ?></td>
                     <td>
                         <?php if (!empty($project['assignedUsers'])): ?>
+                            <?php
+                                // Convert comma-separated usernames into an array
+                                $users = explode(',', $project['assignedUsers']);
+                            ?>
                             <ul>
-                                <?php foreach ($project['assignedUsers'] as $user): ?>
-                                    <li><?= esc($user['username']) ?></li>
+                                <?php foreach ($users as $user): ?>
+                                    <li><?= esc(trim($user)) ?></li>
                                 <?php endforeach; ?>
                             </ul>
                         <?php else: ?>
