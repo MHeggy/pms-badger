@@ -142,7 +142,7 @@ class ProjectModel extends Model {
                        address.street, 
                        address.city, 
                        address.zipCode, 
-                       address.stateID,   -- Added stateID to select clause
+                       address.stateID,
                        states.stateName AS stateName, 
                        countries.countryName AS countryName');
         $this->join('projectstatuses', 'projectstatuses.statusID = projects.statusID');
