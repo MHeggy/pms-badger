@@ -87,18 +87,19 @@
                     <td>
                         <?php if (!empty($project['assignedUsers'])): ?>
                             <?php
-                                // Convert comma-separated usernames into an array
-                                $users = explode(',', $project['assignedUsers']);
+                                // Check if 'assignedUsers' is a string before exploding it
+                                $users = is_string($project['assignedUsers']) ? explode(',', $project['assignedUsers']) : [];
                             ?>
-                            <ul>
-                                <?php foreach ($users as $user): ?>
-                                    <li><?= esc(trim($user['username'])) ?></li>
-                                <?php endforeach; ?>
-                            </ul>
-                        <?php else: ?>
-                            No users assigned.
-                        <?php endif; ?>
+                        <ul>
+                            <?php foreach ($users as $user): ?>
+                                <li><?= esc(trim($user)) ?></li>
+                            <?php endforeach; ?>
+                        </ul>
+                    <?php else: ?>
+                        No users assigned.
+                    <?php endif; ?>
                     </td>
+
                     <?php if ($user1->inGroup('superadmin')): ?>
                         <td>
                             <a href="<?= base_url('projects/edit/' . $project['projectID']) ?>" class="btn btn-warning btn-sm">Edit</a>
