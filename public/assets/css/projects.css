@@ -3,27 +3,31 @@
 /* Header search and filter styling */
 .search-filter-container {
     margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
 }
 
 .search-filter-container form {
     display: flex;
     align-items: center;
     gap: 10px;
-    flex: 1; /* Allow the form to take up available space */
 }
 
-.search-filter-container .form-control {
-    max-width: 300px; /* Shorten the search bar */
+.search-filter-row {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
 }
 
-.filter-container {
+/* Style adjustments for the filter button and search bar alignment */
+#searchForm {
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
-.filter-container .btn-secondary {
-    border-radius: 0.25rem;
+#filterToggle {
+    margin-left: 10px;
 }
 
 .filter-options {

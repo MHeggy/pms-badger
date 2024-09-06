@@ -20,42 +20,45 @@
 <div class="container" id="project_table" style="margin-top: 20px;">
     <!-- Search and Filter Container -->
     <div class="search-filter-container mb-4">
-        <form id="searchForm" action="<?= base_url('projects/search') ?>" method="get">
+        <form id="searchForm" action="<?= base_url('projects/search') ?>" method="get" class="d-flex align-items-center">
             <input type="text" id="search" name="search" class="form-control me-2" placeholder="Search Projects by name" value="<?= esc($searchTerm ?? '') ?>">
             <button type="submit" class="btn btn-primary">
                 <i class="bi bi-search"></i> Search
             </button>
-        </form>
-        <div class="filter-container">
-            <button id="filterToggle" class="btn btn-secondary">
+            <button id="filterToggle" class="btn btn-secondary ms-2">
                 <i class="bi bi-filter"></i> Filter By
             </button>
-            <div id="filterOptions" class="filter-options collapse">
-                <form id="filterForm" action="<?= base_url('projects/filter') ?>" method="get" class="d-flex flex-column mt-2">
-                    <select name="status" id="status" class="form-select mb-2">
-                        <option value="">All Projects</option>
-                        <option value="1">In Progress</option>
-                        <option value="2">Completed</option>
-                        <option value="3">Cancelled</option>
-                        <option value="4">Postponed</option>
-                    </select>
-                    <button type="submit" class="btn btn-primary">Apply Filter</button>
-                </form>
-            </div>
+        </form>
+        <div id="filterOptions" class="filter-options collapse mt-2">
+            <form id="filterForm" action="<?= base_url('projects/filter') ?>" method="get" class="d-flex flex-column">
+                <select name="status" id="status" class="form-select mb-2">
+                    <option value="">All Projects</option>
+                    <option value="1">In Progress</option>
+                    <option value="2">Completed</option>
+                    <option value="3">Cancelled</option>
+                    <option value="4">Postponed</option>
+                </select>
+                <button type="submit" class="btn btn-primary">Apply Filter</button>
+            </form>
         </div>
     </div>
 
     <table class="table table-striped">
-        <!-- Table headers -->
+        <!-- Extra row for search and filter -->
         <thead>
             <tr>
-            <th>
-                Project Number
-                <span id="sortArrow" class="sort-arrow">
-                    <i class="bi bi-arrow-up" id="sortAsc"></i>
-                    <i class="bi bi-arrow-down" id="sortDesc"></i>
-                </span>
-            </th>
+                <th colspan="7" class="search-filter-row">
+                    <!-- Empty cell to maintain table structure -->
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    Project Number
+                    <span id="sortArrow" class="sort-arrow">
+                        <i class="bi bi-arrow-up" id="sortAsc"></i>
+                        <i class="bi bi-arrow-down" id="sortDesc"></i>
+                    </span>
+                </th>
                 <th>Project Name</th>
                 <th>Project Status</th>
                 <th>Category</th>
@@ -114,7 +117,6 @@
         </tbody>
     </table>
 </div>
-
 
 <script src="<?php echo base_url('/assets/js/main.js')?>"></script>
 <script>
