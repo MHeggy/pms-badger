@@ -81,3 +81,11 @@
     align-items: center;
     gap: 5px;
 }
+
+.dropdown-menu {
+    min-width: 300px; /* Adjust as needed */
+}
+
+.dropdown-menu .form-select {
+    margin-bottom: 1rem;
+}

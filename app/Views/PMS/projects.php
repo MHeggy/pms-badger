@@ -19,29 +19,43 @@
 <br><br><br>
 <div class="container" id="project_table" style="margin-top: 20px;">
     <!-- Search and Filter Container -->
-    <div class="search-filter-container mb-4">
-        <form id="searchForm" action="<?= base_url('projects/search') ?>" method="get" class="d-flex align-items-center">
-            <input type="text" id="search" name="search" class="form-control me-2" placeholder="Search Projects by name" value="<?= esc($searchTerm ?? '') ?>">
-            <button type="submit" class="btn btn-primary">
-                <i class="bi bi-search"></i> Search
-            </button>
-            <button id="filterToggle" class="btn btn-secondary">
+<div class="search-filter-container mb-4">
+    <form id="searchForm" action="<?= base_url('projects/search') ?>" method="get" class="d-flex align-items-center">
+        <input type="text" id="search" name="search" class="form-control me-2" placeholder="Search Projects by name" value="<?= esc($searchTerm ?? '') ?>">
+        <button type="submit" class="btn btn-primary">
+            <i class="bi bi-search"></i> Search
+        </button>
+        <div class="dropdown">
+            <button id="filterToggle" class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="bi bi-filter"></i> Filter By
             </button>
-        </form>
-        <div id="filterOptions" class="filter-options collapse mt-2">
-            <form id="filterForm" action="<?= base_url('projects/filter') ?>" method="get" class="d-flex flex-column">
-                <select name="status" id="status" class="form-select mb-2">
-                    <option value="">All Projects</option>
-                    <option value="1">In Progress</option>
-                    <option value="2">Completed</option>
-                    <option value="3">Cancelled</option>
-                    <option value="4">Postponed</option>
-                </select>
-                <button type="submit" class="btn btn-primary">Apply Filter</button>
-            </form>
+            <ul id="filterOptions" class="dropdown-menu">
+                <li>
+                    <form id="filterForm" action="<?= base_url('projects/filter') ?>" method="get" class="p-3">
+                        <div class="mb-3">
+                            <label for="status" class="form-label">Project Status</label>
+                            <select name="status" id="status" class="form-select">
+                                <option value="">All Projects</option>
+                                <option value="1">In Progress</option>
+                                <option value="2">Completed</option>
+                                <option value="3">Cancelled</option>
+                                <option value="4">Postponed</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="category" class="form-label">Category</label>
+                            <select name="category" id="category" class="form-select">
+                                <option value="">All Categories</option>
+                                <!-- Add options dynamically here -->
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Apply Filter</button>
+                    </form>
+                </li>
+            </ul>
         </div>
-    </div>
+    </form>
+</div>
 
     <table class="table table-striped">
         <!-- Extra row for search and filter -->
