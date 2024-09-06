@@ -343,10 +343,8 @@ class ProjectsController extends BaseController {
         $projectModel = new ProjectModel();
         $categoryModel = new CategoryModel();
         $taskModel = new TaskModel();
-    
-        $states = $this->stateModel->findAll();
-        $countries = $this->countryModel->findAll();
-
+        $stateModel = new StateModel();
+        $countryModel = new CountryModel();
 
         // Handle the case where projectID might not be provided
         if ($projectID === null) {
@@ -364,6 +362,8 @@ class ProjectsController extends BaseController {
         // Fetch all available categories and tasks
         $allCategories = $categoryModel->findAll(); // Fetch all categories
         $allTasks = $taskModel->findAll(); // Fetch all tasks
+        $states = $stateModel->findAll(); // Fetch all states
+        $countries = $countryModel->findAll(); // Fetch all countries
     
         // Prepare data to pass to the view
         $data = [
