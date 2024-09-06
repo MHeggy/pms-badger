@@ -18,16 +18,26 @@ class ProjectModel extends Model {
     }
 
     public function getProjects() {
-        $query = $this->db->query('
-            SELECT p.*, ps.statusName, GROUP_CONCAT(pc.categoryName) AS categoryNames
-            FROM projects p
-            JOIN projectstatuses ps ON p.statusID = ps.statusID
-            LEFT JOIN project_categories pcj ON p.projectID = pcj.projectID
-            LEFT JOIN pcategories pc ON pcj.categoryID = pc.categoryID
-            GROUP BY p.projectID, ps.statusName
-        ');
-        return $query->getResultArray();
+        $builder = $this->db->table('projects');
+        $builder->select('
+            projects.*, 
+            projectstatuses.statusName, 
+            GROUP_CONCAT(DISTINCT pcategories.categoryName ORDER BY pcategories.categoryName ASC) AS categoryNames,
+            GROUP_CONCAT(DISTINCT users.username ORDER BY users.username ASC) AS assignedUsers
+        ')
+        ->join('projectstatuses', 'projects.statusID = projectstatuses.statusID', 'left')
+        ->join('project_categories', 'projects.projectID = project_categories.projectID', 'left')
+        ->join('pcategories', 'project_categories.categoryID = pcategories.categoryID', 'left')
+        ->join('user_project', 'projects.projectID = user_project.project_id', 'left')
+        ->join('users', 'user_project.user_id = users.id', 'left');
+        
+        // Grouping by projectID and statusName to ensure unique projects
+        $builder->groupBy('projects.projectID, projectstatuses.statusName');
+        
+        // Execute and return the query result
+        return $builder->get()->getResultArray();
     }
+    
     
     public function searchProjects($searchTerm) {
         $builder = $this->db->table('projects');

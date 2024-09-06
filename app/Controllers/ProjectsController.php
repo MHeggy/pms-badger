@@ -90,8 +90,15 @@ class ProjectsController extends BaseController {
         $status = $this->request->getGet('status');
     
         try {
-            // Call the model method to filter projects by status
-            $projects = $this->projectModel->filterProjectsByStatus($status);
+            // Call the model method to retrieve all projects
+            $projects = $this->projectModel->getProjects();
+    
+            // Filter the projects by status if a status is selected
+            if (!empty($status)) {
+                $projects = array_filter($projects, function($project) use ($status) {
+                    return isset($project['statusID']) && $project['statusID'] == $status;
+                });
+            }
     
             // Pass the filtered projects and selected status to the view
             $data = [
@@ -106,7 +113,7 @@ class ProjectsController extends BaseController {
             log_message('error', 'Error in filtering projects: ' . $e->getMessage());
             return $this->response->setStatusCode(500)->setJSON(['error' => 'Internal server error']);
         }
-    }    
+    }      
     
     public function projectDetails($projectID) {
         try {
