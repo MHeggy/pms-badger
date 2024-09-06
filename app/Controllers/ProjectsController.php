@@ -30,37 +30,31 @@ class ProjectsController extends BaseController {
         $this->updatesModel = new UpdatesModel();
     }
 
-    public function index() {
+    public function index()
+    {
         try {
-            // Fetch projects from the model
-            $projects = $this->projectModel->getProjects();
-        
-            // Fetch assigned users for each project
-            foreach ($projects as &$project) {
-                $project['assignedUsers'] = $this->projectModel->getAssignedUsers($project['projectID']);
-            }
-        
             $userID = auth()->id();
             $user = auth()->user();
-    
+
             if (!$userID) {
                 return redirect()->to('/login')->with('error', 'You must login to access this page.');
             }
-        
-            // Get selected status from the request if available
-            $selectedStatus = $this->request->getGet('status') ?? '';
+
+            // Fetch all projects and categories
+            $projects = $this->projectModel->getFilteredProjects();
+            foreach ($projects as &$project) {
+                $project['assignedUsers'] = $this->projectModel->getAssignedUsers($project['projectID']);
+            }
+
             $categories = $this->categoryModel->findAll();
-            $category = $this->request->getGet('category');
-    
-            // Pass projects and data to the view
+
+            // Pass data to the view
             $data = [
                 "projects" => $projects,
                 'user1' => $user,
-                'selectedStatus' => $selectedStatus,
-                'categories' => $categories,
-                'selectedCategory' => $category
+                'categories' => $categories
             ];
-        
+
             // Load the projects view and pass the data
             return view('PMS/projects', $data);
         } catch (\Exception $e) {
@@ -97,9 +91,15 @@ class ProjectsController extends BaseController {
     }
 
     // function to filter projects based on status.
-    public function filter() {
-        $status = $this->request->getGet('status');
-        $category = $this->request->getGet('category');
+    public function filter()
+    {
+        $filters = [
+            'status' => $this->request->getGet('status'),
+            'category' => $this->request->getGet('category'),
+            'assignedUser' => $this->request->getGet('assignedUser'),
+            'startDate' => $this->request->getGet('startDate'),
+            'endDate' => $this->request->getGet('endDate')
+        ];
 
         try {
             $userID = auth()->id();
@@ -109,37 +109,27 @@ class ProjectsController extends BaseController {
                 return redirect()->to('/login')->with('error', 'You must login to access this page.');
             }
 
-            $projects = $this->projectModel->getProjects();
+            // Fetch filtered projects
+            $projects = $this->projectModel->filterProjects($filters);
 
-            // Filter the projects by status and category
-        if (!empty($status)) {
-            $projects = array_filter($projects, function($project) use ($status) {
-                return isset($project['statusID']) && $project['statusID'] == $status;
-            });
-        }
+            // Optionally, get the list of categories if needed for the view
+            $categories = $this->categoryModel->findAll();
 
-        if (!empty($category)) {
-            $projects = array_filter($projects, function($project) use ($category) {
-                return in_array($category, $project['categoryIDs']);
-            });
-        }
-        
-        // Pass the filtered projects, selected status, and categories to the view
-        $data = [
-            'projects' => $projects,
-            'selectedStatus' => $status,
-            'selectedCategory' => $category,
-            'categories' => $this->categoryModel->findAll(), // Ensure you have a method to get categories
-            'user1' => $user
-        ];
+            // Pass filtered projects and necessary data to the view
+            $data = [
+                'projects' => $projects,
+                'categories' => $categories,
+                'user1' => $user
+            ];
 
-        // Load the view to display the filtered projects
-        return view('PMS/projects', $data);
+            return view('PMS/projects', $data);
         } catch (\Exception $e) {
-            echo 'Error rendering the view: ' . $e->getMessage();
+            log_message('error', 'Error in filter: ' . $e->getMessage());
+            return $this->response->setStatusCode(500)->setJSON(['error' => 'Internal server error']);
         }
-    }      
-    
+    }
+
+      
     public function projectDetails($projectID) {
         try {
             $userID = auth()->id();

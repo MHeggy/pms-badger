@@ -135,7 +135,6 @@ class ProjectModel extends Model {
         return $builder->get()->getResultArray();
     }
     
-
     public function findProjectDetails($projectId) {
         $this->select('projects.*, 
                        projectstatuses.statusName, 
