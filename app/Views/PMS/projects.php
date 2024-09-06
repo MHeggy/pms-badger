@@ -25,7 +25,7 @@
             <button type="submit" class="btn btn-primary">
                 <i class="bi bi-search"></i> Search
             </button>
-            <button id="filterToggle" class="btn btn-secondary ms-2">
+            <button id="filterToggle" class="btn btn-secondary">
                 <i class="bi bi-filter"></i> Filter By
             </button>
         </form>

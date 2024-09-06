@@ -13,20 +13,17 @@
     gap: 10px;
 }
 
-.search-filter-row {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-}
-
-/* Style adjustments for the filter button and search bar alignment */
 #searchForm {
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
-#filterToggle {
+#search {
+    flex: 1;
+}
+
+#filterToggle, .btn-primary {
     margin-left: 10px;
 }
 
@@ -44,6 +41,8 @@
 
 .btn-primary, .btn-secondary {
     border-radius: 0.25rem;
+    padding: 0.5rem 1rem; /* Adjust padding for button size */
+    font-size: 0.875rem; /* Adjust font size for button size */
 }
 
 /* Style adjustments for the table header */
