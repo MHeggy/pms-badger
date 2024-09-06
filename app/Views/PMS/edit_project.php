@@ -85,14 +85,15 @@
         <!-- Tasks Section -->
         <h4>Tasks</h4>
         <div class="mb-3">
-            <label for="tasks" class="form-label">Tasks</label>
-            <ul class="list-group" id="taskList">
+            <label for="tasks" class="form-label">Select Tasks</label>
+            <select multiple class="form-select" id="tasks" name="tasks[]">
                 <?php foreach ($allTasks as $task): ?>
-                    <li class="list-group-item" data-task-id="<?= esc($task['taskID']) ?>">
+                    <option value="<?= esc($task['taskID']) ?>" 
+                        <?= in_array($task['taskID'], array_column($selectedTasks, 'taskID')) ? 'selected' : '' ?>>
                         <?= esc($task['taskName']) ?>
-                    </li>
+                    </option>
                 <?php endforeach; ?>
-            </ul>
+            </select>
         </div>
 
         <!-- Update Button -->
