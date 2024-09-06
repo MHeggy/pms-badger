@@ -125,14 +125,14 @@ document.addEventListener('DOMContentLoaded', function() {
     // Display active filters when selected
     function updateFilters() {
         // Show the filter if there's a selection, otherwise hide it
-        const statusSelect = document.getElementById('status').value;
-        const categorySelect = document.getElementById('category').value;
+        const statusValue = statusSelect.value;
+        const categoryValue = categorySelect.value;
     
-        document.getElementById('statusFilter').classList.toggle('d-none', !statusSelect);
-        document.getElementById('categoryFilter').classList.toggle('d-none', !categorySelect);
+        statusFilter.classList.toggle('d-none', !statusValue);
+        categoryFilter.classList.toggle('d-none', !categoryValue);
         
         // Update the filter component's visibility
-        document.getElementById('activeFilters').classList.toggle('d-none', !statusSelect && !categorySelect);
+        activeFilters.classList.toggle('d-none', !statusValue && !categoryValue);
     }
     
     // Initially set filters based on current selection
