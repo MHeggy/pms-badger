@@ -109,9 +109,7 @@ class ProjectsController extends BaseController {
             // Load the view to display the filtered projects
             return view('PMS/projects', $data);
         } catch (\Exception $e) {
-            // Log any exceptions for debugging purposes
-            log_message('error', 'Error in filtering projects: ' . $e->getMessage());
-            return $this->response->setStatusCode(500)->setJSON(['error' => 'Internal server error']);
+            echo 'Error rendering the view: ' . $e->getMessage();
         }
     }      
     
