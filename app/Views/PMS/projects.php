@@ -16,7 +16,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 <?php endif; ?>
-
+<br><br><br>
 <div class="container" id="project_table" style="margin-top: 20px;">
     <!-- Search and Filter Container -->
     <div class="search-filter-container mb-4">
