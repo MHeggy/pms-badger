@@ -6,6 +6,6 @@ use CodeIgniter\Model;
 
 class StateModel extends Model {
     protected $table = 'states';
-    protected $primaryKey = 'id';
-    protected $allowedFields = ['name'];
+    protected $primaryKey = 'stateID';
+    protected $allowedFields = ['stateName'];
 }

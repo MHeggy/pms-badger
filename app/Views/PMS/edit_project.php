@@ -60,7 +60,7 @@
             <label for="stateID" class="form-label">State</label>
             <select class="form-select" id="stateID" name="stateID" required>
                 <?php foreach ($states as $state): ?>
-                    <option value="<?= esc($state['stateID']) ?>" <?= $project['stateID'] == $state['stateID'] ? 'selected' : '' ?>>
+                    <option value="<?= esc($state['stateID']) ?>" <?= $state['stateID'] == $project['stateID'] ? 'selected' : '' ?>>
                         <?= esc($state['stateName']) ?>
                     </option>
                 <?php endforeach; ?>
@@ -74,12 +74,12 @@
             <label for="countryID" class="form-label">Country</label>
             <select class="form-select" id="countryID" name="countryID" required>
                 <?php foreach ($countries as $country): ?>
-                    <option value="<?= esc($country['countryID']) ?>" <?= $project['countryID'] == $country['countryID'] ? 'selected' : '' ?>>
+                    <option value="<?= esc($country['countryID']) ?>" <?= $country['countryID'] == $project['countryID'] ? 'selected' : '' ?>>
                         <?= esc($country['countryName']) ?>
                     </option>
                 <?php endforeach; ?>
             </select>
-        </div>>
+        </div>
         
         <!-- Categories Section -->
         <h4>Categories</h4>
