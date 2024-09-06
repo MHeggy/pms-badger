@@ -70,7 +70,8 @@ function sortProjects(order) {
         }
     });
 
-    // Clear and re-append sorted rows (excluding header row)
+    // Clear and re-append sorted rows
+    projectList.innerHTML = ''; // Clear existing rows
     sortedRows.forEach(row => {
         projectList.appendChild(row);
     });
