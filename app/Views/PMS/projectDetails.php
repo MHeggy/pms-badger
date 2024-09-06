@@ -87,7 +87,7 @@
                 <th>Categories</th>
                 <td>
                     <?php if (!empty($project['categories'])): ?>
-                        <?= implode(', ', $project['categories']) ?>
+                        <?= implode(', ', array_column($project['categories'], 'categoryName')) ?>
                     <?php else: ?>
                         None
                     <?php endif; ?>
@@ -97,7 +97,7 @@
                 <th>Tasks</th>
                 <td>
                     <?php if (!empty($project['tasks'])): ?>
-                        <?= implode(', ', $project['tasks']) ?>
+                        <?= implode(', ', array_column($project['tasks'], 'taskName')) ?>
                     <?php else: ?>
                         None
                     <?php endif; ?>
