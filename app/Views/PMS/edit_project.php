@@ -15,6 +15,8 @@
 
 <div class="container my-4">
     <h2 class="mb-4">Edit Project</h2>
+    <!-- Go Back Button -->
+    <button class="btn btn-secondary" onclick="window.history.back()">Go Back</button>
     <form action="<?= base_url('projects/update') ?>" method="post">
         <input type="hidden" name="projectID" value="<?= esc($project['projectID']) ?>">
 
