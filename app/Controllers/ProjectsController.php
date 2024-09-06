@@ -121,7 +121,7 @@ class ProjectsController extends BaseController {
             'projects' => $projects,
             'selectedStatus' => $status,
             'selectedCategory' => $category,
-            'categories' => $this->projectModel->getCategories(), // Ensure you have a method to get categories
+            'categories' => $this->categoryModel->findAll(), // Ensure you have a method to get categories
             'user1' => $user
         ];
 
