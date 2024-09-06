@@ -36,10 +36,10 @@
                             <label for="status" class="form-label">Project Status</label>
                             <select name="status" id="status" class="form-select">
                                 <option value="">All Projects</option>
-                                <option value="1" <?= ($selectedStatus == '1') ? 'selected' : '' ?>>In Progress</option>
-                                <option value="2" <?= ($selectedStatus == '2') ? 'selected' : '' ?>>Completed</option>
-                                <option value="3" <?= ($selectedStatus == '3') ? 'selected' : '' ?>>Cancelled</option>
-                                <option value="4" <?= ($selectedStatus == '4') ? 'selected' : '' ?>>Postponed</option>
+                                <option value="1">In Progress</option>
+                                <option value="2">Completed</option>
+                                <option value="3">Cancelled</option>
+                                <option value="4">Postponed</option>
                             </select>
                         </div>
                         <div class="mb-3">
@@ -47,7 +47,7 @@
                             <select name="category" id="category" class="form-select">
                                 <option value="">All Categories</option>
                                 <?php foreach ($categories as $cat): ?>
-                                    <option value="<?= esc($cat['categoryID']) ?>" <?= ($selectedCategory == $cat['categoryID']) ? 'selected' : '' ?>>
+                                    <option value="<?= esc($cat['categoryID']) ?>">
                                         <?= esc($cat['categoryName']) ?>
                                     </option>
                                 <?php endforeach; ?>
