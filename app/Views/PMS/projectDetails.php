@@ -45,7 +45,7 @@
             <?= esc($error) ?>
         </div>
     <?php endif; ?>
-    
+
     <!-- Button Row -->
     <div class="d-flex justify-content-between mb-4">
         <!-- Go Back Button -->
@@ -111,36 +111,36 @@
         <h2>Project Updates</h2>
         <?php if (isset($updates) && !empty($updates)): ?>
             <table class="table table-striped mt-4">
-    <thead class="table-dark">
-        <tr>
-            <th>User</th>
-            <th>Update</th>
-            <th>Date & Time</th>
-            <th>Actions</th> <!-- Added Actions column -->
-        </tr>
-    </thead>
-    <tbody>
-        <?php foreach ($updates as $update): ?>
-            <tr>
-                <td><?= esc($update['username']) ?></td>
-                <td><?= esc($update['updateText']) ?></td>
-                <td><?= esc(date('n/j/Y \@ g:ia', strtotime($update['timestamp']))) ?></td>
-                <td>
-                    <?php if ($update['userID'] === auth()->id() || auth()->user()->inGroup('superadmin')): ?>
-                        <!-- Edit Button -->
-                        <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editUpdateModal-<?= $update['updateID'] ?>">
-                            Edit
-                        </button>
-                        <!-- Delete Button -->
-                        <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteUpdateModal-<?= $update['updateID'] ?>">
-                            Delete
-                        </button>
-                    <?php endif; ?>
-                </td>
-            </tr>
-        <?php endforeach; ?>
-    </tbody>
-</table>
+                <thead class="table-dark">
+                    <tr>
+                        <th>User</th>
+                        <th>Update</th>
+                        <th>Date & Time</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($updates as $update): ?>
+                        <tr>
+                            <td><?= esc($update['username']) ?></td>
+                            <td><?= esc($update['updateText']) ?></td>
+                            <td><?= esc(date('n/j/Y \@ g:ia', strtotime($update['timestamp']))) ?></td>
+                            <td>
+                                <?php if ($update['userID'] === auth()->id() || auth()->user()->inGroup('superadmin')): ?>
+                                    <!-- Edit Button -->
+                                    <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editUpdateModal-<?= $update['updateID'] ?>">
+                                        Edit
+                                    </button>
+                                    <!-- Delete Button -->
+                                    <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteUpdateModal-<?= $update['updateID'] ?>">
+                                        Delete
+                                    </button>
+                                <?php endif; ?>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
         <?php else: ?>
             <div class="alert alert-info mt-4" role="alert">
                 No updates available for this project.
@@ -184,6 +184,7 @@
                 </div>
                 <div class="modal-body">
                     <form action="<?= site_url('projects/add_update') ?>" method="post">
+                        <?= csrf_field() ?>
                         <input type="hidden" name="projectID" value="<?= esc($project['projectID']) ?>">
                         <div class="mb-3">
                             <label for="updateText" class="form-label">Type Here</label>
@@ -211,8 +212,10 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <form action="<?= base_url('projects/delete_update/' . $update['updateID']) ?>" method="post">
+                <form action="<?= base_url('projects/delete_update') ?>" method="post" style="display: inline;">
                     <?= csrf_field() ?>
+                    <input type="hidden" name="updateID" value="<?= esc($update['updateID']) ?>">
+                    <input type="hidden" name="projectID" value="<?= esc($project['projectID']) ?>">
                     <button type="submit" class="btn btn-danger">Delete</button>
                 </form>
             </div>
@@ -221,7 +224,4 @@
 </div>
 <?php endforeach; ?>
 
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
