@@ -49,15 +49,13 @@
         <!-- Table headers -->
         <thead>
             <tr>
-                <th colspan="7">
-                    <span id="sortArrow" class="sort-arrow">
-                        <i class="bi bi-arrow-up" id="sortAsc"></i>
-                        <i class="bi bi-arrow-down" id="sortDesc"></i>
-                    </span>
-                </th>
-            </tr>
-            <tr>
-                <th>Project Number</th>
+            <th>
+                Project Number
+                <span id="sortArrow" class="sort-arrow">
+                    <i class="bi bi-arrow-up" id="sortAsc"></i>
+                    <i class="bi bi-arrow-down" id="sortDesc"></i>
+                </span>
+            </th>
                 <th>Project Name</th>
                 <th>Project Status</th>
                 <th>Category</th>
