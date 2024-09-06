@@ -125,5 +125,19 @@
 </div>
 
 <script src="<?php echo base_url('/assets/js/main.js')?>"></script>
+<script>
+    // JavaScript for fading out the success message
+    document.addEventListener('DOMContentLoaded', function () {
+        var successMessage = document.getElementById('success-message');
+        if (successMessage) {
+            setTimeout(function () {
+                successMessage.classList.add('fade');
+                successMessage.addEventListener('transitionend', function () {
+                    successMessage.remove();
+                });
+            }, 3000); // Adjust time as needed
+        }
+    });
+</script>
 </body>
 </html>
