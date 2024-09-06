@@ -34,36 +34,37 @@
     </form>
 
     <!-- Filter Dropdown -->
-    <div class="dropdown">
-        <button id="filterToggle" class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
-            <i class="bi bi-filter"></i> Filter
-        </button>
-        <ul id="filterOptions" class="dropdown-menu p-3 collapse">
-            <form id="filterForm" action="<?= base_url('projects/filter') ?>" method="get">
-                <!-- Filter status -->
-                <div class="mb-3">
-                    <label for="status" class="form-label">Project Status</label>
-                    <select name="status" id="status" class="form-select">
-                        <option value="">All Projects</option>
-                        <option value="1">In Progress</option>
-                        <option value="2">Completed</option>
-                        <option value="3">Cancelled</option>
-                        <option value="4">Postponed</option>
-                    </select>
-                </div>
-                <!-- Filter category -->
-                <div class="mb-3">
-                    <label for="category" class="form-label">Category</label>
-                    <select name="category" id="category" class="form-select">
-                        <option value="">All Categories</option>
-                        <?php foreach ($categories as $cat): ?>
-                            <option value="<?= $cat['categoryID'] ?>"><?= $cat['categoryName'] ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-            </form>
-        </ul>
-    </div>
+<div class="dropdown">
+    <button id="filterToggle" class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+        <i class="bi bi-filter"></i> Filter
+    </button>
+    <ul id="filterOptions" class="dropdown-menu p-3 collapse">
+        <form id="filterForm" action="<?= base_url('projects/filter') ?>" method="get">
+            <!-- Filter status -->
+            <div class="mb-3">
+                <label for="status" class="form-label">Project Status</label>
+                <select name="status" id="status" class="form-select">
+                    <option value="">All Projects</option>
+                    <option value="1">In Progress</option>
+                    <option value="2">Completed</option>
+                    <option value="3">Cancelled</option>
+                    <option value="4">Postponed</option>
+                </select>
+            </div>
+            <!-- Filter category -->
+            <div class="mb-3">
+                <label for="category" class="form-label">Category</label>
+                <select name="category" id="category" class="form-select">
+                    <option value="">All Categories</option>
+                    <?php foreach ($categories as $cat): ?>
+                        <option value="<?= $cat['categoryID'] ?>"><?= $cat['categoryName'] ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+            <!-- Add Button back here -->
+            <button type="submit" class="btn btn-primary">Apply Filters</button> <!-- This is the button being added back -->
+        </form>
+    </ul>
 </div>
 
 <!-- Filter Display (hidden initially) -->
