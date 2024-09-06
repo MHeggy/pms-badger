@@ -345,7 +345,7 @@ class ProjectsController extends BaseController {
         $taskModel = new TaskModel();
         $stateModel = new StateModel();
         $countryModel = new CountryModel();
-
+    
         // Handle the case where projectID might not be provided
         if ($projectID === null) {
             $projectID = $this->request->getUri()->getSegment(3); // Fetch projectID from URL segment if not provided
@@ -378,7 +378,7 @@ class ProjectsController extends BaseController {
     
         // Load the edit_project view with all necessary data
         return view('PMS/edit_project.php', $data);
-    }
+    }    
 
     public function updateProject() {
         $projectID = $this->request->getPost('projectID');

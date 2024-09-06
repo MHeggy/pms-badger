@@ -71,6 +71,7 @@
             <label for="zipCode" class="form-label">Zip Code</label>
             <input type="text" class="form-control" id="zipCode" name="zipCode" value="<?= esc($project['zipCode']) ?>" required>
         </div>
+        <!-- Country Field -->
         <div class="mb-3">
             <label for="countryID" class="form-label">Country</label>
             <select class="form-select" id="countryID" name="countryID" required>

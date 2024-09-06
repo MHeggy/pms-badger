@@ -143,6 +143,7 @@ class ProjectModel extends Model {
                        address.city, 
                        address.zipCode, 
                        address.stateID,
+                       address.countryID,
                        states.stateName AS stateName, 
                        countries.countryName AS countryName');
         $this->join('projectstatuses', 'projectstatuses.statusID = projects.statusID');
@@ -175,7 +176,7 @@ class ProjectModel extends Model {
         $project['tasks'] = $tasks;
         
         return $project;
-    }    
+    }
     
     public function getUserProjectAssociation($userID, $projectID) {
         return $this->db->table('user_project')
