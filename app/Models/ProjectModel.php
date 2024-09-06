@@ -102,7 +102,8 @@ class ProjectModel extends Model {
         return $builder->get()->getResultArray();
     }
     
-    public function filterProjects($filters) {
+    public function filterProjects($filters)
+    {
         $builder = $this->db->table('projects');
         $builder->select('projects.*, projectstatuses.statusName, GROUP_CONCAT(DISTINCT pcategories.categoryName) AS categoryNames, GROUP_CONCAT(DISTINCT tasks.taskName) AS taskNames, GROUP_CONCAT(DISTINCT users.username) AS assignedUsers')
                 ->join('projectstatuses', 'projects.statusID = projectstatuses.statusID', 'left')
@@ -113,27 +114,28 @@ class ProjectModel extends Model {
                 ->join('user_project', 'projects.projectID = user_project.project_id', 'left')
                 ->join('users', 'user_project.user_id = users.id', 'left')
                 ->groupBy('projects.projectID, projectstatuses.statusName');
-    
+
         // Apply filters
         if (!empty($filters['status'])) {
             $builder->where('projects.statusID', $filters['status']);
         }
-    
+
         if (!empty($filters['category'])) {
-            $builder->where('pcategories.categoryName', $filters['category']);
+            $builder->where('pcategories.categoryID', $filters['category']);
         }
-    
+
         if (!empty($filters['assignedUser'])) {
             $builder->where('users.username', $filters['assignedUser']);
         }
-    
+
         if (!empty($filters['startDate']) && !empty($filters['endDate'])) {
             $builder->where('projects.dateAccepted >=', $filters['startDate'])
                     ->where('projects.dateAccepted <=', $filters['endDate']);
         }
-    
+
         return $builder->get()->getResultArray();
     }
+
     
     public function findProjectDetails($projectId) {
         $this->select('projects.*, 
