@@ -337,7 +337,6 @@ class ProjectsController extends BaseController {
         }
     }
 
-    // function to show the edit_projects view page.
     public function edit($projectID = null) {
         // Initialize the ProjectModel and any other required models
         $projectModel = new ProjectModel();
@@ -365,6 +364,10 @@ class ProjectsController extends BaseController {
         $states = $stateModel->findAll(); // Fetch all states
         $countries = $countryModel->findAll(); // Fetch all countries
     
+        // Debug output for selected categories and tasks
+        var_dump($project['categories']);
+        var_dump($project['tasks']);
+    
         // Prepare data to pass to the view
         $data = [
             'project' => $project,
@@ -378,7 +381,7 @@ class ProjectsController extends BaseController {
     
         // Load the edit_project view with all necessary data
         return view('PMS/edit_project.php', $data);
-    }    
+    }        
 
     public function updateProject() {
         $projectID = $this->request->getPost('projectID');
