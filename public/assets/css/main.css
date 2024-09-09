@@ -7,6 +7,30 @@ a:hover {
     text-decoration: underline; /* Optional: Add underline on hover */
 }
 
+.notification-badge {
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 0 6px;
+    font-size: 12px;
+    position: absolute;
+    top: -10px;
+    right: -10px;
+}
+
+/* Additional styles for badge alignment */
+.taskbar-item {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+}
+
+.taskbar-item .notification-badge {
+    position: absolute;
+    top: 0;
+    right: -10px;
+}
+
 body {
     margin: 0; /* Remove default margin */
     padding: 0; /* Remove default padding */
