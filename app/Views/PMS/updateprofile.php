@@ -31,7 +31,7 @@
 </header>
 
 <!-- Settings taskbar -->
-<?php include 'settingstaskbar.php' ?><br><br><br><br><br><br>
+<?php include 'settingstaskbar.php' ?><br><br><br>
 <div class="container">
     <h1>Update Profile</h1>
     <form action="<?= base_url("/update_profile") ?>" method="post">
