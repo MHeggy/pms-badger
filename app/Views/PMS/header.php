@@ -42,7 +42,7 @@
                 <?= $user->username ?>
             </button>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="<?php echo base_url('/myprofile/' . $user->id) ?>">My Profile</a></li>
+                <li><a class="dropdown-item" href="<?php echo base_url('/my_profile/' . $user->id) ?>">My Profile</a></li>
                 <li><a class="dropdown-item" href="<?php echo base_url('/settings') ?>">Settings</a></li>
                 <li><a class="dropdown-item" href="<?php echo base_url('/personalmessages') ?>">My Messages</a></li>
                 <li><hr class="dropdown-divider"></li>

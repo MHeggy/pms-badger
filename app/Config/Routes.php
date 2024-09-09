@@ -110,7 +110,7 @@ $routes->get('/my_work/filter', 'MyWorkController::filter');
 // route for searching the mywork table.
 $routes->get('/my_work/search', 'MyWorkController::search');
 // route for pulling up the my profile page.
-$routes->get('/myprofile/(:num)', 'PeopleController::myProfileView/$1');
+$routes->get('/my_profile/(:num)', 'PeopleController::myProfileView/$1');
 // route for displaying the form to update the user's profile.
 $routes->get('/update_profile_view/(:num)', 'PeopleController::updateProfileView/$1');
 // route for performing the update on user's profile.
