@@ -20,7 +20,7 @@
         <button type="button" class="btn btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 <?php endif; ?>
-
+<br><br><br>
 <!-- Search and Filter Container -->
 <div class="container" id="filter-container" style="margin-top: 20px;">
     <div class="row mb-4 search-filter-container">
