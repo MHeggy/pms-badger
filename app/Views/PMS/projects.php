@@ -116,12 +116,9 @@
                         <td><?= esc($project['dateAccepted']) ?></td>
                         <td>
                             <?php if (!empty($project['assignedUsers'])): ?>
-                                <?php
-                                    $users = is_string($project['assignedUsers']) ? explode(',', $project['assignedUsers']) : [];
-                                ?>
                                 <ul>
-                                    <?php foreach ($users as $user): ?>
-                                        <li><?= esc(trim($user)) ?></li>
+                                    <?php foreach ($project['assignedUsers'] as $user): ?>
+                                        <li><?= esc($user['username']) ?></li>
                                     <?php endforeach; ?>
                                 </ul>
                             <?php else: ?>
