@@ -1,9 +1,3 @@
-/* Adjust body for consistent spacing around content */
-body {
-    padding-top: 60px; /* Adjusted for fixed header */
-    padding-left: 50px;
-    font-family: 'Roboto', sans-serif;
-}
 
 /* Adjust the container below the header */
 #filter-container {
