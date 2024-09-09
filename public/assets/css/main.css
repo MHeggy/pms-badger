@@ -1,3 +1,12 @@
+a {
+    text-decoration: none; /* Removes underline from all links */
+    color: inherit; /* Ensures links inherit the text color */
+}
+
+a:hover {
+    text-decoration: underline; /* Optional: Add underline on hover */
+}
+
 body {
     margin: 0; /* Remove default margin */
     padding: 0; /* Remove default padding */
