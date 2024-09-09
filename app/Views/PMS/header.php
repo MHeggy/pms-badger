@@ -17,20 +17,6 @@
             right: 10px;
         }
 
-        /* Taskbar items styling */
-        #taskbarItems {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            align-items: center;
-        }
-
-        #taskbarItems li {
-            position: relative;
-            margin-right: 20px;
-        }
-
         #taskbarItems a {
             text-decoration: none;
             color: inherit;
