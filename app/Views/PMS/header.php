@@ -16,6 +16,7 @@
             top: 10px;
             right: 10px;
         }
+
         .notification-badge {
             background-color: red;
             color: white;
@@ -26,6 +27,15 @@
             position: absolute;
             top: -10px;
             right: -10px;
+        }
+
+        a {
+            text-decoration: none; /* Removes underline from all links */
+            color: inherit; /* Ensures links inherit the text color */
+        }
+
+        a:hover {
+            text-decoration: underline; /* Optional: Add underline on hover */
         }
     </style>
 </head>
