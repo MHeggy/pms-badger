@@ -84,6 +84,9 @@ class MyWorkController extends Controller {
             // Fetch assigned projects for the user
             $projects = $this->projectModel->getAssignedProjects($userID);
     
+            // Fetch all categories (you may already have a model or method to do this)
+            $categories = $this->categoryModel->findAll();
+    
             // Filter projects by status
             if ($status) {
                 $projects = array_filter($projects, function($project) use ($status) {
@@ -98,11 +101,12 @@ class MyWorkController extends Controller {
                 });
             }
     
-            // Pass the filtered projects to the view
+            // Pass the filtered projects and categories to the view
             $data = [
                 'assignedProjects' => $projects,
                 'status' => $status,
-                'category' => $category
+                'category' => $category,
+                'categories' => $categories  // Pass the categories to the view
             ];
     
             return view('PMS/mywork', $data);
@@ -112,7 +116,6 @@ class MyWorkController extends Controller {
         }
     }
     
-
     public function search() {
         $userID = auth()->id();
         $user = auth()->user();
