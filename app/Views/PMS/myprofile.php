@@ -50,18 +50,14 @@
             </div>
             <div class="mb-3">
                 <label for="firstName" class="form-label">First Name:</label>
-                <input type="text" class="form-control" id="firstName" value="<?= $user->first_name ?>" readonly>
+                <input type="text" class="form-control" id="firstName" value="<?= $user->firstName ?>" readonly>
             </div>
             <div class="mb-3">
                 <label for="lastName" class="form-label">Last Name:</label>
-                <input type="text" class="form-control" id="lastName" value="<?= $user->last_name ?>" readonly>
+                <input type="text" class="form-control" id="lastName" value="<?= $user->lastName ?>" readonly>
             </div>
         </div>
         <div class="col-md-6">
-            <div class="mb-3">
-                <label for="payRate" class="form-label">Pay Rate:</label>
-                <input type="text" class="form-control" id="payRate" value="<?= $user->pay_rate ?>" readonly>
-            </div>
             <div class="mb-3">
                 <label for="group" class="form-label">Group:</label>
                 <input type="text" class="form-control" id="group" value="<?= $user->group ?>" readonly>
