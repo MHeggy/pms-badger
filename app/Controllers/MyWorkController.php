@@ -43,11 +43,15 @@ class MyWorkController extends Controller {
             // Fetch assigned projects for the user using the model method.
             $assignedProjects = $this->projectModel->getAssignedProjects($userID);
 
+            // Fetch categories for filtering
+            $categories = $this->categoryModel->findAll();
+
             // Debugging statement.
             log_message('debug', 'Assigned Projects for User ID ' . $userID . ': ' . print_r($assignedProjects, true));
 
             $data = [
-                'assignedProjects' => $assignedProjects
+                'assignedProjects' => $assignedProjects,
+                'categories' => $categories
             ];
 
             // return the view with the data passed to it as an array.
@@ -71,9 +75,11 @@ class MyWorkController extends Controller {
         try {
             // Get filter criteria from the request
             $status = $this->request->getGet('status');
-
-            // Debugging statement for the status variable.
+            $category = $this->request->getGet('category');  // Add category filter
+    
+            // Debugging statements
             log_message('debug', 'Status: ' . $status);
+            log_message('debug', 'Category: ' . $category);
     
             // Fetch assigned projects for the user
             $projects = $this->projectModel->getAssignedProjects($userID);
@@ -85,10 +91,18 @@ class MyWorkController extends Controller {
                 });
             }
     
+            // Filter projects by category
+            if ($category) {
+                $projects = array_filter($projects, function($project) use ($category) {
+                    return isset($project['categoryNames']) && in_array($category, explode(',', $project['categoryNames']));
+                });
+            }
+    
             // Pass the filtered projects to the view
             $data = [
                 'assignedProjects' => $projects,
-                'status' => $status
+                'status' => $status,
+                'category' => $category
             ];
     
             return view('PMS/mywork', $data);
@@ -97,6 +111,7 @@ class MyWorkController extends Controller {
             return $this->response->setStatusCode(500)->setJSON(['error' => 'Internal server error']);
         }
     }
+    
 
     public function search() {
         $userID = auth()->id();
