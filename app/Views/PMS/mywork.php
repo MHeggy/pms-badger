@@ -26,7 +26,7 @@
     <div class="row mb-4 search-filter-container">
         <!-- Search Form -->
         <form id="searchForm" action="<?= base_url('my_work/search') ?>" method="get" class="position-relative">
-            <input type="text" id="search" name="search" class="form-control" placeholder="Search Projects">
+            <input type="text" id="search" name="search" class="form-control" placeholder="Search your Assigned Projects">
             <button type="submit" id="searchButton" class="btn">
                 <i class="bi bi-search"></i>
             </button>
