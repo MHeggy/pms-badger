@@ -129,9 +129,17 @@
                             <?php endif; ?>
                         </td>
                         <?php if ($user1->inGroup('superadmin')): ?>
-                            <td>
-                                <a href="<?= base_url('projects/edit/' . $project['projectID']) ?>" class="btn btn-warning btn-sm">Edit</a>
-                            </td>
+                        <td>
+                            <div class="dropdown">
+                                <button class="btn btn-light btn-sm dropdown-toggle" type="button" id="dropdownMenuButton-<?= $project['projectID'] ?>" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="bi bi-three-dots"></i>
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton-<?= $project['projectID'] ?>">
+                                    <li><a class="dropdown-item" href="<?= base_url('projects/edit/' . $project['projectID']) ?>">Edit</a></li>
+                                    <li><a class="dropdown-item text-danger" href="<?= base_url('projects/delete/' . $project['projectID']) ?>" onclick="return confirm('Are you sure you want to delete this project?');">Delete</a></li>
+                                </ul>
+                            </div>
+                        </td>
                         <?php endif; ?>
                     </tr>
                 <?php endforeach; ?>
