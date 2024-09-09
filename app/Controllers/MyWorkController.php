@@ -133,6 +133,9 @@ class MyWorkController extends Controller {
     
             // Fetch and search assigned projects for the user
             $searchResults = $this->projectModel->searchAssignedProjects($userID, $searchTerm);
+
+            // Fetch all the categories available and pass to view again
+            $categories = $this->categoryModel->findAll();
     
             // Debugging statement for search results
             log_message('debug', 'Search Results: ' . print_r($searchResults, true));
@@ -141,7 +144,8 @@ class MyWorkController extends Controller {
             $data = [
                 'assignedProjects' => $searchResults,
                 'searchTerm' => $searchTerm,
-                'user1' => $user
+                'user1' => $user,
+                'categories' => $categories
             ];
         
             // Render the view with search results
