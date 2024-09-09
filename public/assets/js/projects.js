@@ -2,26 +2,19 @@ document.addEventListener('DOMContentLoaded', function () {
     const sortAsc = document.getElementById('sortAsc');
     const sortDesc = document.getElementById('sortDesc');
 
-    // Event listeners for sorting
-    sortAsc.addEventListener('click', function () {
-        sortProjects('asc');
-        toggleSortArrows('asc');
-    });
-    sortDesc.addEventListener('click', function () {
-        sortProjects('desc');
-        toggleSortArrows('desc');
-    });
-
-    // Initial display based on default sort order
-    const defaultOrder = 'asc'; // or get from some configuration
-    if (defaultOrder === 'asc') {
-        sortAsc.classList.add('active');
-        sortDesc.classList.remove('active');
-    } else {
-        sortAsc.classList.remove('active');
-        sortDesc.classList.add('active');
+    // Ensure the sort arrows exist and listeners are added
+    if (sortAsc && sortDesc) {
+        sortAsc.addEventListener('click', function () {
+            sortProjects('asc');
+            toggleSortArrows('asc');
+        });
+        sortDesc.addEventListener('click', function () {
+            sortProjects('desc');
+            toggleSortArrows('desc');
+        });
     }
 });
+
 
 function initializeEventListeners() {
     // Event listener for sorting arrows
@@ -63,15 +56,18 @@ function updateProjectList(projects) {
 function sortProjects(order) {
     const projectList = document.getElementById('project_list');
     const rows = Array.from(projectList.querySelectorAll('tr'));
-    const headerRow = rows.shift();
 
     const sortedRows = rows.sort((a, b) => {
         const aText = a.cells[0].textContent.trim();
         const bText = b.cells[0].textContent.trim();
 
+        // Split projectNumber into year and sequential number
         const [aYear, aNumber] = aText.split('-').map(Number);
         const [bYear, bNumber] = bText.split('-').map(Number);
 
+        console.log(`Sorting ${aText} and ${bText} -> aYear: ${aYear}, aNumber: ${aNumber}, bYear: ${bYear}, bNumber: ${bNumber}`);
+
+        // Sorting logic
         if (aYear !== bYear) {
             return order === 'asc' ? aYear - bYear : bYear - aYear;
         } else {
@@ -79,11 +75,9 @@ function sortProjects(order) {
         }
     });
 
+    // Clear the current list and append the sorted rows
     projectList.innerHTML = '';
-    projectList.appendChild(headerRow);
-    sortedRows.forEach(row => {
-        projectList.appendChild(row);
-    });
+    sortedRows.forEach(row => projectList.appendChild(row));
 }
 
 function toggleSortArrows(order) {
