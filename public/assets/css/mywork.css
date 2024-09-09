@@ -25,12 +25,12 @@ body {
 /* Styles for search bar and filter */
 .search-filter-container {
     margin-bottom: 20px;
-    text-align: center; /* Centering the content */
+    text-align: center;
 }
 
 .search-filter-card {
-    display: inline-block; /* Display cards inline */
-    width: 300px; /* Set a fixed width for the cards */
+    display: inline-block;
+    width: 300px;
     border: 1px solid #dee2e6;
     border-radius: 0.25rem;
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
@@ -45,8 +45,8 @@ body {
 }
 
 .search-filter-card .form-control {
-    margin-bottom: 0.5rem; /* Adjusted margin */
-    border-radius: 0.25rem; /* Added border-radius */
+    margin-bottom: 0.5rem;
+    border-radius: 0.25rem;
 }
 
 .search-filter-card .btn-primary {
@@ -60,9 +60,9 @@ body {
 
 .table th,
 .table td {
-    padding: 10px; /* Add padding for spacing */
-    text-align: center; /* Align text to the center */
-    vertical-align: middle; /* Vertically center content */
+    padding: 10px;
+    text-align: center;
+    vertical-align: middle;
 }
 
 .table th {
