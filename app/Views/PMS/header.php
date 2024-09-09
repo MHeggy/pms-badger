@@ -75,7 +75,6 @@
                     <span class="notification-badge"><?= $upcomingEventsCount ?></span>
                 <?php endif; ?>
             </li>
-            <a href="<?php echo base_url('/forums') ?>"><li>Forums</li></a>
         <?php else : ?>
             <!-- Show these if user is not logged in. -->
             <a href="<?php echo base_url('/login') ?>"><li>Login</li></a>
