@@ -17,15 +17,46 @@
             right: 10px;
         }
 
+        /* Taskbar items styling */
+        #taskbarItems {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+        }
+
+        #taskbarItems li {
+            position: relative;
+            margin-right: 20px;
+        }
+
+        #taskbarItems a {
+            text-decoration: none;
+            color: inherit;
+        }
+
         .notification-badge {
             background-color: red;
             color: white;
             border-radius: 50%;
             padding: 0 6px;
             font-size: 12px;
-            vertical-align: top;
             position: absolute;
             top: -10px;
+            right: -10px;
+        }
+
+        /* Additional styles for badge alignment */
+        .taskbar-item {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .taskbar-item .notification-badge {
+            position: absolute;
+            top: 0;
             right: -10px;
         }
 
@@ -79,7 +110,7 @@
             <?php endif; ?>
             <a href="<?php echo base_url('/projects') ?>"><li>Projects</li></a>
             <a href="<?php echo base_url('/my_work') ?>"><li>My Work</li></a>
-            <li>
+            <li class="taskbar-item">
                 <a href="<?php echo base_url('/calendar') ?>">Calendar</a>
                 <?php if (isset($upcomingEventsCount) && $upcomingEventsCount > 0): ?>
                     <span class="notification-badge"><?= $upcomingEventsCount ?></span>
