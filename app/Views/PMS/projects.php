@@ -93,7 +93,7 @@
                 <th>Date Accepted</th>
                 <th>Assigned Users</th>
                 <?php if ($user1->inGroup('superadmin')): ?>
-                    <th>Edit</th>
+                    <th></th>
                 <?php endif; ?>
             </tr>
         </thead>
