@@ -122,19 +122,37 @@ document.addEventListener('DOMContentLoaded', function() {
     const categoryFilter = document.getElementById('categoryFilter');
     const activeFilters = document.getElementById('activeFilters');
     
-    // Display active filters when selected
+    // Function to update filter display based on selection
     function updateFilters() {
-        // Show the filter if there's a selection, otherwise hide it
         const statusValue = statusSelect.value;
         const categoryValue = categorySelect.value;
-    
-        statusFilter.classList.toggle('d-none', !statusValue);
-        categoryFilter.classList.toggle('d-none', !categoryValue);
-        
-        // Update the filter component's visibility
-        activeFilters.classList.toggle('d-none', !statusValue && !categoryValue);
+
+        // Update status filter display
+        if (statusValue) {
+            const statusText = statusSelect.options[statusSelect.selectedIndex].text;
+            document.getElementById('statusName').textContent = statusText;
+            statusFilter.classList.remove('d-none');
+        } else {
+            statusFilter.classList.add('d-none');
+        }
+
+        // Update category filter display
+        if (categoryValue) {
+            const categoryText = categorySelect.options[categorySelect.selectedIndex].text;
+            document.getElementById('categoryName').textContent = categoryText;
+            categoryFilter.classList.remove('d-none');
+        } else {
+            categoryFilter.classList.add('d-none');
+        }
+
+        // Toggle the entire filter badge container
+        if (statusValue || categoryValue) {
+            activeFilters.classList.remove('d-none');
+        } else {
+            activeFilters.classList.add('d-none');
+        }
     }
-    
+
     // Initially set filters based on current selection
     updateFilters();
 
@@ -152,11 +170,7 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('filterForm').submit(); // Optionally auto-submit after clearing
     });
 
-    document.getElementById('filterToggle').addEventListener('click', function () {
-        document.getElementById('filterOptions').classList.toggle('collapse');
-    });
-    
-    // Update displayed filters when dropdowns change
+    // Update filters on dropdown change
     statusSelect.addEventListener('change', updateFilters);
     categorySelect.addEventListener('change', updateFilters);
 });
