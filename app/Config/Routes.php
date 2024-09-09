@@ -112,7 +112,7 @@ $routes->get('/my_work/search', 'MyWorkController::search');
 // route for pulling up the my profile page.
 $routes->get('/my_profile/(:num)', 'PeopleController::myProfileView/$1');
 // route for displaying the form to update the user's profile.
-$routes->get('/update_profile_view/(:num)', 'PeopleController::updateProfileView/$1');
+$routes->get('/update_profile/(:num)', 'PeopleController::updateProfileView/$1');
 // route for performing the update on user's profile.
 $routes->post('/update_profile', 'PeopleController::updateProfile');
 // route for displaying the settings page.

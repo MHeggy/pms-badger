@@ -64,7 +64,7 @@
             </div>
         </div>
     </div>
-    <a href="<?= base_url('/update_profile_view/' . $user->id) ?>" class="profile-link">Need to change/update your profile? Click here</a>
+    <a href="<?= base_url('/update_profile/' . $user->id) ?>" class="profile-link">Need to change/update your profile? Click here</a>
     <script src="<?php echo base_url('/assets/js/main.js')?>"></script>
 </div>
 </body>
