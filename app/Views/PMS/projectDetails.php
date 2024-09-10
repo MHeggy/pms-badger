@@ -127,14 +127,26 @@
                             <td><?= esc(date('n/j/Y \@ g:ia', strtotime($update['timestamp']))) ?></td>
                             <td>
                                 <?php if ($update['userID'] === auth()->id() || auth()->user()->inGroup('superadmin')): ?>
-                                    <!-- Edit Button -->
-                                    <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editUpdateModal-<?= $update['updateID'] ?>">
-                                        Edit
-                                    </button>
-                                    <!-- Delete Button -->
-                                    <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteUpdateModal-<?= $update['updateID'] ?>">
-                                        Delete
-                                    </button>
+                                    <!-- Dropdown Menu for Actions -->
+                                    <div class="dropdown">
+                                        <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton-<?= $update['updateID'] ?>" data-bs-toggle="dropdown" aria-expanded="false">
+                                            ⋯
+                                        </button>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton-<?= $update['updateID'] ?>">
+                                            <!-- Edit Update Option -->
+                                            <li>
+                                                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#editUpdateModal-<?= $update['updateID'] ?>">
+                                                    Edit
+                                                </a>
+                                            </li>
+                                            <!-- Delete Update Option -->
+                                            <li>
+                                                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#deleteUpdateModal-<?= $update['updateID'] ?>">
+                                                    Delete
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 <?php endif; ?>
                             </td>
                         </tr>
@@ -147,6 +159,7 @@
             </div>
         <?php endif; ?>
     </div>
+
 
     <!-- Modal Structure for Editing Update -->
     <?php foreach ($updates as $update): ?>
