@@ -1,52 +1,85 @@
 #content {
-    display: flex; /* Use flexbox layout */
-    flex-wrap: wrap; /* Allow items to wrap to the next line */
-    justify-content: space-between; /* Evenly space out items horizontally */
-    padding: 20px; /* Add padding around the content */
-    margin-left: 100px; /* Add margin to the left to create space for the taskbar */
-    margin-top: 50px; /* Add margin to the top */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 20px;
+    margin-left: 100px;
+    margin-top: 50px;
 }
 
 .box {
-    width: calc(33.33% - 20px); /* Calculate width for each box (33.33% of container width minus padding) */
-    height: 150px; /* Set height of each box */
-    margin-bottom: 20px; /* Add spacing between boxes */
-    background-color: #f0f0f0; /* Background color of boxes */
-    border: 1px solid #ccc; /* Border style */
-    border-radius: 10px; /* Rounded corners */
-    padding: 20px; /* Add padding inside boxes */
-    box-sizing: border-box; /* Include padding and border in the box's total width and height */
-    transition: transform 0.2s; /* Add transition for smooth scaling */
+    width: calc(33.33% - 20px); /* Default for larger screens */
+    height: 150px;
+    margin-bottom: 20px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    box-sizing: border-box;
+    transition: transform 0.2s;
 }
 
-/* Additional styling for the text inside the boxes */
 .box p {
-    margin: 0; /* Remove default margin */
+    margin: 0;
 }
 
-/* Hover effect for content boxes */
 .box:hover {
-    transform: scale(1.05); /* Increase scale on hover */
+    transform: scale(1.05);
 }
 
 body {
-    font-family: 'Roboto', sans-serif; /* Set Roboto font as default for the body */
+    font-family: 'Roboto', sans-serif;
 }
 
 #content p {
-    font-family: 'Roboto', sans-serif; /* Set Roboto font for paragraphs within the content */
+    font-family: 'Roboto', sans-serif;
 }
-/* Style for success message */
+
 .success-message {
-    position: fixed; /* Fixed position to keep it at the top of the viewport */
-    top: 50px; /* Distance from the top */
-    left: 50%; /* Center horizontally */
-    transform: translateX(-50%); /* Center horizontally */
-    background-color: #4CAF50; /* Green background color */
-    color: #ffffff; /* White font color */
-    padding: 10px 20px; /* Padding around the message */
-    border-radius: 5px; /* Rounded corners */
-    z-index: 999; /* Ensure it's on top of other content */
-    opacity: 1; /* Initially fully visible */
-    transition: opacity 0.5s; /* Fade-in/out animation */
+    position: fixed;
+    top: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #4CAF50;
+    color: #ffffff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    z-index: 999;
+    opacity: 1;
+    transition: opacity 0.5s;
+}
+
+/* Mobile-specific adjustments */
+@media (max-width: 768px) {
+    #content {
+        margin-left: 0;
+        flex-direction: column; /* Stack boxes vertically */
+        align-items: center; /* Center-align boxes */
+        padding: 10px;
+    }
+
+    .box {
+        width: 100%; /* Full width for small screens */
+        margin-bottom: 15px;
+    }
+
+    #content p {
+        font-size: 16px; /* Adjust font size for better readability on small screens */
+    }
+
+    .success-message {
+        width: 90%; /* Adjust success message width on mobile */
+        top: 20px; /* Lower the success message a bit */
+    }
+}
+
+@media (max-width: 576px) {
+    .box {
+        height: auto; /* Let the height adjust automatically on very small screens */
+        padding: 15px;
+    }
+
+    #content p {
+        font-size: 14px; /* Further reduce font size for very small screens */
+    }
 }
