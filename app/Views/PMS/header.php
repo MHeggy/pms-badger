@@ -108,7 +108,7 @@
 
         <!-- Profile dropdown -->
         <?php if (auth()->loggedIn()) : ?>
-            <div class="dropdown" id="profile-dropdown">
+            <div class="dropdown taskbar-item" id="profile-dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                     <i class="bi bi-person-circle"></i> <?= $user->username ?>
                 </button>

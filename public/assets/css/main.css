@@ -5,23 +5,14 @@ body {
     font-family: Arial, sans-serif;
 }
 
-/* Title container setup */
-#headerContainer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 20px;
-    background-color: #343a40; /* Dark background for contrast */
-    color: white;
-}
-
-/* Taskbar layout */
+/* Ensure taskbar and profile dropdown are correctly aligned */
 #taskbarContainer {
     background-color: #495057; /* Taskbar color */
     display: flex;
     align-items: center;
     padding: 10px 20px;
     width: 100%;
+    position: relative; /* Added to contain absolutely positioned elements */
 }
 
 #taskbarItems {
@@ -36,6 +27,7 @@ body {
     padding: 10px 20px;
     font-size: 18px;
     color: white;
+    position: relative; /* Added to contain notification badges */
 }
 
 #taskbarItems a {
@@ -51,10 +43,13 @@ body {
     background-color: #333; /* Highlight color for the active page */
 }
 
-/* Profile dropdown styling */
 .dropdown-menu {
     background-color: #495057; /* Match taskbar color */
     border: none; /* Remove default border */
+    position: absolute; /* Position dropdown menu */
+    right: 0; /* Align dropdown to the right */
+    top: 100%; /* Position below the button */
+    min-width: 150px; /* Ensure dropdown has some width */
 }
 
 .dropdown-item {
@@ -63,6 +58,24 @@ body {
 
 .dropdown-item:hover {
     background-color: #333; /* Match taskbar active color */
+}
+
+.notification-badge {
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 0 6px;
+    font-size: 12px;
+    position: absolute;
+    top: -10px;
+    right: -10px;
+}
+
+.taskbar-item {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    padding: 10px; /* Ensure some space for notification badge */
 }
 
 /* Mobile Header Layout */
