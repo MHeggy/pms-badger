@@ -1,3 +1,51 @@
 body {
     font-family: 'Roboto', sans-serif; /* Set Roboto font as default for the body */
 }
+
+.card {
+    padding: 20px; /* Add some padding to the card for better spacing */
+}
+
+.table-responsive {
+    overflow-x: auto; /* Enable horizontal scrolling for tables if needed */
+}
+
+/* Mobile-specific adjustments */
+@media (max-width: 768px) {
+    .container {
+        padding-left: 15px; /* Add padding on the sides */
+        padding-right: 15px;
+    }
+
+    .btn {
+        font-size: 14px; /* Adjust font size of buttons */
+        padding: 8px 12px; /* Adjust padding for buttons */
+    }
+
+    .table {
+        font-size: 14px; /* Adjust font size for table content */
+    }
+
+    .table th, .table td {
+        padding: 8px; /* Adjust padding for table cells */
+    }
+
+    .table-responsive {
+        overflow-x: auto; /* Allow horizontal scroll for tables on small screens */
+    }
+}
+
+@media (max-width: 576px) {
+    .btn {
+        font-size: 12px; /* Further reduce font size for very small screens */
+        padding: 6px 10px; /* Adjust padding for very small screens */
+    }
+
+    .table {
+        font-size: 12px; /* Further reduce font size for very small screens */
+    }
+
+    .table th, .table td {
+        padding: 6px; /* Further adjust padding for table cells */
+    }
+}
