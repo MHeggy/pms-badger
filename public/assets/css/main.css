@@ -6,21 +6,22 @@ body {
 }
 
 /* Title container setup */
-#titleContainer {
+#headerContainer {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: space-between;
     padding: 20px;
     background-color: #343a40; /* Dark background for contrast */
     color: white;
 }
 
-/* Taskbar layout for desktop */
+/* Taskbar layout */
 #taskbarContainer {
     background-color: #495057; /* Taskbar color */
     display: flex;
     align-items: center;
     padding: 10px 20px;
+    width: 100%;
 }
 
 #taskbarItems {
@@ -50,61 +51,87 @@ body {
     background-color: #333; /* Highlight color for the active page */
 }
 
+/* Profile dropdown styling */
+.dropdown-menu {
+    background-color: #495057; /* Match taskbar color */
+    border: none; /* Remove default border */
+}
+
+.dropdown-item {
+    color: white;
+}
+
+.dropdown-item:hover {
+    background-color: #333; /* Match taskbar active color */
+}
+
 /* Mobile Header Layout */
 @media (max-width: 768px) {
-    /* Title container setup */
-    #titleContainer {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 10px;
-        background-color: #343a40; /* Dark background for contrast */
-    }
-
-    /* Menu button */
-    #taskbarToggle {
-        background-color: #333;
-        color: white;
-        border: none;
-        font-size: 20px;
-        padding: 10px;
-        width: 50px;
-        text-align: center;
-        cursor: pointer;
-        flex-shrink: 0;
-    }
-
-    /* Adjust taskbar container on mobile */
-    #taskbarContainer {
-        width: 100%;
-        position: fixed;
-        top: 50px;
-        left: 0;
-        background-color: #495057;
-        padding: 10px 0;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        z-index: 1000;
-    }
-
-    /* Ensure taskbar items are hidden by default and shown on toggle */
-    #taskbarItems {
-        display: none;
+    #headerContainer {
         flex-direction: column;
+        align-items: flex-start;
+        padding: 10px;
     }
 
-    /* Show taskbar items when the menu button is clicked */
-    #taskbarItems.show {
-        display: flex;
+    #taskbarToggle {
+        display: block;
+        background: none;
+        border: none;
+        color: white;
+        font-size: 24px;
+    }
+
+    #taskbarItems {
+        display: none; /* Hide on mobile by default */
+        flex-direction: column;
+        width: 100%;
     }
 
     #taskbarItems li {
         padding: 10px;
-        font-size: 16px;
+        border-bottom: 1px solid #6c757d;
     }
 
-    #taskbarItems a {
-        color: white;
+    #taskbarToggle.active ~ #taskbarItems {
+        display: flex; /* Show when menu button is clicked */
     }
+}
+
+/* Logout Modal */
+#logoutModal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+#logoutModal .modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+#logoutModal .buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+#logoutModal .button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+}
+
+#logoutModal .button:hover {
+    background-color: #0056b3;
 }

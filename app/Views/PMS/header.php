@@ -12,9 +12,21 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css" rel="stylesheet">
     <style>
         #profile-dropdown {
-            position: absolute;
-            top: 10px;
-            right: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .dropdown-menu {
+            background-color: #495057; /* Match taskbar color */
+            border: none; /* Remove default border */
+        }
+
+        .dropdown-item {
+            color: white;
+        }
+
+        .dropdown-item:hover {
+            background-color: #333; /* Match taskbar active color */
         }
 
         #taskbarItems a {
@@ -59,57 +71,57 @@
 <?php $user = auth()->user(); ?>
 
 <!-- Main header -->
-<div id="titleContainer">
+<div id="headerContainer">
     <!-- Menu button for mobile view -->
     <button id="taskbarToggle" class="d-lg-none">☰ Menu</button>
-    
-    <!-- Profile dropdown -->
-    <?php if (auth()->loggedIn()) : ?>
-        <div class="dropdown" id="profile-dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                <?= $user->username ?>
-            </button>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
-                <li><a class="dropdown-item" href="<?php echo base_url('/my_profile/' . $user->id) ?>">My Profile</a></li>
-                <li><a class="dropdown-item" href="<?php echo base_url('/settings') ?>">Settings</a></li>
-                <li><a class="dropdown-item" href="<?php echo base_url('/personalmessages') ?>">My Messages</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" onclick="displayModal()">Logout</a></li>
-            </ul>
-        </div>
-    <?php endif; ?>
-</div>
 
-<!-- Taskbar part of the header -->
-<div id="taskbarContainer">
-    <!-- Toggle button for mobile view -->
-    <ul id="taskbarItems">
-        <?php if (auth()->loggedIn()) : ?>
-            <!-- Show these if user is logged in -->
-            <a href="<?php echo base_url('/dashboard') ?>"><li class="<?= $pageTitle == 'Dashboard' ? 'active' : '' ?>">Dashboard</li></a>
-            <?php if ($user->inGroup('accountant') || $user->inGroup('superadmin')): ?>
-                <a href="<?php echo base_url('/accountant_payroll') ?>"><li class="<?= $pageTitle == 'Payroll' ? 'active' : '' ?>">Payroll</li></a>
-            <?php endif; ?>
-            <a href="<?php echo base_url('/timesheets') ?>"><li class="<?= $pageTitle == 'Timesheets' ? 'active' : '' ?>">Timesheets</li></a>
-            <?php if ($user->inGroup('superadmin')): ?>
-                <a href="<?php echo base_url('/assign_users') ?>"><li class="<?= $pageTitle == 'Assign Users' ? 'active' : '' ?>">Assign Users</li></a>
-                <a href="<?php echo base_url('/unassign_users') ?>"><li class="<?= $pageTitle == 'Unassign Users' ? 'active' : '' ?>">Unassign Users</li></a>
-                <a href="<?php echo base_url('/add_project') ?>"><li class="<?= $pageTitle == 'Add Projects' ? 'active' : '' ?>">Add Projects</li></a>
-            <?php endif; ?>
-            <a href="<?php echo base_url('/projects') ?>"><li class="<?= $pageTitle == 'Projects' ? 'active' : '' ?>">Projects</li></a>
-            <a href="<?php echo base_url('/my_work') ?>"><li class="<?= $pageTitle == 'My Work' ? 'active' : '' ?>">My Work</li></a>
-            <li class="taskbar-item">
-                <a href="<?php echo base_url('/calendar') ?>">Calendar</a>
-                <?php if (isset($upcomingEventsCount) && $upcomingEventsCount > 0): ?>
-                    <span class="notification-badge"><?= $upcomingEventsCount ?></span>
+    <!-- Taskbar and Profile Dropdown Container -->
+    <div id="taskbarContainer">
+        <!-- Taskbar Items -->
+        <ul id="taskbarItems">
+            <?php if (auth()->loggedIn()) : ?>
+                <!-- Show these if user is logged in -->
+                <a href="<?php echo base_url('/dashboard') ?>"><li class="<?= $pageTitle == 'Dashboard' ? 'active' : '' ?>">Dashboard</li></a>
+                <?php if ($user->inGroup('accountant') || $user->inGroup('superadmin')): ?>
+                    <a href="<?php echo base_url('/accountant_payroll') ?>"><li class="<?= $pageTitle == 'Payroll' ? 'active' : '' ?>">Payroll</li></a>
                 <?php endif; ?>
-            </li>
-        <?php else : ?>
-            <!-- Show these if user is not logged in -->
-            <a href="<?php echo base_url('/login') ?>"><li class="<?= $pageTitle == 'Login' ? 'active' : '' ?>">Login</li></a>
-            <a href="<?php echo base_url('/register') ?>"><li class="<?= $pageTitle == 'Register' ? 'active' : '' ?>">Register</li></a>
+                <a href="<?php echo base_url('/timesheets') ?>"><li class="<?= $pageTitle == 'Timesheets' ? 'active' : '' ?>">Timesheets</li></a>
+                <?php if ($user->inGroup('superadmin')): ?>
+                    <a href="<?php echo base_url('/assign_users') ?>"><li class="<?= $pageTitle == 'Assign Users' ? 'active' : '' ?>">Assign Users</li></a>
+                    <a href="<?php echo base_url('/unassign_users') ?>"><li class="<?= $pageTitle == 'Unassign Users' ? 'active' : '' ?>">Unassign Users</li></a>
+                    <a href="<?php echo base_url('/add_project') ?>"><li class="<?= $pageTitle == 'Add Projects' ? 'active' : '' ?>">Add Projects</li></a>
+                <?php endif; ?>
+                <a href="<?php echo base_url('/projects') ?>"><li class="<?= $pageTitle == 'Projects' ? 'active' : '' ?>">Projects</li></a>
+                <a href="<?php echo base_url('/my_work') ?>"><li class="<?= $pageTitle == 'My Work' ? 'active' : '' ?>">My Work</li></a>
+                <li class="taskbar-item">
+                    <a href="<?php echo base_url('/calendar') ?>">Calendar</a>
+                    <?php if (isset($upcomingEventsCount) && $upcomingEventsCount > 0): ?>
+                        <span class="notification-badge"><?= $upcomingEventsCount ?></span>
+                    <?php endif; ?>
+                </li>
+            <?php else : ?>
+                <!-- Show these if user is not logged in -->
+                <a href="<?php echo base_url('/login') ?>"><li class="<?= $pageTitle == 'Login' ? 'active' : '' ?>">Login</li></a>
+                <a href="<?php echo base_url('/register') ?>"><li class="<?= $pageTitle == 'Register' ? 'active' : '' ?>">Register</li></a>
+            <?php endif; ?>
+        </ul>
+
+        <!-- Profile dropdown -->
+        <?php if (auth()->loggedIn()) : ?>
+            <div class="dropdown" id="profile-dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-person-circle"></i> <?= $user->username ?>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+                    <li><a class="dropdown-item" href="<?php echo base_url('/my_profile/' . $user->id) ?>">My Profile</a></li>
+                    <li><a class="dropdown-item" href="<?php echo base_url('/settings') ?>">Settings</a></li>
+                    <li><a class="dropdown-item" href="<?php echo base_url('/personalmessages') ?>">My Messages</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" onclick="displayModal()">Logout</a></li>
+                </ul>
+            </div>
         <?php endif; ?>
-    </ul>
+    </div>
 </div>
 
 <!-- Logout modal -->
