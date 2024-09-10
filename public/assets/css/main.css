@@ -6,13 +6,20 @@ body {
 }
 
 /* Ensure taskbar and profile dropdown are correctly aligned */
-#taskbarContainer {
-    background-color: #495057; /* Taskbar color */
+#headerContainer {
     display: flex;
+    justify-content: space-between;
     align-items: center;
+    background-color: #495057; /* Taskbar color */
     padding: 10px 20px;
     width: 100%;
     position: relative; /* Added to contain absolutely positioned elements */
+}
+
+#taskbarContainer {
+    display: flex;
+    align-items: center;
+    width: 100%;
 }
 
 #taskbarItems {
