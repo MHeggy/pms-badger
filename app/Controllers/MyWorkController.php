@@ -83,6 +83,10 @@ class MyWorkController extends Controller {
     
             // Fetch assigned projects for the user
             $projects = $this->projectModel->getAssignedProjects($userID);
+
+            foreach ($projects as &$project) {
+                $project['assignedUsers'] = $this->projectModel->getAssignedUsers($project['projectID']);
+            }
     
             // Fetch all categories (you may already have a model or method to do this)
             $categories = $this->categoryModel->findAll();

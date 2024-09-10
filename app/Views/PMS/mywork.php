@@ -102,10 +102,10 @@
                 <td><?= esc(str_replace(',', ', ', $work['categoryNames'])) ?></td>
                 <td><?= esc($work['dateAccepted']) ?></td>
                 <td>
-                    <?php if (!empty($work['assignedUsers'])): ?>
+                    <?php if (!empty($project['assignedUsers']) && is_array($project['assignedUsers'])): ?>
                         <ul>
-                            <?php foreach (explode(',', $work['assignedUsers']) as $user): ?>
-                                <li><?= esc(trim($user)) ?></li>
+                            <?php foreach ($project['assignedUsers'] as $user): ?>
+                                <li><?= esc($user['username']) ?></li>
                             <?php endforeach; ?>
                         </ul>
                     <?php else: ?>
