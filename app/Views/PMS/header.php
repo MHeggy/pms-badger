@@ -88,7 +88,6 @@
 <!-- Taskbar part of the header. -->
 <div id="taskbarContainer">
     <!-- Toggle button for mobile view -->
-    <button id="taskbarToggle" class="d-lg-none">☰ Menu</button>
     <ul id="taskbarItems">
         <?php if (auth()->loggedIn()) : ?>
             <!-- Show these if user is logged in. -->
