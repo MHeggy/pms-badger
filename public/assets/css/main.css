@@ -1,30 +1,82 @@
-/* General reset for responsive layout */
-html {
-    box-sizing: border-box;
-    font-size: 16px;
+#titleContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
 }
 
-/* Ensure taskbar takes up full width and stacks vertically on smaller screens */
+#headerTitle {
+    margin: 0;
+    padding-left: 15px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+#profile-dropdown {
+    position: relative;
+    margin-right: 15px;
+}
+
+#taskbarItems a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.notification-badge {
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 0 6px;
+    font-size: 12px;
+    position: absolute;
+    top: -10px;
+    right: -10px;
+}
+
+/* Taskbar items style */
+.taskbar-item {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+}
+
+/* Notification badge for taskbar items */
+.taskbar-item .notification-badge {
+    position: absolute;
+    top: 0;
+    right: -10px;
+}
+
+/* Links */
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Mobile responsiveness */
 @media (max-width: 768px) {
     #titleContainer {
-        padding: 10px;
+        flex-direction: column;
+        align-items: center;
         text-align: center;
+        padding: 10px 0;
     }
 
     #profile-dropdown {
-        top: 5px;
-        right: 5px;
+        margin-top: 10px;
     }
 
     #taskbarContainer {
-        position: relative;
-        width: 100%;
-        height: auto;
         top: 50px;
+        width: 100%;
     }
 
     #taskbarItems {
-        display: none; /* Hide taskbar items initially */
+        display: none;
         flex-direction: column;
         text-align: center;
     }
@@ -35,7 +87,7 @@ html {
     }
 
     #taskbarToggle {
-        display: block; /* Display toggle button */
+        display: block;
         background-color: #333;
         color: white;
         border: none;
@@ -47,22 +99,6 @@ html {
     }
 
     #taskbarToggle.active + #taskbarItems {
-        display: flex; /* Show taskbar items when the toggle is active */
-    }
-}
-
-/* Add small adjustments for larger phones or tablets */
-@media (min-width: 769px) and (max-width: 1024px) {
-    #titleContainer {
-        text-align: center;
-        padding: 10px 15px;
-    }
-
-    #taskbarContainer {
-        width: 150px;
-    }
-
-    #taskbarItems li {
-        padding: 12px 0;
+        display: flex;
     }
 }
