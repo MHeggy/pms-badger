@@ -22,6 +22,59 @@
     .button-container {
         margin-top: 20px;
     }
+    
+    @media (max-width: 767px) {
+    .container {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .card-body {
+        padding: 15px;
+    }
+
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .table th, .table td {
+        padding: 8px;
+        text-align: left;
+        font-size: 14px;
+    }
+
+    .table input {
+        font-size: 14px;
+        padding: 5px;
+    }
+
+    .form-control {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .btn {
+        font-size: 14px;
+        padding: 10px;
+        margin-top: 10px;
+        width: 100%;
+        text-align: center;
+    }
+
+    .remove-row, #add-row {
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    #timesheet-container {
+        margin-bottom: 20px;
+    }
+
+    .view-timesheets-card {
+        margin-bottom: 20px;
+    }
+}
 </style>
 
 <!-- Header content -->
