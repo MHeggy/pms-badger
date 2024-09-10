@@ -81,40 +81,54 @@ body {
 
 /* Mobile-specific styles */
 @media (max-width: 768px) {
+    /* Ensure title container is in column layout with centered alignment */
     #titleContainer {
+        display: flex;
         flex-direction: column;
         align-items: center;
         text-align: center;
         padding: 10px 0;
+        position: relative; /* Ensure it can hold absolute children */
     }
 
+    /* Adjust header title for mobile */
     #headerTitle {
-        padding-left: 0;
         font-size: 22px;
-        margin-bottom: 10px;
+        margin-bottom: 10px; /* Space between title and dropdown */
+        padding-left: 0; /* Remove left padding for mobile */
     }
 
+    /* Adjust profile dropdown positioning on mobile */
     #profile-dropdown {
-        position: static;
-        margin: 10px 0;
+        position: relative; /* Changed from static to relative */
+        margin: 10px 0; /* Add top and bottom margins */
+        z-index: 1; /* Ensure it appears above other elements */
     }
 
+    /* Adjust taskbar container on mobile */
     #taskbarContainer {
-        top: 50px;
         width: 100%;
+        position: fixed; /* Fixed position for visibility */
+        top: 50px; /* Adjust as needed */
+        left: 0;
+        background-color: #495057; /* Taskbar color */
+        padding: 10px 0;
     }
 
+    /* Ensure taskbar items are hidden by default and shown on toggle */
     #taskbarItems {
         display: none;
         flex-direction: column;
         text-align: center;
     }
 
+    /* Ensure taskbar items have spacing and borders */
     #taskbarItems li {
         padding: 15px 0;
         border-top: 1px solid #444;
     }
 
+    /* Show toggle button for taskbar */
     #taskbarToggle {
         display: block;
         background-color: #333;
@@ -127,6 +141,7 @@ body {
         cursor: pointer;
     }
 
+    /* Show taskbar items when toggle is active */
     #taskbarToggle.active + #taskbarItems {
         display: flex;
     }
