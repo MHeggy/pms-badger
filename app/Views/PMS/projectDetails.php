@@ -20,6 +20,26 @@
         max-width: 90%;
         width: 90%;
     }
+
+    .dropdown-menu-custom {
+        background-color: #495057; /* Match taskbar color */
+        border: none; /* Remove default border */
+    }
+
+    .dropdown-item-custom {
+        color: white;
+    }
+
+    .dropdown-item-custom:hover {
+        background-color: #333; /* Match taskbar active color */
+    }
+
+    .btn-three-dots {
+        border: none;
+        background: none;
+        color: white;
+        font-size: 24px;
+    }
 </style>
 
 <!-- Header content -->
@@ -50,10 +70,20 @@
     <div class="d-flex justify-content-between mb-4">
         <!-- Go Back Button -->
         <button class="btn btn-secondary" onclick="window.history.back()">Go Back</button>
-        <!-- Button to Open Modal for Adding Update -->
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addUpdateModal">
-            Add Update
-        </button>
+        <!-- Actions Dropdown -->
+        <div class="dropdown">
+            <button class="btn btn-three-dots dropdown-toggle" type="button" id="actionsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                ⋯
+            </button>
+            <ul class="dropdown-menu dropdown-menu-custom" aria-labelledby="actionsDropdown">
+                <li>
+                    <a class="dropdown-item dropdown-item-custom" href="#" data-bs-toggle="modal" data-bs-target="#addUpdateModal">Add Update</a>
+                </li>
+                <li>
+                    <a class="dropdown-item dropdown-item-custom" href="#" onclick="window.history.back()">Go Back</a>
+                </li>
+            </ul>
+        </div>
     </div>
 
     <!-- Project Details Table -->
@@ -198,30 +228,5 @@
     </div>
 </div>
 
-<!-- Modal Structure for Deleting Update -->
-<?php foreach ($updates as $update): ?>
-<div class="modal fade" id="deleteUpdateModal-<?= $update['updateID'] ?>" tabindex="-1" aria-labelledby="deleteUpdateModalLabel-<?= $update['updateID'] ?>" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="deleteUpdateModalLabel-<?= $update['updateID'] ?>">Confirm Deletion</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>Are you sure you want to delete this update? This action cannot be undone.</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <form action="<?= base_url('projects/delete_update') ?>" method="post" style="display: inline;">
-                    <?= csrf_field() ?>
-                    <input type="hidden" name="updateID" value="<?= esc($update['updateID']) ?>">
-                    <input type="hidden" name="projectID" value="<?= esc($project['projectID']) ?>">
-                    <button type="submit" class="btn btn-danger">Delete</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-<?php endforeach; ?>
-
+<!-- Bootstrap JS Bundle -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
