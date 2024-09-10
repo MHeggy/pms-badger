@@ -79,7 +79,6 @@ body {
     right: -10px;
 }
 
-/* Mobile-specific styles */
 @media (max-width: 768px) {
     /* Ensure title container is in column layout with centered alignment */
     #titleContainer {
@@ -100,7 +99,6 @@ body {
 
     /* Adjust profile dropdown positioning on mobile */
     #profile-dropdown {
-        position: relative; /* Changed from static to relative */
         margin: 10px 0; /* Add top and bottom margins */
         z-index: 1; /* Ensure it appears above other elements */
     }
