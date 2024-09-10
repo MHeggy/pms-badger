@@ -1,154 +1,68 @@
-a {
-    text-decoration: none; /* Removes underline from all links */
-    color: inherit; /* Ensures links inherit the text color */
+/* General reset for responsive layout */
+html {
+    box-sizing: border-box;
+    font-size: 16px;
 }
 
-a:hover {
-    text-decoration: underline; /* Optional: Add underline on hover */
+/* Ensure taskbar takes up full width and stacks vertically on smaller screens */
+@media (max-width: 768px) {
+    #titleContainer {
+        padding: 10px;
+        text-align: center;
+    }
+
+    #profile-dropdown {
+        top: 5px;
+        right: 5px;
+    }
+
+    #taskbarContainer {
+        position: relative;
+        width: 100%;
+        height: auto;
+        top: 50px;
+    }
+
+    #taskbarItems {
+        display: none; /* Hide taskbar items initially */
+        flex-direction: column;
+        text-align: center;
+    }
+
+    #taskbarItems li {
+        padding: 15px 0;
+        border-top: 1px solid #444;
+    }
+
+    #taskbarToggle {
+        display: block; /* Display toggle button */
+        background-color: #333;
+        color: white;
+        border: none;
+        font-size: 20px;
+        padding: 10px;
+        width: 100%;
+        text-align: center;
+        cursor: pointer;
+    }
+
+    #taskbarToggle.active + #taskbarItems {
+        display: flex; /* Show taskbar items when the toggle is active */
+    }
 }
 
-.notification-badge {
-    background-color: red;
-    color: white;
-    border-radius: 50%;
-    padding: 0 6px;
-    font-size: 12px;
-    position: absolute;
-    top: -10px;
-    right: -10px;
-}
+/* Add small adjustments for larger phones or tablets */
+@media (min-width: 769px) and (max-width: 1024px) {
+    #titleContainer {
+        text-align: center;
+        padding: 10px 15px;
+    }
 
-/* Additional styles for badge alignment */
-.taskbar-item {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-}
+    #taskbarContainer {
+        width: 150px;
+    }
 
-.taskbar-item .notification-badge {
-    position: absolute;
-    top: 0;
-    right: -10px;
-}
-
-body {
-    margin: 0; /* Remove default margin */
-    padding: 0; /* Remove default padding */
-}
-
-#titleContainer {
-    background-color: #333; /* Background color of the header */
-    padding: 10px 20px; /* Add padding to the header */
-    border-top-left-radius: 10px; /* Rounded corners for the top left */
-    border-top-right-radius: 10px; /* Rounded corners for the top right */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Add a shadow */
-    position: fixed; /* Fixed positioning */
-    top: 0; /* Align to the top of the viewport */
-    left: 0; /* Align to the left side of the viewport */
-    width: 100%; /* Take up full width */
-    z-index: 1000; /* Ensure header is above other content */
-}
-
-#headerTitle {
-    color: white; /* Text color */
-    margin: 0; /* Remove default margin */
-}
-
-#taskbarContainer {
-    background-color: #333; /* Background color of the taskbar */
-    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2); /* Add a shadow at the bottom */
-    position: fixed; /* Fixed positioning */
-    top: 48px; /* Align below the header */
-    left: 0; /* Align to the left side of the viewport */
-    width: 100px; /* Taskbar width */
-    height: calc(100% - 60px); /* Take up remaining height */
-    z-index: 999; /* Ensure taskbar is below header */
-    padding: 10px 0; /* Add padding to the taskbar */
-}
-
-#taskbarItems {
-    list-style-type: none; /* Remove bullet points */
-    padding: 0; /* Remove default padding */
-    margin: 0; /* Remove default margin */
-}
-
-#taskbarItems li {
-    color: white; /* Text color */
-    padding: 10px; /* Add padding to list items */
-    text-align: center; /* Center-align text */
-    cursor: pointer; /* Show pointer cursor on hover */
-}
-
-#taskbarItems li:hover {
-    background-color: #444; /* Darken background on hover */
-}
-#taskbarItems li.user-menu {
-    position: relative; /* Relative positioning for dropdown menu */
-}
-#taskbarItems .dropdown-menu {
-    display: none; /* Hide dropdown menu by default */
-    position: absolute; /* Absolute positioning */
-    top: 100%; /* Position below the user menu item */
-    left: 0; /* Align to the left of the user menu item */
-    background-color: #333; /* Background color of the dropdown menu */
-    border-radius: 4px; /* Rounded corners */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Add a shadow */
-    z-index: 1000; /* Ensure dropdown menu is above other content */
-}
-#taskbarItems .dropdown-menu.show {
-    display: block; /* Show dropdown menu */
-}
-#taskbarItems .dropdown-menu li {
-    padding: 10px; /* Add padding to dropdown menu items */
-}
-#taskbarItems .dropdown-menu li:hover {
-    background-color: #444; /* Darken background on hover */
-}
-
-/* Modal styles */
-.modal {
-    display: none; /* Hide modal by default */
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
-}
-.modal-content {
-    background-color: #fff; /* White background color for modal content */
-    max-width: 400px;
-    margin: 100px auto; /* Center modal vertically */
-    padding: 20px;
-    border-radius: 8px; /* Rounded corners */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Soft shadow effect */
-    text-align: left; /* Left-align content */
-}
-h1 {
-    color: #333; /* Dark gray header color */
-}
-p {
-    margin-bottom: 20px; /* Add some space below paragraphs */
-    color: #666; /* Medium gray text color */
-}
-.buttons {
-    text-align: center; /* Center-align buttons */
-}
-.button {
-    padding: 10px 20px;
-    background-color: #007bff; /* Blue button color */
-    color: #fff; /* White text color */
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-right: 10px; /* Add space between buttons */
-}
-.button:hover {
-    background-color: #0056b3; /* Darken button color on hover */
-}
-#yesBtn {
-    background-color: #2ca02c;
-}
-#noBtn {
-    background-color: red;
+    #taskbarItems li {
+        padding: 12px 0;
+    }
 }
