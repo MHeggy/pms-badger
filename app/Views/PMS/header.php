@@ -135,5 +135,13 @@
         </div>
     </div>
 </div>
-
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('taskbarToggle').addEventListener('click', function() {
+            var taskbarItems = document.getElementById('taskbarItems');
+            taskbarItems.style.display = taskbarItems.style.display === 'flex' ? 'none' : 'flex';
+            this.classList.toggle('active');
+        });
+    });
+</script>
 <script src="<?php echo base_url('/assets/js/main.js')?>"></script>
