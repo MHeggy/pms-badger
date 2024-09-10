@@ -82,10 +82,17 @@
                             </td>
                             <td><?= esc($timesheet['totalHours']); ?></td>
                             <td>
-                                <a href="/timesheets/view/<?= esc($timesheet['timesheetID']); ?>" class="btn btn-info btn-sm">View Details</a>
-                                <a href="/timesheets/export/<?= esc($timesheet['timesheetID']); ?>" class="btn btn-success btn-sm ms-2">Export</a>
-                                <a href="/timesheets/edit/<?= esc($timesheet['timesheetID']); ?>" class="btn btn-warning btn-sm ms-2">Edit</a>
-                                <a href="#" class="btn btn-danger btn-sm ms-2" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="<?= esc($timesheet['timesheetID']); ?>">Delete</a>
+                                <div class="dropdown">
+                                    <button class="btn btn-secondary dropdown-toggle btn-sm" type="button" id="actionsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="bi bi-three-dots"></i>
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="actionsDropdown">
+                                        <li><a class="dropdown-item" href="/timesheets/view/<?= esc($timesheet['timesheetID']); ?>">View Details</a></li>
+                                        <li><a class="dropdown-item" href="/timesheets/export/<?= esc($timesheet['timesheetID']); ?>">Export</a></li>
+                                        <li><a class="dropdown-item" href="/timesheets/edit/<?= esc($timesheet['timesheetID']); ?>">Edit</a></li>
+                                        <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="<?= esc($timesheet['timesheetID']); ?>">Delete</a></li>
+                                    </ul>
+                                </div>
                             </td>
                         </tr>
                     <?php endforeach; ?>

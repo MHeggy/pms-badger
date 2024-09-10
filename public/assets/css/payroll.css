@@ -10,6 +10,19 @@ body {
     overflow-x: auto; /* Enable horizontal scrolling for tables if needed */
 }
 
+.dropdown-menu {
+    width: 150px;
+    text-align: left;
+}
+
+.dropdown-item {
+    font-size: 14px;
+}
+
+.dropdown-toggle::after {
+    display: none; /* Remove default dropdown arrow */
+}
+
 /* Mobile-specific adjustments */
 @media (max-width: 768px) {
     .container {
@@ -32,6 +45,10 @@ body {
 
     .table-responsive {
         overflow-x: auto; /* Allow horizontal scroll for tables on small screens */
+    }
+
+    .dropdown-menu {
+        width: 100%; /* Full width on mobile */
     }
 }
 
