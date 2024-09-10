@@ -125,78 +125,21 @@ body {
     padding: 10px;
 }
 
-/* Mobile responsiveness adjustments */
+/* Mobile responsiveness */
 @media (max-width: 768px) {
-    .container {
-        padding: 10px;
-        margin-top: 10px;
-    }
-
     .search-filter-container {
         flex-direction: column;
-        gap: 10px;
-    }
-
-    #searchForm {
-        width: 100%;
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    #search {
-        width: 100%;
-        margin-bottom: 10px;
-    }
-
-    #searchButton, #clearSearchButton {
-        position: static;
-        margin-top: 5px;
-    }
-
-    .dropdown-menu {
-        width: 100%;
-        max-width: none;
-        min-width: 100%;
-    }
-
-    .table {
-        width: 100%;
-        overflow-x: auto; /* Enable horizontal scrolling */
-        display: block; /* Ensure table is block-level */
-        -webkit-overflow-scrolling: touch; /* Smooth scrolling */
     }
 
     .table th, .table td {
-        padding: 8px;
-        font-size: 0.75rem;
-        word-break: break-word; /* Break long words to avoid overflow */
-    }
-
-    .table th {
-        white-space: nowrap; /* Ensure header text does not wrap */
+        font-size: 0.85rem;
     }
 
     .btn-primary, .btn-secondary {
         font-size: 0.75rem;
         padding: 0.4rem 0.8rem;
     }
-
-    #activeFilters {
-        margin-top: 10px;
-    }
-
-    .badge {
-        display: inline-flex;
-        align-items: center;
-        padding: 0.4rem;
-        cursor: pointer;
-    }
-
-    .badge i {
-        margin-left: 5px;
-    }
 }
-
 
 #activeFilters {
     margin-top: 10px;
