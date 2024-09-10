@@ -7,6 +7,7 @@
     margin-top: 50px;
 }
 
+/* Ensure boxes are well-spaced and aligned */
 .box {
     width: calc(33.33% - 20px); /* Default for larger screens */
     height: 150px;
@@ -17,12 +18,18 @@
     padding: 20px;
     box-sizing: border-box;
     transition: transform 0.2s;
+    overflow: hidden; /* Prevent overflow */
+    text-align: center; /* Center-align text */
 }
 
 .box p {
     margin: 0;
+    overflow: hidden; /* Ensure text doesn’t overflow */
+    text-overflow: ellipsis; /* Add ellipsis if text overflows */
+    white-space: nowrap; /* Prevent text from wrapping */
 }
 
+/* Hover effect for content boxes */
 .box:hover {
     transform: scale(1.05);
 }
@@ -61,10 +68,13 @@ body {
     .box {
         width: 100%; /* Full width for small screens */
         margin-bottom: 15px;
+        height: auto; /* Allow height to adjust */
+        text-align: center; /* Center-align text */
     }
 
     #content p {
         font-size: 16px; /* Adjust font size for better readability on small screens */
+        text-align: center; /* Center-align text inside boxes */
     }
 
     .success-message {
@@ -75,7 +85,6 @@ body {
 
 @media (max-width: 576px) {
     .box {
-        height: auto; /* Let the height adjust automatically on very small screens */
         padding: 15px;
     }
 
