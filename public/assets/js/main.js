@@ -47,3 +47,10 @@ document.getElementById('taskbarToggle').addEventListener('click', function() {
     this.classList.toggle('active');
     document.getElementById('taskbarItems').classList.toggle('show');
 });
+
+$(document).ready(function() {
+    $('#taskbarToggle').click(function() {
+        $(this).toggleClass('active');
+        $('#taskbarItems').toggle();
+    });
+});
