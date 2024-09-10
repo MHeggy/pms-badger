@@ -54,7 +54,7 @@
                         <th>Select</th>
                         <th>Name</th>
                         <th>Total Hours</th>
-                        <th>Actions</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
