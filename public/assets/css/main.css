@@ -79,42 +79,57 @@ body {
     right: -10px;
 }
 
+/* Mobile Header Layout */
 @media (max-width: 768px) {
-    /* Ensure title container is in a row layout with equal spacing */
+    /* Title container setup */
     #titleContainer {
         display: flex;
-        flex-direction: row;
         align-items: center;
+        justify-content: space-between;
         padding: 10px;
-        position: relative; /* Ensure it can hold absolute children */
+        background-color: #343a40; /* Dark background for contrast */
     }
 
-    /* Adjust header title for mobile */
-    #headerTitle {
-        font-size: 20px; /* Slightly smaller font size */
-        margin: 0; /* Remove margin */
+    /* Menu button */
+    #taskbarToggle {
+        background-color: #333;
+        color: white;
+        border: none;
+        font-size: 20px;
+        padding: 10px;
+        width: 50px;
         text-align: center;
-        flex: 1; /* Allows headerTitle to take up available space */
+        cursor: pointer;
+        flex-shrink: 0;
     }
 
-    /* Adjust profile dropdown positioning on mobile */
+    /* Header title */
+    #headerTitle {
+        font-size: 20px;
+        margin: 0;
+        text-align: center;
+        flex: 1;
+    }
+
+    /* Profile dropdown */
     #profile-dropdown {
-        margin-right: 10px;
-        position: static; /* Remove absolute positioning */
-        flex-shrink: 0; /* Ensure dropdown does not shrink */
+        margin: 0;
+        position: relative;
+        flex-shrink: 0;
     }
 
     /* Adjust taskbar container on mobile */
     #taskbarContainer {
         width: 100%;
-        position: fixed; /* Fixed position for visibility */
-        top: 50px; /* Adjust as needed */
+        position: fixed;
+        top: 50px;
         left: 0;
-        background-color: #495057; /* Taskbar color */
+        background-color: #495057;
         padding: 10px 0;
         display: flex;
         align-items: center;
         justify-content: space-between;
+        z-index: 1000;
     }
 
     /* Ensure taskbar items are hidden by default and shown on toggle */
@@ -122,26 +137,7 @@ body {
         display: none;
         flex-direction: column;
         text-align: center;
-    }
-
-    /* Ensure taskbar items have spacing and borders */
-    #taskbarItems li {
-        padding: 15px 0;
-        border-top: 1px solid #444;
-    }
-
-    /* Show toggle button for taskbar */
-    #taskbarToggle {
-        display: block;
-        background-color: #333;
-        color: white;
-        border: none;
-        font-size: 20px;
-        padding: 10px;
-        width: 50px; /* Adjust width to fit better */
-        text-align: center;
-        cursor: pointer;
-        flex-shrink: 0; /* Ensure button does not shrink */
+        width: 100%;
     }
 
     /* Show taskbar items when toggle is active */

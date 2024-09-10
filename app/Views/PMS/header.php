@@ -58,17 +58,22 @@
 </head>
 <body>
 <?php $user = auth()->user(); ?>
+
 <!-- Main title of header -->
 <div id="titleContainer">
+    <!-- Menu button for mobile view -->
+    <button id="taskbarToggle" class="d-lg-none">☰ Menu</button>
+    
+    <!-- Title -->
     <h2 id="headerTitle"><?= $pageTitle ?></h2>
 
     <!-- Profile dropdown -->
     <?php if (auth()->loggedIn()) : ?>
-        <div class="dropdown ms-auto" id="profile-dropdown">
+        <div class="dropdown" id="profile-dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                 <?= $user->username ?>
             </button>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
                 <li><a class="dropdown-item" href="<?php echo base_url('/my_profile/' . $user->id) ?>">My Profile</a></li>
                 <li><a class="dropdown-item" href="<?php echo base_url('/settings') ?>">Settings</a></li>
                 <li><a class="dropdown-item" href="<?php echo base_url('/personalmessages') ?>">My Messages</a></li>
@@ -78,6 +83,7 @@
         </div>
     <?php endif; ?>
 </div>
+
 
 <!-- Taskbar part of the header. -->
 <div id="taskbarContainer">
