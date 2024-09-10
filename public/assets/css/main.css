@@ -91,10 +91,12 @@ body {
     #headerTitle {
         padding-left: 0;
         font-size: 22px;
+        margin-bottom: 10px;
     }
 
     #profile-dropdown {
-        margin-top: 10px;
+        position: static;
+        margin: 10px 0;
     }
 
     #taskbarContainer {
