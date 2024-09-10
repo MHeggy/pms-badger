@@ -1,5 +1,5 @@
 <!-- Set page title -->
-<?= $pageTitle = "My Work"; ?>
+<?php $pageTitle = "My Work"; ?>
 
 <!-- Include CSS for styling -->
 <link rel="stylesheet" href="<?php echo base_url('/assets/css/mywork.css') ?>">

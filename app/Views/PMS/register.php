@@ -1,4 +1,4 @@
-<?= $pageTitle = "Register"; ?>
+<?php $pageTitle = "Register"; ?>
 <!-- Link to external CSS file -->
 <link rel="stylesheet" href="<?php echo base_url('/assets/css/register.css') ?>">
 <!-- Link to Bootstrap CSS -->

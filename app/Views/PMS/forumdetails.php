@@ -1,4 +1,4 @@
-<?= $pageTitle = $post['title']; ?>
+<?php $pageTitle = $post['title']; ?>
 <link rel="stylesheet" href="<?php echo base_url('/assets/css/messages.css') ?>">
 <!-- Link to Bootstrap CSS -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">

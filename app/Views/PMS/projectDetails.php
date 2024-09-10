@@ -1,4 +1,4 @@
-<?= $pageTitle = 'Project Details' ?>
+<?php $pageTitle = 'Project Details' ?>
 <link rel="stylesheet" href="<?= base_url('/assets/css/projectDetails.css') ?>">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <style>
