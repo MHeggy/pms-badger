@@ -134,14 +134,17 @@ body {
 
     /* Ensure taskbar items are hidden by default and shown on toggle */
     #taskbarItems {
-        display: none;
+        display: none; /* Hide initially */
         flex-direction: column;
         text-align: center;
         width: 100%;
+        position: absolute; /* Ensure it’s layered on top */
+        top: 50px; /* Adjust as needed */
+        left: 0;
     }
 
     /* Show taskbar items when toggle is active */
     #taskbarToggle.active + #taskbarItems {
-        display: flex;
+        display: flex; /* Show when active */
     }
 }

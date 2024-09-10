@@ -43,14 +43,10 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-document.getElementById('taskbarToggle').addEventListener('click', function() {
-    this.classList.toggle('active');
-    document.getElementById('taskbarItems').classList.toggle('show');
-});
-
-$(document).ready(function() {
-    $('#taskbarToggle').click(function() {
-        $(this).toggleClass('active');
-        $('#taskbarItems').toggle();
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('taskbarToggle').addEventListener('click', function() {
+        var taskbarItems = document.getElementById('taskbarItems');
+        taskbarItems.style.display = taskbarItems.style.display === 'flex' ? 'none' : 'flex';
+        this.classList.toggle('active');
     });
 });
