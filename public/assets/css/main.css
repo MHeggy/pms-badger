@@ -48,6 +48,7 @@ body {
 
 #taskbarItems .active {
     background-color: #333; /* Highlight color for the active page */
+    font-weight: bold; /* Make the text bold */
 }
 
 .dropdown-menu {
