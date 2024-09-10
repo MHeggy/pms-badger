@@ -1,28 +1,73 @@
 /* Default Desktop Layout (Unchanged) */
+body {
+    background-color: #f8f9fa; /* Light background to avoid all-white page */
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* Title container and taskbar setup */
 #titleContainer {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px;
+    padding: 20px;
+    background-color: #343a40; /* Dark background for contrast */
+    color: white;
 }
 
 #headerTitle {
     margin: 0;
     padding-left: 15px;
-    font-size: 24px;
+    font-size: 26px;
     font-weight: bold;
 }
 
 #profile-dropdown {
-    position: relative;
     margin-right: 15px;
+    position: relative;
+}
+
+/* Taskbar layout for desktop */
+#taskbarContainer {
+    background-color: #495057; /* Taskbar color */
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+#taskbarItems {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+#taskbarItems li {
+    list-style: none;
+    padding: 10px 20px;
+    font-size: 18px;
+    color: white;
 }
 
 #taskbarItems a {
     text-decoration: none;
-    color: inherit;
+    color: white;
 }
 
+#taskbarItems a:hover {
+    color: #ffdd57; /* Add some hover effect */
+}
+
+/* Align taskbar items horizontally */
+.taskbar-item {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    padding-right: 15px;
+}
+
+/* Notification badge */
 .notification-badge {
     background-color: red;
     color: white;
@@ -30,29 +75,8 @@
     padding: 0 6px;
     font-size: 12px;
     position: absolute;
-    top: -10px;
-    right: -10px;
-}
-
-.taskbar-item {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-}
-
-.taskbar-item .notification-badge {
-    position: absolute;
     top: 0;
     right: -10px;
-}
-
-a {
-    text-decoration: none;
-    color: inherit;
-}
-
-a:hover {
-    text-decoration: underline;
 }
 
 /* Mobile-specific styles */
