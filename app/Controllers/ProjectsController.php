@@ -99,9 +99,9 @@ class ProjectsController extends BaseController {
         $filters = [
             'status' => $this->request->getGet('status'),
             'category' => $this->request->getGet('category'),
-            'assignedUser' => $this->request->getGet('assignedUser'),
-            'startDate' => $this->request->getGet('startDate'),
-            'endDate' => $this->request->getGet('endDate')
+            // 'assignedUser' => $this->request->getGet('assignedUser'),
+            // 'startDate' => $this->request->getGet('startDate'),
+            // 'endDate' => $this->request->getGet('endDate')
         ];
 
         try {
@@ -131,7 +131,6 @@ class ProjectsController extends BaseController {
             return $this->response->setStatusCode(500)->setJSON(['error' => 'Internal server error']);
         }
     }
-
       
     public function projectDetails($projectID) {
         try {

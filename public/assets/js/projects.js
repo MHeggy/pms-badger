@@ -28,30 +28,30 @@ function initializeEventListeners() {
     });
 }
 
-function updateProjectList(projects) {
-    const projectList = document.getElementById('project_list');
-    projectList.innerHTML = ''; // Clear the current list
+// function updateProjectList(projects) {
+//     const projectList = document.getElementById('project_list');
+//     projectList.innerHTML = ''; // Clear the current list
 
-    projects.forEach(project => {
-        const projectRow = document.createElement('tr');
-        projectRow.setAttribute('data-project-id', project.projectID);
+//     projects.forEach(project => {
+//         const projectRow = document.createElement('tr');
+//         projectRow.setAttribute('data-project-id', project.projectID);
 
-        const assignedUsersHTML = project.assignedUsers.length
-            ? '<ul>' + project.assignedUsers.map(user => `<li>${user}</li>`).join('') + '</ul>'
-            : 'No users assigned.';
+//         const assignedUsersHTML = project.assignedUsers.length
+//             ? '<ul>' + project.assignedUsers.map(user => `<li>${user}</li>`).join('') + '</ul>'
+//             : 'No users assigned.';
 
-        projectRow.innerHTML = `
-            <td>${project.projectNumber}</td>
-            <td>${project.projectName}</td>
-            <td>${project.statusName}</td>
-            <td>${project.categoryNames}</td>
-            <td>${project.dateAccepted}</td>
-            <td>${assignedUsersHTML}</td>
-        `;
+//         projectRow.innerHTML = `
+//             <td>${project.projectNumber}</td>
+//             <td>${project.projectName}</td>
+//             <td>${project.statusName}</td>
+//             <td>${project.categoryNames}</td>
+//             <td>${project.dateAccepted}</td>
+//             <td>${assignedUsersHTML}</td>
+//         `;
 
-        projectList.appendChild(projectRow);
-    });
-}
+//         projectList.appendChild(projectRow);
+//     });
+// }
 
 function sortProjects(order) {
     const projectList = document.getElementById('project_list');
