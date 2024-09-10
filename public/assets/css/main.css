@@ -80,27 +80,28 @@ body {
 }
 
 @media (max-width: 768px) {
-    /* Ensure title container is in column layout with centered alignment */
+    /* Ensure title container is in a row layout with equal spacing */
     #titleContainer {
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         align-items: center;
-        text-align: center;
-        padding: 10px 0;
+        padding: 10px;
         position: relative; /* Ensure it can hold absolute children */
     }
 
     /* Adjust header title for mobile */
     #headerTitle {
-        font-size: 22px;
-        margin-bottom: 10px; /* Space between title and dropdown */
-        padding-left: 0; /* Remove left padding for mobile */
+        font-size: 20px; /* Slightly smaller font size */
+        margin: 0; /* Remove margin */
+        text-align: center;
+        flex: 1; /* Allows headerTitle to take up available space */
     }
 
     /* Adjust profile dropdown positioning on mobile */
     #profile-dropdown {
-        margin: 10px 0; /* Add top and bottom margins */
-        z-index: 1; /* Ensure it appears above other elements */
+        margin-right: 10px;
+        position: static; /* Remove absolute positioning */
+        flex-shrink: 0; /* Ensure dropdown does not shrink */
     }
 
     /* Adjust taskbar container on mobile */
@@ -111,6 +112,9 @@ body {
         left: 0;
         background-color: #495057; /* Taskbar color */
         padding: 10px 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
     }
 
     /* Ensure taskbar items are hidden by default and shown on toggle */
@@ -134,9 +138,10 @@ body {
         border: none;
         font-size: 20px;
         padding: 10px;
-        width: 100%;
+        width: 50px; /* Adjust width to fit better */
         text-align: center;
         cursor: pointer;
+        flex-shrink: 0; /* Ensure button does not shrink */
     }
 
     /* Show taskbar items when toggle is active */
