@@ -196,5 +196,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
+<script src="<?php echo base_url('/assets/js/main.js')?>"></script>
 </body>
 </html>
