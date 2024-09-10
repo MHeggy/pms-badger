@@ -118,6 +118,11 @@ class ProjectsController extends BaseController {
             // Optionally, get the list of categories if needed for the view
             $categories = $this->categoryModel->findAll();
 
+            // Fetch assigned users for each project
+            foreach ($projects as &$project) {
+                $project['assignedUsers'] = $this->projectModel->getAssignedUsers($project['projectID']);
+            }
+
             // Pass filtered projects and necessary data to the view
             $data = [
                 'projects' => $projects,
