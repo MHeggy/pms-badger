@@ -1,4 +1,3 @@
-/* Default Desktop Layout (Unchanged) */
 body {
     background-color: #f8f9fa; /* Light background to avoid all-white page */
     margin: 0;
@@ -6,26 +5,14 @@ body {
     font-family: Arial, sans-serif;
 }
 
-/* Title container and taskbar setup */
+/* Title container setup */
 #titleContainer {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-end;
     padding: 20px;
     background-color: #343a40; /* Dark background for contrast */
     color: white;
-}
-
-#headerTitle {
-    margin: 0;
-    padding-left: 15px;
-    font-size: 26px;
-    font-weight: bold;
-}
-
-#profile-dropdown {
-    margin-right: 15px;
-    position: relative;
 }
 
 /* Taskbar layout for desktop */
@@ -59,24 +46,8 @@ body {
     color: #ffdd57; /* Add some hover effect */
 }
 
-/* Align taskbar items horizontally */
-.taskbar-item {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    padding-right: 15px;
-}
-
-/* Notification badge */
-.notification-badge {
-    background-color: red;
-    color: white;
-    border-radius: 50%;
-    padding: 0 6px;
-    font-size: 12px;
-    position: absolute;
-    top: 0;
-    right: -10px;
+#taskbarItems .active {
+    background-color: #333; /* Highlight color for the active page */
 }
 
 /* Mobile Header Layout */
@@ -103,21 +74,6 @@ body {
         flex-shrink: 0;
     }
 
-    /* Header title */
-    #headerTitle {
-        font-size: 20px;
-        margin: 0;
-        text-align: center;
-        flex: 1;
-    }
-
-    /* Profile dropdown */
-    #profile-dropdown {
-        margin: 0;
-        position: relative;
-        flex-shrink: 0;
-    }
-
     /* Adjust taskbar container on mobile */
     #taskbarContainer {
         width: 100%;
@@ -134,17 +90,21 @@ body {
 
     /* Ensure taskbar items are hidden by default and shown on toggle */
     #taskbarItems {
-        display: none; /* Hide initially */
+        display: none;
         flex-direction: column;
-        text-align: center;
-        width: 100%;
-        position: absolute; /* Ensure it’s layered on top */
-        top: 50px; /* Adjust as needed */
-        left: 0;
     }
 
-    /* Show taskbar items when toggle is active */
-    #taskbarToggle.active + #taskbarItems {
-        display: flex; /* Show when active */
+    /* Show taskbar items when the menu button is clicked */
+    #taskbarItems.show {
+        display: flex;
+    }
+
+    #taskbarItems li {
+        padding: 10px;
+        font-size: 16px;
+    }
+
+    #taskbarItems a {
+        color: white;
     }
 }

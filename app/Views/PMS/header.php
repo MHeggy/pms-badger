@@ -33,7 +33,6 @@
             right: -10px;
         }
 
-        /* Additional styles for badge alignment */
         .taskbar-item {
             position: relative;
             display: inline-flex;
@@ -59,14 +58,11 @@
 <body>
 <?php $user = auth()->user(); ?>
 
-<!-- Main title of header -->
+<!-- Main header -->
 <div id="titleContainer">
     <!-- Menu button for mobile view -->
     <button id="taskbarToggle" class="d-lg-none">☰ Menu</button>
     
-    <!-- Title -->
-    <h2 id="headerTitle"><?= $pageTitle ?></h2>
-
     <!-- Profile dropdown -->
     <?php if (auth()->loggedIn()) : ?>
         <div class="dropdown" id="profile-dropdown">
@@ -84,25 +80,24 @@
     <?php endif; ?>
 </div>
 
-
-<!-- Taskbar part of the header. -->
+<!-- Taskbar part of the header -->
 <div id="taskbarContainer">
     <!-- Toggle button for mobile view -->
     <ul id="taskbarItems">
         <?php if (auth()->loggedIn()) : ?>
-            <!-- Show these if user is logged in. -->
-            <a href="<?php echo base_url('/dashboard') ?>"><li>Dashboard</li></a>
+            <!-- Show these if user is logged in -->
+            <a href="<?php echo base_url('/dashboard') ?>"><li class="<?= $pageTitle == 'Dashboard' ? 'active' : '' ?>">Dashboard</li></a>
             <?php if ($user->inGroup('accountant') || $user->inGroup('superadmin')): ?>
-                <a href="<?php echo base_url('/accountant_payroll') ?>"><li>Payroll</li></a>
+                <a href="<?php echo base_url('/accountant_payroll') ?>"><li class="<?= $pageTitle == 'Payroll' ? 'active' : '' ?>">Payroll</li></a>
             <?php endif; ?>
-            <a href="<?php echo base_url('/timesheets') ?>"><li>Timesheets</li></a>
+            <a href="<?php echo base_url('/timesheets') ?>"><li class="<?= $pageTitle == 'Timesheets' ? 'active' : '' ?>">Timesheets</li></a>
             <?php if ($user->inGroup('superadmin')): ?>
-                <a href="<?php echo base_url('/assign_users') ?>"><li>Assign Users</li></a>
-                <a href="<?php echo base_url('/unassign_users') ?>"><li>Unassign Users</li></a>
-                <a href="<?php echo base_url('/add_project') ?>"><li>Add Projects</li></a>
+                <a href="<?php echo base_url('/assign_users') ?>"><li class="<?= $pageTitle == 'Assign Users' ? 'active' : '' ?>">Assign Users</li></a>
+                <a href="<?php echo base_url('/unassign_users') ?>"><li class="<?= $pageTitle == 'Unassign Users' ? 'active' : '' ?>">Unassign Users</li></a>
+                <a href="<?php echo base_url('/add_project') ?>"><li class="<?= $pageTitle == 'Add Projects' ? 'active' : '' ?>">Add Projects</li></a>
             <?php endif; ?>
-            <a href="<?php echo base_url('/projects') ?>"><li>Projects</li></a>
-            <a href="<?php echo base_url('/my_work') ?>"><li>My Work</li></a>
+            <a href="<?php echo base_url('/projects') ?>"><li class="<?= $pageTitle == 'Projects' ? 'active' : '' ?>">Projects</li></a>
+            <a href="<?php echo base_url('/my_work') ?>"><li class="<?= $pageTitle == 'My Work' ? 'active' : '' ?>">My Work</li></a>
             <li class="taskbar-item">
                 <a href="<?php echo base_url('/calendar') ?>">Calendar</a>
                 <?php if (isset($upcomingEventsCount) && $upcomingEventsCount > 0): ?>
@@ -110,9 +105,9 @@
                 <?php endif; ?>
             </li>
         <?php else : ?>
-            <!-- Show these if user is not logged in. -->
-            <a href="<?php echo base_url('/login') ?>"><li>Login</li></a>
-            <a href="<?php echo base_url('/register') ?>"><li>Register</li></a>
+            <!-- Show these if user is not logged in -->
+            <a href="<?php echo base_url('/login') ?>"><li class="<?= $pageTitle == 'Login' ? 'active' : '' ?>">Login</li></a>
+            <a href="<?php echo base_url('/register') ?>"><li class="<?= $pageTitle == 'Register' ? 'active' : '' ?>">Register</li></a>
         <?php endif; ?>
     </ul>
 </div>
