@@ -1,6 +1,20 @@
 body {
     font-family: 'Roboto', sans-serif;
 }
+
 #calendar {
-    margin: 110px;
+    margin: 50px auto; /* Center the calendar horizontally */
+    max-width: 100%; /* Ensures it doesn't overflow on small screens */
+    padding: 10px;
+}
+
+@media (max-width: 768px) {
+    #calendar {
+        margin: 20px; /* Reduce margins on smaller screens */
+        padding: 5px; /* Add a little padding */
+    }
+    .modal-dialog {
+        max-width: 90%;
+        margin: 0 auto;
+    }
 }
