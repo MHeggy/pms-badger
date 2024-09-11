@@ -77,38 +77,31 @@
 
     <!-- Taskbar and Profile Dropdown Container -->
     <div id="taskbarContainer">
-        <!-- Taskbar Items -->
-        <ul id="taskbarItems">
-            <?php if (auth()->loggedIn()) : ?>
-                <!-- Show these if user is logged in -->
-                <a href="<?php echo base_url('/dashboard') ?>"><li class="<?= $pageTitle == 'Dashboard' ? 'active' : '' ?>">Dashboard</li></a>
-                <?php if ($user->inGroup('accountant') || $user->inGroup('superadmin')): ?>
-                    <a href="<?php echo base_url('/accountant_payroll') ?>"><li class="<?= $pageTitle == 'Payroll [Accountant]' ? 'active' : '' ?>">Payroll</li></a>
-                <?php endif; ?>
-                <a href="<?php echo base_url('/timesheets') ?>"><li class="<?= $pageTitle == 'Timesheets' ? 'active' : '' ?>">Timesheets</li></a>
-                <?php if ($user->inGroup('superadmin')): ?>
-                    <a href="<?php echo base_url('/assign_users') ?>"><li class="<?= $pageTitle == '[Admin Page] Assign Users to Projects' ? 'active' : '' ?>">Assign Users</li></a>
-                    <a href="<?php echo base_url('/unassign_users') ?>"><li class="<?= $pageTitle == '[Admin Page] Unassign Users from Projects' ? 'active' : '' ?>">Unassign Users</li></a>
-                    <a href="<?php echo base_url('/add_project') ?>"><li class="<?= $pageTitle == '[Admin] Add Projects' ? 'active' : '' ?>">Add Projects</li></a>
-                <?php endif; ?>
-                <a href="<?php echo base_url('/projects') ?>"><li class="<?= $pageTitle == 'Projects' ? 'active' : '' ?>">Projects</li></a>
-                <a href="<?php echo base_url('/my_work') ?>"><li class="<?= $pageTitle == 'My Work' ? 'active' : '' ?>">My Work</li></a>
-                <li class="taskbar-item">
-                    <a href="<?php echo base_url('/calendar') ?>">Calendar</a>
-                    <?php if (isset($upcomingEventsCount) && $upcomingEventsCount > 0): ?>
-                        <span class="notification-badge"><?= $upcomingEventsCount ?></span>
-                    <?php endif; ?>
-                </li>
-            <?php else : ?>
-                <!-- Show these if user is not logged in -->
-                <a href="<?php echo base_url('/login') ?>"><li class="<?= $pageTitle == 'Login' ? 'active' : '' ?>">Login</li></a>
-                <a href="<?php echo base_url('/register') ?>"><li class="<?= $pageTitle == 'Register' ? 'active' : '' ?>">Register</li></a>
-            <?php endif; ?>
-        </ul>
-
-        <!-- Profile dropdown -->
+    <!-- Taskbar Items -->
+    <ul id="taskbarItems">
         <?php if (auth()->loggedIn()) : ?>
-            <div class="dropdown taskbar-item" id="profile-dropdown">
+            <!-- Show these if user is logged in -->
+            <a href="<?php echo base_url('/dashboard') ?>"><li class="<?= $pageTitle == 'Dashboard' ? 'active' : '' ?>">Dashboard</li></a>
+            <?php if ($user->inGroup('accountant') || $user->inGroup('superadmin')): ?>
+                <a href="<?php echo base_url('/accountant_payroll') ?>"><li class="<?= $pageTitle == 'Payroll [Accountant]' ? 'active' : '' ?>">Payroll</li></a>
+            <?php endif; ?>
+            <a href="<?php echo base_url('/timesheets') ?>"><li class="<?= $pageTitle == 'Timesheets' ? 'active' : '' ?>">Timesheets</li></a>
+            <?php if ($user->inGroup('superadmin')): ?>
+                <a href="<?php echo base_url('/assign_users') ?>"><li class="<?= $pageTitle == '[Admin Page] Assign Users to Projects' ? 'active' : '' ?>">Assign Users</li></a>
+                <a href="<?php echo base_url('/unassign_users') ?>"><li class="<?= $pageTitle == '[Admin Page] Unassign Users from Projects' ? 'active' : '' ?>">Unassign Users</li></a>
+                <a href="<?php echo base_url('/add_project') ?>"><li class="<?= $pageTitle == '[Admin] Add Projects' ? 'active' : '' ?>">Add Projects</li></a>
+            <?php endif; ?>
+            <a href="<?php echo base_url('/projects') ?>"><li class="<?= $pageTitle == 'Projects' ? 'active' : '' ?>">Projects</li></a>
+            <a href="<?php echo base_url('/my_work') ?>"><li class="<?= $pageTitle == 'My Work' ? 'active' : '' ?>">My Work</li></a>
+            <li class="taskbar-item">
+                <a href="<?php echo base_url('/calendar') ?>">Calendar</a>
+                <?php if (isset($upcomingEventsCount) && $upcomingEventsCount > 0): ?>
+                    <span class="notification-badge"><?= $upcomingEventsCount ?></span>
+                <?php endif; ?>
+            </li>
+
+            <!-- Profile dropdown (added to taskbar items) -->
+            <li class="taskbar-item dropdown" id="profile-dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                     <i class="bi bi-person-circle"></i> <?= $user->username ?>
                 </button>
@@ -119,9 +112,13 @@
                     <li><hr class="dropdown-divider"></li>
                     <li><a class="dropdown-item" onclick="displayModal()">Logout</a></li>
                 </ul>
-            </div>
+            </li>
+        <?php else : ?>
+            <!-- Show these if user is not logged in -->
+            <a href="<?php echo base_url('/login') ?>"><li class="<?= $pageTitle == 'Login' ? 'active' : '' ?>">Login</li></a>
+            <a href="<?php echo base_url('/register') ?>"><li class="<?= $pageTitle == 'Register' ? 'active' : '' ?>">Register</li></a>
         <?php endif; ?>
-    </div>
+    </ul>
 </div>
 
 <!-- Logout modal -->

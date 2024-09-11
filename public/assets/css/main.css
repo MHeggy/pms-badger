@@ -24,22 +24,25 @@ body {
 
 #taskbarItems {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    align-items: center;
+    justify-content: space-between; /* This ensures the last item is pushed to the right */
     width: 100%;
 }
 
 #taskbarItems li {
     list-style: none;
-    padding: 12px 20px; /* Increase or adjust padding to align with profile button */
+    padding: 12px 20px;
     font-size: 18px;
     color: white;
-    position: relative;
 }
 
 #taskbarItems a {
     text-decoration: none;
     color: white;
+}
+
+.taskbar-item.dropdown {
+    margin-left: auto; /* Push the dropdown to the right */
 }
 
 #taskbarItems a:hover {
@@ -52,11 +55,8 @@ body {
 }
 
 .dropdown-menu {
-    background-color: #495057; /* Match taskbar color */
-    border: none; /* Remove default border */
-    right: 0; /* Align dropdown to the right */
-    top: calc(100% + 5px); /* Ensure it is slightly below the profile button */
-    min-width: 150px; /* Ensure dropdown has some width */
+    background-color: #495057;
+    border: none;
 }
 
 #profile-dropdown button {
