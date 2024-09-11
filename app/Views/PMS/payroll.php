@@ -74,6 +74,16 @@
     .view-timesheets-card {
         margin-bottom: 20px;
     }
+
+    .table-responsive {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        width: 100%;
+    }
+    
+    .table th, .table td {
+        white-space: nowrap;
+    }
 }
 </style>
 
@@ -106,6 +116,7 @@
         </div>
 
         <!-- Timesheet table -->
+    <div class="table-responsive">
         <table class="table timesheet-table">
             <thead>
                 <tr>
@@ -260,7 +271,7 @@
                 </tr>
             </tfoot>
         </table>
-
+    </div>
         <!-- Add Row Button -->
         <div class="button-container">
             <button type="button" id="add-row" class="btn btn-secondary">Add Row</button>
