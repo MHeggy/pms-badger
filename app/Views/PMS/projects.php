@@ -77,7 +77,9 @@
     </span>
 </div>
 
-    <!-- Table for Projects -->
+    
+<!-- Table for Projects -->
+<div class="table-responsive">
     <table class="table table-striped">
         <thead>
             <tr>

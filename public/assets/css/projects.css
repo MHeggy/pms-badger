@@ -125,22 +125,6 @@ body {
     padding: 10px;
 }
 
-/* Mobile responsiveness */
-@media (max-width: 768px) {
-    .search-filter-container {
-        flex-direction: column;
-    }
-
-    .table th, .table td {
-        font-size: 0.85rem;
-    }
-
-    .btn-primary, .btn-secondary {
-        font-size: 0.75rem;
-        padding: 0.4rem 0.8rem;
-    }
-}
-
 #activeFilters {
     margin-top: 10px;
 }
@@ -155,4 +139,63 @@ body {
 .badge i {
     margin-left: 5px;
     cursor: pointer;
+}
+
+/* Mobile responsiveness */
+/* Mobile responsiveness adjustments */
+@media (max-width: 768px) {
+
+    /* Stack search and filter vertically */
+    .search-filter-container {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+    }
+
+    #searchForm {
+        width: 100%;
+    }
+
+    #filterToggle {
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    /* Table adjustments */
+    .table-responsive {
+        display: block;
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    .table th, .table td {
+        font-size: 0.8rem;
+        white-space: nowrap;
+        padding: 10px;
+    }
+
+    /* Dropdown in the table */
+    .dropdown-menu {
+        min-width: 200px;
+    }
+
+    /* Badge adjustments */
+    .badge {
+        font-size: 0.75rem;
+    }
+}
+
+/* Ensure horizontal scroll for tables on small devices */
+.table-responsive {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+}
+
+.table-responsive > .table {
+    margin-bottom: 0;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+    -webkit-overflow-scrolling: touch;
 }
