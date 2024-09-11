@@ -41,4 +41,10 @@ document.addEventListener('DOMContentLoaded', function() {
             dropdownMenu.classList.remove('show');
         }
     });
+
+    document.getElementById('taskbarToggle').addEventListener('click', function() {
+        var taskbarItems = document.getElementById('taskbarItems');
+        taskbarItems.style.display = taskbarItems.style.display === 'flex' ? 'none' : 'flex';
+        this.classList.toggle('active');
+    });
 });
