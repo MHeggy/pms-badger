@@ -11,23 +11,6 @@
     <link rel="stylesheet" href="<?php echo base_url('/assets/css/main.css') ?>">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css" rel="stylesheet">
     <style>
-        #profile-dropdown {
-            display: flex;
-            align-items: center;
-        }
-
-        .dropdown-menu {
-            background-color: #495057; /* Match taskbar color */
-            border: none; /* Remove default border */
-        }
-
-        .dropdown-item {
-            color: white;
-        }
-
-        .dropdown-item:hover {
-            background-color: #333; /* Match taskbar active color */
-        }
 
         #taskbarItems a {
             text-decoration: none;
