@@ -67,55 +67,57 @@
     </div>
 </div>
 
-<!-- Projects Table -->
+<!-- Projects Table with scrollable container -->
 <div class="container" id="project_table" style="margin-top: 20px;">
-    <table class="table table-striped">
-        <thead>
-        <tr>
-            <th>Project Number
-                <span class="sort-arrow">
-                    <i class="bi bi-arrow-up" id="sortAsc"></i>
-                    <i class="bi bi-arrow-down" id="sortDesc"></i>
-                </span>
-            </th>
-            <th>Project Name</th>
-            <th>Project Status</th>
-            <th>Category</th>
-            <th>Date Accepted</th>
-            <th>Assigned Users</th>
-        </tr>
-        </thead>
-        <tbody id="project_list">
-        <?php foreach ($assignedProjects as $work): ?>
-            <tr data-project-id="<?= esc($work['projectID']) ?>">
-                <td>
-                    <a href="<?= base_url('projects/details/' . $work['projectID']) ?>">
-                        <?= esc($work['projectNumber']) ?>
-                    </a>
-                </td>
-                <td>
-                    <a href="<?= base_url('projects/details/' . $work['projectID']) ?>">
-                        <?= esc($work['projectName']) ?>
-                    </a>
-                </td>
-                <td><?= esc($work['statusName']) ?></td>
-                <td><?= esc(str_replace(',', ', ', $work['categoryNames'])) ?></td>
-                <td><?= esc($work['dateAccepted']) ?></td>
-                <td>
-                    <?php if (!empty($project['assignedUsers']) && is_array($project['assignedUsers'])): ?>
-                        <ul>
-                            <?php foreach ($project['assignedUsers'] as $user): ?>
-                                <li><?= esc($user['username']) ?></li>
-                            <?php endforeach; ?>
-                        </ul>
-                    <?php else: ?>
-                        No users assigned.
-                    <?php endif; ?>
-                </td>
-            </tr>
-        <?php endforeach; ?>
-        </tbody>
-    </table>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Project Number
+                        <span class="sort-arrow">
+                            <i class="bi bi-arrow-up" id="sortAsc"></i>
+                            <i class="bi bi-arrow-down" id="sortDesc"></i>
+                        </span>
+                    </th>
+                    <th>Project Name</th>
+                    <th>Project Status</th>
+                    <th>Category</th>
+                    <th>Date Accepted</th>
+                    <th>Assigned Users</th>
+                </tr>
+            </thead>
+            <tbody id="project_list">
+                <?php foreach ($assignedProjects as $work): ?>
+                    <tr data-project-id="<?= esc($work['projectID']) ?>">
+                        <td>
+                            <a href="<?= base_url('projects/details/' . $work['projectID']) ?>">
+                                <?= esc($work['projectNumber']) ?>
+                            </a>
+                        </td>
+                        <td>
+                            <a href="<?= base_url('projects/details/' . $work['projectID']) ?>">
+                                <?= esc($work['projectName']) ?>
+                            </a>
+                        </td>
+                        <td><?= esc($work['statusName']) ?></td>
+                        <td><?= esc(str_replace(',', ', ', $work['categoryNames'])) ?></td>
+                        <td><?= esc($work['dateAccepted']) ?></td>
+                        <td>
+                            <?php if (!empty($project['assignedUsers']) && is_array($project['assignedUsers'])): ?>
+                                <ul>
+                                    <?php foreach ($project['assignedUsers'] as $user): ?>
+                                        <li><?= esc($user['username']) ?></li>
+                                    <?php endforeach; ?>
+                                </ul>
+                            <?php else: ?>
+                                No users assigned.
+                            <?php endif; ?>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
 </div>
 
 <!-- Scripts -->

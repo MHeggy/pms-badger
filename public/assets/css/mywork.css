@@ -137,6 +137,12 @@
     cursor: pointer;
 }
 
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 20px;
+}
+
 /* Mobile responsiveness */
 @media (max-width: 768px) {
     .search-filter-container {
@@ -150,5 +156,14 @@
 
     .table th, .table td {
         font-size: 0.85rem;
+    }
+
+    .table-responsive {
+        overflow-x: scroll;
+        -webkit-overflow-scrolling: touch; /* Smooth scrolling for mobile */
+    }
+    
+    .table {
+        min-width: 700px; /* Minimum width for the table to fit properly */
     }
 }
