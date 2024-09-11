@@ -37,12 +37,7 @@
             <?php endif; ?>
             <a href="<?php echo base_url('/projects') ?>"><li class="<?= $pageTitle == 'Projects' ? 'active' : '' ?>">Projects</li></a>
             <a href="<?php echo base_url('/my_work') ?>"><li class="<?= $pageTitle == 'My Work' ? 'active' : '' ?>">My Work</li></a>
-            <li class="taskbar-item">
-                <a href="<?php echo base_url('/calendar') ?>">Calendar</a>
-                <?php if (isset($upcomingEventsCount) && $upcomingEventsCount > 0): ?>
-                    <span class="notification-badge"><?= $upcomingEventsCount ?></span>
-                <?php endif; ?>
-            </li>
+            <a href="<?php echo base_url('/calendar') ?>"><li class="<?= $pageTitle == 'Calendar' ? 'active' : '' ?>">Calendar</li></a>
             <!-- Profile dropdown (added to taskbar items) -->
             <li class="taskbar-item dropdown" id="profile-dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
