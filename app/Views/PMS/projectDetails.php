@@ -1,6 +1,7 @@
 <?php $pageTitle = 'Project Details' ?>
 <link rel="stylesheet" href="<?= base_url('/assets/css/projectDetails.css') ?>">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 <style>
     .table-dark th {
         background-color: #343a40;
@@ -129,9 +130,9 @@
                                 <?php if ($update['userID'] === auth()->id() || auth()->user()->inGroup('superadmin')): ?>
                                     <!-- Dropdown Menu for Actions -->
                                     <div class="dropdown">
-                                        <button class="btn btn-secondary dropdown-toggle btn-sm" type="button" id="actionsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i class="bi bi-three-dots"></i>
-                                        </button>
+                                    <button class="btn btn-secondary dropdown-toggle btn-sm" type="button" id="dropdownMenuButton-<?= $update['updateID'] ?>" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="bi bi-three-dots"></i>
+                                    </button>
                                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton-<?= $update['updateID'] ?>">
                                             <!-- Edit Update Option -->
                                             <li>
