@@ -83,13 +83,13 @@
                 <!-- Show these if user is logged in -->
                 <a href="<?php echo base_url('/dashboard') ?>"><li class="<?= $pageTitle == 'Dashboard' ? 'active' : '' ?>">Dashboard</li></a>
                 <?php if ($user->inGroup('accountant') || $user->inGroup('superadmin')): ?>
-                    <a href="<?php echo base_url('/accountant_payroll') ?>"><li class="<?= $pageTitle == 'Payroll' ? 'active' : '' ?>">Payroll</li></a>
+                    <a href="<?php echo base_url('/accountant_payroll') ?>"><li class="<?= $pageTitle == 'Payroll [Accountant]' ? 'active' : '' ?>">Payroll</li></a>
                 <?php endif; ?>
                 <a href="<?php echo base_url('/timesheets') ?>"><li class="<?= $pageTitle == 'Timesheets' ? 'active' : '' ?>">Timesheets</li></a>
                 <?php if ($user->inGroup('superadmin')): ?>
-                    <a href="<?php echo base_url('/assign_users') ?>"><li class="<?= $pageTitle == 'Assign Users' ? 'active' : '' ?>">Assign Users</li></a>
-                    <a href="<?php echo base_url('/unassign_users') ?>"><li class="<?= $pageTitle == 'Unassign Users' ? 'active' : '' ?>">Unassign Users</li></a>
-                    <a href="<?php echo base_url('/add_project') ?>"><li class="<?= $pageTitle == 'Add Projects' ? 'active' : '' ?>">Add Projects</li></a>
+                    <a href="<?php echo base_url('/assign_users') ?>"><li class="<?= $pageTitle == '[Admin Page] Assign Users to Projects' ? 'active' : '' ?>">Assign Users</li></a>
+                    <a href="<?php echo base_url('/unassign_users') ?>"><li class="<?= $pageTitle == '[Admin Page] Unassign Users from Projects' ? 'active' : '' ?>">Unassign Users</li></a>
+                    <a href="<?php echo base_url('/add_project') ?>"><li class="<?= $pageTitle == '[Admin] Add Projects' ? 'active' : '' ?>">Add Projects</li></a>
                 <?php endif; ?>
                 <a href="<?php echo base_url('/projects') ?>"><li class="<?= $pageTitle == 'Projects' ? 'active' : '' ?>">Projects</li></a>
                 <a href="<?php echo base_url('/my_work') ?>"><li class="<?= $pageTitle == 'My Work' ? 'active' : '' ?>">My Work</li></a>
