@@ -39,10 +39,21 @@ body {
 #taskbarItems a {
     text-decoration: none;
     color: white;
+    display: flex; /* Ensure that the text and notification badge align properly */
+    align-items: center;
 }
 
-.taskbar-item.dropdown {
-    margin-left: auto; /* Push the dropdown to the right */
+.taskbar-item {
+    display: flex;
+    align-items: center; /* Align items in the center */
+    position: relative;
+    margin-right: 10px; /* Ensure proper spacing between items */
+}
+
+.taskbar-item .notification-badge {
+    position: absolute;
+    top: -10px;
+    right: -10px;
 }
 
 #taskbarItems a:hover {
@@ -55,8 +66,8 @@ body {
 }
 
 .dropdown-menu {
-    background-color: #495057;
-    border: none;
+    background-color: #495057; /* Dark grey background */
+    border: none; /* Remove default border */
 }
 
 #profile-dropdown button {
@@ -67,11 +78,11 @@ body {
 }
 
 .dropdown-item {
-    color: white;
+    color: white; /* White text */
 }
 
 .dropdown-item:hover {
-    background-color: #333; /* Match taskbar active color */
+    background-color: #333; /* Dark grey background on hover */
 }
 
 .notification-badge {

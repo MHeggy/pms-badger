@@ -99,7 +99,6 @@
                     <span class="notification-badge"><?= $upcomingEventsCount ?></span>
                 <?php endif; ?>
             </li>
-
             <!-- Profile dropdown (added to taskbar items) -->
             <li class="taskbar-item dropdown" id="profile-dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
