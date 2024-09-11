@@ -1,3 +1,10 @@
+body {
+    background-color: #f8f9fa; /* Light background to avoid all-white page */
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
 /* Ensure taskbar and profile dropdown are correctly aligned */
 #headerContainer {
     display: flex;
@@ -48,16 +55,23 @@
 }
 
 .dropdown-menu {
-    background-color: #343a40; /* Darker background color for better contrast */
+    background-color: #495057;
     border: none;
 }
 
+#profile-dropdown button {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px; /* Adjust padding as needed */
+    font-size: 18px;
+}
+
 .dropdown-item {
-    color: white; /* Ensure text color is white */
+    color: white;
 }
 
 .dropdown-item:hover {
-    background-color: #495057; /* Slightly lighter color on hover */
+    background-color: #333; /* Match taskbar active color */
 }
 
 .notification-badge {
