@@ -117,7 +117,6 @@
                         <td><?= esc(str_replace(',', ', ', $project['categoryNames'])) ?></td>
                         <td><?= esc($project['dateAccepted']) ?></td>
                         <td>
-                        <td>
                             <?php if (!empty($project['assignedUsers']) && is_array($project['assignedUsers'])): ?>
                                 <ul>
                                     <?php foreach ($project['assignedUsers'] as $user): ?>
