@@ -10,45 +10,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link rel="stylesheet" href="<?php echo base_url('/assets/css/main.css') ?>">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css" rel="stylesheet">
-    <style>
-
-        #taskbarItems a {
-            text-decoration: none;
-            color: inherit;
-        }
-
-        .notification-badge {
-            background-color: red;
-            color: white;
-            border-radius: 50%;
-            padding: 0 6px;
-            font-size: 12px;
-            position: absolute;
-            top: -10px;
-            right: -10px;
-        }
-
-        .taskbar-item {
-            position: relative;
-            display: inline-flex;
-            align-items: center;
-        }
-
-        .taskbar-item .notification-badge {
-            position: absolute;
-            top: 0;
-            right: -10px;
-        }
-
-        a {
-            text-decoration: none; /* Removes underline from all links */
-            color: inherit; /* Ensures links inherit the text color */
-        }
-
-        a:hover {
-            text-decoration: underline; /* Optional: Add underline on hover */
-        }
-    </style>
 </head>
 <body>
 <?php $user = auth()->user(); ?>
