@@ -307,7 +307,8 @@ class ProjectModel extends Model {
             foreach ($taskIDs as $taskID) {
                 $data[] = [
                     'projectID' => $projectID,
-                    'taskID' => $taskID
+                    'taskID' => $taskID,
+                    'deadline' => $deadline
                 ];
             }
             $this->db->table('project_tasks')->insertBatch($data);

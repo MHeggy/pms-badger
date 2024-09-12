@@ -400,11 +400,12 @@ class ProjectsController extends BaseController {
         $dateAccepted = $this->request->getPost('dateAccepted');
         $categories = $this->request->getPost('categories');
         $tasks = $this->request->getPost('tasks');
-
+        $deadlines = $this->request->getPost('deadlines');
+    
         $projectModel = new ProjectModel();
         $categoryModel = new CategoryModel();
         $taskModel = new TaskModel();
-
+    
         try {
             // Update project details
             $projectModel->update($projectID, [
@@ -418,14 +419,14 @@ class ProjectsController extends BaseController {
             $projectModel->updateProjectCategories($projectID, $categories);
     
             // Update project tasks
-            $projectModel->updateProjectTasks($projectID, $tasks);
+            $projectModel->updateProjectTasks($projectID, $tasks, $deadlines);
     
             return redirect()->to('/projects')->with('success', 'Project updated successfully');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'An error occurred while updating the project');
         }
-
     }
+    
 
     // function to show the addProjects view page.
     public function addProjectsView() {

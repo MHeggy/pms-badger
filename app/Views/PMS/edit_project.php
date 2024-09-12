@@ -100,9 +100,9 @@
 
         <!-- Tasks Section -->
         <h4 class="mt-4">Tasks</h4>
-        <div class="mb-3">
+        <div id="tasks-container" class="mb-3">
             <label for="tasks" class="form-label">Select Tasks</label>
-            <select multiple class="form-select" id="tasks" name="tasks[]" size="5">
+            <select multiple class="form-select" id="tasks" name="tasks[]" size="5" onchange="updateTaskDeadlines()">
                 <?php foreach ($allTasks as $task): ?>
                     <option value="<?= esc($task['taskID']) ?>" 
                         <?= in_array($task['taskID'], array_column($selectedTasks, 'taskID')) ? 'selected' : '' ?>>
@@ -110,6 +110,14 @@
                     </option>
                 <?php endforeach; ?>
             </select>
+            <div id="deadlines-container" class="mt-3">
+                <?php foreach ($selectedTasks as $task): ?>
+                    <div class="mb-3" id="deadline-task-<?= esc($task['taskID']) ?>">
+                        <label for="deadline-<?= esc($task['taskID']) ?>" class="form-label">Deadline for <?= esc($task['taskName']) ?></label>
+                        <input type="date" class="form-control deadline-input" id="deadline-<?= esc($task['taskID']) ?>" name="deadlines[<?= esc($task['taskID']) ?>]" value="<?= esc($task['deadline'] ?? '') ?>">
+                    </div>
+                <?php endforeach; ?>
+            </div>
         </div>
 
         <!-- Update Button -->
@@ -120,6 +128,7 @@
 <script>
     // JavaScript to highlight previously selected categories and tasks
     document.addEventListener('DOMContentLoaded', function() {
+        updateTaskDeadlines();
         var selectedCategories = <?= json_encode(array_column($selectedCategories, 'categoryID')) ?>;
         var selectedTasks = <?= json_encode(array_column($selectedTasks, 'taskID')) ?>;
     
@@ -139,6 +148,26 @@
             }
         });
     });
+
+    function updateTaskDeadlines() {
+        let selectedTasks = Array.from(document.getElementById('tasks').selectedOptions).map(option => option.value);
+        let deadlinesContainer = document.getElementById('deadlines-container');
+        
+        // Clear existing deadlines
+        deadlinesContainer.innerHTML = '';
+        
+        selectedTasks.forEach(taskID => {
+            let taskName = document.querySelector(`#tasks option[value="${taskID}"]`).textContent;
+            
+            let deadlineHTML = `
+                <div class="mb-3" id="deadline-task-${taskID}">
+                    <label for="deadline-${taskID}" class="form-label">Deadline for ${taskName}</label>
+                    <input type="date" class="form-control deadline-input" id="deadline-${taskID}" name="deadlines[${taskID}]">
+                </div>
+            `;
+            deadlinesContainer.insertAdjacentHTML('beforeend', deadlineHTML);
+        });
+    }
 </script>
 
 <script src="<?php echo base_url('/assets/js/main.js')?>"></script>
