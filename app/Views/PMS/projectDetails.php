@@ -78,7 +78,16 @@
                 <th>Tasks</th>
                 <td>
                     <?php if (!empty($project['tasks'])): ?>
-                        <?= implode(', ', array_column($project['tasks'], 'taskName')) ?>
+                        <ul>
+                            <?php foreach ($project['tasks'] as $task): ?>
+                                <li>
+                                    <?= esc($task['taskName']) ?>
+                                    <?php if (!empty($task['deadline'])): ?>
+                                        (Deadline: <?= esc(date('n/j/Y', strtotime($task['deadline']))) ?>)
+                                    <?php endif; ?>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
                     <?php else: ?>
                         None
                     <?php endif; ?>
