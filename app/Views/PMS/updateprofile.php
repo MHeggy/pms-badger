@@ -29,7 +29,7 @@
 <header>
     <?php include 'header.php' ?>
 </header>
-
+<br><br><br>
 <div class="container">
     <h1>Update Profile</h1>
     <form action="<?= base_url("/update_profile") ?>" method="post">
