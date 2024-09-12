@@ -88,18 +88,18 @@ class MyWorkController extends Controller {
             // Fetch all categories
             $categories = $this->categoryModel->findAll();
 
-            // Load the view with filtered projects and categories
-            return view('mywork', [
+            // Pass filtered projects and categories to the view
+            $data = [
                 'assignedProjects' => $projects,
-                'categories' => $categories,
-                'filters' => $filters
-            ]);
-        } catch (\Exception $e) {
-            // Handle error
-            return redirect()->back()->with('error', 'Unable to filter projects. Please try again later.');
-        }
-    }
+                'categories' => $categories
+            ];
 
+            return view('PMS/mywork', $data);
+        } catch (\Exception $e) {
+            log_message('error', 'Error in filter: ' . $e->getMessage());
+            return $this->response->setStatusCode(500)->setJSON(['error' => 'Internal server error']);
+        }
+    }    
     
     public function search() {
         $userID = auth()->id();
