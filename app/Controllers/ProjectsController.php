@@ -340,13 +340,16 @@ class ProjectsController extends BaseController {
         }
     }
 
-    public function addTasksToProject($projectID, $taskIDs) {
+    public function addTasksToProject($projectID, $taskIDs, $deadlines) {
+        $taskModel = new \App\Models\TaskModel();
+        
         foreach ($taskIDs as $taskID) {
-            $data = [
+            $deadline = isset($deadlines[$taskID]) ? $deadlines[$taskID] : null;
+            $taskModel->insert([
                 'projectID' => $projectID,
-                'taskID' => $taskID
-            ];
-            $this->projectModel->db->table('project_tasks')->insert($data);
+                'taskID' => $taskID,
+                'deadline' => $deadline
+            ]);
         }
     }
 
@@ -481,12 +484,13 @@ class ProjectsController extends BaseController {
                 $this->addCategoriesToProject($projectID, $categoryIDs);
             }
     
-            // Add tasks to the project if provided
+            // Add tasks and deadlines to the project if provided
             $taskIDs = $this->request->getPost('tasks'); // array of task IDs
+            $deadlines = $this->request->getPost('deadlines'); // array of deadlines
             if ($taskIDs) {
-                $this->addTasksToProject($projectID, $taskIDs);
+                $this->addTasksToProject($projectID, $taskIDs, $deadlines);
             }
-    
+        
             $db->transCommit();
             return redirect()->back()->with('success', 'Project added successfully.');
         } catch (\Exception $e) {
@@ -495,6 +499,7 @@ class ProjectsController extends BaseController {
             return redirect()->back()->with('error', 'An error occurred: ' . $e->getMessage());
         }
     }
+    
 
     // function to add the updates that other users provide from the updates table in the database.
     public function addUpdate() {

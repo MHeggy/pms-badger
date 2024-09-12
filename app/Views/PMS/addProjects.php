@@ -102,22 +102,23 @@
                         </div>
 
                         <!-- Task Details -->
-                        <div class="card mt-3">
-                            <div class="card-header">
-                                <h5 class="card-title">Project Tasks</h5>
-                            </div>
-                            <div class="card-body">
-                                <div class="mb-3">
-                                    <label for="tasks" class="form-label">Tasks</label>
-                                    <select class="form-select" id="tasks" name="tasks[]" multiple required>
-                                        <!-- Add options dynamically from your database -->
-                                        <?php foreach ($tasks as $task): ?>
-                                            <option value="<?php echo $task['taskID']; ?>"><?php echo $task['taskName']; ?></option>
-                                        <?php endforeach; ?>
-                                    </select>
+                            <div class="card mt-3">
+                                <div class="card-header">
+                                    <h5 class="card-title">Project Tasks</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="mb-3">
+                                        <label for="tasks" class="form-label">Tasks</label>
+                                        <select class="form-select" id="tasks" name="tasks[]" multiple required>
+                                            <?php foreach ($tasks as $task): ?>
+                                                <option value="<?php echo $task['taskID']; ?>"><?php echo $task['taskName']; ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </div>
+                                    <!-- Dynamic Deadline Inputs -->
+                                    <div id="task-deadlines"></div>
                                 </div>
                             </div>
-                        </div>
                         
                         <!-- Submit Button -->
                         <div class="d-grid mt-4">
@@ -130,5 +131,22 @@
     </div>
 </div>
 <script src="<?php echo base_url('/assets/js/main.js')?>"></script>
+<script>
+        $(document).ready(function() {
+            $('#tasks').on('change', function() {
+                let selectedTasks = $(this).val();
+                $('#task-deadlines').empty();
+                
+                selectedTasks.forEach(function(taskID) {
+                    $('#task-deadlines').append(`
+                        <div class="mb-3">
+                            <label for="deadline-${taskID}" class="form-label">Deadline for Task ${taskID}</label>
+                            <input type="date" class="form-control" id="deadline-${taskID}" name="deadlines[${taskID}]" required>
+                        </div>
+                    `);
+                });
+            });
+        });
+    </script>
 </body>
 </html>
