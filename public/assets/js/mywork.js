@@ -44,10 +44,10 @@ function getStatusName(status) {
 function getCategoryName(categoryId) {
     // Example category names, replace with actual data retrieval logic if needed
     const categories = {
-        '1': 'Category 1',
-        '2': 'Category 2',
-        '3': 'Category 3',
-        '4': 'Category 4'
+        '1': 'In Progress',
+        '2': 'Completed',
+        '3': 'Cancelled',
+        '4': 'Postponed'
     };
     return categories[categoryId] || 'Unknown';
 }
