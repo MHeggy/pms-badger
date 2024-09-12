@@ -112,12 +112,12 @@ class PeopleController extends BaseController {
         // Check if the form is submitted.
         if ($this->request->getMethod(true) === 'POST') {
             // Get the user ID from the form data.
-            $userId = $this->request->getPost('userId');
+            $userId = $this->request->getPost('id');
 
             // Get other form data.
             $email = $this->request->getPost('email');
-            $first_name = $this->request->getPost('first_name');
-            $last_name = $this->request->getPost('last_name');
+            $first_name = $this->request->getPost('firstName');
+            $last_name = $this->request->getPost('lastName');
             $username = $this->request->getPost('username');
 
             // Debugging: Log form data
