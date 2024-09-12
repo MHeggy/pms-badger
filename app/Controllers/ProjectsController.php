@@ -300,7 +300,7 @@ class ProjectsController extends BaseController {
 
         session()->setFlashdata('success', 'Projects unassigned successfully.');
 
-        return redirect()->to('/unassignUsers');
+        return redirect()->to('/unassign_users');
     }
 
     public function getProjectsForUser($userId) {
