@@ -294,17 +294,15 @@ class ProjectModel extends Model {
         return $this->insert($data);
     }
 
-    public function updateProjectTasks($projectID, $taskIDs) {
-        // Start a transaction to ensure atomicity
+    public function updateProjectTasks($projectID, $taskIDs, $deadlines) {
         $this->db->transStart();
     
-        // Delete existing tasks for the project
         $this->db->table('project_tasks')->where('projectID', $projectID)->delete();
     
-        // Insert new tasks
         if (!empty($taskIDs)) {
             $data = [];
             foreach ($taskIDs as $taskID) {
+                $deadline = $deadlines[$taskID] ?? null;
                 $data[] = [
                     'projectID' => $projectID,
                     'taskID' => $taskID,
@@ -314,14 +312,13 @@ class ProjectModel extends Model {
             $this->db->table('project_tasks')->insertBatch($data);
         }
     
-        // Complete the transaction
         $this->db->transComplete();
     
         if ($this->db->transStatus() === FALSE) {
             throw new \Exception('Error updating project tasks.');
         }
-    }    
-
+    }
+        
     public function updateProjectCategories($projectID, $categoryIDs) {
         // Start a transaction to ensure atomicity
         $this->db->transStart();
