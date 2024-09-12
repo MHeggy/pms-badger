@@ -109,7 +109,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const statusSelect = document.getElementById('status');
     const categorySelect = document.getElementById('category');
     const statusFilter = document.getElementById('statusFilter');

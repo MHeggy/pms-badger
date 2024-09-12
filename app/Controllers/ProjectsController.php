@@ -99,9 +99,6 @@ class ProjectsController extends BaseController {
         $filters = [
             'status' => $this->request->getGet('status'),
             'category' => $this->request->getGet('category'),
-            // 'assignedUser' => $this->request->getGet('assignedUser'),
-            // 'startDate' => $this->request->getGet('startDate'),
-            // 'endDate' => $this->request->getGet('endDate')
         ];
 
         try {
@@ -127,7 +124,8 @@ class ProjectsController extends BaseController {
             $data = [
                 'projects' => $projects,
                 'categories' => $categories,
-                'user1' => $user
+                'user1' => $user,
+                'selectedFilters' => $filters,  // Add this line
             ];
 
             return view('PMS/projects', $data);

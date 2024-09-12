@@ -33,7 +33,8 @@
         </button>
     </form>
 
-    <!-- Filter Dropdown -->
+
+<!-- Filter Dropdown -->
 <div class="dropdown">
     <button id="filterToggle" class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
         <i class="bi bi-filter"></i> Filter
@@ -45,10 +46,10 @@
                 <label for="status" class="form-label">Project Status</label>
                 <select name="status" id="status" class="form-select">
                     <option value="">All Projects</option>
-                    <option value="1">In Progress</option>
-                    <option value="2">Completed</option>
-                    <option value="3">Cancelled</option>
-                    <option value="4">Postponed</option>
+                    <option value="1" <?= (isset($selectedFilters['status']) && $selectedFilters['status'] == '1') ? 'selected' : '' ?>>In Progress</option>
+                    <option value="2" <?= (isset($selectedFilters['status']) && $selectedFilters['status'] == '2') ? 'selected' : '' ?>>Completed</option>
+                    <option value="3" <?= (isset($selectedFilters['status']) && $selectedFilters['status'] == '3') ? 'selected' : '' ?>>Cancelled</option>
+                    <option value="4" <?= (isset($selectedFilters['status']) && $selectedFilters['status'] == '4') ? 'selected' : '' ?>>Postponed</option>
                 </select>
             </div>
             <!-- Filter category -->
@@ -57,12 +58,14 @@
                 <select name="category" id="category" class="form-select">
                     <option value="">All Categories</option>
                     <?php foreach ($categories as $cat): ?>
-                        <option value="<?= $cat['categoryID'] ?>"><?= $cat['categoryName'] ?></option>
+                        <option value="<?= $cat['categoryID'] ?>" <?= (isset($selectedFilters['category']) && $selectedFilters['category'] == $cat['categoryID']) ? 'selected' : '' ?>>
+                            <?= $cat['categoryName'] ?>
+                        </option>
                     <?php endforeach; ?>
                 </select>
             </div>
-            <!-- Add Button back here -->
-            <button type="submit" class="btn btn-primary">Apply Filters</button> <!-- This is the button being added back -->
+            <!-- Add Button -->
+            <button type="submit" class="btn btn-primary">Apply Filters</button>
         </form>
     </ul>
 </div>
