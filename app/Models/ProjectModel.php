@@ -83,7 +83,48 @@ class ProjectModel extends Model {
     
         $builder->groupBy('projects.projectID, projectstatuses.statusName');
         return $builder->get()->getResultArray();
-    }    
+    }   
+    
+    public function filterAssignedProjects($userID, $filters = [])
+    {
+        $builder = $this->db->table('projects');
+        $builder->select('
+            projects.*, 
+            projectstatuses.statusName, 
+            GROUP_CONCAT(DISTINCT pcategories.categoryName ORDER BY pcategories.categoryName ASC) AS categoryNames,
+            GROUP_CONCAT(DISTINCT users.username ORDER BY users.username ASC) AS assignedUsers
+        ')
+        ->join('projectstatuses', 'projects.statusID = projectstatuses.statusID', 'left')
+        ->join('project_categories', 'projects.projectID = project_categories.projectID', 'left')
+        ->join('pcategories', 'project_categories.categoryID = pcategories.categoryID', 'left')
+        ->join('user_project', 'projects.projectID = user_project.project_id', 'left')
+        ->join('users', 'user_project.user_id = users.id', 'left')
+        ->where('users.id', $userID) // Filter by user assigned to the project
+        ->groupBy('projects.projectID, projectstatuses.statusName');
+
+        // Apply filters for status
+        if (!empty($filters['status'])) {
+            $builder->where('projects.statusID', $filters['status']);
+        }
+
+        // Apply filters for category
+        if (!empty($filters['category'])) {
+            $builder->where('project_categories.categoryID', $filters['category']);
+        }
+
+        // Apply search term (if present)
+        if (!empty($filters['searchTerm'])) {
+            $builder->like('projects.projectName', $filters['searchTerm']);
+        }
+
+        // Additional filters can be added as needed
+        if (!empty($filters['startDate']) && !empty($filters['endDate'])) {
+            $builder->where('projects.dateAccepted >=', $filters['startDate'])
+                    ->where('projects.dateAccepted <=', $filters['endDate']);
+        }
+
+        return $builder->get()->getResultArray();
+    }
     
     public function filterProjectsByStatus($status) {
         $builder = $this->db->table('projects');

@@ -64,56 +64,36 @@ class MyWorkController extends Controller {
         }
     }
 
-    public function filter() {
+    public function filter()
+    {
         $userID = auth()->id();
-    
-        // Ensure the user is logged in
+
         if (!$userID) {
             return redirect()->to('/login')->with('error', 'You must login to access this page.');
         }
-    
+
+        // Get filters from the request
+        $filters = [
+            'status' => $this->request->getGet('status'),
+            'category' => $this->request->getGet('category'),
+            'searchTerm' => $this->request->getGet('searchTerm'),
+            'startDate' => $this->request->getGet('startDate'),
+            'endDate' => $this->request->getGet('endDate')
+        ];
+
         try {
-            // Get filter criteria from the request
-            $status = $this->request->getGet('status');
-            $category = $this->request->getGet('category');  // Add category filter
-    
-            // Debugging statements
-            log_message('debug', 'Status: ' . $status);
-            log_message('debug', 'Category: ' . $category);
-    
-            // Fetch assigned projects for the user
-            $projects = $this->projectModel->getAssignedProjects($userID);
-    
-            foreach ($projects as &$project) {
-                $project['assignedUsers'] = $this->projectModel->getAssignedUsers($project['projectID']);
-            }
-    
-            // Fetch all categories (you may already have a model or method to do this)
+            // Fetch filtered projects assigned to the user
+            $projects = $this->projectModel->filterAssignedProjects($userID, $filters);
+
+            // Fetch all categories
             $categories = $this->categoryModel->findAll();
-    
-            // Filter projects by status
-            if ($status) {
-                $projects = array_filter($projects, function($project) use ($status) {
-                    return isset($project['statusID']) && $project['statusID'] == $status;
-                });
-            }
-    
-            // Filter projects by category
-            if ($category) {
-                // Assuming $project['categoryIDs'] contains the list of associated category IDs
-                $projects = array_filter($projects, function($project) use ($category) {
-                    return isset($project['categoryID']) && in_array($category, explode(',', $project['categoryID']));
-                });
-            }
-    
-            // Pass the filtered projects and categories to the view
+
+            // Pass filtered projects and categories to the view
             $data = [
                 'assignedProjects' => $projects,
-                'status' => $status,
-                'category' => $category,
-                'categories' => $categories  // Pass the categories to the view
+                'categories' => $categories
             ];
-    
+
             return view('PMS/mywork', $data);
         } catch (\Exception $e) {
             log_message('error', 'Error in filter: ' . $e->getMessage());
