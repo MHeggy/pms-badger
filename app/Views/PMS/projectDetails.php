@@ -109,7 +109,7 @@
                             <td>
                                 <?php if ($update['userID'] === auth()->id() || auth()->user()->inGroup('superadmin')): ?>
                                     <!-- Dropdown Menu for Actions -->
-                                    <div class="d-flex justify-content-end">
+                                    <div class="d-flex">
                                         <!-- Edit Button -->
                                         <a class="btn btn-light btn-sm me-2" href="#" data-bs-toggle="modal" data-bs-target="#editUpdateModal-<?= $update['updateID'] ?>">
                                             Edit
