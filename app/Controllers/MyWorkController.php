@@ -102,7 +102,7 @@ class MyWorkController extends Controller {
             if ($category) {
                 // Assuming $project['categoryIDs'] contains the list of associated category IDs
                 $projects = array_filter($projects, function($project) use ($category) {
-                    return isset($project['categoryIDs']) && in_array($category, explode(',', $project['categoryIDs']));
+                    return isset($project['categoryID']) && in_array($category, explode(',', $project['categoryID']));
                 });
             }
     
