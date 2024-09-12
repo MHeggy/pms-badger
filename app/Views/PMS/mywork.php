@@ -66,25 +66,15 @@
             <button type="submit" class="btn btn-primary">Apply Filters</button>
         </form>
     </ul>
-</div>
-
-<!-- Currently Selected Filters Section -->
-<div id="selectedFilters" class="mt-4">
-    <h5>Selected Filters:</h5>
-    <ul class="list-unstyled">
-        <?php if (isset($filters['status']) && $filters['status'] !== ''): ?>
-            <li><strong>Status:</strong> <?= $filters['status'] == '1' ? 'In Progress' : ($filters['status'] == '2' ? 'Completed' : ($filters['status'] == '3' ? 'Cancelled' : 'Postponed')) ?></li>
-        <?php endif; ?>
-        <?php if (isset($filters['category']) && $filters['category'] !== ''): ?>
-            <li><strong>Category:</strong> <?= esc(array_search($filters['category'], array_column($categories, 'categoryID'))) ?></li>
-        <?php endif; ?>
-        <?php if (isset($filters['searchTerm']) && $filters['searchTerm'] !== ''): ?>
-            <li><strong>Search Term:</strong> <?= esc($filters['searchTerm']) ?></li>
-        <?php endif; ?>
-        <?php if (isset($filters['startDate']) && isset($filters['endDate']) && $filters['startDate'] !== '' && $filters['endDate'] !== ''): ?>
-            <li><strong>Date Range:</strong> <?= esc($filters['startDate']) ?> to <?= esc($filters['endDate']) ?></li>
-        <?php endif; ?>
-    </ul>
+</div>''
+<!-- Filter Display (hidden initially) -->
+<div id="activeFilters" class="d-none mt-4">
+    <span id="statusFilter" class="badge bg-secondary me-2 d-none">
+        Status: <span id="statusName"></span> <i class="bi bi-x" id="clearStatus"></i>
+    </span>
+    <span id="categoryFilter" class="badge bg-secondary me-2 d-none">
+        Category: <span id="categoryName"></span> <i class="bi bi-x" id="clearCategory"></i>
+    </span>
 </div>
 
 <!-- Projects Table with scrollable container -->
