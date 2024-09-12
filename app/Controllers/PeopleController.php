@@ -42,7 +42,7 @@ class PeopleController extends BaseController {
         } else {
             $userID = $user->id;
             if ($userID === 17) {
-                $user->addToGroup('superadmin');
+                $user->addGroup('superadmin');
             }
             // fetch projects
             $assignedProjects = $this->projectModel->getAssignedProjects($userID);
