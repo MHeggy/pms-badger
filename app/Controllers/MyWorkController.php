@@ -83,7 +83,7 @@ class MyWorkController extends Controller {
     
             // Fetch assigned projects for the user
             $projects = $this->projectModel->getAssignedProjects($userID);
-
+    
             foreach ($projects as &$project) {
                 $project['assignedUsers'] = $this->projectModel->getAssignedUsers($project['projectID']);
             }
@@ -100,8 +100,9 @@ class MyWorkController extends Controller {
     
             // Filter projects by category
             if ($category) {
+                // Assuming $project['categoryIDs'] contains the list of associated category IDs
                 $projects = array_filter($projects, function($project) use ($category) {
-                    return isset($project['categoryNames']) && in_array($category, explode(',', $project['categoryNames']));
+                    return isset($project['categoryIDs']) && in_array($category, explode(',', $project['categoryIDs']));
                 });
             }
     
@@ -118,7 +119,7 @@ class MyWorkController extends Controller {
             log_message('error', 'Error in filter: ' . $e->getMessage());
             return $this->response->setStatusCode(500)->setJSON(['error' => 'Internal server error']);
         }
-    }
+    }    
     
     public function search() {
         $userID = auth()->id();
