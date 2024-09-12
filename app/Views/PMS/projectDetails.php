@@ -109,16 +109,15 @@
                             <td>
                                 <?php if ($update['userID'] === auth()->id() || auth()->user()->inGroup('superadmin')): ?>
                                     <!-- Dropdown Menu for Actions -->
-                                    <div class="dropdown">
-                                        <button class="btn btn-light btn-sm dropdown-toggle" type="button" id="dropdownMenuButton-<?= $update['updateID'] ?>" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i class="bi bi-three-dots"></i>
-                                        </button>
-                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton-<?= $update['updateID'] ?>">
-                                            <!-- Edit Update Option -->
-                                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#editUpdateModal-<?= $update['updateID'] ?>">Edit</a></li>
-                                            <!-- Delete Update Option -->
-                                            <li><a class="dropdown-item text-danger" href="<?= base_url('projects/delete_update/' . $update['updateID']) ?>" onclick="return confirm('Are you sure you want to delete this update?');">Delete</a></li>
-                                        </ul>
+                                    <div class="d-flex justify-content-end">
+                                        <!-- Edit Button -->
+                                        <a class="btn btn-light btn-sm me-2" href="#" data-bs-toggle="modal" data-bs-target="#editUpdateModal-<?= $update['updateID'] ?>">
+                                            Edit
+                                        </a>
+                                        <!-- Delete Button -->
+                                        <a class="btn btn-light btn-sm text-danger" href="<?= base_url('projects/delete_update/' . $update['updateID']) ?>" onclick="return confirm('Are you sure you want to delete this update?');">
+                                            Delete
+                                        </a>
                                     </div>
                                 <?php endif; ?>
                             </td>
