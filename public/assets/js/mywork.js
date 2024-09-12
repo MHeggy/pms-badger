@@ -52,17 +52,38 @@ function getCategoryName(categoryId) {
     return categories[categoryId] || 'Unknown';
 }
 
-// Initialize event listeners for sorting
+// Initialize event listeners for sorting and clearing filters
 function initializeEventListeners() {
-    const sortAsc = document.getElementById('sortAsc');
-    const sortDesc = document.getElementById('sortDesc');
+    const filterToggle = document.getElementById('filterToggle');
+    const filterOptions = document.getElementById('filterOptions');
     const clearStatus = document.getElementById('clearStatus');
     const clearCategory = document.getElementById('clearCategory');
-    
+    const clearSearchButton = document.getElementById('clearSearchButton');
+    const sortAsc = document.getElementById('sortAsc');
+    const sortDesc = document.getElementById('sortDesc');
+
+    // Toggle filter options
+    filterToggle.addEventListener('click', () => {
+        filterOptions.classList.toggle('collapse');
+    });
+
+    // Clear status filter
+    clearStatus.addEventListener('click', () => clearFilter('status'));
+
+    // Clear category filter
+    clearCategory.addEventListener('click', () => clearFilter('category'));
+
+    // Clear search input
+    clearSearchButton.addEventListener('click', () => {
+        const searchInput = document.getElementById('search');
+        searchInput.value = '';
+        searchInput.focus();
+        updateActiveFilters();
+    });
+
+    // Sorting event listeners
     sortAsc.addEventListener('click', () => sortWork('asc'));
     sortDesc.addEventListener('click', () => sortWork('desc'));
-    clearStatus.addEventListener('click', () => clearFilter('status'));
-    clearCategory.addEventListener('click', () => clearFilter('category'));
 }
 
 // Function to clear a specific filter
@@ -95,4 +116,36 @@ function sortWork(order) {
 
     workList.innerHTML = '';
     sortedRows.forEach(row => workList.appendChild(row));
+}
+
+// Function to update the active filters display
+function updateActiveFilters() {
+    const statusFilter = document.getElementById('statusFilter');
+    const categoryFilter = document.getElementById('categoryFilter');
+    const statusName = document.getElementById('statusName');
+    const categoryName = document.getElementById('categoryName');
+
+    const statusSelect = document.getElementById('status');
+    const categorySelect = document.getElementById('category');
+    const searchInput = document.getElementById('search');
+    
+    if (statusSelect.value) {
+        statusName.textContent = statusSelect.options[statusSelect.selectedIndex].text;
+        statusFilter.classList.remove('d-none');
+    } else {
+        statusFilter.classList.add('d-none');
+    }
+
+    if (categorySelect.value) {
+        categoryName.textContent = categorySelect.options[categorySelect.selectedIndex].text;
+        categoryFilter.classList.remove('d-none');
+    } else {
+        categoryFilter.classList.add('d-none');
+    }
+
+    if (searchInput.value) {
+        clearSearchButton.classList.add('active');
+    } else {
+        clearSearchButton.classList.remove('active');
+    }
 }

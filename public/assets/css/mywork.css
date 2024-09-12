@@ -1,5 +1,5 @@
 
-/* Adjust the container below the header */
+/* Additional CSS to match your structure */
 #filter-container {
     margin-top: 80px; /* Leaves room for the fixed header */
     margin-bottom: 20px;
@@ -144,19 +144,19 @@
 }
 
 #activeFilters {
-    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
-.badge {
-    display: inline-flex;
+#activeFilters .badge {
+    display: flex;
     align-items: center;
 }
 
-.badge .bi-x {
-    cursor: pointer;
+#activeFilters .badge i {
     margin-left: 5px;
 }
-
 
 /* Mobile responsiveness */
 @media (max-width: 768px) {
