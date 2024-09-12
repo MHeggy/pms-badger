@@ -207,7 +207,7 @@ class ProjectModel extends Model {
             ->getResultArray();
     
         $tasks = $this->db->table('project_tasks')
-            ->select('tasks.taskID, tasks.taskName')   // Also select taskID
+            ->select('tasks.taskID, tasks.taskName, project_tasks.deadline')   // Also select taskID
             ->join('tasks', 'tasks.taskID = project_tasks.taskID')
             ->where('project_tasks.projectID', $projectId)
             ->get()
