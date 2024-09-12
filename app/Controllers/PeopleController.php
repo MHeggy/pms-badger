@@ -137,10 +137,10 @@ class PeopleController extends BaseController {
                     $userData['email'] = $email;
                 }
                 if (!empty($first_name)) {
-                    $userData['first_name'] = $first_name;
+                    $userData['firstName'] = $first_name;
                 }
                 if (!empty($last_name)) {
-                    $userData['last_name'] = $last_name;
+                    $userData['lastName'] = $last_name;
                 }
                 if (!empty($username)) {
                     $userData['username'] = $username;
