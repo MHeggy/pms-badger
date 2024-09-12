@@ -483,12 +483,13 @@ class ProjectsController extends BaseController {
             if ($categoryIDs) {
                 $this->addCategoriesToProject($projectID, $categoryIDs);
             }
-    
+        
             // Add tasks and deadlines to the project if provided
             $taskIDs = $this->request->getPost('tasks'); // array of task IDs
             $deadlines = $this->request->getPost('deadlines'); // array of deadlines
             if ($taskIDs) {
-                $this->addTasksToProject($projectID, $taskIDs, $deadlines);
+                $taskModel = new \App\Models\TaskModel();
+                $taskModel->addProjectTasks($projectID, $taskIDs, $deadlines);
             }
         
             $db->transCommit();
@@ -500,7 +501,6 @@ class ProjectsController extends BaseController {
         }
     }
     
-
     // function to add the updates that other users provide from the updates table in the database.
     public function addUpdate() {
         $projectID = $this->request->getPost('projectID');
