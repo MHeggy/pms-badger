@@ -493,11 +493,11 @@ class ProjectsController extends BaseController {
             }
         
             $db->transCommit();
-            return redirect()->back()->with('success', 'Project added successfully.');
+            return redirect()->to('/projects')->with('success', 'Project added successfully.');
         } catch (\Exception $e) {
             $db->transRollback();
             log_message('error', 'An error occurred: ' . $e->getMessage());
-            return redirect()->back()->with('error', 'An error occurred: ' . $e->getMessage());
+            return redirect()->to('/projects')->with('error', 'An error occurred: ' . $e->getMessage());
         }
     }
     
