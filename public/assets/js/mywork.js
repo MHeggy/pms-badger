@@ -1,10 +1,80 @@
 document.addEventListener('DOMContentLoaded', function () {
     initializeEventListeners();
+
+    // Display active filters on page load
+    displayActiveFilters();
 });
+
+// Function to display active filters
+function displayActiveFilters() {
+    const status = new URLSearchParams(window.location.search).get('status');
+    const category = new URLSearchParams(window.location.search).get('category');
+    
+    const activeFilters = document.getElementById('activeFilters');
+    const statusFilter = document.getElementById('statusFilter');
+    const categoryFilter = document.getElementById('categoryFilter');
+    
+    if (status) {
+        statusFilter.classList.remove('d-none');
+        document.getElementById('statusName').textContent = getStatusName(status);
+    }
+    
+    if (category) {
+        categoryFilter.classList.remove('d-none');
+        document.getElementById('categoryName').textContent = getCategoryName(category);
+    }
+    
+    if (status || category) {
+        activeFilters.classList.remove('d-none');
+    }
+}
+
+// Helper function to get status name
+function getStatusName(status) {
+    switch (status) {
+        case '1': return 'In Progress';
+        case '2': return 'Completed';
+        case '3': return 'Cancelled';
+        case '4': return 'Postponed';
+        default: return 'Unknown';
+    }
+}
+
+// Helper function to get category name (you may need to adjust this to fetch names from your data)
+function getCategoryName(categoryId) {
+    // Example category names, replace with actual data retrieval logic if needed
+    const categories = {
+        '1': 'Category 1',
+        '2': 'Category 2',
+        '3': 'Category 3',
+        '4': 'Category 4'
+    };
+    return categories[categoryId] || 'Unknown';
+}
+
+// Initialize event listeners for sorting
+function initializeEventListeners() {
+    const sortAsc = document.getElementById('sortAsc');
+    const sortDesc = document.getElementById('sortDesc');
+    const clearStatus = document.getElementById('clearStatus');
+    const clearCategory = document.getElementById('clearCategory');
+    
+    sortAsc.addEventListener('click', () => sortWork('asc'));
+    sortDesc.addEventListener('click', () => sortWork('desc'));
+    clearStatus.addEventListener('click', () => clearFilter('status'));
+    clearCategory.addEventListener('click', () => clearFilter('category'));
+}
+
+// Function to clear a specific filter
+function clearFilter(filterType) {
+    const params = new URLSearchParams(window.location.search);
+    params.delete(filterType);
+    window.location.search = params.toString();
+}
 
 // Function to sort work based on work number
 function sortWork(order) {
-    const workList = document.getElementById('project_list'); // Updated ID
+    const workList = document.getElementById('project_list');
     const rows = Array.from(workList.querySelectorAll('tr'));
 
     const sortedRows = rows.sort((a, b) => {
@@ -25,13 +95,4 @@ function sortWork(order) {
 
     workList.innerHTML = '';
     sortedRows.forEach(row => workList.appendChild(row));
-}
-
-// Initialize event listeners for sorting
-function initializeEventListeners() {
-    const sortAsc = document.getElementById('sortAsc');
-    const sortDesc = document.getElementById('sortDesc');
-
-    sortAsc.addEventListener('click', () => sortWork('asc'));
-    sortDesc.addEventListener('click', () => sortWork('desc'));
 }

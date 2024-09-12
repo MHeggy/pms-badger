@@ -143,6 +143,21 @@
     margin-top: 20px;
 }
 
+#activeFilters {
+    margin-top: 20px;
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+}
+
+.badge .bi-x {
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+
 /* Mobile responsiveness */
 @media (max-width: 768px) {
     .search-filter-container {

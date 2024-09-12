@@ -71,7 +71,7 @@
 </div>
 
 <!-- Filter Display (hidden initially) -->
-<div id="activeFilters" class="d-none">
+<div id="activeFilters" class="d-none mt-4">
     <span id="statusFilter" class="badge bg-secondary me-2 d-none">
         Status: <span id="statusName"></span> <i class="bi bi-x" id="clearStatus"></i>
     </span>
@@ -79,7 +79,6 @@
         Category: <span id="categoryName"></span> <i class="bi bi-x" id="clearCategory"></i>
     </span>
 </div>
-
     
 <!-- Table for Projects -->
 <div class="table-responsive">
