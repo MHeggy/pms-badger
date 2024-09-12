@@ -36,35 +36,55 @@
         </form>
 
         <!-- Filter Dropdown -->
-    <div class="dropdown">
-        <button id="filterToggle" class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
-            <i class="bi bi-filter"></i> Filter
-        </button>
-        <ul id="filterOptions" class="dropdown-menu p-3 collapse">
-            <form id="filterForm" action="<?= base_url('my_work/filter') ?>" method="get">
-                <div class="mb-3">
-                    <label for="status" class="form-label">Project Status</label>
-                    <select name="status" id="status" class="form-select">
-                        <option value="">All Projects</option>
-                        <option value="1">In Progress</option>
-                        <option value="2">Completed</option>
-                        <option value="3">Cancelled</option>
-                        <option value="4">Postponed</option>
-                    </select>
-                </div>
-                <div class="mb-3">
-                    <label for="category" class="form-label">Project Category</label>
-                    <select name="category" id="category" class="form-select">
-                        <option value="">All Categories</option>
-                        <?php foreach ($categories as $cat): ?>
-                            <option value="<?= esc($cat['categoryID']) ?>"><?= esc($cat['categoryName']) ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-                <button type="submit" class="btn btn-primary">Apply Filters</button>
-            </form>
-        </ul>
-    </div>
+<div class="dropdown">
+    <button id="filterToggle" class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+        <i class="bi bi-filter"></i> Filter
+    </button>
+    <ul id="filterOptions" class="dropdown-menu p-3 collapse">
+        <form id="filterForm" action="<?= base_url('my_work/filter') ?>" method="get">
+            <div class="mb-3">
+                <label for="status" class="form-label">Project Status</label>
+                <select name="status" id="status" class="form-select">
+                    <option value="">All Projects</option>
+                    <option value="1" <?= isset($filters['status']) && $filters['status'] == '1' ? 'selected' : '' ?>>In Progress</option>
+                    <option value="2" <?= isset($filters['status']) && $filters['status'] == '2' ? 'selected' : '' ?>>Completed</option>
+                    <option value="3" <?= isset($filters['status']) && $filters['status'] == '3' ? 'selected' : '' ?>>Cancelled</option>
+                    <option value="4" <?= isset($filters['status']) && $filters['status'] == '4' ? 'selected' : '' ?>>Postponed</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="category" class="form-label">Project Category</label>
+                <select name="category" id="category" class="form-select">
+                    <option value="">All Categories</option>
+                    <?php foreach ($categories as $cat): ?>
+                        <option value="<?= esc($cat['categoryID']) ?>" <?= isset($filters['category']) && $filters['category'] == $cat['categoryID'] ? 'selected' : '' ?>>
+                            <?= esc($cat['categoryName']) ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Apply Filters</button>
+        </form>
+    </ul>
+</div>
+
+<!-- Currently Selected Filters Section -->
+<div id="selectedFilters" class="mt-4">
+    <h5>Selected Filters:</h5>
+    <ul class="list-unstyled">
+        <?php if (isset($filters['status']) && $filters['status'] !== ''): ?>
+            <li><strong>Status:</strong> <?= $filters['status'] == '1' ? 'In Progress' : ($filters['status'] == '2' ? 'Completed' : ($filters['status'] == '3' ? 'Cancelled' : 'Postponed')) ?></li>
+        <?php endif; ?>
+        <?php if (isset($filters['category']) && $filters['category'] !== ''): ?>
+            <li><strong>Category:</strong> <?= esc(array_search($filters['category'], array_column($categories, 'categoryID'))) ?></li>
+        <?php endif; ?>
+        <?php if (isset($filters['searchTerm']) && $filters['searchTerm'] !== ''): ?>
+            <li><strong>Search Term:</strong> <?= esc($filters['searchTerm']) ?></li>
+        <?php endif; ?>
+        <?php if (isset($filters['startDate']) && isset($filters['endDate']) && $filters['startDate'] !== '' && $filters['endDate'] !== ''): ?>
+            <li><strong>Date Range:</strong> <?= esc($filters['startDate']) ?> to <?= esc($filters['endDate']) ?></li>
+        <?php endif; ?>
+    </ul>
 </div>
 
 <!-- Projects Table with scrollable container -->

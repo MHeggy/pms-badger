@@ -91,7 +91,8 @@ class MyWorkController extends Controller {
             // Pass filtered projects and categories to the view
             $data = [
                 'assignedProjects' => $projects,
-                'categories' => $categories
+                'categories' => $categories,
+                'filters' => $filters
             ];
 
             return view('PMS/mywork', $data);
