@@ -66,7 +66,7 @@
             <button type="submit" class="btn btn-primary">Apply Filters</button>
         </form>
     </ul>
-</div>''
+</div>
 <!-- Filter Display (hidden initially) -->
 <div id="activeFilters" class="d-none mt-4">
     <span id="statusFilter" class="badge bg-secondary me-2 d-none">
