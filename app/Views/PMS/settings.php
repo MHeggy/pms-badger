@@ -69,11 +69,11 @@
     <form action="<?php echo base_url('/user/update_profile') ?>" method="post">
         <div class="mb-3">
             <label for="firstName" class="form-label">First Name</label>
-            <input type="text" class="form-control" id="firstName" name="first_name" value="<?= auth()->user()->first_name ?>" required>
+            <input type="text" class="form-control" id="firstName" name="first_name" value="<?= auth()->user()->firstName ?>" required>
         </div>
         <div class="mb-3">
             <label for="lastName" class="form-label">Last Name</label>
-            <input type="text" class="form-control" id="lastName" name="last_name" value="<?= auth()->user()->last_name ?>" required>
+            <input type="text" class="form-control" id="lastName" name="last_name" value="<?= auth()->user()->lastName ?>" required>
         </div>
         <div class="mb-3">
             <label for="email" class="form-label">Email</label>
