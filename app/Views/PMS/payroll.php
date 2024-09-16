@@ -112,6 +112,7 @@
             <label for="week" class="col-sm-2 col-form-label">Week</label>
             <div class="col-sm-10">
                 <input type="date" class="form-control" id="week" name="week" required>
+                <small id="date-error" class="text-danger"></small>
             </div>
         </div>
 
