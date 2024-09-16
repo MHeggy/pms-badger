@@ -5,13 +5,14 @@
     <style>
         .navbar {
             position: fixed;
-            top: 8%;
-            width: 95%;
-            left: 7.5%;
+            top: 60px; /* Adjusted from 8% to a fixed pixel value */
+            width: 100%;
+            left: 0;
+            z-index: 1000; /* Ensures it stays above other elements */
         }
 
         body {
-            margin-top: 56px;
+            margin-top: 75px;
             padding-top: 15px;
         }
 
