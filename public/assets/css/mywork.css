@@ -1,15 +1,16 @@
-/* Search and Filter Section Styling */
+
+/* Additional CSS to match your structure */
 #filter-container {
-    margin-top: 10px; /* Reduced margin for a more compact layout */
-    margin-bottom: 10px;
+    margin-top: 80px; /* Leaves room for the fixed header */
+    margin-bottom: 20px;
 }
 
+/* Centered and cleaner look for search and filter section */
 .search-filter-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap;
-    margin-bottom: 10px; /* Reduced bottom margin */
+    margin-bottom: 20px; /* Space between the container and the table */
 }
 
 #searchForm {
@@ -20,8 +21,8 @@
 
 #search {
     width: 100%;
-    padding-right: 45px; /* Makes room for search button */
-    height: 38px; /* Standard input height */
+    padding-right: 45px;
+    height: 38px;
 }
 
 #searchButton {
@@ -47,19 +48,72 @@
     display: block;
 }
 
-/* Filter Dropdown */
-.dropdown {
-    margin-left: 10px; /* Added space between search and filter */
-}
-
+/* Filter dropdown styling */
 #filterToggle {
     white-space: nowrap;
     font-size: 0.875rem;
 }
 
-/* Projects Table Section */
-.table-responsive {
-    margin-top: 10px; /* Reduced margin to bring the table closer to the filter and search */
+.filter-options {
+    display: none;
+    background-color: #f9f9f9;
+    border-radius: 0.25rem;
+    padding: 10px;
+}
+
+.filter-options.collapse {
+    display: block;
+}
+
+.form-control, .form-select {
+    border-radius: 0.25rem;
+}
+
+.btn-primary, .btn-secondary {
+    border-radius: 0.25rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+}
+
+/* Projects table styling */
+.table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: separate;
+    border-spacing: 0;
+    background-color: #fff;
+}
+
+.table th, .table td {
+    padding: 15px;
+    text-align: center;
+    vertical-align: middle;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.table td a {
+    text-decoration: none;
+}
+
+.sort-arrow {
+    display: inline-block;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+.sort-arrow .bi {
+    font-size: 1rem;
+    margin: 0 3px;
+    color: gray;
+}
+
+.sort-arrow .bi.active {
+    color: black;
 }
 
 /* Badge styling for filtering active filters */
@@ -82,6 +136,27 @@
     cursor: pointer;
 }
 
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 20px;
+}
+
+#activeFilters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+#activeFilters .badge {
+    display: flex;
+    align-items: center;
+}
+
+#activeFilters .badge i {
+    margin-left: 5px;
+}
+
 /* Mobile responsiveness */
 @media (max-width: 768px) {
     .search-filter-container {
@@ -90,7 +165,7 @@
     }
 
     #searchForm {
-        margin-bottom: 10px; /* Reduced margin for tighter spacing on mobile */
+        margin-bottom: 15px;
     }
 
     .table th, .table td {
