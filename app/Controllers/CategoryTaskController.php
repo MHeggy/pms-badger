@@ -29,7 +29,7 @@ class CategoryTaskController extends Controller {
         ];
 
         $this->categoryModel->insert($data);
-        return redirect()->to('/categories-tasks')->with('success', 'Category added successfully!');
+        return redirect()->to('/categories_tasks')->with('success', 'Category added successfully!');
     }
 
     public function addTask() {
@@ -38,6 +38,6 @@ class CategoryTaskController extends Controller {
         ];
 
         $this->taskModel->insert($data);
-        return redirect()->to('/categories-tasks')->with('success', 'Task added successfully!');
+        return redirect()->to('/categories_tasks')->with('success', 'Task added successfully!');
     }
 }
