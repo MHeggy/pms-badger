@@ -44,25 +44,7 @@
     <?php include 'header.php' ?>
 </header>
 
-<!-- Navigation bar -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <strong><a class="nav-link" href="<?php echo base_url('/settings') ?>">Profile Settings</a></strong>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="<?php echo base_url('/user/change_password') ?>">Change Email/Password</a>
-                </li>
-                <!-- Add more options here -->
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Layout</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
+
 <br><br><br><br><br>
 <div class="container settings-container mt-5">
     <h2 class="settings-header">Profile Settings</h2>
