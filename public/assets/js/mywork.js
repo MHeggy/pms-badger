@@ -1,12 +1,13 @@
 document.addEventListener('DOMContentLoaded', function () {
     initializeEventListeners();
-    displayActiveFilters();
+    displayActiveFilters(); // Ensure this is called after DOM is loaded
 });
 
 // Function to display active filters
 function displayActiveFilters() {
-    const status = new URLSearchParams(window.location.search).get('status');
-    const category = new URLSearchParams(window.location.search).get('category');
+    const searchParams = new URLSearchParams(window.location.search);
+    const status = searchParams.get('status');
+    const category = searchParams.get('category');
 
     const activeFilters = document.getElementById('activeFilters');
     const statusFilter = document.getElementById('statusFilter');
@@ -27,7 +28,7 @@ function displayActiveFilters() {
     }
 }
 
-// Helper function to get status name
+// Helper functions to get names
 function getStatusName(status) {
     switch (status) {
         case '1': return 'In Progress';
@@ -38,9 +39,7 @@ function getStatusName(status) {
     }
 }
 
-// Helper function to get category name
 function getCategoryName(categoryId) {
-    // Example category names; replace with actual category retrieval if necessary
     const categories = {
         '1': 'Construction Staking',
         '2': 'Site Design',
@@ -51,7 +50,7 @@ function getCategoryName(categoryId) {
     return categories[categoryId] || 'Unknown';
 }
 
-// Initialize event listeners for sorting and clearing filters
+// Initialize event listeners
 function initializeEventListeners() {
     const sortAsc = document.getElementById('sortAsc');
     const sortDesc = document.getElementById('sortDesc');
@@ -65,11 +64,11 @@ function initializeEventListeners() {
     clearCategory.addEventListener('click', () => clearFilter('category'));
 }
 
-// Function to clear a specific filter
+// Function to clear specific filter
 function clearFilter(filterType) {
     const params = new URLSearchParams(window.location.search);
-    params.delete(filterType); // Remove the filter from the query parameters
-    window.location.search = params.toString(); // Reload the page with updated parameters
+    params.delete(filterType); // Remove filter from URL query parameters
+    window.location.search = params.toString(); // Reload page with updated parameters
 }
 
 // Function to sort work based on project number
