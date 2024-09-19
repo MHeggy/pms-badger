@@ -22,7 +22,7 @@
 <?php endif; ?>
 <br><br><br>
 <!-- Search and Filter Container -->
-<div class="container" id="filter-container" style="margin-top: 20px;">
+<div class="container" id="filter-container">
     <div class="row mb-4 search-filter-container">
         <!-- Search Form -->
         <form id="searchForm" action="<?= base_url('my_work/search') ?>" method="get" class="position-relative">
@@ -36,36 +36,40 @@
         </form>
 
         <!-- Filter Dropdown -->
-<div class="dropdown">
-    <button id="filterToggle" class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
-        <i class="bi bi-filter"></i> Filter
-    </button>
-    <ul id="filterOptions" class="dropdown-menu p-3 collapse">
-        <form id="filterForm" action="<?= base_url('my_work/filter') ?>" method="get">
-            <div class="mb-3">
-                <label for="status" class="form-label">Project Status</label>
-                <select name="status" id="status" class="form-select">
-                    <option value="">All Projects</option>
-                    <option value="1" <?= isset($filters['status']) && $filters['status'] == '1' ? 'selected' : '' ?>>In Progress</option>
-                    <option value="2" <?= isset($filters['status']) && $filters['status'] == '2' ? 'selected' : '' ?>>Completed</option>
-                    <option value="3" <?= isset($filters['status']) && $filters['status'] == '3' ? 'selected' : '' ?>>Cancelled</option>
-                    <option value="4" <?= isset($filters['status']) && $filters['status'] == '4' ? 'selected' : '' ?>>Postponed</option>
-                </select>
-            </div>
-            <div class="mb-3">
-                <label for="category" class="form-label">Project Category</label>
-                <select name="category" id="category" class="form-select">
-                    <option value="">All Categories</option>
-                    <?php foreach ($categories as $cat): ?>
-                        <option value="<?= esc($cat['categoryID']) ?>" <?= isset($filters['category']) && $filters['category'] == $cat['categoryID'] ? 'selected' : '' ?>>
-                            <?= esc($cat['categoryName']) ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
-            </div>
-            <button type="submit" class="btn btn-primary">Apply Filters</button>
-        </form>
-    </ul>
+        <div class="dropdown">
+            <button id="filterToggle" class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                <i class="bi bi-filter"></i> Filter
+            </button>
+            <ul id="filterOptions" class="dropdown-menu p-3 collapse">
+                <!-- Filter form -->
+                <form id="filterForm" action="<?= base_url('my_work/filter') ?>" method="get">
+                    <!-- Status and Category Filters -->
+                    <div class="mb-3">
+                        <label for="status" class="form-label">Project Status</label>
+                        <select name="status" id="status" class="form-select">
+                            <option value="">All Projects</option>
+                            <option value="1" <?= isset($filters['status']) && $filters['status'] == '1' ? 'selected' : '' ?>>In Progress</option>
+                            <option value="2" <?= isset($filters['status']) && $filters['status'] == '2' ? 'selected' : '' ?>>Completed</option>
+                            <option value="3" <?= isset($filters['status']) && $filters['status'] == '3' ? 'selected' : '' ?>>Cancelled</option>
+                            <option value="4" <?= isset($filters['status']) && $filters['status'] == '4' ? 'selected' : '' ?>>Postponed</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="category" class="form-label">Project Category</label>
+                        <select name="category" id="category" class="form-select">
+                            <option value="">All Categories</option>
+                            <?php foreach ($categories as $cat): ?>
+                                <option value="<?= esc($cat['categoryID']) ?>" <?= isset($filters['category']) && $filters['category'] == $cat['categoryID'] ? 'selected' : '' ?>>
+                                    <?= esc($cat['categoryName']) ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Apply Filters</button>
+                </form>
+            </ul>
+        </div>
+    </div>
 </div>
 <!-- Filter Display (hidden initially) -->
 <div id="activeFilters" class="d-none mt-4">
