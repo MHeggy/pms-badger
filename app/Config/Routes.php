@@ -150,3 +150,7 @@ $routes->get('/forgot-password', 'AuthController::forgotPasswordView');
 $routes->post('/processForgotPassword', 'AuthController::processForgotPassword');
 $routes->get('/reset-password/(:segment)', 'AuthController::resetPasswordView/$1');
 $routes->post('/reset-password', 'AuthController::resetPassword');
+// routes for adding categories and tasks
+$routes->get('/categories_tasks', 'CategoryTaskController::index');
+$routes->post('/add_category', 'CategoryTaskController::addCategory');
+$routes->post('/add_task', 'CategoryTaskController::addTask');
