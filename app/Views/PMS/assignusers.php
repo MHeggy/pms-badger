@@ -84,7 +84,7 @@ function fetchUnassignedProjectsForUser(userId) {
                 data.projects.forEach(project => {
                     const option = document.createElement('option');
                     option.value = project.projectID;
-                    option.textContent = project.projectName;
+                    option.textContent = project.projectNumber + ' - ' + project.projectName;
                     selectProjects.appendChild(option);
                 });
             } else {
