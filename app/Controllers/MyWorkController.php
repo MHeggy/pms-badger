@@ -131,7 +131,7 @@ class MyWorkController extends Controller {
             // Pass the searched projects to the view
             $data = [
                 'assignedProjects' => $searchResults,
-                'searchTerm' => $searchTerm,
+                'search' => $searchTerm,
                 'user1' => $user,
                 'categories' => $categories
             ];
