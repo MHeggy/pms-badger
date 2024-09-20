@@ -1,4 +1,3 @@
-
 /* Additional CSS to match your structure */
 #filter-container {
     margin-top: 80px; /* Leaves room for the fixed header */
@@ -11,6 +10,7 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px; /* Space between the container and the table */
+    flex-wrap: wrap; /* Allows wrapping on smaller screens */
 }
 
 #searchForm {
@@ -118,37 +118,13 @@
 
 /* Badge styling for filtering active filters */
 #activeFilters {
-    margin-top: 20px;
-}
-
-.badge {
-    display: inline-flex;
-    align-items: center;
-    padding: 0.4rem 0.75rem;
-    background-color: #007bff;
-    color: white;
-    cursor: pointer;
-    border-radius: 0.25rem;
-}
-
-.badge i {
-    margin-left: 5px;
-    cursor: pointer;
-}
-
-.table-responsive {
-    width: 100%;
-    overflow-x: auto;
-    margin-top: 20px;
-}
-
-#activeFilters {
     display: flex;
     justify-content: flex-start; /* Align filters to the left */
     align-items: center;
     flex-wrap: wrap; /* Allows filters to wrap on smaller screens */
     gap: 10px; /* Adds space between each filter */
     padding-left: 15px; /* Adds some padding from the left edge */
+    flex-grow: 1; /* Ensures it takes up space evenly with search form */
 }
 
 #activeFilters .badge {
