@@ -33,7 +33,9 @@
                 <label for="projects" class="form-label">Select Projects:</label>
                 <select class="form-select" name="projects[]" id="projects" multiple>
                     <?php foreach ($projects as $project): ?>
-                        <option value="<?= $project['projectID'] ?>"><?= $project['projectName'] ?></option>
+                        <option value="<?= $project['projectID'] ?>">
+                            <?= $project['projectNumber'] . ' - ' . $project['projectName']; ?>
+                        </option>
                     <?php endforeach; ?>
                 </select>
                 <button type="submit" class="btn btn-primary">Assign User to Project(s)</button>
