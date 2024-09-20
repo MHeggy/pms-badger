@@ -49,7 +49,9 @@
                         <select name="status" id="status" class="form-select">
                             <option value="">All Projects</option>
                             <option value="1" <?= isset($filters['status']) && $filters['status'] == '1' ? 'selected' : '' ?>>In Progress</option>
-                            <!-- Add other status options -->
+                            <option value="2" <?= isset($filters['status']) && $filters['status'] == '2' ? 'selected' : '' ?>>Completed</option>
+                            <option value="3" <?= isset($filters['status']) && $filters['status'] == '3' ? 'selected' : '' ?>>Cancelled</option>
+                            <option value="4" <?= isset($filters['status']) && $filters['status'] == '4' ? 'selected' : '' ?>>Postponed</option>
                         </select>
                     </div>
                     <div class="mb-3">
