@@ -22,6 +22,7 @@
 <?php endif; ?>
 <br><br><br>
 <!-- Search and Filter Container -->
+<!-- Search and Filter Container -->
 <div class="container" id="filter-container">
     <div class="row mb-4 search-filter-container">
         <!-- Search Form -->
@@ -43,15 +44,12 @@
             <ul id="filterOptions" class="dropdown-menu p-3 collapse">
                 <!-- Filter form -->
                 <form id="filterForm" action="<?= base_url('my_work/filter') ?>" method="get">
-                    <!-- Status and Category Filters -->
                     <div class="mb-3">
                         <label for="status" class="form-label">Project Status</label>
                         <select name="status" id="status" class="form-select">
                             <option value="">All Projects</option>
                             <option value="1" <?= isset($filters['status']) && $filters['status'] == '1' ? 'selected' : '' ?>>In Progress</option>
-                            <option value="2" <?= isset($filters['status']) && $filters['status'] == '2' ? 'selected' : '' ?>>Completed</option>
-                            <option value="3" <?= isset($filters['status']) && $filters['status'] == '3' ? 'selected' : '' ?>>Cancelled</option>
-                            <option value="4" <?= isset($filters['status']) && $filters['status'] == '4' ? 'selected' : '' ?>>Postponed</option>
+                            <!-- Add other status options -->
                         </select>
                     </div>
                     <div class="mb-3">
@@ -69,17 +67,19 @@
                 </form>
             </ul>
         </div>
+
+        <!-- Active Filters Display (Moved into the same flexbox container) -->
+        <div id="activeFilters" class="mt-4">
+            <span id="statusFilter" class="badge bg-secondary me-2 d-none">
+                Status: <span id="statusName"></span> <i class="bi bi-x" id="clearStatus"></i>
+            </span>
+            <span id="categoryFilter" class="badge bg-secondary me-2 d-none">
+                Category: <span id="categoryName"></span> <i class="bi bi-x" id="clearCategory"></i>
+            </span>
+        </div>
     </div>
 </div>
-<!-- Filter Display (hidden initially) -->
-<div id="activeFilters" class="d-none mt-4">
-    <span id="statusFilter" class="badge bg-secondary me-2 d-none">
-        Status: <span id="statusName"></span> <i class="bi bi-x" id="clearStatus"></i>
-    </span>
-    <span id="categoryFilter" class="badge bg-secondary me-2 d-none">
-        Category: <span id="categoryName"></span> <i class="bi bi-x" id="clearCategory"></i>
-    </span>
-</div>
+
 
 <!-- Projects Table with scrollable container -->
 <div class="container" id="project_table" style="margin-top: 20px;">

@@ -13,6 +13,11 @@
     flex-wrap: wrap; /* Allows wrapping on smaller screens */
 }
 
+#statusFilter, #categoryFilter {
+    display: inline-block;
+    margin-left: 10px; /* Space between filters */
+}
+
 #searchForm {
     flex-grow: 1;
     position: relative;
@@ -117,7 +122,10 @@
 }
 
 #activeFilters {
-    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    margin-left: auto; /* Push to the right in flexbox */
+    margin-top: 0; /* Aligns vertically with the filter button */
 }
 
 /* Mobile responsiveness */
