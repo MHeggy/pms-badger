@@ -95,3 +95,63 @@ function sortWork(order) {
     workList.innerHTML = '';
     sortedRows.forEach(row => workList.appendChild(row));
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+    const statusSelect = document.getElementById('status');
+    const categorySelect = document.getElementById('category');
+    const statusFilter = document.getElementById('statusFilter');
+    const categoryFilter = document.getElementById('categoryFilter');
+    const activeFilters = document.getElementById('activeFilters');
+    
+    // Function to update filter display based on selection
+    function updateFilters() {
+        const statusValue = statusSelect.value;
+        const categoryValue = categorySelect.value;
+
+        // Update status filter display
+        if (statusValue) {
+            const statusText = statusSelect.options[statusSelect.selectedIndex].text;
+            document.getElementById('statusName').textContent = statusText;
+            statusFilter.classList.remove('d-none');
+        } else {
+            statusFilter.classList.add('d-none');
+        }
+
+        // Update category filter display
+        if (categoryValue) {
+            const categoryText = categorySelect.options[categorySelect.selectedIndex].text;
+            document.getElementById('categoryName').textContent = categoryText;
+            categoryFilter.classList.remove('d-none');
+        } else {
+            categoryFilter.classList.add('d-none');
+        }
+
+        // Toggle the entire filter badge container
+        if (statusValue || categoryValue) {
+            activeFilters.classList.remove('d-none');
+        } else {
+            activeFilters.classList.add('d-none');
+        }
+    }
+
+    // Initially set filters based on current selection
+    updateFilters();
+
+    // Clear status filter
+    document.getElementById('clearStatus').addEventListener('click', function() {
+        statusSelect.value = '';
+        updateFilters();
+        document.getElementById('filterForm').submit(); // Optionally auto-submit after clearing
+    });
+
+    // Clear category filter
+    document.getElementById('clearCategory').addEventListener('click', function() {
+        categorySelect.value = '';
+        updateFilters();
+        document.getElementById('filterForm').submit(); // Optionally auto-submit after clearing
+    });
+
+    // Update filters on dropdown change
+    statusSelect.addEventListener('change', updateFilters);
+    categorySelect.addEventListener('change', updateFilters);
+});
