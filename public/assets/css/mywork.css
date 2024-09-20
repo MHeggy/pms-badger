@@ -118,7 +118,7 @@
 
 /* Badge styling for filtering active filters */
 #activeFilters {
-    margin-top: 10px;
+    margin-top: 20px;
 }
 
 .badge {
@@ -144,17 +144,26 @@
 
 #activeFilters {
     display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
+    justify-content: flex-start; /* Align filters to the left */
+    align-items: center;
+    flex-wrap: wrap; /* Allows filters to wrap on smaller screens */
+    gap: 10px; /* Adds space between each filter */
+    padding-left: 15px; /* Adds some padding from the left edge */
 }
 
 #activeFilters .badge {
+    background-color: #007bff;
+    color: white;
+    border-radius: 20px;
+    padding: 0.4rem 0.75rem;
     display: flex;
     align-items: center;
+    justify-content: space-between;
 }
 
 #activeFilters .badge i {
     margin-left: 5px;
+    cursor: pointer;
 }
 
 /* Mobile responsiveness */
