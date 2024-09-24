@@ -358,12 +358,24 @@ $(document).ready(function() {
             </tr>
         `;
 
-        // Insert the new row before the row with project name '13-000'
+        // Insert the new row before the row with project number '13-000'
         $('#timesheet-rows tr').filter(function() {
-            return $(this).find('td:nth-child(2) input').val() === '13-000'; // Check the project name input
+            return $(this).find('input[name="projectNumber[]"]').val() === '13-000'; // Check the project number input
         }).first().before(newRow); // Insert the new row before the found row
+        
+        // Re-attach event listeners to the new row
+        const newRowElement = $('#timesheet-rows tr').filter(function() {
+            return $(this).find('input[name="projectNumber[]"]').val() === ''; // The new row should have empty project number
+        }).first();
+
+        addEventListenersToRow(newRowElement[0]);
     });
 });
+
+document.querySelectorAll('#timesheet-rows tr').forEach(row => {
+    addEventListenersToRow(row);
+});
+
 
 function calculateAllTotals() {
     let weeklyTotal = 0;
@@ -378,18 +390,22 @@ function calculateAllTotals() {
 }
 
 function addEventListenersToRow(row) {
-    row.querySelectorAll('.day-input').forEach(input => {
-        input.addEventListener('input', () => {
-            calculateRowTotal(row);
-            calculateAllTotals();
+    if (row) {
+        row.querySelectorAll('.day-input').forEach(input => {
+            input.addEventListener('input', () => {
+                calculateRowTotal(row);
+                calculateAllTotals();
+            });
         });
-    });
-    row.querySelector('.remove-row').addEventListener('click', () => {
-        if (!row.querySelector('.remove-row').classList.contains('disabled')) {
-            row.remove();
-            calculateAllTotals();
+
+        const removeButton = row.querySelector('.remove-row');
+        if (removeButton) {
+            removeButton.addEventListener('click', () => {
+                row.remove();
+                calculateAllTotals();
+            });
         }
-    });
+    }
 }
 
 document.querySelectorAll('.day-input').forEach(input => {
