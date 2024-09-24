@@ -1,4 +1,8 @@
 /* Additional CSS to match your structure */
+body {
+    font-family: 'Arial', sans-serif; /* Professional font */
+}
+
 #filter-container {
     margin-top: 80px; /* Leaves room for the fixed header */
     margin-bottom: 20px;
@@ -96,12 +100,17 @@
 }
 
 .table th {
-    background-color: #f8f9fa;
+    background-color: #007bff; /* Blue header */
+    color: white; /* White text for contrast */
     font-weight: bold;
 }
 
 .table td a {
     text-decoration: none;
+}
+
+.table tbody tr:hover {
+    background-color: #f1f1f1; /* Light grey background on hover */
 }
 
 .sort-arrow {
