@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="<?php echo base_url('/assets/css/main.css') ?>">
 <style>
     table thead {
-        background-color: blue; /* Change this to your desired shade of blue */
+        background-color: #007bff; /* Change this to your desired shade of blue */
         color: white; /* Set text color to white */
     }
 
