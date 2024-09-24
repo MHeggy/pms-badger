@@ -1,10 +1,14 @@
 <?php $pageTitle = "Timesheets"; ?>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
 <!-- Header content -->
-<header><style>
+<header>
+<style>
     body {
         background-color: #f8f9fa;
+        font-family: 'Roboto', sans-serif; /* Set the custom font */
     }
 
     #timesheet-container {
@@ -17,11 +21,6 @@
 
     .timesheet-table input {
         width: 100%;
-    }
-
-    .remove-row.disabled {
-        pointer-events: none;
-        opacity: 0.5;
     }
 
     .button-container {
@@ -44,6 +43,16 @@
 
     .logo {
         width: 100px; /* Adjust logo size */
+    }
+
+    .btn-icon {
+        display: flex;
+        align-items: center;
+    }
+
+    .btn-icon img {
+        width: 20px; /* Adjust icon size */
+        margin-right: 5px;
     }
 
     @media (max-width: 767px) {
@@ -84,11 +93,6 @@
             margin-top: 10px;
             width: 100%;
             text-align: center;
-        }
-
-        .remove-row, #add-row {
-            width: 100%;
-            margin-top: 10px;
         }
     }
 </style>
@@ -280,12 +284,8 @@
     </div>
         <!-- Add Row Button -->
         <div class="button-container">
-            <button type="button" id="add-row" class="btn btn-secondary">Add Row</button>
-        </div>
-
-        <!-- Submit button -->
-        <div class="button-container">
-            <button id="submit-timesheet" type="submit" class="btn btn-primary">Submit Timesheet</button>
+            <button type="button" class="btn btn-success" id="add-row"><i class="fas fa-plus"></i> Add Row</button>
+            <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Submit</button>
         </div>
     </form>
 </div>
