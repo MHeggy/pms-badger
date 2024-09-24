@@ -324,7 +324,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- Scripts -->
 <script>
-    let rowCount = 8;  // Adjusting row count for existing rows
+ let rowCount = 8;  // Adjusting row count for existing rows
 
 function calculateRowTotal(row) {
     let totalHours = 0;
@@ -363,7 +363,7 @@ $(document).ready(function() {
             return $(this).find('input[name="projectNumber[]"]').val() === '13-000'; // Check the project number input
         }).first().before(newRow); // Insert the new row before the found row
         
-        // Re-attach event listeners to the new row
+        // Attach event listeners to the new row
         const newRowElement = $('#timesheet-rows tr').filter(function() {
             return $(this).find('input[name="projectNumber[]"]').val() === ''; // The new row should have empty project number
         }).first();
@@ -375,7 +375,6 @@ $(document).ready(function() {
 document.querySelectorAll('#timesheet-rows tr').forEach(row => {
     addEventListenersToRow(row);
 });
-
 
 function calculateAllTotals() {
     let weeklyTotal = 0;
@@ -408,14 +407,6 @@ function addEventListenersToRow(row) {
     }
 }
 
-document.querySelectorAll('.day-input').forEach(input => {
-    addEventListenersToRow(input.closest('tr'));
-});
-
-document.querySelectorAll('#timesheet-rows .remove-row').forEach(button => {
-    addEventListenersToRow(button.closest('tr'));
-});
-
 document.getElementById('add-row').addEventListener('click', () => {
     rowCount++;
     const newRow = document.querySelector('#timesheet-rows tr:not(:last-child)').cloneNode(true);
@@ -431,6 +422,7 @@ document.getElementById('add-row').addEventListener('click', () => {
     addEventListenersToRow(newRow);
 });
 
+// This function should be called once when the document is ready
 calculateAllTotals();  // Initial calculation
 
 function isMonday(date) {
@@ -438,32 +430,32 @@ function isMonday(date) {
 }
 
 function setMondayRestriction() {
-        const weekInput = document.getElementById('week');
-        const today = new Date();
-        
-        // Set the minimum date to the current date or the nearest past Monday
-        while (!isMonday(today)) {
-            today.setDate(today.getDate() - 1);
-        }
-        const minDate = today.toISOString().split('T')[0];
-        weekInput.setAttribute('min', minDate);
-        
-        // Set the maximum date to 1 year from the current Monday (if you want to restrict future dates)
-        const maxDate = new Date(today);
-        maxDate.setFullYear(maxDate.getFullYear() + 1);
-        weekInput.setAttribute('max', maxDate.toISOString().split('T')[0]);
-
-        weekInput.addEventListener('change', function () {
-            const selectedDate = new Date(weekInput.value);
-            if (!isMonday(selectedDate)) {
-                alert('Please select a Monday.');
-                weekInput.value = ''; // Clear the invalid selection
-            }
-        });
+    const weekInput = document.getElementById('week');
+    const today = new Date();
+    
+    // Set the minimum date to the current date or the nearest past Monday
+    while (!isMonday(today)) {
+        today.setDate(today.getDate() - 1);
     }
+    const minDate = today.toISOString().split('T')[0];
+    weekInput.setAttribute('min', minDate);
+    
+    // Set the maximum date to 1 year from the current Monday (if you want to restrict future dates)
+    const maxDate = new Date(today);
+    maxDate.setFullYear(maxDate.getFullYear() + 1);
+    weekInput.setAttribute('max', maxDate.toISOString().split('T')[0]);
 
-    // Initialize the restriction on page load
-    document.addEventListener('DOMContentLoaded', setMondayRestriction);
+    weekInput.addEventListener('change', function () {
+        const selectedDate = new Date(weekInput.value);
+        if (!isMonday(selectedDate)) {
+            alert('Please select a Monday.');
+            weekInput.value = ''; // Clear the invalid selection
+        }
+    });
+}
+
+// Initialize the restriction on page load
+document.addEventListener('DOMContentLoaded', setMondayRestriction);
 </script>
 <script src="<?php echo base_url('/assets/js/main.js')?>"></script>
 </body>
