@@ -5,7 +5,17 @@
 <link rel="stylesheet" href="<?php echo base_url('/assets/css/mywork.css') ?>">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="<?php echo base_url('/assets/css/main.css') ?>">
+<style>
+    table thead {
+        background-color: blue; /* Change this to your desired shade of blue */
+        color: white; /* Set text color to white */
+    }
 
+    table thead th {
+        padding: 10px; /* Add some padding for better spacing */
+        text-align: left; /* Align text to the left */
+    }
+</style>
 <!-- Header content -->
 <div id="header">
     <header>
@@ -85,7 +95,7 @@
 <!-- Projects Table with scrollable container -->
 <div class="container" id="project_table" style="margin-top: 20px;">
     <div class="table-responsive">
-        <table class="table table-striped">
+        <table class="table table-striped table-blue">
             <thead>
                 <tr>
                     <th>Project Number
