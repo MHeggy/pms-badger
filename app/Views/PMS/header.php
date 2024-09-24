@@ -9,6 +9,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link rel="stylesheet" href="<?php echo base_url('/assets/css/main.css') ?>">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
 </head>
 <body>
 <?php $user = auth()->user(); ?>
@@ -18,7 +19,7 @@
     <div class="row align-items-center">
         <div class="col-lg-6 d-flex justify-content-start">
             <img src="<?php echo base_url('assets/img/BE Logo - New.jpg') ?>" alt="Logo" class="header-logo" />
-            <h1 class="ms-3">PMSBadger</h1>
+            <h1 class="ms-3"><i class="bi bi-award"></i> PMSBadger</h1>
         </div>
         <div class="col-lg-6 d-flex justify-content-end">
             <!-- Menu button for mobile view -->
