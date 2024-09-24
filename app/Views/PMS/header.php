@@ -17,7 +17,7 @@
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="<?php echo base_url('/dashboard') ?>">
             <img src="<?php echo base_url('assets/img/BE Logo - New transparent.png') ?>" alt="Logo" class="header-logo" />
             PMSBadger
         </a>
