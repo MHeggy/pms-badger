@@ -324,13 +324,13 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- Scripts -->
 <script>
-let rowCount = 8;  // Adjusting row count for existing rows
+let rowCount = 8; // Adjusting row count for existing rows
 
 function calculateRowTotal(row) {
     let totalHours = 0;
     const daysOfWeek = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
     daysOfWeek.forEach(day => {
-        const input = row.querySelector(`input[name^="${day}"]`);
+        const input = row.querySelector(`input[name="${day}[]"]`);
         if (input && input.value !== '') {
             totalHours += parseFloat(input.value);
         }
@@ -338,8 +338,8 @@ function calculateRowTotal(row) {
     row.querySelector('.total-hours').value = totalHours.toFixed(2);
 }
 
-$(document).ready(function() {
-    $('#add-row').click(function() {
+$(document).ready(function () {
+    $('#add-row').click(function () {
         // Create a new row
         const newRow = `
             <tr>
@@ -363,7 +363,7 @@ $(document).ready(function() {
         `;
 
         // Insert the new row before the row with project number '13-000'
-        $('#timesheet-rows tr').filter(function() {
+        $('#timesheet-rows tr').filter(function () {
             return $(this).find('input[name="projectNumber[]"]').val() === '13-000'; // Check the project number input
         }).first().before(newRow); // Insert the new row before the found row
         
@@ -375,10 +375,11 @@ $(document).ready(function() {
     });
 });
 
+// Function to calculate all totals
 function calculateAllTotals() {
     let weeklyTotal = 0;
     document.querySelectorAll('#timesheet-rows tr').forEach(row => {
-        if (!row.querySelector('input[name="projectNumber[]"]').readonly) {  // Exclude fixed row
+        if (!row.querySelector('input[name="projectNumber[]"]').readonly) { // Exclude fixed row
             calculateRowTotal(row);
             const rowTotal = parseFloat(row.querySelector('.total-hours').value) || 0;
             weeklyTotal += rowTotal;
@@ -387,6 +388,7 @@ function calculateAllTotals() {
     document.getElementById('weekly-total').value = weeklyTotal.toFixed(2);
 }
 
+// Function to add event listeners to a specific row
 function addEventListenersToRow(row) {
     if (row) {
         row.querySelectorAll('.day-input').forEach(input => {
@@ -412,7 +414,7 @@ document.querySelectorAll('#timesheet-rows tr').forEach(row => {
 });
 
 // This function should be called once when the document is ready
-calculateAllTotals();  // Initial calculation
+calculateAllTotals(); // Initial calculation
 
 function isMonday(date) {
     return date.getDay() === 1;
@@ -444,7 +446,11 @@ function setMondayRestriction() {
 }
 
 // Initialize the restriction on page load
-document.addEventListener('DOMContentLoaded', setMondayRestriction);
+document.addEventListener('DOMContentLoaded', function() {
+    setMondayRestriction();
+    calculateAllTotals(); // Initial calculation
+});
+
 </script>
 <script src="<?php echo base_url('/assets/js/main.js')?>"></script>
 </body>
