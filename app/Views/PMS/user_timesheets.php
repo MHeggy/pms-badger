@@ -63,7 +63,7 @@
 </div>
 
 <!-- Confirmation Modal -->
-<div class="modal" tabindex="-1" id="confirmDeleteModal" data-bs-backdrop="static" data-bs-keyboard="false">
+<div class="modal" tabindex="-1" id="confirmDeleteModal">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -74,12 +74,13 @@
                 Are you sure you want to delete this timesheet?
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-backdrop="false">Cancel</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                 <a href="#" id="confirmDeleteButton" class="btn btn-danger">Delete</a>
             </div>
         </div>
     </div>
 </div>
+
 
 <!-- Script to handle confirmation modal -->
 <script>
