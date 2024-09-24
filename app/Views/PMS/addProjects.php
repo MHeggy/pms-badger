@@ -10,14 +10,14 @@
 
 <header>
     <?php include 'header.php' ?>
-</header><br><br>
+</header>
 
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card mb-3">
-                <div class="card-header">
-                    <h3 class="card-title text-center">Add New Project</h3>
+                <div class="card-header text-center">
+                    <h3 class="card-title">Add New Project</h3>
                 </div>
                 <div class="card-body">
                     <form id="addProjectForm" action="<?php echo base_url('/projects/add') ?>" method="post">
@@ -38,7 +38,6 @@
                                 <div class="mb-3">
                                     <label for="state" class="form-label">State</label>
                                     <select class="form-select" id="state" name="stateID" required>
-                                        <!-- Add options dynamically from your database -->
                                         <?php foreach ($states as $state): ?>
                                             <option value="<?php echo $state['stateID']; ?>"><?php echo $state['stateName']; ?></option>
                                         <?php endforeach; ?>
@@ -51,7 +50,6 @@
                                 <div class="mb-3">
                                     <label for="country" class="form-label">Country</label>
                                     <select class="form-select" id="country" name="countryID" required>
-                                        <!-- Add options dynamically from your database -->
                                         <?php foreach ($countries as $country): ?>
                                             <option value="<?php echo $country['countryID']; ?>"><?php echo $country['countryName']; ?></option>
                                         <?php endforeach; ?>
@@ -70,8 +68,8 @@
                             <input type="date" class="form-control" id="date_accepted" name="date_accepted" required>
                         </div>
                         <div class="mb-3">
-                            <label for="project_number">Project Number:</label>
-                            <input type="text" id="project_number" name="project_number" required>
+                            <label for="project_number" class="form-label">Project Number:</label>
+                            <input type="text" class="form-control" id="project_number" name="project_number" required placeholder="Enter Project Number">
                         </div>
                         <div class="mb-3">
                             <label for="status" class="form-label">Status</label>
@@ -92,7 +90,6 @@
                                 <div class="mb-3">
                                     <label for="categories" class="form-label">Categories</label>
                                     <select class="form-select" id="categories" name="categories[]" multiple required>
-                                        <!-- Add options dynamically from your database -->
                                         <?php foreach ($categories as $category): ?>
                                             <option value="<?php echo $category['categoryID']; ?>"><?php echo $category['categoryName']; ?></option>
                                         <?php endforeach; ?>
@@ -102,27 +99,29 @@
                         </div>
 
                         <!-- Task Details -->
-                            <div class="card mt-3">
-                                <div class="card-header">
-                                    <h5 class="card-title">Project Tasks</h5>
-                                </div>
-                                <div class="card-body">
-                                    <div class="mb-3">
-                                        <label for="tasks" class="form-label">Tasks</label>
-                                        <select class="form-select" id="tasks" name="tasks[]" multiple required>
-                                            <?php foreach ($tasks as $task): ?>
-                                                <option value="<?php echo $task['taskID']; ?>"><?php echo $task['taskName']; ?></option>
-                                            <?php endforeach; ?>
-                                        </select>
-                                    </div>
-                                    <!-- Dynamic Deadline Inputs -->
-                                    <div id="task-deadlines"></div>
-                                </div>
+                        <div class="card mt-3">
+                            <div class="card-header">
+                                <h5 class="card-title">Project Tasks</h5>
                             </div>
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <label for="tasks" class="form-label">Tasks</label>
+                                    <select class="form-select" id="tasks" name="tasks[]" multiple required>
+                                        <?php foreach ($tasks as $task): ?>
+                                            <option value="<?php echo $task['taskID']; ?>"><?php echo $task['taskName']; ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                                <!-- Dynamic Deadline Inputs -->
+                                <div id="task-deadlines"></div>
+                            </div>
+                        </div>
                         
                         <!-- Submit Button -->
                         <div class="d-grid mt-4">
-                            <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                            <button type="submit" class="btn btn-primary btn-block">
+                                <i class="fas fa-plus"></i> Submit
+                            </button>
                         </div>
                     </form>
                 </div>
@@ -130,23 +129,28 @@
         </div>
     </div>
 </div>
+
 <script src="<?php echo base_url('/assets/js/main.js')?>"></script>
 <script>
-        $(document).ready(function() {
-            $('#tasks').on('change', function() {
-                let selectedTasks = $(this).val();
-                $('#task-deadlines').empty();
-                
-                selectedTasks.forEach(function(taskID) {
-                    $('#task-deadlines').append(`
-                        <div class="mb-3">
-                            <label for="deadline-${taskID}" class="form-label">Deadline for Task ${taskID}</label>
-                            <input type="date" class="form-control" id="deadline-${taskID}" name="deadlines[${taskID}]" required>
-                        </div>
-                    `);
-                });
+    $(document).ready(function() {
+        $('#tasks').on('change', function() {
+            let selectedTasks = $(this).val();
+            $('#task-deadlines').empty();
+            
+            selectedTasks.forEach(function(taskID) {
+                $('#task-deadlines').append(`
+                    <div class="mb-3">
+                        <label for="deadline-${taskID}" class="form-label">Deadline for Task ${taskID}</label>
+                        <input type="date" class="form-control" id="deadline-${taskID}" name="deadlines[${taskID}]" required>
+                    </div>
+                `);
             });
         });
-    </script>
+    });
+</script>
+
+<!-- Font Awesome for Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
 </body>
 </html>
