@@ -1,15 +1,15 @@
 <?php $pageTitle = 'Update Profile' ?>
 <!-- Link to Bootstrap CSS -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <style>
+<link rel="stylesheet" href="<?php echo base_url('/assets/css/main.css') ?>">
+<style>
         /* Adjust the body margin to prevent content from being covered by the navbar */
     body {
         font-family: 'Roboto', sans-serif;
         background-color: #f0f2f5;
         color: #333;
     }
-    </style>
+</style>
 
 <?php $user = auth()->user(); ?>
 
