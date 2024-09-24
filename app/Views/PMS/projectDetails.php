@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="<?= base_url('/assets/css/projectDetails.css') ?>">
 <link rel="stylesheet" href="<?= base_url('/assets/css/main.css') ?>">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
- <!-- Font Awesome for icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <!-- Font Awesome for icons -->
 
 <!-- Header content -->
 <header>
