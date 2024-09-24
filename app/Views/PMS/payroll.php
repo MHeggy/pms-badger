@@ -324,7 +324,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- Scripts -->
 <script>
- let rowCount = 8;  // Adjusting row count for existing rows
+let rowCount = 8;  // Adjusting row count for existing rows
 
 function calculateRowTotal(row) {
     let totalHours = 0;
@@ -354,7 +354,11 @@ $(document).ready(function() {
                 <td><input type="number" class="form-control day-input" name="saturday[]" step="0.01"></td>
                 <td><input type="number" class="form-control day-input" name="sunday[]" step="0.01"></td>
                 <td><input type="text" class="form-control total-hours" name="totalHours[]" readonly></td>
-                <td><button type="button" class="btn btn-danger remove-row">Remove</button></td>
+                <td>
+                        <button type="button" class="btn btn-danger remove-row">
+                            <i class="fas fa-trash-alt"></i> Remove
+                        </button>
+                    </td>
             </tr>
         `;
 
