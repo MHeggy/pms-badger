@@ -74,7 +74,7 @@
                 Are you sure you want to delete this timesheet?
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-backdrop="false">Cancel</button>
                 <a href="#" id="confirmDeleteButton" class="btn btn-danger">Delete</a>
             </div>
         </div>
