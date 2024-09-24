@@ -11,6 +11,7 @@ class UserModel extends ShieldUserModel {
 
     protected function initialize(): void {
         parent::initialize();
-        $this->allowedFields = ['username', 'email', 'password_hash', 'firstName', 'lastName', 'phone', 'last_active'];
+        $this->allowedFields = ['username', 'status', 'status_message', 'active', 'email', 'password_hash', 'firstName', 'lastName', 'last_active'];
     }
+
 }
