@@ -20,8 +20,8 @@
         <button type="button" class="btn btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 <?php endif; ?>
-<br><br><br>
-<!-- Search and Filter Container -->
+<br><br>
+
 <!-- Search and Filter Container -->
 <div class="container" id="filter-container">
     <div class="row mb-4 search-filter-container">
@@ -70,7 +70,7 @@
             </ul>
         </div>
 
-        <!-- Active Filters Display (Moved into the same flexbox container) -->
+        <!-- Active Filters Display -->
         <div id="activeFilters" class="mt-4">
             <span id="statusFilter" class="badge bg-secondary me-2 d-none">
                 Status: <span id="statusName"></span> <i class="bi bi-x" id="clearStatus"></i>
@@ -81,7 +81,6 @@
         </div>
     </div>
 </div>
-
 
 <!-- Projects Table with scrollable container -->
 <div class="container" id="project_table" style="margin-top: 20px;">
@@ -119,9 +118,9 @@
                         <td><?= esc(str_replace(',', ', ', $work['categoryNames'])) ?></td>
                         <td><?= esc($work['dateAccepted']) ?></td>
                         <td>
-                            <?php if (!empty($project['assignedUsers']) && is_array($project['assignedUsers'])): ?>
+                            <?php if (!empty($work['assignedUsers']) && is_array($work['assignedUsers'])): ?>
                                 <ul>
-                                    <?php foreach ($project['assignedUsers'] as $user): ?>
+                                    <?php foreach ($work['assignedUsers'] as $user): ?>
                                         <li><?= esc($user['username']) ?></li>
                                     <?php endforeach; ?>
                                 </ul>
@@ -151,44 +150,45 @@
             }, 3000);
         }
     });
-    
+
+    // Initialize event listeners for sorting
     document.addEventListener('DOMContentLoaded', function () {
-    initializeEventListeners();
-});
-
-// Function to sort work based on work number
-function sortWork(order) {
-    const workList = document.getElementById('project_list'); // Updated ID
-    const rows = Array.from(workList.querySelectorAll('tr'));
-
-    const sortedRows = rows.sort((a, b) => {
-        const aParts = a.cells[0].textContent.trim().split('-');
-        const bParts = b.cells[0].textContent.trim().split('-');
-
-        const aYear = parseInt(aParts[0]);
-        const bYear = parseInt(bParts[0]);
-        const aNumber = parseInt(aParts[1]);
-        const bNumber = parseInt(bParts[1]);
-
-        if (aYear !== bYear) {
-            return order === 'asc' ? aYear - bYear : bYear - aYear;
-        } else {
-            return order === 'asc' ? aNumber - bNumber : bNumber - aNumber;
-        }
+        initializeEventListeners();
     });
 
-    workList.innerHTML = '';
-    sortedRows.forEach(row => workList.appendChild(row));
-}
+    // Function to sort work based on work number
+    function sortWork(order) {
+        const workList = document.getElementById('project_list');
+        const rows = Array.from(workList.querySelectorAll('tr'));
 
-// Initialize event listeners for sorting
-function initializeEventListeners() {
-    const sortAsc = document.getElementById('sortAsc');
-    const sortDesc = document.getElementById('sortDesc');
+        const sortedRows = rows.sort((a, b) => {
+            const aParts = a.cells[0].textContent.trim().split('-');
+            const bParts = b.cells[0].textContent.trim().split('-');
 
-    sortAsc.addEventListener('click', () => sortWork('asc'));
-    sortDesc.addEventListener('click', () => sortWork('desc'));
-}
+            const aYear = parseInt(aParts[0]);
+            const bYear = parseInt(bParts[0]);
+            const aNumber = parseInt(aParts[1]);
+            const bNumber = parseInt(bParts[1]);
+
+            if (aYear !== bYear) {
+                return order === 'asc' ? aYear - bYear : bYear - aYear;
+            } else {
+                return order === 'asc' ? aNumber - bNumber : bNumber - aNumber;
+            }
+        });
+
+        workList.innerHTML = '';
+        sortedRows.forEach(row => workList.appendChild(row));
+    }
+
+    // Initialize event listeners for sorting
+    function initializeEventListeners() {
+        const sortAsc = document.getElementById('sortAsc');
+        const sortDesc = document.getElementById('sortDesc');
+
+        sortAsc.addEventListener('click', () => sortWork('asc'));
+        sortDesc.addEventListener('click', () => sortWork('desc'));
+    }
 </script>
 </body>
 </html>
