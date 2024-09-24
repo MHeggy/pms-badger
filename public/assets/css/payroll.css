@@ -1,22 +1,49 @@
 body {
-    font-family: 'Roboto', sans-serif; /* Set Roboto font as default for the body */
+    font-family: 'Roboto', sans-serif; /* Use Roboto font */
+    background-color: #f8f9fa; /* Light background for a cleaner look */
 }
 
 .card {
-    padding: 20px; /* Add some padding to the card for better spacing */
+    padding: 20px; /* Padding for card */
+    border: 1px solid #dee2e6; /* Light border around the card */
+    border-radius: 0.5rem; /* Rounded corners */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.card-title {
+    font-weight: bold;
+    margin-bottom: 1.5rem; /* Space below the title */
 }
 
 .table-responsive {
-    overflow-x: auto; /* Enable horizontal scrolling for tables if needed */
+    overflow-x: auto; /* Enable horizontal scrolling for tables */
+    margin-top: 20px; /* Space above table */
+}
+
+.table {
+    font-size: 16px; /* Base font size for table */
+}
+
+.table th {
+    background-color: #343a40; /* Dark background for header */
+    color: white; /* White text color */
+}
+
+.table td {
+    vertical-align: middle; /* Center align text in cells */
+}
+
+.table-info {
+    background-color: #d1ecf1; /* Light blue for week headers */
 }
 
 .dropdown-menu {
-    width: 150px;
-    text-align: left;
+    width: 150px; /* Set dropdown width */
+    text-align: left; /* Left align dropdown items */
 }
 
 .dropdown-item {
-    font-size: 14px;
+    font-size: 14px; /* Font size for dropdown items */
 }
 
 .dropdown-toggle::after {
@@ -25,11 +52,6 @@ body {
 
 /* Mobile-specific adjustments */
 @media (max-width: 768px) {
-    .container {
-        padding-left: 15px; /* Add padding on the sides */
-        padding-right: 15px;
-    }
-
     .btn {
         font-size: 14px; /* Adjust font size of buttons */
         padding: 8px 12px; /* Adjust padding for buttons */
@@ -41,28 +63,5 @@ body {
 
     .table th, .table td {
         padding: 8px; /* Adjust padding for table cells */
-    }
-
-    .table-responsive {
-        overflow-x: auto; /* Allow horizontal scroll for tables on small screens */
-    }
-
-    .dropdown-menu {
-        width: 100%; /* Full width on mobile */
-    }
-}
-
-@media (max-width: 576px) {
-    .btn {
-        font-size: 12px; /* Further reduce font size for very small screens */
-        padding: 6px 10px; /* Adjust padding for very small screens */
-    }
-
-    .table {
-        font-size: 12px; /* Further reduce font size for very small screens */
-    }
-
-    .table th, .table td {
-        padding: 6px; /* Further adjust padding for table cells */
     }
 }

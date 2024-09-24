@@ -5,7 +5,7 @@
 <header>
     <?php include 'header.php'; ?>
 </header>
-<br><br>
+
 <div class="container mt-5">
     <?php if (session()->getFlashdata('error_message')): ?>
         <div class="alert alert-danger">
@@ -14,9 +14,10 @@
     <?php endif; ?>
 
     <!-- Filter Form -->
-    <div class="card p-4 mb-4">
+    <div class="card p-4 mb-4 shadow">
+        <h5 class="card-title text-center">Filter Timesheets</h5>
         <form method="get" action="" class="row g-3">
-            <div class="col-md-6">
+            <div class="col-md-5">
                 <label for="userID" class="form-label">User Name:</label>
                 <select name="userID" id="userID" class="form-select">
                     <option value="">Select User</option>
@@ -27,18 +28,18 @@
                     <?php endforeach; ?>
                 </select>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-5">
                 <label for="week" class="form-label">Week:</label>
                 <select name="week" id="week" class="form-select">
                     <option value="">Select Week</option>
                     <?php foreach ($weeks as $week): ?>
                         <option value="<?= $week['weekOf']; ?>" <?= $week['weekOf'] == $selectedWeek ? 'selected' : ''; ?>>
-                            <?= $week['weekOf']; ?>
+                            <?= esc($week['weekOf']); ?>
                         </option>
                     <?php endforeach; ?>
                 </select>
             </div>
-            <div class="col-12 text-center">
+            <div class="col-md-2 text-center">
                 <button type="submit" class="btn btn-primary">Filter</button>
                 <a href="<?= current_url(); ?>" class="btn btn-secondary ms-2">Reset</a>
             </div>
@@ -55,7 +56,7 @@
                         <th>Select</th>
                         <th>Name</th>
                         <th>Total Hours</th>
-                        <th></th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -107,7 +108,6 @@
         <p class="text-center mt-4">No timesheets found for the selected filters.</p>
     <?php endif; ?>
 </div>
-
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
