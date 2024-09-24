@@ -289,7 +289,7 @@
         </div>
     </form>
 </div>
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- Scripts -->
 <script>
     let rowCount = 8;  // Adjusting row count for existing rows
@@ -305,6 +305,26 @@ function calculateRowTotal(row) {
     });
     row.querySelector('.total-hours').value = totalHours.toFixed(2);
 }
+
+$(document).ready(function() {
+        $('#add-row').click(function() {
+            $('#timesheet-rows').append(`
+                <tr>
+                    <td><input type="text" class="form-control" name="projectNumber[]"></td>
+                    <td><input type="text" class="form-control" name="projectName[]"></td>
+                    <td><input type="text" class="form-control" name="activityDescription[]"></td>
+                    <td><input type="number" class="form-control day-input" name="monday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="tuesday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="wednesday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="thursday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="friday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="saturday[]" step="0.01"></td>
+                    <td><input type="number" class="form-control day-input" name="sunday[]" step="0.01"></td>
+                    <td><input type="text" class="form-control total-hours" name="totalHours[]" readonly></td>
+                </tr>
+            `);
+        });
+    });
 
 function calculateAllTotals() {
     let weeklyTotal = 0;
