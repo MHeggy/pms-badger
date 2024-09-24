@@ -1,18 +1,49 @@
 <?php esc($pageTitle = 'Timesheet Details') ?>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
 <style>
-    th, td {
-        text-align: center;
+    body {
+        background-color: #f8f9fa;
     }
     .container {
         margin-top: 85px;
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    h2 {
+        color: #0056b3; /* Blue color for the title */
+        margin-bottom: 20px;
+    }
+    table th {
+        background-color: #0056b3; /* Blue for table header */
+        color: white;
+    }
+    th, td {
+        text-align: center;
+        vertical-align: middle;
     }
     .btn-back {
+        background-color: #0056b3; /* Same blue for the back button */
+        color: white;
         margin-bottom: 20px;
+        border-radius: 50px;
+        display: inline-flex;
+        align-items: center;
+        padding: 10px 15px;
+        text-transform: uppercase;
+    }
+    .btn-back i {
+        margin-right: 10px;
     }
     .total-hours {
         font-weight: bold;
+        color: #0056b3;
+    }
+    tfoot td {
+        font-size: 1.1em;
     }
 </style>
 
@@ -22,9 +53,11 @@
 </header>
 
 <div class="container">
-    <button onclick="goBack()" class="btn btn-primary btn-back">Go Back</button>
+    <button onclick="goBack()" class="btn btn-back">
+        <i class="fas fa-arrow-left"></i> Go Back
+    </button>
     <h2>Timesheet for the week of <?= esc($timesheet['weekOf']) ?></h2>
-    <table class="table table-bordered">
+    <table class="table table-bordered table-striped">
         <thead>
         <tr>
             <th>Project Number</th>
@@ -73,5 +106,3 @@
 </script>
 
 <script src="<?php echo base_url('/assets/js/main.js')?>"></script>
-</body>
-</html>
