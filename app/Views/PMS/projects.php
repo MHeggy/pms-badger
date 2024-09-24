@@ -10,7 +10,13 @@
         <?php include 'header.php' ?>
     </header>
 </div>
-
+<style>
+    body {
+        font-family: 'Roboto', sans-serif;
+        background-color: #f0f2f5;
+        color: #333;
+    }
+</style>
 <!-- Success Message Section -->
 <?php if (session()->getFlashdata('success')): ?>
     <div id="success-message" class="alert alert-success alert-dismissible fade show" role="alert">
