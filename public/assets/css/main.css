@@ -9,14 +9,14 @@ body {
 #headerContainer {
     display: flex;
     flex-direction: column; /* Adjust for better alignment */
-    align-items: flex-start; /* Align items to the start */
-    background-color: #495057; /* Taskbar color */
+    align-items: center; /* Center align items */
+    background-color: #007bff; /* Vibrant blue color */
     padding: 10px 20px;
-    border-bottom: 2px solid #007bff; /* Add a bottom border for definition */
+    border-bottom: 2px solid #0056b3; /* Darker border for definition */
 }
 
-#headerLogo {
-    height: 50px; /* Set a fixed height for the logo */
+.header-logo {
+    height: 40px; /* Adjust the height for a smaller logo */
     margin-right: 15px; /* Space between logo and title */
 }
 
@@ -26,11 +26,11 @@ h1 {
     margin: 0; /* Remove default margin */
 }
 
-/* Ensure taskbar items are visually appealing */
+/* Taskbar Items */
 #taskbarItems {
     display: flex;
     align-items: center;
-    justify-content: flex-start; /* Left align items */
+    justify-content: flex-end; /* Align items to the right */
     width: 100%;
 }
 
@@ -48,17 +48,12 @@ h1 {
     align-items: center;
 }
 
-.header-logo {
-    height: 40px; /* Adjust the height for a smaller logo */
-    margin-right: 15px; /* Space between logo and title */
-}
-
 #taskbarItems a:hover {
     color: #ffdd57; /* Add hover effect */
 }
 
 #taskbarItems .active {
-    background-color: #333; /* Highlight color for active page */
+    background-color: #0056b3; /* Highlight color for active page */
     font-weight: bold; /* Bold for active page */
 }
 
@@ -95,34 +90,46 @@ h1 {
     }
 
     #taskbarToggle.active + #taskbarItems {
-        display: flex; /* Show taskbar items when menu is active */
+        display: flex; /* Show taskbar on toggle */
     }
 }
 
 /* Modal Styles */
-#logoutModal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
     left: 0;
     top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-    padding-top: 60px; /* Location of the box */
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
+    padding-top: 60px;
 }
 
 .modal-content {
     background-color: #fefefe;
-    margin: 5% auto; /* 15% from the top and centered */
+    margin: 5% auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 80%; /* Could be more or less, depending on screen size */
+    width: 80%;
 }
 
 .buttons {
     display: flex;
-    justify-content: space-between; /* Space between buttons */
+    justify-content: space-between; /* Space buttons evenly */
+}
+
+.button {
+    background-color: #007bff; /* Primary button color */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: #0056b3; /* Darker on hover */
 }
