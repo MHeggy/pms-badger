@@ -367,11 +367,9 @@ $(document).ready(function() {
             return $(this).find('input[name="projectNumber[]"]').val() === '13-000'; // Check the project number input
         }).first().before(newRow); // Insert the new row before the found row
         
-        // Attach event listeners to the new row
-        const newRowElement = $('#timesheet-rows tr').filter(function() {
-            return $(this).find('input[name="projectNumber[]"]').val() === ''; // The new row should have empty project number
-        }).first();
-
+        // Get the newly added row
+        const newRowElement = $('#timesheet-rows tr').first(); // Assuming the new row is now the first row
+        
         // Call addEventListenersToRow function on the newRowElement
         addEventListenersToRow(newRowElement[0]);
     });
