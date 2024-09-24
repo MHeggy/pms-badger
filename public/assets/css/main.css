@@ -1,14 +1,26 @@
 body {
-    background-color: #f8f9fa; /* Light background to avoid all-white page */
+    background-color: #f8f9fa;
     margin: 0;
     padding: 0;
-    font-family: 'Roboto', sans-serif; /* Changed to a more modern font */
+    font-family: 'Roboto', sans-serif;
 }
 
 #headerContainer {
-    background-color: #007bff; /* Vibrant blue color */
-    padding: 10px 20px;
-    border-bottom: 2px solid #0056b3;
+    background-color: #000; /* Black background for the header */
+    padding: 15px 30px;
+    border-bottom: 2px solid #444;
+}
+
+#headerContainer .nav-link {
+    color: white;
+    font-size: 1.5rem;
+    margin: 0 15px;
+    display: flex;
+    align-items: center;
+}
+
+#headerContainer .nav-link:hover {
+    color: #ffdd57; /* Yellow hover effect */
 }
 
 #headerContainer h1 {
@@ -20,8 +32,8 @@ body {
 }
 
 .header-logo {
-    height: 40px; /* Adjust the height for a smaller logo */
-    margin-right: 10px; /* Space between logo and title */
+    height: 50px;
+    margin-left: 20px;
 }
 
 h1 {
@@ -58,9 +70,22 @@ h1 {
     font-weight: bold;
 }
 
-.dropdown-menu {
-    background-color: #495057; /* Dark grey background */
-    border: none; /* Remove default border */
+.taskbar-item.dropdown button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+}
+
+.taskbar-item .dropdown-menu {
+    background-color: #333;
+    color: white;
+}
+
+.taskbar-item .dropdown-item:hover {
+    background-color: #444;
 }
 
 /* Mobile Header Layout */
@@ -124,7 +149,7 @@ h1 {
 }
 
 .button {
-    background-color: #007bff; /* Primary button color */
+    background-color: #007bff;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -132,5 +157,5 @@ h1 {
 }
 
 .button:hover {
-    background-color: #0056b3; /* Darker on hover */
+    background-color: #0056b3;
 }
