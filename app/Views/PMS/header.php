@@ -19,12 +19,12 @@
     <div class="row align-items-center">
         <div class="col-lg-6 d-flex justify-content-start">
             <img src="<?php echo base_url('assets/img/BE Logo - New blue background.png') ?>" alt="Logo" class="header-logo" />
-            <h1 class="ms-3"><i class="bi bi-award"></i> PMSBadger</h1>
+            <h1 class="ms-3">PMSBadger</h1>
         </div>
         <div class="col-lg-6 d-flex justify-content-end">
             <!-- Menu button for mobile view -->
             <button id="taskbarToggle" class="d-lg-none">☰ Menu</button>
-            <ul id="taskbarItems" class="d-none d-lg-flex"> <!-- Added responsive class -->
+            <ul id="taskbarItems" class="d-none d-lg-flex">
                 <?php if (auth()->loggedIn()) : ?>
                     <a href="<?php echo base_url('/dashboard') ?>"><li class="<?= $pageTitle == 'Dashboard' ? 'active' : '' ?>">Dashboard</li></a>
                     <?php if ($user->inGroup('accountant') || $user->inGroup('superadmin')): ?>

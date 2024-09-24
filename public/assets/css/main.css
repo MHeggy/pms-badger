@@ -5,27 +5,23 @@ body {
     font-family: 'Roboto', sans-serif; /* Changed to a more modern font */
 }
 
-/* Main Header Styles */
 #headerContainer {
-    display: flex;
-    flex-direction: column; /* Adjust for better alignment */
-    align-items: center; /* Center align items */
     background-color: #007bff; /* Vibrant blue color */
     padding: 10px 20px;
-    border-bottom: 2px solid #0056b3; /* Darker border for definition */
+    border-bottom: 2px solid #0056b3;
 }
 
 #headerContainer h1 {
     font-family: 'Montserrat', sans-serif;
-    font-weight: 700; /* Adjust weight as needed */
-    font-size: 2.5rem; /* Adjust size as needed */
-    color: #333; /* Adjust color for contrast */
+    font-weight: 700;
+    font-size: 24px; /* Adjust size for title */
+    color: white; /* White title text */
+    margin: 0;
 }
-
 
 .header-logo {
     height: 40px; /* Adjust the height for a smaller logo */
-    margin-right: 15px; /* Space between logo and title */
+    margin-right: 10px; /* Space between logo and title */
 }
 
 h1 {
@@ -34,7 +30,6 @@ h1 {
     margin: 0; /* Remove default margin */
 }
 
-/* Taskbar Items */
 #taskbarItems {
     display: flex;
     align-items: center;
@@ -44,25 +39,23 @@ h1 {
 
 #taskbarItems li {
     list-style: none;
-    padding: 10px 15px; /* Reduced padding for a tighter layout */
-    font-size: 16px; /* Reduced font size for taskbar items */
+    padding: 8px 12px; /* Reduced padding for cleaner look */
+    font-size: 14px; /* Smaller font size for taskbar items */
     color: white;
 }
 
 #taskbarItems a {
     text-decoration: none;
     color: white;
-    display: flex;
-    align-items: center;
 }
 
 #taskbarItems a:hover {
-    color: #ffdd57; /* Add hover effect */
+    color: #ffdd57; /* Hover effect */
 }
 
 #taskbarItems .active {
-    background-color: #0056b3; /* Highlight color for active page */
-    font-weight: bold; /* Bold for active page */
+    background-color: #0056b3; /* Active page highlight */
+    font-weight: bold;
 }
 
 .dropdown-menu {
