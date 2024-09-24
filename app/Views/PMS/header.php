@@ -18,7 +18,7 @@
 <div id="headerContainer" class="container-fluid">
     <div class="row align-items-center">
         <div class="col-lg-6 d-flex justify-content-start">
-            <img src="<?php echo base_url('assets/img/BE Logo - New.jpg') ?>" alt="Logo" class="header-logo" />
+            <img src="<?php echo base_url('assets/img/BE Logo - New blue background.png') ?>" alt="Logo" class="header-logo" />
             <h1 class="ms-3"><i class="bi bi-award"></i> PMSBadger</h1>
         </div>
         <div class="col-lg-6 d-flex justify-content-end">
