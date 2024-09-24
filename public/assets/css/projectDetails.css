@@ -48,3 +48,10 @@ h1 {
     background-color: #007bff; /* Blue modal header */
     color: white;
 }
+
+.modal-backdrop {
+    z-index: 1040 !important; /* Ensure backdrop is above the main content */
+}
+.modal {
+    z-index: 1050 !important; /* Ensure modal is above the backdrop */
+}
