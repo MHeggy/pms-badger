@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 namespace App\Models;
 
 use CodeIgniter\Database\ConnectionInterface;
@@ -13,8 +13,15 @@ class UserModel extends ShieldUserModel {
 
     protected $allowedFields = ['username', 'email', 'password_hash', 'firstName', 'lastName', 'phone', 'last_active'];
 
-    public function __construct() {
-        parent::__construct();
+    protected function initialize(): void
+    {
+        parent::initialize();
+
+        $this->allowedFields = [
+            ...$this->allowedFields,
+            'first_name', // Added
+            'last_name',  // Added
+        ];
     }
 
     public function getUserByUsername($username) {
