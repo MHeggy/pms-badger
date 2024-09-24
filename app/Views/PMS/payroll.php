@@ -355,10 +355,10 @@ $(document).ready(function() {
                 <td><input type="number" class="form-control day-input" name="sunday[]" step="0.01"></td>
                 <td><input type="text" class="form-control total-hours" name="totalHours[]" readonly></td>
                 <td>
-                        <button type="button" class="btn btn-danger remove-row">
-                            <i class="fas fa-trash-alt"></i> Remove
-                        </button>
-                    </td>
+                    <button type="button" class="btn btn-danger remove-row">
+                        <i class="fas fa-trash-alt"></i> Remove
+                    </button>
+                </td>
             </tr>
         `;
 
@@ -372,10 +372,12 @@ $(document).ready(function() {
             return $(this).find('input[name="projectNumber[]"]').val() === ''; // The new row should have empty project number
         }).first();
 
+        // Call addEventListenersToRow function on the newRowElement
         addEventListenersToRow(newRowElement[0]);
     });
 });
 
+// Initial event listener attachment for existing rows
 document.querySelectorAll('#timesheet-rows tr').forEach(row => {
     addEventListenersToRow(row);
 });
