@@ -5,8 +5,6 @@
 <style>
     /* Adjust the body margin to prevent content from being covered by the navbar */
     body {
-        margin-top: 56px; /* Adjust based on the navbar height */
-        padding-top: 15px; /* Add padding to the top content */
         font-family: 'Roboto', sans-serif;
         background-color: #f0f2f5;
         color: #333;
