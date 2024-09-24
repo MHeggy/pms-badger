@@ -63,7 +63,7 @@
 </div>
 
 <!-- Confirmation Modal -->
-<div class="modal" tabindex="-1" id="confirmDeleteModal">
+<div class="modal" tabindex="-1" id="confirmDeleteModal" data-bs-backdrop="static" data-bs-keyboard="false">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
