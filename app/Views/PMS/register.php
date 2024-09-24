@@ -48,14 +48,8 @@
 
                 <!-- First and Last Names -->
                 <div class="form-floating mb-2">
-                    <input type="text" class="form-control" id="floatingFirstnameInput" name="firstName" inputmode="text" autocomplete="first_name" placeholder="First Name" required>
-                    <label for="floatingFirstnameInput">First Name</label>
-                </div>
-
-                <!-- First and Last Names -->
-                <div class="form-floating mb-4">
-                    <input type="text" class="form-control" id="floatingLastnameInput" name="lastName" inputmode="text" autocomplete="last_name" placeholder="Last Name" required>
-                    <label for="floatingFirstnameInput">Last Name</label>
+                    <input type="text" class="form-control" id="floatingFirstnameInput" name="name" inputmode="text" autocomplete="name" placeholder="Name" required>
+                    <label for="floatingFirstnameInput">Name (First and Last)</label>
                 </div>
 
                 <!-- Password -->
