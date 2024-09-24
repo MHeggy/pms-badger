@@ -9,8 +9,11 @@
 
 <style>
     body {
-        background-color: #f8f9fa; /* Light background for a modern look */
+        font-family: 'Roboto', sans-serif;
+        background-color: #f0f2f5;
+        color: #333;
     }
+
     .container {
         background-color: #ffffff; /* White background for forms */
         border-radius: 8px;

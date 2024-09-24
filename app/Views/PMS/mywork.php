@@ -6,9 +6,10 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="<?php echo base_url('/assets/css/main.css') ?>">
 <style>
-    table thead {
-        background-color: #007bff; /* Change this to your desired shade of blue */
-        color: white; /* Set text color to white */
+    body {
+        font-family: 'Roboto', sans-serif;
+        background-color: #f0f2f5;
+        color: #333;
     }
 
     table thead th {

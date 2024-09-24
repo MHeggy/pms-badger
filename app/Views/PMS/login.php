@@ -5,6 +5,13 @@
         <?php include 'header.php' ?>
     </header>
 </div>
+<style>
+    body {
+        font-family: 'Roboto', sans-serif;
+        background-color: #f0f2f5;
+        color: #333;
+    }
+</style>
 <!-- Style sheet -->
 <link rel="stylesheet" href="<?= base_url('/assets/css/login.css') ?>">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">

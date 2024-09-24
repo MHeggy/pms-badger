@@ -10,7 +10,13 @@
         <?php include 'header.php' ?>
     </header>
 </div>
-
+<style>
+    body {
+        font-family: 'Roboto', sans-serif;
+        background-color: #f0f2f5;
+        color: #333;
+    }
+</style>
 <div class="container d-flex justify-content-center p-5">
     <div class="card col-12 col-md-5 shadow-sm">
         <div class="card-body">

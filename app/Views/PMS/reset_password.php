@@ -5,6 +5,13 @@
         <?php include 'header.php' ?>
     </header>
 </div>
+<style>
+    body {
+        font-family: 'Roboto', sans-serif;
+        background-color: #f0f2f5;
+        color: #333;
+    }
+</style>
 <!-- Style sheet -->
 <link rel="stylesheet" href="<?= base_url('/assets/css/login.css') ?>">
 <link rel="stylesheet" href="<?= base_url('/assets/css/forgot_password.css') ?>">

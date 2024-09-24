@@ -7,8 +7,9 @@
 <header>
 <style>
     body {
-        background-color: #f8f9fa;
-        font-family: 'Roboto', sans-serif; /* Set the custom font */
+        font-family: 'Roboto', sans-serif;
+        background-color: #f0f2f5;
+        color: #333;
     }
 
     #timesheet-container {

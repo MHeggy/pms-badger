@@ -8,6 +8,13 @@
 <header>  
     <?php include 'header.php'; ?>
 </header>
+<style>
+    body {
+        font-family: 'Roboto', sans-serif;
+        background-color: #f0f2f5;
+        color: #333;
+    }
+</style>
 <br>
 
 <!-- Main content -->
