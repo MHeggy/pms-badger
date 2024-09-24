@@ -12,7 +12,7 @@
 <style>
     #content {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
         gap: 20px;
     }
 
@@ -29,19 +29,25 @@
         transition: transform 0.2s;
         text-align: center;
     }
-    .box:hover {
-        transform: translateY(-5px);
-    }
-    .box a {
-        color: #000;
-        text-decoration: none;
-    }
 
     .box:hover {
+        transform: translateY(-5px);
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         background-color: #f8f9fa;
     }
 
+    .card {
+        text-align: center;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .card i {
+        font-size: 2rem;
+        color: #007bff;
+        margin-bottom: 10px;
+    }
 </style>
 <!-- Content -->
 <div id="content">
@@ -65,40 +71,46 @@
     <?php endif; ?>
 
     <!-- Start of actual home page content. -->
+    <div class="card">
+        <i class="fas fa-project-diagram"></i>
+        <h5 class="card-title">Total Projects</h5>
+        <p class="card-text"><?= $totalProjects ?></p>
+        <a href="<?php echo base_url('/projects') ?>" class="btn btn-primary">View</a>
+    </div>
 
     <div class="card">
-        <div class="card-body">
-            <h5 class="card-title">Total Projects</h5>
-            <p class="card-text"><?= $totalProjects ?></p>
-            <a href="<?php echo base_url('/projects') ?>" class="btn btn-primary">View</a>
-        </div>
+        <i class="fas fa-spinner"></i>
+        <h5 class="card-title">Ongoing Projects</h5>
+        <p class="card-text"><?= count($ongoingProjects) ?></p>
+        <a href="<?php echo base_url('/projects/filter?status=1') ?>" class="btn btn-primary">View</a>
     </div>
 
+    <div class="card">
+        <i class="fas fa-check-circle"></i>
+        <h5 class="card-title">Completed Projects</h5>
+        <p class="card-text"><?= count($completedProjects) ?></p>
+        <a href="<?php echo base_url('/projects/filter?status=2') ?>" class="btn btn-primary">View</a>
+    </div>
 
-    <div id="ongoingProjects" class="box">
-        <a href="<?php echo base_url('/projects/filter?status=1') ?>">
-            <p id="ongoingProjectsText">Ongoing Projects... <?= count($ongoingProjects) ?></p>
-        </a>
+    <div class="card">
+        <i class="fas fa-folder-open"></i>
+        <h5 class="card-title">My Projects</h5>
+        <p class="card-text"><?= count($assignedProjects) ?></p>
+        <a href="<?php echo base_url('/my_work') ?>" class="btn btn-primary">View</a>
     </div>
-    <div id="completedProjects" class="box">
-        <a href="<?php echo base_url('/projects/filter?status=2') ?>">
-            <p id="completedProjectsText">Completed Projects... <?= count($completedProjects) ?></p>
-        </a>
+
+    <div class="card">
+        <i class="fas fa-comments"></i>
+        <h5 class="card-title">Forum Posts</h5>
+        <p class="card-text"><?= count($forumPosts) ?></p>
+        <a href="<?php echo base_url('/forums') ?>" class="btn btn-primary">View</a>
     </div>
-    <div id="myProjects" class="box">
-        <a href="<?php echo base_url('/my_work') ?>">
-            <p id="myProjectsText">My Projects... <?= count($assignedProjects) ?></p>
-        </a>
-    </div>
-    <div id="myTasks" class="box">
-        <a href="<?php echo base_url('/forums')?>">
-        <p id="myTasksText">Forum Posts... <?= count($forumPosts) ?></p>
-        </a>
-    </div>
-    <div id="upcomingDeadlines" class="box">
-        <a href="<?php echo base_url('/calendar') ?>">
-        <p id="upcomingDeadlinesText">Upcoming Deadlines... <?= $upcomingEventsCount ?></p>
-        </a>
+
+    <div class="card">
+        <i class="fas fa-calendar-alt"></i>
+        <h5 class="card-title">Upcoming Deadlines</h5>
+        <p class="card-text"><?= $upcomingEventsCount ?></p>
+        <a href="<?php echo base_url('/calendar') ?>" class="btn btn-primary">View</a>
     </div>
 </div>
 </body>
