@@ -24,7 +24,7 @@
                             <select class="form-select" name="unassign_user" id="unassign_user">
                                 <option value="">Select User</option>
                                 <?php foreach ($users as $user): ?>
-                                    <option value="<?= $user->id; ?>"><?= $user->username; ?></option>
+                                    <option value="<?= $user->id; ?>"><?= $user->firstName . ' ' . $user->lastName; ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
