@@ -271,7 +271,7 @@
                     <td><input type="number" class="form-control day-input" name="sunday[]" step="0.01"></td>
                     <td><input type="text" class="form-control total-hours" name="totalHours[]" readonly></td>
                     <td></td>
-        </tr>
+            </tr>
             </tbody>
             <tfoot>
                 <tr>
@@ -321,6 +321,7 @@ $(document).ready(function() {
                     <td><input type="number" class="form-control day-input" name="saturday[]" step="0.01"></td>
                     <td><input type="number" class="form-control day-input" name="sunday[]" step="0.01"></td>
                     <td><input type="text" class="form-control total-hours" name="totalHours[]" readonly></td>
+                    <td><button type="button" class="btn btn-danger remove-row">Remove</button></td>
                 </tr>
             `);
         });
