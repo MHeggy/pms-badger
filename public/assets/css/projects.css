@@ -1,6 +1,5 @@
-/* General adjustments */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Roboto', sans-serif; /* Use a professional font from Google Fonts */
 }
 
 /* Container */
@@ -72,6 +71,11 @@ body {
 
 .filter-options {
     display: none;
+}
+
+.table {
+    border-collapse: collapse;
+    width: 100%;
 }
 
 .filter-options.collapse {
