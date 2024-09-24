@@ -5,11 +5,19 @@ body {
 .container {
     max-width: 900px;
 }
+
 .table {
     border: 1px solid #dee2e6;
     border-radius: .25rem;
     background-color: #ffffff;
 }
+
+/* Add this to your projects.css file */
+.table-blue thead th {
+    background-color: #007bff; /* Bootstrap primary blue */
+    color: #ffffff; /* White text color for contrast */
+}
+
 th, td {
     padding: 1rem;
     vertical-align: middle;
