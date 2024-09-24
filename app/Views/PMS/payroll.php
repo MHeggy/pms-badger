@@ -375,11 +375,6 @@ $(document).ready(function() {
     });
 });
 
-// Initial event listener attachment for existing rows
-document.querySelectorAll('#timesheet-rows tr').forEach(row => {
-    addEventListenersToRow(row);
-});
-
 function calculateAllTotals() {
     let weeklyTotal = 0;
     document.querySelectorAll('#timesheet-rows tr').forEach(row => {
@@ -410,6 +405,11 @@ function addEventListenersToRow(row) {
         }
     }
 }
+
+// Initial event listener attachment for existing rows
+document.querySelectorAll('#timesheet-rows tr').forEach(row => {
+    addEventListenersToRow(row);
+});
 
 // This function should be called once when the document is ready
 calculateAllTotals();  // Initial calculation
