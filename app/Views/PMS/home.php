@@ -3,10 +3,46 @@
 <header>
     <?php require_once 'header.php' ?>
 </header>
+<!-- Link to external CSS file -->
 <link rel="stylesheet" href="<?php echo base_url('/assets/css/dashboard.css') ?>">
 <link rel="stylesheet" href="<?php echo base_url('/assets/css/main.css') ?>">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<style>
+    #content {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+    }
+
+    body {
+        font-family: 'Roboto', sans-serif;
+        background-color: #f0f2f5;
+        color: #333;
+    }
+
+    .box {
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s;
+        text-align: center;
+    }
+    .box:hover {
+        transform: translateY(-5px);
+    }
+    .box a {
+        color: #000;
+        text-decoration: none;
+    }
+
+    .box:hover {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        background-color: #f8f9fa;
+    }
+
+</style>
 <!-- Content -->
 <div id="content">
     <!-- Display success message or error message if they exist -->
@@ -30,11 +66,14 @@
 
     <!-- Start of actual home page content. -->
 
-    <div id="totalProjects" class="box">
-        <a href="<?php echo base_url('/projects') ?>">
-            <p id="totalProjectsText"><i class="fas fa-project-diagram"></i> Total Projects... <?= $totalProjects ?></p>
-        </a>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Total Projects</h5>
+            <p class="card-text"><?= $totalProjects ?></p>
+            <a href="<?php echo base_url('/projects') ?>" class="btn btn-primary">View</a>
+        </div>
     </div>
+
 
     <div id="ongoingProjects" class="box">
         <a href="<?php echo base_url('/projects/filter?status=1') ?>">
