@@ -119,10 +119,11 @@ body {
     cursor: pointer;
 }
 
-.sort-arrow .bi {
-    font-size: 1rem;
-    margin: 0 3px;
-    color: gray;
+.sort-arrow {
+    display: inline-block;
+    margin-left: 5px;
+    cursor: pointer;
+    color: white;
 }
 
 .sort-arrow .bi.active {
