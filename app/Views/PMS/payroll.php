@@ -158,7 +158,11 @@
                     <td><input type="number" class="form-control day-input" name="saturday[]" step="0.01"></td>
                     <td><input type="number" class="form-control day-input" name="sunday[]" step="0.01"></td>
                     <td><input type="text" class="form-control total-hours" name="totalHours[]" readonly></td>
-                    <td><button type="button" class="btn btn-danger remove-row">Remove</button></td>
+                    <td>
+                        <button type="button" class="btn btn-danger remove-row">
+                            <i class="fas fa-trash-alt"></i> Remove
+                        </button>
+                    </td>
                 </tr>
                 <tr>
                     <td><input type="text" class="form-control" name="projectNumber[]"></td>
@@ -172,7 +176,11 @@
                     <td><input type="number" class="form-control day-input" name="saturday[]" step="0.01"></td>
                     <td><input type="number" class="form-control day-input" name="sunday[]" step="0.01"></td>
                     <td><input type="text" class="form-control total-hours" name="totalHours[]" readonly></td>
-                    <td><button type="button" class="btn btn-danger remove-row">Remove</button></td>
+                    <td>
+                        <button type="button" class="btn btn-danger remove-row">
+                            <i class="fas fa-trash-alt"></i> Remove
+                        </button>
+                    </td>
                 </tr>
                 <tr>
                     <td><input type="text" class="form-control" name="projectNumber[]"></td>
@@ -186,7 +194,11 @@
                     <td><input type="number" class="form-control day-input" name="saturday[]" step="0.01"></td>
                     <td><input type="number" class="form-control day-input" name="sunday[]" step="0.01"></td>
                     <td><input type="text" class="form-control total-hours" name="totalHours[]" readonly></td>
-                    <td><button type="button" class="btn btn-danger remove-row">Remove</button></td>
+                    <td>
+                        <button type="button" class="btn btn-danger remove-row">
+                            <i class="fas fa-trash-alt"></i> Remove
+                        </button>
+                    </td>
                 </tr>
                 <tr>
                     <td><input type="text" class="form-control" name="projectNumber[]"></td>
@@ -200,7 +212,11 @@
                     <td><input type="number" class="form-control day-input" name="saturday[]" step="0.01"></td>
                     <td><input type="number" class="form-control day-input" name="sunday[]" step="0.01"></td>
                     <td><input type="text" class="form-control total-hours" name="totalHours[]" readonly></td>
-                    <td><button type="button" class="btn btn-danger remove-row">Remove</button></td>
+                    <td>
+                        <button type="button" class="btn btn-danger remove-row">
+                            <i class="fas fa-trash-alt"></i> Remove
+                        </button>
+                    </td>
                 </tr>
                 <tr>
                     <td><input type="text" class="form-control" name="projectNumber[]"></td>
@@ -214,7 +230,11 @@
                     <td><input type="number" class="form-control day-input" name="saturday[]" step="0.01"></td>
                     <td><input type="number" class="form-control day-input" name="sunday[]" step="0.01"></td>
                     <td><input type="text" class="form-control total-hours" name="totalHours[]" readonly></td>
-                    <td><button type="button" class="btn btn-danger remove-row">Remove</button></td>
+                    <td>
+                        <button type="button" class="btn btn-danger remove-row">
+                            <i class="fas fa-trash-alt"></i> Remove
+                        </button>
+                    </td>
                 </tr>
                 <tr>
                     <td><input type="text" class="form-control" name="projectNumber[]"></td>
@@ -228,7 +248,11 @@
                     <td><input type="number" class="form-control day-input" name="saturday[]" step="0.01"></td>
                     <td><input type="number" class="form-control day-input" name="sunday[]" step="0.01"></td>
                     <td><input type="text" class="form-control total-hours" name="totalHours[]" readonly></td>
-                    <td><button type="button" class="btn btn-danger remove-row">Remove</button></td>
+                    <td>
+                        <button type="button" class="btn btn-danger remove-row">
+                            <i class="fas fa-trash-alt"></i> Remove
+                        </button>
+                    </td>
                 </tr>
                 <tr>
                     <td><input type="text" class="form-control" name="projectNumber[]"></td>
@@ -242,7 +266,11 @@
                     <td><input type="number" class="form-control day-input" name="saturday[]" step="0.01"></td>
                     <td><input type="number" class="form-control day-input" name="sunday[]" step="0.01"></td>
                     <td><input type="text" class="form-control total-hours" name="totalHours[]" readonly></td>
-                    <td><button type="button" class="btn btn-danger remove-row">Remove</button></td>
+                    <td>
+                        <button type="button" class="btn btn-danger remove-row">
+                            <i class="fas fa-trash-alt"></i> Remove
+                        </button>
+                    </td>
                 </tr>
                 <tr>
                     <td><input type="text" class="form-control" name="projectNumber[]"></td>
@@ -256,7 +284,11 @@
                     <td><input type="number" class="form-control day-input" name="saturday[]" step="0.01"></td>
                     <td><input type="number" class="form-control day-input" name="sunday[]" step="0.01"></td>
                     <td><input type="text" class="form-control total-hours" name="totalHours[]" readonly></td>
-                    <td><button type="button" class="btn btn-danger remove-row">Remove</button></td>
+                    <td>
+                        <button type="button" class="btn btn-danger remove-row">
+                            <i class="fas fa-trash-alt"></i> Remove
+                        </button>
+                    </td>
                 </tr>
                 <tr>
                     <td><input type="text" class="form-control" name="projectNumber[]" value="13-000" readonly></td>
@@ -307,25 +339,31 @@ function calculateRowTotal(row) {
 }
 
 $(document).ready(function() {
-        $('#add-row').click(function() {
-            $('#timesheet-rows').append(`
-                <tr>
-                    <td><input type="text" class="form-control" name="projectNumber[]"></td>
-                    <td><input type="text" class="form-control" name="projectName[]"></td>
-                    <td><input type="text" class="form-control" name="activityDescription[]"></td>
-                    <td><input type="number" class="form-control day-input" name="monday[]" step="0.01"></td>
-                    <td><input type="number" class="form-control day-input" name="tuesday[]" step="0.01"></td>
-                    <td><input type="number" class="form-control day-input" name="wednesday[]" step="0.01"></td>
-                    <td><input type="number" class="form-control day-input" name="thursday[]" step="0.01"></td>
-                    <td><input type="number" class="form-control day-input" name="friday[]" step="0.01"></td>
-                    <td><input type="number" class="form-control day-input" name="saturday[]" step="0.01"></td>
-                    <td><input type="number" class="form-control day-input" name="sunday[]" step="0.01"></td>
-                    <td><input type="text" class="form-control total-hours" name="totalHours[]" readonly></td>
-                    <td><button type="button" class="btn btn-danger remove-row">Remove</button></td>
-                </tr>
-            `);
-        });
+    $('#add-row').click(function() {
+        // Create a new row
+        const newRow = `
+            <tr>
+                <td><input type="text" class="form-control" name="projectNumber[]"></td>
+                <td><input type="text" class="form-control" name="projectName[]"></td>
+                <td><input type="text" class="form-control" name="activityDescription[]"></td>
+                <td><input type="number" class="form-control day-input" name="monday[]" step="0.01"></td>
+                <td><input type="number" class="form-control day-input" name="tuesday[]" step="0.01"></td>
+                <td><input type="number" class="form-control day-input" name="wednesday[]" step="0.01"></td>
+                <td><input type="number" class="form-control day-input" name="thursday[]" step="0.01"></td>
+                <td><input type="number" class="form-control day-input" name="friday[]" step="0.01"></td>
+                <td><input type="number" class="form-control day-input" name="saturday[]" step="0.01"></td>
+                <td><input type="number" class="form-control day-input" name="sunday[]" step="0.01"></td>
+                <td><input type="text" class="form-control total-hours" name="totalHours[]" readonly></td>
+                <td><button type="button" class="btn btn-danger remove-row">Remove</button></td>
+            </tr>
+        `;
+
+        // Insert the new row before the row with project name '13-000'
+        $('#timesheet-rows tr').filter(function() {
+            return $(this).find('td:nth-child(2) input').val() === '13-000'; // Check the project name input
+        }).first().before(newRow); // Insert the new row before the found row
     });
+});
 
 function calculateAllTotals() {
     let weeklyTotal = 0;
