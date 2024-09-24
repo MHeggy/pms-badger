@@ -1,8 +1,24 @@
+/* General body styling */
 body {
     background-color: #f8f9fa;
     margin: 0;
     padding: 0;
     font-family: 'Roboto', sans-serif;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: white;
+    font-size: 1rem;
+    padding: 10px;
+}
+
+.navbar-dark .navbar-nav .nav-link:hover {
+    color: #ffdd57; /* Highlight on hover */
+}
+
+.navbar-dark .navbar-nav .nav-link.active {
+    text-decoration: underline; /* Active page indicator */
+    color: #ffdd57; /* Yellow color for active item */
 }
 
 #headerContainer {
