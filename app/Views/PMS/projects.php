@@ -111,7 +111,6 @@
                                 </a>
                             </td>
                             <td>
-                                <i class="bi bi-circle-fill text-<?= strtolower(esc($project['statusName'])) ?>"></i>
                                 <?= esc($project['statusName']) ?>
                             </td>
                             <td><?= esc(str_replace(',', ', ', $project['categoryNames'])) ?></td>
