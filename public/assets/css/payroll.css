@@ -4,7 +4,7 @@ body {
 }
 
 .card {
-    padding: 20px; /* Padding for card */
+    padding: 1rem; /* Padding for card */
     border: 1px solid #dee2e6; /* Light border around the card */
     border-radius: 0.5rem; /* Rounded corners */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
@@ -12,7 +12,24 @@ body {
 
 .card-title {
     font-weight: bold;
-    margin-bottom: 1.5rem; /* Space below the title */
+    margin-bottom: 1rem; /* Space below the title */
+}
+
+.form-label {
+    font-size: 0.9rem; /* Slightly smaller label font */
+}
+
+.form-select {
+    font-size: 0.9rem; /* Slightly smaller select dropdown font */
+}
+
+.btn {
+    font-size: 0.9rem; /* Slightly smaller button font */
+    padding: 0.5rem 1rem; /* Adjust button padding */
+}
+
+.row.g-2 {
+    margin-bottom: 0.5rem; /* Adjust gap between rows */
 }
 
 .table-responsive {
@@ -63,5 +80,11 @@ body {
 
     .table th, .table td {
         padding: 8px; /* Adjust padding for table cells */
+    }
+}
+
+@media (max-width: 576px) {
+    .card {
+        padding: 10px; /* Adjust padding for smaller screens */
     }
 }

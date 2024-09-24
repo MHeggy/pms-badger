@@ -14,9 +14,9 @@
     <?php endif; ?>
 
     <!-- Filter Form -->
-    <div class="card p-4 mb-4 shadow">
+    <div class="card p-3 mb-4 shadow"> <!-- Adjust padding -->
         <h5 class="card-title text-center">Filter Timesheets</h5>
-        <form method="get" action="" class="row g-3">
+        <form method="get" action="" class="row g-2"> <!-- Adjust gap -->
             <div class="col-md-5">
                 <label for="userID" class="form-label">User Name:</label>
                 <select name="userID" id="userID" class="form-select">
@@ -39,12 +39,13 @@
                     <?php endforeach; ?>
                 </select>
             </div>
-            <div class="col-md-2 text-center">
+            <div class="col-md-2 d-flex align-items-end justify-content-center"> <!-- Align buttons -->
                 <button type="submit" class="btn btn-primary">Filter</button>
                 <a href="<?= current_url(); ?>" class="btn btn-secondary ms-2">Reset</a>
             </div>
         </form>
     </div>
+
 
     <!-- Display Filtered Timesheets -->
     <?php if (!empty($filteredTimesheets)): ?>
