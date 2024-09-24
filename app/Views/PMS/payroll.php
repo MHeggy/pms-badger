@@ -407,21 +407,6 @@ function addEventListenersToRow(row) {
     }
 }
 
-document.getElementById('add-row').addEventListener('click', () => {
-    rowCount++;
-    const newRow = document.querySelector('#timesheet-rows tr:not(:last-child)').cloneNode(true);
-    
-    newRow.querySelectorAll('input').forEach(input => {
-        input.value = '';
-        // Update names with unique identifiers
-        input.name = input.name.replace(/\[\d+\]/, `[${rowCount}]`);
-    });
-
-    newRow.querySelector('.remove-row').classList.remove('disabled');
-    document.querySelector('#timesheet-rows').insertBefore(newRow, document.querySelector('#timesheet-rows tr:last-child'));
-    addEventListenersToRow(newRow);
-});
-
 // This function should be called once when the document is ready
 calculateAllTotals();  // Initial calculation
 
