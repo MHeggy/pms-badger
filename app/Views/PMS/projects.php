@@ -76,79 +76,80 @@
     </div>
 
     <!-- Table for Projects -->
-    <div class="table-responsive">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Project Number
-                        <span id="sortArrow" class="sort-arrow">
-                            <i class="bi bi-arrow-up" id="sortAsc"></i>
-                            <i class="bi bi-arrow-down" id="sortDesc"></i>
-                        </span>
-                    </th>
-                    <th>Project Name</th>
-                    <th>Project Status</th>
-                    <th>Category</th>
-                    <th>Date Accepted</th>
-                    <th>Assigned Users</th>
-                    <?php if ($user1->inGroup('superadmin')): ?>
-                        <th></th>
-                    <?php endif; ?>
-                </tr>
-            </thead>
-            <tbody id="project_list">
-                <?php if (!empty($projects)): ?>
-                    <?php foreach ($projects as $project): ?>
-                        <tr data-project-id="<?= esc($project['projectID']) ?>">
-                            <td>
-                                <a href="<?= base_url('projects/details/' . $project['projectID']) ?>">
-                                    <?= esc($project['projectNumber']) ?>
-                                </a>
-                            </td>
-                            <td>
-                                <a href="<?= base_url('projects/details/' . $project['projectID']) ?>">
-                                    <?= esc($project['projectName']) ?>
-                                </a>
-                            </td>
-                            <td>
-                                <?= esc($project['statusName']) ?>
-                            </td>
-                            <td><?= esc(str_replace(',', ', ', $project['categoryNames'])) ?></td>
-                            <td><?= esc($project['dateAccepted']) ?></td>
-                            <td>
-                                <?php if (!empty($project['assignedUsers']) && is_array($project['assignedUsers'])): ?>
-                                    <ul class="list-unstyled">
-                                        <?php foreach ($project['assignedUsers'] as $user): ?>
-                                            <li><?= esc($user['username']) ?></li>
-                                        <?php endforeach; ?>
-                                    </ul>
-                                <?php else: ?>
-                                    No users assigned.
-                                <?php endif; ?>
-                            </td>
-                            <?php if ($user1->inGroup('superadmin')): ?>
-                            <td>
-                                <div class="dropdown">
-                                    <button class="btn btn-light btn-sm dropdown-toggle" type="button" id="dropdownMenuButton-<?= $project['projectID'] ?>" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="bi bi-three-dots"></i>
-                                    </button>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton-<?= $project['projectID'] ?>">
-                                        <li><a class="dropdown-item" href="<?= base_url('projects/edit/' . $project['projectID']) ?>">Edit</a></li>
-                                        <li><a class="dropdown-item text-danger" href="<?= base_url('projects/delete/' . $project['projectID']) ?>" onclick="return confirm('Are you sure you want to delete this project?');">Delete</a></li>
-                                    </ul>
-                                </div>
-                            </td>
-                            <?php endif; ?>
-                        </tr>
-                    <?php endforeach; ?>
-                <?php else: ?>
-                    <tr>
-                        <td colspan="7">No projects found.</td>
-                    </tr>
+<div class="table-responsive">
+    <table class="table table-striped table-blue"> <!-- Added table-blue class here -->
+        <thead>
+            <tr>
+                <th>Project Number
+                    <span id="sortArrow" class="sort-arrow">
+                        <i class="bi bi-arrow-up" id="sortAsc"></i>
+                        <i class="bi bi-arrow-down" id="sortDesc"></i>
+                    </span>
+                </th>
+                <th>Project Name</th>
+                <th>Project Status</th>
+                <th>Category</th>
+                <th>Date Accepted</th>
+                <th>Assigned Users</th>
+                <?php if ($user1->inGroup('superadmin')): ?>
+                    <th></th>
                 <?php endif; ?>
-            </tbody>
-        </table>
-    </div>
+            </tr>
+        </thead>
+        <tbody id="project_list">
+            <?php if (!empty($projects)): ?>
+                <?php foreach ($projects as $project): ?>
+                    <tr data-project-id="<?= esc($project['projectID']) ?>">
+                        <td>
+                            <a href="<?= base_url('projects/details/' . $project['projectID']) ?>">
+                                <?= esc($project['projectNumber']) ?>
+                            </a>
+                        </td>
+                        <td>
+                            <a href="<?= base_url('projects/details/' . $project['projectID']) ?>">
+                                <?= esc($project['projectName']) ?>
+                            </a>
+                        </td>
+                        <td>
+                            <?= esc($project['statusName']) ?>
+                        </td>
+                        <td><?= esc(str_replace(',', ', ', $project['categoryNames'])) ?></td>
+                        <td><?= esc($project['dateAccepted']) ?></td>
+                        <td>
+                            <?php if (!empty($project['assignedUsers']) && is_array($project['assignedUsers'])): ?>
+                                <ul class="list-unstyled">
+                                    <?php foreach ($project['assignedUsers'] as $user): ?>
+                                        <li><?= esc($user['username']) ?></li>
+                                    <?php endforeach; ?>
+                                </ul>
+                            <?php else: ?>
+                                No users assigned.
+                            <?php endif; ?>
+                        </td>
+                        <?php if ($user1->inGroup('superadmin')): ?>
+                        <td>
+                            <div class="dropdown">
+                                <button class="btn btn-light btn-sm dropdown-toggle" type="button" id="dropdownMenuButton-<?= $project['projectID'] ?>" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="bi bi-three-dots"></i>
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton-<?= $project['projectID'] ?>">
+                                    <li><a class="dropdown-item" href="<?= base_url('projects/edit/' . $project['projectID']) ?>">Edit</a></li>
+                                    <li><a class="dropdown-item text-danger" href="<?= base_url('projects/delete/' . $project['projectID']) ?>" onclick="return confirm('Are you sure you want to delete this project?');">Delete</a></li>
+                                </ul>
+                            </div>
+                        </td>
+                        <?php endif; ?>
+                    </tr>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <tr>
+                    <td colspan="7">No projects found.</td>
+                </tr>
+            <?php endif; ?>
+        </tbody>
+    </table>
+</div>
+
 
     <script src="<?php echo base_url('/assets/js/main.js') ?>"></script>
     <script src="<?php echo base_url('/assets/js/projects.js') ?>"></script>
