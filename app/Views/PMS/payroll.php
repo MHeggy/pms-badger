@@ -363,14 +363,12 @@ $(document).ready(function () {
         `;
 
         // Insert the new row before the row with project number '13-000'
+        const newRowElement = $(newRow); // Create jQuery object for new row
         $('#timesheet-rows tr').filter(function () {
             return $(this).find('input[name="projectNumber[]"]').val() === '13-000'; // Check the project number input
-        }).first().before(newRow); // Insert the new row before the found row
+        }).first().before(newRowElement); // Insert the new row before the found row
         
-        // Get the newly added row
-        const newRowElement = $('#timesheet-rows tr').first(); // Assuming the new row is now the first row
-        
-        // Call addEventListenersToRow function on the newRowElement
+        // Call addEventListenersToRow function on the newly added row
         addEventListenersToRow(newRowElement[0]);
     });
 });
@@ -450,7 +448,6 @@ document.addEventListener('DOMContentLoaded', function() {
     setMondayRestriction();
     calculateAllTotals(); // Initial calculation
 });
-
 </script>
 <script src="<?php echo base_url('/assets/js/main.js')?>"></script>
 </body>
