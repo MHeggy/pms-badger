@@ -118,12 +118,13 @@ body {
     display: inline-block;
     margin-left: 5px;
     cursor: pointer;
+    color: white;
 }
 
 .sort-arrow .bi {
     font-size: 1.2rem;
     margin: 0 3px;
-    color: gray;
+    color: white;
 }
 
 .sort-arrow .bi.active {
@@ -176,6 +177,15 @@ body {
         display: block;
         width: 100%;
         overflow-x: auto;
+    }
+
+    .table a {
+        text-decoration: none; /* Remove underline */
+        color: inherit; /* Make sure the text color is inherited from the parent */
+    }
+
+    .table a:hover {
+        color: #007bff; /* Change this to the color you prefer for hover effect */
     }
 
     .table th, .table td {
