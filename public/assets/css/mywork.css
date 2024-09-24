@@ -1,6 +1,8 @@
 /* Additional CSS to match your structure */
 body {
-    font-family: 'Arial', sans-serif; /* Professional font */
+    font-family: 'Roboto', sans-serif;
+    background-color: #f0f2f5;
+    color: #333;
 }
 
 #filter-container {

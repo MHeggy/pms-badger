@@ -6,12 +6,6 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="<?php echo base_url('/assets/css/main.css') ?>">
 <style>
-    body {
-        font-family: 'Roboto', sans-serif;
-        background-color: #f0f2f5;
-        color: #333;
-    }
-
     table thead th {
         padding: 10px; /* Add some padding for better spacing */
         text-align: left; /* Align text to the left */
