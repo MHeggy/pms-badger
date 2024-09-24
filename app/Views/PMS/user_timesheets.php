@@ -1,39 +1,63 @@
-<?php esc($pageTitle = $user['username'] . ' timesheets') ?>
+<?php esc($pageTitle = $user['username'] . ' Timesheets') ?>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 
-    <style>
-        th, td {
-            text-align: center;
-        }
-    </style>
+<style>
+    body {
+        font-family: 'Roboto', sans-serif;
+    }
+    th, td {
+        text-align: center;
+    }
+    .btn-back {
+        margin-bottom: 20px;
+    }
+    .table {
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .table thead {
+        background-color: #007bff;
+        color: white;
+    }
+    .modal-content {
+        border-radius: 8px;
+    }
+    .container {
+        margin-top: 40px;
+    }
+</style>
 
 <!-- Header content -->
 <header>
-    <?php include 'header.php' ?>
+    <?php include 'header.php'; ?>
 </header>
 
-<div class="container mt-5"><br><br>
-<button onclick="goBack()" class="btn btn-primary btn-back">Go Back</button>
-<br><br>
+<div class="container">
+    <button onclick="goBack()" class="btn btn-primary btn-back">
+        <i class="bi bi-arrow-left"></i> Go Back
+    </button>
+
     <table class="table table-striped">
         <thead>
-        <tr>
-            <th scope="col">Week Of</th>
-            <th scope="col">Hours Worked</th>
-            <th scope="col">Actions</th>
-        </tr>
+            <tr>
+                <th scope="col">Week Of</th>
+                <th scope="col">Hours Worked</th>
+                <th scope="col">Actions</th>
+            </tr>
         </thead>
         <tbody>
-        <?php foreach ($timesheets as $timesheet): ?>
-            <tr>
-                <td><a href="/timesheets/view/<?= $timesheet['timesheetID'] ?>"><?= esc($timesheet['weekOf']) ?></a></td>
-                <td><?= esc($timesheet['totalHours']) ?></td>
-                <td>
-                    <a href="/timesheets/edit/<?= $timesheet['timesheetID'] ?>" class="btn btn-primary">Edit</a>
-                    <button class="btn btn-danger" onclick="confirmDelete(<?= $timesheet['timesheetID'] ?>)">Delete</button>
-                </td>
-            </tr>
-        <?php endforeach; ?>
+            <?php foreach ($timesheets as $timesheet): ?>
+                <tr>
+                    <td><a href="/timesheets/view/<?= $timesheet['timesheetID'] ?>" class="text-decoration-none"><?= esc($timesheet['weekOf']) ?></a></td>
+                    <td><?= esc($timesheet['totalHours']) ?></td>
+                    <td>
+                        <a href="/timesheets/edit/<?= $timesheet['timesheetID'] ?>" class="btn btn-primary">Edit</a>
+                        <button class="btn btn-danger" onclick="confirmDelete(<?= $timesheet['timesheetID'] ?>)">Delete</button>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
         </tbody>
     </table>
 </div>
