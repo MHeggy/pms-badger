@@ -10,77 +10,26 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link rel="stylesheet" href="<?php echo base_url('/assets/css/main.css') ?>">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css" rel="stylesheet">
-    <style>
-        /* Header styles */
-        #headerContainer {
-            background-color: #ffffff;
-            padding: 10px 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        #logo {
-            max-height: 50px; /* Adjust the height as needed */
-        }
-
-        #taskbarContainer {
-            flex-grow: 1;
-            display: flex;
-            justify-content: flex-end; /* Align taskbar items to the right */
-        }
-
-        #taskbarItems {
-            list-style: none;
-            display: flex;
-            margin: 0;
-            padding: 0;
-        }
-
-        #taskbarItems li {
-            margin-left: 20px; /* Space between items */
-        }
-
-        #taskbarItems a {
-            text-decoration: none;
-            color: #333;
-        }
-
-        #taskbarItems .active {
-            font-weight: bold; /* Highlight active item */
-            color: #007bff; /* Change color of active item */
-        }
-
-        /* Mobile styles */
-        @media (max-width: 768px) {
-            #taskbarItems {
-                flex-direction: column; /* Stack items on small screens */
-                display: none; /* Initially hide taskbar items */
-            }
-            #taskbarItems.active {
-                display: flex; /* Show on toggle */
-            }
-        }
-    </style>
 </head>
 <body>
 <?php $user = auth()->user(); ?>
 
 <!-- Main header -->
-<div id="headerContainer">
-    <!-- Logo -->
-    <img src="<?php echo base_url('assets/img/BE Logo - New.jpg') ?>" alt="Logo" id="logo">
-
-    <!-- Menu button for mobile view -->
-    <button id="taskbarToggle" class="d-lg-none">☰ Menu</button>
-
-    <!-- Taskbar and Profile Dropdown Container -->
+<div id="headerContainer" class="container-fluid">
+    <div class="row align-items-center">
+        <div class="col-lg-6 d-flex justify-content-start">
+            <img src="path/to/your/logo.png" alt="Logo" id="headerLogo" />
+            <h1 class="ms-3">PMSBadger</h1>
+        </div>
+        <div class="col-lg-6 d-flex justify-content-end">
+            <!-- Menu button for mobile view -->
+            <button id="taskbarToggle" class="d-lg-none">☰ Menu</button>
+        </div>
+    </div>
+    
     <div id="taskbarContainer">
-        <!-- Taskbar Items -->
         <ul id="taskbarItems">
             <?php if (auth()->loggedIn()) : ?>
-                <!-- Show these if user is logged in -->
                 <a href="<?php echo base_url('/dashboard') ?>"><li class="<?= $pageTitle == 'Dashboard' ? 'active' : '' ?>">Dashboard</li></a>
                 <?php if ($user->inGroup('accountant') || $user->inGroup('superadmin')): ?>
                     <a href="<?php echo base_url('/accountant_payroll') ?>"><li class="<?= $pageTitle == 'Payroll [Accountant]' ? 'active' : '' ?>">Payroll</li></a>
@@ -95,7 +44,6 @@
                 <a href="<?php echo base_url('/projects') ?>"><li class="<?= $pageTitle == 'Projects' ? 'active' : '' ?>">Projects</li></a>
                 <a href="<?php echo base_url('/my_work') ?>"><li class="<?= $pageTitle == 'My Work' ? 'active' : '' ?>">My Work</li></a>
                 <a href="<?php echo base_url('/calendar') ?>"><li class="<?= $pageTitle == 'Calendar' ? 'active' : '' ?>">Calendar</li></a>
-                <!-- Profile dropdown (added to taskbar items) -->
                 <li class="taskbar-item dropdown" id="profile-dropdown">
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="bi bi-person-circle"></i> <?= $user->username ?>
@@ -108,32 +56,30 @@
                     </ul>
                 </li>
             <?php else : ?>
-                <!-- Show these if user is not logged in -->
                 <a href="<?php echo base_url('/login') ?>"><li class="<?= $pageTitle == 'Login' ? 'active' : '' ?>">Login</li></a>
                 <a href="<?php echo base_url('/register') ?>"><li class="<?= $pageTitle == 'Register' ? 'active' : '' ?>">Register</li></a>
             <?php endif; ?>
         </ul>
     </div>
-</div>
 
-<!-- Logout modal -->
-<div id="logoutModal" class="modal">
-    <div class="modal-content">
-        <h1>Logout</h1>
-        <p>Are you sure you want to logout?</p>
-        <div class="buttons">
-            <button class="button" onclick="logout()" id="yesBtn">Yes</button>
-            <button class="button" onclick="closeModal()" id="noBtn">No</button>
+    <!-- Logout modal -->
+    <div id="logoutModal" class="modal">
+        <div class="modal-content">
+            <h1>Logout</h1>
+            <p>Are you sure you want to logout?</p>
+            <div class="buttons">
+                <button class="button" onclick="logout()" id="yesBtn">Yes</button>
+                <button class="button" onclick="closeModal()" id="noBtn">No</button>
+            </div>
         </div>
     </div>
-</div>
-<script>
-    document.getElementById('taskbarToggle').addEventListener('click', function() {
-        var taskbarItems = document.getElementById('taskbarItems');
-        taskbarItems.classList.toggle('active'); // Toggle the active class for display
-        this.classList.toggle('active');
-    });
-</script>
-<script src="<?php echo base_url('/assets/js/main.js')?>"></script>
+    <script>
+        document.getElementById('taskbarToggle').addEventListener('click', function() {
+            var taskbarItems = document.getElementById('taskbarItems');
+            taskbarItems.style.display = taskbarItems.style.display === 'flex' ? 'none' : 'flex';
+            this.classList.toggle('active');
+        });
+    </script>
+    <script src="<?php echo base_url('/assets/js/main.js')?>"></script>
 </body>
 </html>

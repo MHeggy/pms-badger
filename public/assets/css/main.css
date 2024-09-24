@@ -2,30 +2,35 @@ body {
     background-color: #f8f9fa; /* Light background to avoid all-white page */
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
+    font-family: 'Roboto', sans-serif; /* Changed to a more modern font */
 }
 
-/* Ensure taskbar and profile dropdown are correctly aligned */
+/* Main Header Styles */
 #headerContainer {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column; /* Adjust for better alignment */
+    align-items: flex-start; /* Align items to the start */
     background-color: #495057; /* Taskbar color */
     padding: 10px 20px;
-    width: 100%;
-    position: relative; /* Added to contain absolutely positioned elements */
+    border-bottom: 2px solid #007bff; /* Add a bottom border for definition */
 }
 
-#taskbarContainer {
-    display: flex;
-    align-items: center;
-    width: 100%;
+#headerLogo {
+    height: 50px; /* Set a fixed height for the logo */
+    margin-right: 15px; /* Space between logo and title */
 }
 
+h1 {
+    color: white; /* Title color */
+    font-size: 24px; /* Font size for title */
+    margin: 0; /* Remove default margin */
+}
+
+/* Ensure taskbar items are visually appealing */
 #taskbarItems {
     display: flex;
     align-items: center;
-    justify-content: space-between; /* This ensures the last item is pushed to the right */
+    justify-content: flex-start; /* Left align items */
     width: 100%;
 }
 
@@ -39,68 +44,22 @@ body {
 #taskbarItems a {
     text-decoration: none;
     color: white;
-    display: flex; /* Ensure that the text and notification badge align properly */
+    display: flex;
     align-items: center;
 }
 
-.taskbar-item {
-    display: flex;
-    align-items: center; /* Align items in the center */
-    position: relative;
-    margin-right: 10px; /* Ensure proper spacing between items */
-}
-
-.taskbar-item .notification-badge {
-    position: absolute;
-    top: -10px;
-    right: -10px;
-}
-
 #taskbarItems a:hover {
-    color: #ffdd57; /* Add some hover effect */
+    color: #ffdd57; /* Add hover effect */
 }
 
 #taskbarItems .active {
-    background-color: #333; /* Highlight color for the active page */
-    font-weight: bold; /* Make the text bold */
+    background-color: #333; /* Highlight color for active page */
+    font-weight: bold; /* Bold for active page */
 }
 
 .dropdown-menu {
     background-color: #495057; /* Dark grey background */
     border: none; /* Remove default border */
-}
-
-#profile-dropdown button {
-    display: flex;
-    align-items: center;
-    padding: 10px 20px; /* Adjust padding as needed */
-    font-size: 18px;
-}
-
-.dropdown-item {
-    color: white; /* White text */
-}
-
-.dropdown-item:hover {
-    background-color: #333; /* Dark grey background on hover */
-}
-
-.notification-badge {
-    background-color: red;
-    color: white;
-    border-radius: 50%;
-    padding: 0 6px;
-    font-size: 12px;
-    position: absolute;
-    top: -10px;
-    right: -10px;
-}
-
-.taskbar-item {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    padding: 10px; /* Ensure some space for notification badge */
 }
 
 /* Mobile Header Layout */
@@ -126,50 +85,39 @@ body {
     }
 
     #taskbarItems li {
-        padding: 10px;
-        border-bottom: 1px solid #6c757d;
+        width: 100%; /* Full width on mobile */
+        text-align: center; /* Center align text */
     }
 
-    #taskbarToggle.active ~ #taskbarItems {
-        display: flex; /* Show when menu button is clicked */
+    #taskbarToggle.active + #taskbarItems {
+        display: flex; /* Show taskbar items when menu is active */
     }
 }
 
-/* Logout Modal */
+/* Modal Styles */
 #logoutModal {
-    display: none;
-    position: fixed;
-    top: 0;
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
     left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    justify-content: center;
-    align-items: center;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    padding-top: 60px; /* Location of the box */
 }
 
-#logoutModal .modal-content {
-    background: white;
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto; /* 15% from the top and centered */
     padding: 20px;
-    border-radius: 5px;
-    text-align: center;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
 }
 
-#logoutModal .buttons {
+.buttons {
     display: flex;
-    justify-content: center;
-    gap: 20px;
-}
-
-#logoutModal .button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    background-color: #007bff;
-    color: white;
-    cursor: pointer;
-}
-
-#logoutModal .button:hover {
-    background-color: #0056b3;
+    justify-content: space-between; /* Space between buttons */
 }
