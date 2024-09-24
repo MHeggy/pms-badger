@@ -1,7 +1,12 @@
 <?php $pageTitle = "Timesheets"; ?>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-<style>
+<!-- Header content -->
+<header><style>
+    body {
+        background-color: #f8f9fa;
+    }
+
     #timesheet-container {
         margin-bottom: 50px;
     }
@@ -22,72 +27,72 @@
     .button-container {
         margin-top: 20px;
     }
-    
-    @media (max-width: 767px) {
-    .container {
-        padding-left: 15px;
-        padding-right: 15px;
-    }
-
-    .card-body {
-        padding: 15px;
-    }
-
-    .table {
-        width: 100%;
-        border-collapse: collapse;
-    }
 
     .table th, .table td {
-        padding: 8px;
-        text-align: left;
-        font-size: 14px;
+        vertical-align: middle;
     }
 
-    .table input {
-        font-size: 14px;
-        padding: 5px;
-    }
-
-    .form-control {
-        font-size: 14px;
-        padding: 10px;
-    }
-
-    .btn {
-        font-size: 14px;
-        padding: 10px;
-        margin-top: 10px;
-        width: 100%;
+    .table th {
+        background-color: #007bff;
+        color: white;
         text-align: center;
     }
 
-    .remove-row, #add-row {
-        width: 100%;
-        margin-top: 10px;
+    .table td {
+        background-color: white;
     }
 
-    #timesheet-container {
-        margin-bottom: 20px;
+    .logo {
+        width: 100px; /* Adjust logo size */
     }
 
-    .view-timesheets-card {
-        margin-bottom: 20px;
-    }
+    @media (max-width: 767px) {
+        .container {
+            padding-left: 15px;
+            padding-right: 15px;
+        }
 
-    .table-responsive {
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        width: 100%;
+        .card-body {
+            padding: 15px;
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            width: 100%;
+        }
+
+        .table th, .table td {
+            padding: 8px;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        .table input {
+            font-size: 14px;
+            padding: 5px;
+        }
+
+        .form-control {
+            font-size: 14px;
+            padding: 10px;
+        }
+
+        .btn {
+            font-size: 14px;
+            padding: 10px;
+            margin-top: 10px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .remove-row, #add-row {
+            width: 100%;
+            margin-top: 10px;
+        }
     }
-    
-    .table th, .table td {
-        white-space: nowrap;
-    }
-}
 </style>
 
-<!-- Header content -->
 <header>
     <?php include 'header.php' ?>
 </header>
