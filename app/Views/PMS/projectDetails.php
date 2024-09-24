@@ -2,6 +2,7 @@
 <link rel="stylesheet" href="<?= base_url('/assets/css/projectDetails.css') ?>">
 <link rel="stylesheet" href="<?= base_url('/assets/css/main.css') ?>">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <!-- Font Awesome for icons -->
 
 <!-- Header content -->
 <header>
@@ -30,10 +31,12 @@
     <!-- Button Row -->
     <div class="d-flex justify-content-between mb-4">
         <!-- Go Back Button -->
-        <button class="btn btn-secondary" onclick="window.history.back()">Go Back</button>
+        <button class="btn btn-secondary" onclick="window.history.back()">
+            <i class="fas fa-arrow-left"></i> Go Back
+        </button>
         <!-- Button to Open Modal for Adding Update -->
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addUpdateModal">
-            Add Update
+            <i class="fas fa-plus"></i> Add Update
         </button>
     </div>
 
@@ -121,11 +124,11 @@
                                     <div class="d-flex">
                                         <!-- Edit Button -->
                                         <a class="btn btn-light btn-sm me-2" href="#" data-bs-toggle="modal" data-bs-target="#editUpdateModal-<?= $update['updateID'] ?>">
-                                            Edit
+                                            <i class="fas fa-edit"></i> Edit
                                         </a>
                                         <!-- Delete Button -->
                                         <a class="btn btn-light btn-sm text-danger" href="<?= base_url('projects/delete_update/' . $update['updateID']) ?>" onclick="return confirm('Are you sure you want to delete this update?');">
-                                            Delete
+                                            <i class="fas fa-trash-alt"></i> Delete
                                         </a>
                                     </div>
                                 <?php endif; ?>
@@ -140,7 +143,6 @@
             </div>
         <?php endif; ?>
     </div>
-
 
     <!-- Modal Structure for Editing Update -->
     <?php foreach ($updates as $update): ?>
@@ -160,7 +162,7 @@
                             <label for="updateText-<?= $update['updateID'] ?>" class="form-label">Type Here</label>
                             <textarea class="form-control" id="updateText-<?= $update['updateID'] ?>" name="updateText" rows="3" required><?= esc($update['updateText']) ?></textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save Changes</button>
                     </form>
                 </div>
             </div>
@@ -184,7 +186,7 @@
                             <label for="updateText" class="form-label">Type Here</label>
                             <textarea class="form-control" id="updateText" name="updateText" rows="3" required></textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary">Submit Update</button>
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-plus"></i> Submit Update</button>
                     </form>
                 </div>
             </div>
@@ -198,18 +200,16 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="deleteUpdateModalLabel-<?= $update['updateID'] ?>">Confirm Deletion</h5>
+                <h5 class="modal-title" id="deleteUpdateModalLabel-<?= $update['updateID'] ?>">Confirm Delete</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <p>Are you sure you want to delete this update? This action cannot be undone.</p>
+                Are you sure you want to delete this update?
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <form action="<?= base_url('projects/delete_update') ?>" method="post" style="display: inline;">
+                <form action="<?= base_url('projects/delete_update/' . $update['updateID']) ?>" method="post">
                     <?= csrf_field() ?>
-                    <input type="hidden" name="updateID" value="<?= esc($update['updateID']) ?>">
-                    <input type="hidden" name="projectID" value="<?= esc($project['projectID']) ?>">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                     <button type="submit" class="btn btn-danger">Delete</button>
                 </form>
             </div>
@@ -217,9 +217,7 @@
     </div>
 </div>
 <?php endforeach; ?>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-<script src="<?php echo base_url('/assets/js/main.js')?>"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="<?php echo base_url('/assets/js/projects.js') ?>"></script>
-</body>
-</html>
+
+<!-- JavaScript files -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>

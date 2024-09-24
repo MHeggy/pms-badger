@@ -1,12 +1,14 @@
 body {
     padding-top: 56px;
+    background-color: #f8f9fa;
 }
 .container {
     max-width: 900px;
 }
-table {
+.table {
     border: 1px solid #dee2e6;
     border-radius: .25rem;
+    background-color: #ffffff;
 }
 th, td {
     padding: 1rem;
@@ -24,7 +26,7 @@ h1 {
 }
 
 .table-striped tbody tr:nth-of-type(odd) {
-    background-color: #f9f9f9;
+    background-color: #f2f2f2; /* Striped rows */
 }
 
 .table-dark th {
@@ -40,4 +42,9 @@ h1 {
 .modal-xl-custom {
     max-width: 90%;
     width: 90%;
+}
+
+.modal-header {
+    background-color: #007bff; /* Blue modal header */
+    color: white;
 }
