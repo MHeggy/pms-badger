@@ -16,30 +16,50 @@
 
 <!-- Main header -->
 <div id="headerContainer" class="container-fluid">
-    <div class="row align-items-center">
-        <div class="col-lg-6 d-flex justify-content-start">
-            <img src="<?php echo base_url('assets/img/BE Logo - New blue background.png') ?>" alt="Logo" class="header-logo" />
-            <h1 class="ms-3">PMSBadger</h1>
-        </div>
-        <div class="col-lg-6 d-flex justify-content-end">
-            <!-- Menu button for mobile view -->
-            <button id="taskbarToggle" class="d-lg-none">☰ Menu</button>
-            <ul id="taskbarItems" class="d-none d-lg-flex">
-                <?php if (auth()->loggedIn()) : ?>
-                    <a href="<?php echo base_url('/dashboard') ?>"><li class="<?= $pageTitle == 'Dashboard' ? 'active' : '' ?>">Dashboard</li></a>
+        <div class="row align-items-center">
+            <div class="col-lg-6 d-flex justify-content-start">
+                <img src="<?php echo base_url('assets/img/BE Logo - New blue background.png') ?>" alt="Logo" class="header-logo" />
+                <h1 class="ms-3">PMSBadger</h1>
+            </div>
+            <div class="col-lg-6 d-flex justify-content-end">
+                <!-- Menu button for mobile view -->
+                <button id="taskbarToggle" class="d-lg-none">☰ Menu</button>
+                <ul id="taskbarItems" class="d-none d-lg-flex">
+                    <?php if (auth()->loggedIn()) : ?>
+                    <a href="<?php echo base_url('/dashboard') ?>">
+                        <li class="<?= $pageTitle == 'Dashboard' ? 'active' : '' ?>">Dashboard</li>
+                    </a>
                     <?php if ($user->inGroup('accountant') || $user->inGroup('superadmin')): ?>
-                        <a href="<?php echo base_url('/accountant_payroll') ?>"><li class="<?= $pageTitle == 'Payroll [Accountant]' ? 'active' : '' ?>">Payroll</li></a>
+                    <a href="<?php echo base_url('/accountant_payroll') ?>">
+                        <li class="<?= $pageTitle == 'Payroll [Accountant]' ? 'active' : '' ?>">Payroll</li>
+                    </a>
                     <?php endif; ?>
-                    <a href="<?php echo base_url('/timesheets') ?>"><li class="<?= $pageTitle == 'Timesheets' ? 'active' : '' ?>">Timesheets</li></a>
+                    <a href="<?php echo base_url('/timesheets') ?>">
+                        <li class="<?= $pageTitle == 'Timesheets' ? 'active' : '' ?>">Timesheets</li>
+                    </a>
                     <?php if ($user->inGroup('superadmin')): ?>
-                        <a href="<?php echo base_url('/assign_users') ?>"><li class="<?= $pageTitle == '[Admin Page] Assign Users to Projects' ? 'active' : '' ?>">Assign Users</li></a>
-                        <a href="<?php echo base_url('/unassign_users') ?>"><li class="<?= $pageTitle == '[Admin Page] Unassign Users from Projects' ? 'active' : '' ?>">Unassign Users</li></a>
-                        <a href="<?php echo base_url('/categories_tasks') ?>"><li class="<?= $pageTitle == 'Add Categories and Tasks' ? 'active' : '' ?>">Add Categories/Tasks</li></a>
+                    <a href="<?php echo base_url('/assign_users') ?>">
+                        <li class="<?= $pageTitle == '[Admin Page] Assign Users to Projects' ? 'active' : '' ?>">Assign Users</li>
+                    </a>
+                    <a href="<?php echo base_url('/unassign_users') ?>">
+                        <li class="<?= $pageTitle == '[Admin Page] Unassign Users from Projects' ? 'active' : '' ?>">Unassign Users</li>
+                    </a>
+                    <a href="<?php echo base_url('/categories_tasks') ?>">
+                        <li class="<?= $pageTitle == 'Add Categories and Tasks' ? 'active' : '' ?>">Add Categories/Tasks</li>
+                    </a>
                     <?php endif; ?>
-                    <a href="<?php echo base_url('/add_project') ?>"><li class="<?= $pageTitle == '[Admin] Add Projects' ? 'active' : '' ?>">Add Projects</li></a>
-                    <a href="<?php echo base_url('/projects') ?>"><li class="<?= $pageTitle == 'Projects' ? 'active' : '' ?>">Projects</li></a>
-                    <a href="<?php echo base_url('/my_work') ?>"><li class="<?= $pageTitle == 'My Work' ? 'active' : '' ?>">My Work</li></a>
-                    <a href="<?php echo base_url('/calendar') ?>"><li class="<?= $pageTitle == 'Calendar' ? 'active' : '' ?>">Calendar</li></a>
+                    <a href="<?php echo base_url('/add_project') ?>">
+                        <li class="<?= $pageTitle == '[Admin] Add Projects' ? 'active' : '' ?>">Add Projects</li>
+                    </a>
+                    <a href="<?php echo base_url('/projects') ?>">
+                        <li class="<?= $pageTitle == 'Projects' ? 'active' : '' ?>">Projects</li>
+                    </a>
+                    <a href="<?php echo base_url('/my_work') ?>">
+                        <li class="<?= $pageTitle == 'My Work' ? 'active' : '' ?>">My Work</li>
+                    </a>
+                    <a href="<?php echo base_url('/calendar') ?>">
+                        <li class="<?= $pageTitle == 'Calendar' ? 'active' : '' ?>">Calendar</li>
+                    </a>
                     <li class="taskbar-item dropdown" id="profile-dropdown">
                         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="bi bi-person-circle"></i> <?= $user->username ?>
@@ -47,29 +67,36 @@
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
                             <li><a class="dropdown-item" href="<?php echo base_url('/my_profile/' . $user->id) ?>">My Profile</a></li>
                             <li><a class="dropdown-item" href="<?php echo base_url('/settings') ?>">Settings</a></li>
-                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
                             <li><a class="dropdown-item" onclick="displayModal()">Logout</a></li>
                         </ul>
                     </li>
-                <?php else : ?>
-                    <a href="<?php echo base_url('/login') ?>"><li class="<?= $pageTitle == 'Login' ? 'active' : '' ?>">Login</li></a>
-                    <a href="<?php echo base_url('/register') ?>"><li class="<?= $pageTitle == 'Register' ? 'active' : '' ?>">Register</li></a>
-                <?php endif; ?>
-            </ul>
-        </div>
-    </div>
-
-    <!-- Logout modal -->
-    <div id="logoutModal" class="modal">
-        <div class="modal-content">
-            <h1>Logout</h1>
-            <p>Are you sure you want to logout?</p>
-            <div class="buttons">
-                <button class="button" onclick="logout()" id="yesBtn">Yes</button>
-                <button class="button" onclick="closeModal()" id="noBtn">No</button>
+                    <?php else : ?>
+                    <a href="<?php echo base_url('/login') ?>">
+                        <li class="<?= $pageTitle == 'Login' ? 'active' : '' ?>">Login</li>
+                    </a>
+                    <a href="<?php echo base_url('/register') ?>">
+                        <li class="<?= $pageTitle == 'Register' ? 'active' : '' ?>">Register</li>
+                    </a>
+                    <?php endif; ?>
+                </ul>
             </div>
         </div>
-    </div>
+
+        <!-- Logout modal -->
+        <div id="logoutModal" class="modal">
+            <div class="modal-content">
+                <h1>Logout</h1>
+                <p>Are you sure you want to logout?</p>
+                <div class="buttons">
+                    <button class="button" onclick="logout()" id="yesBtn">Yes</button>
+                    <button class="button" onclick="closeModal()" id="noBtn">No</button>
+                </div>
+            </div>
+        </div>
+
     <script>
         document.getElementById('taskbarToggle').addEventListener('click', function() {
             var taskbarItems = document.getElementById('taskbarItems');

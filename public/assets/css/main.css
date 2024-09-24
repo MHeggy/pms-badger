@@ -1,161 +1,125 @@
 body {
+    font-family: 'Montserrat', sans-serif;
     background-color: #f8f9fa;
     margin: 0;
     padding: 0;
-    font-family: 'Roboto', sans-serif;
-}
-
-#headerContainer {
-    background-color: #000; /* Black background for the header */
-    padding: 15px 30px;
-    border-bottom: 2px solid #444;
-}
-
-#headerContainer .nav-link {
-    color: white;
-    font-size: 1.5rem;
-    margin: 0 15px;
-    display: flex;
-    align-items: center;
-}
-
-#headerContainer .nav-link:hover {
-    color: #ffdd57; /* Yellow hover effect */
-}
-
-#headerContainer h1 {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 700;
-    font-size: 24px; /* Adjust size for title */
-    color: white; /* White title text */
-    margin: 0;
 }
 
 .header-logo {
-    height: 50px;
-    margin-left: 20px;
+    height: 60px;
+    width: auto;
 }
 
-h1 {
-    color: white; /* Title color */
-    font-size: 20px; /* Font size for title */
-    margin: 0; /* Remove default margin */
+#headerContainer {
+    background-color: #004080;
+    color: white;
+    padding: 10px 20px;
+}
+
+#headerContainer h1 {
+    font-size: 24px;
+    margin: 0;
 }
 
 #taskbarItems {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end; /* Align items to the right */
-    width: 100%;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
 }
 
 #taskbarItems li {
-    list-style: none;
-    padding: 8px 12px; /* Reduced padding for cleaner look */
-    font-size: 14px; /* Smaller font size for taskbar items */
-    color: white;
+    display: inline-block;
+    margin: 0 15px;
+    padding: 5px;
 }
 
-#taskbarItems a {
+#taskbarItems li a {
     text-decoration: none;
     color: white;
-}
-
-#taskbarItems a:hover {
-    color: #ffdd57; /* Hover effect */
-}
-
-#taskbarItems .active {
-    background-color: #0056b3; /* Active page highlight */
     font-weight: bold;
 }
 
-.taskbar-item.dropdown button {
+#taskbarItems li.active a {
+    color: #ffcc00;
+}
+
+#taskbarItems a:hover {
+    color: #ffcc00;
+}
+
+#taskbarToggle {
+    font-size: 24px;
     background: none;
     border: none;
     color: white;
-    font-size: 1.2rem;
-    display: flex;
-    align-items: center;
 }
 
-.taskbar-item .dropdown-menu {
-    background-color: #333;
+.dropdown-menu a {
+    color: #000;
+}
+
+.dropdown-menu a:hover {
+    background-color: #004080;
     color: white;
 }
 
-.taskbar-item .dropdown-item:hover {
-    background-color: #444;
-}
-
-/* Mobile Header Layout */
-@media (max-width: 768px) {
-    #headerContainer {
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 10px;
-    }
-
-    #taskbarToggle {
-        display: block;
-        background: none;
-        border: none;
-        color: white;
-        font-size: 24px;
-    }
-
-    #taskbarItems {
-        display: none; /* Hide on mobile by default */
-        flex-direction: column;
-        width: 100%;
-    }
-
-    #taskbarItems li {
-        width: 100%; /* Full width on mobile */
-        text-align: center; /* Center align text */
-    }
-
-    #taskbarToggle.active + #taskbarItems {
-        display: flex; /* Show taskbar on toggle */
-    }
-}
-
-/* Modal Styles */
 .modal {
     display: none;
     position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgb(0, 0, 0);
-    background-color: rgba(0, 0, 0, 0.4);
-    padding-top: 60px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
 }
 
 .modal-content {
-    background-color: #fefefe;
-    margin: 5% auto;
     padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
+    text-align: center;
 }
 
-.buttons {
+.modal h1 {
+    margin-bottom: 15px;
+}
+
+.modal .buttons {
     display: flex;
-    justify-content: space-between; /* Space buttons evenly */
+    justify-content: space-around;
 }
 
-.button {
-    background-color: #007bff;
+.modal .button {
+    padding: 10px 20px;
+    background-color: #004080;
     color: white;
     border: none;
-    padding: 10px 20px;
+    border-radius: 4px;
     cursor: pointer;
 }
 
-.button:hover {
-    background-color: #0056b3;
+.modal .button:hover {
+    background-color: #ffcc00;
+    color: black;
+}
+
+/* Mobile-specific styling */
+@media (max-width: 992px) {
+    #taskbarItems {
+        display: none;
+        flex-direction: column;
+    }
+
+    #taskbarToggle.active + #taskbarItems {
+        display: flex;
+    }
+
+    #headerContainer {
+        justify-content: space-between;
+    }
+
+    #taskbarItems li {
+        margin: 10px 0;
+    }
 }
