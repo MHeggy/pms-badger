@@ -10,7 +10,7 @@
 <header>
     <?php include 'header.php' ?>
 </header>
-
+<br><br><br>
 <!-- Calendar Section -->
 <div id="calendar"></div>
 
