@@ -28,7 +28,9 @@
         background-color: #ffc107; /* Yellow for 'Cancelled' or 'Postponed' */
         color: #212529; /* Dark text */
     }
-
+    .btn-clear {
+        display: none; /* Initially hidden */
+    }
 </style>
 
 <!-- Success Message Section -->

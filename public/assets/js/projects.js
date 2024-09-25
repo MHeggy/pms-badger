@@ -15,6 +15,33 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
+document.addEventListener('DOMContentLoaded', function () {
+    const searchInput = document.getElementById('search');
+    const clearSearchButton = document.getElementById('clearSearchButton');
+    const searchButton = document.getElementById('searchButton');
+
+    // Toggle visibility of the clear button based on input
+    searchInput.addEventListener('input', function () {
+        if (searchInput.value.trim() !== '') {
+            clearSearchButton.style.display = 'block'; // Show clear button
+            searchButton.style.display = 'none'; // Hide search button
+        } else {
+            clearSearchButton.style.display = 'none'; // Hide clear button
+            searchButton.style.display = 'block'; // Show search button
+        }
+    });
+
+    // Clear search input when clear button is clicked
+    clearSearchButton.addEventListener('click', function () {
+        searchInput.value = ''; // Clear the input
+        searchInput.dispatchEvent(new Event('input')); // Trigger input event to update button visibility
+        // Optionally submit the form to clear search results
+        document.getElementById('searchForm').submit(); // Uncomment this line if you want to refresh the results
+    });
+
+    // Initialize sorting event listeners
+    initializeEventListeners();
+});
 
 function initializeEventListeners() {
     // Event listener for sorting arrows
@@ -27,31 +54,6 @@ function initializeEventListeners() {
         toggleSortArrows('desc');
     });
 }
-
-// function updateProjectList(projects) {
-//     const projectList = document.getElementById('project_list');
-//     projectList.innerHTML = ''; // Clear the current list
-
-//     projects.forEach(project => {
-//         const projectRow = document.createElement('tr');
-//         projectRow.setAttribute('data-project-id', project.projectID);
-
-//         const assignedUsersHTML = project.assignedUsers.length
-//             ? '<ul>' + project.assignedUsers.map(user => `<li>${user}</li>`).join('') + '</ul>'
-//             : 'No users assigned.';
-
-//         projectRow.innerHTML = `
-//             <td>${project.projectNumber}</td>
-//             <td>${project.projectName}</td>
-//             <td>${project.statusName}</td>
-//             <td>${project.categoryNames}</td>
-//             <td>${project.dateAccepted}</td>
-//             <td>${assignedUsersHTML}</td>
-//         `;
-
-//         projectList.appendChild(projectRow);
-//     });
-// }
 
 function sortProjects(order) {
     const projectList = document.getElementById('project_list');
