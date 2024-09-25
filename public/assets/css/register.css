@@ -55,3 +55,16 @@ button[type="submit"] {
 button[type="submit"]:hover {
     background-color: #555;
 }
+
+/* Ensure icons are aligned */
+input[type="password"] {
+    padding-right: 40px; /* Adds padding for the eye icon */
+}
+
+.fa-eye, .fa-eye-slash {
+    color: #333;
+}
+
+.form-floating label i {
+    margin-right: 10px;
+}
