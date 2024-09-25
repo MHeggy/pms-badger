@@ -121,7 +121,7 @@
                             </a>
                         </td>
                         <td>
-                            <span class="badge <?= esc($work['statusClass']) ?> rounded-pill d-inline">
+                            <span class="badge <?= esc($work['statusName']) ?> rounded-pill d-inline">
                                 <?= esc($work['statusName']) ?>
                             </span>
                         </td>
