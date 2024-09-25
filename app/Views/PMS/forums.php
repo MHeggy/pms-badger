@@ -21,6 +21,25 @@
 
 <main>
     <div class="container mt-4">
+        <div class="inner-main">
+            <!-- Inner main header -->
+            <div class="inner-main-header d-flex justify-content-between align-items-center mb-4">
+                <a class="nav-link nav-icon rounded-circle nav-link-faded mr-3 d-md-none" href="#" data-toggle="inner-sidebar">
+                    <i class="material-icons">arrow_forward_ios</i>
+                </a>
+                <select class="custom-select custom-select-sm w-auto mr-1" id="sort-dropdown">
+                    <option selected="">Latest</option>
+                    <option value="popular">Popular</option>
+                    <option value="solved">Solved</option>
+                    <option value="unsolved">Unsolved</option>
+                    <option value="no-replies">No Replies Yet</option>
+                </select>
+                <span class="input-icon input-icon-sm ml-auto w-auto">
+                    <input type="text" class="form-control form-control-sm bg-gray-200 border-gray-200 shadow-none mb-4 mt-4" placeholder="Search forum" />
+                </span>
+            </div>
+        </div>
+
         <div class="d-flex justify-content-between align-items-center mb-4">
             <!-- Create Post Button -->
             <button id="createPostBtn" class="btn btn-primary">
