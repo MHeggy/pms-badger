@@ -113,7 +113,7 @@
                                 </a>
                             </td>
                             <td>
-                                <span class="badge badge-<?php echo $project['statusName'] == 'In Progress' ? 'success' : ($project['statusName'] == 'Completed' ? 'primary' : 'warning'); ?> rounded-pill">
+                                <span class="badge <?= $project['statusName'] == 'In Progress' ? 'badge-success' : ($project['statusName'] == 'Completed' ? 'badge-primary' : 'badge-warning'); ?> rounded-pill">
                                     <?= esc($project['statusName']) ?>
                                 </span>
                             </td>
