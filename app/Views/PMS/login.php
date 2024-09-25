@@ -1,11 +1,13 @@
-<?php $pageTitle = "Login" ?>
+<?php $pageTitle = "Login"; ?>
 
 <!-- Include Bootstrap CSS and FontAwesome -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 <link rel="stylesheet" href="<?= base_url('/assets/css/login.css') ?>">
+
 <!-- Custom Font from Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
 <!-- Header -->
 <div id="header">
     <header>
@@ -33,24 +35,20 @@
                 </div>
             <?php endif ?>
 
-            <?php if (session('message') !== null) : ?>
-                <div class="alert alert-success" role="alert"><?= session('message') ?></div>
-            <?php endif ?>
-
             <form action="<?= url_to('login') ?>" method="post">
                 <?= csrf_field() ?>
 
                 <!-- Email Input -->
                 <div class="form-floating mb-3">
                     <input type="email" class="form-control" id="floatingEmailInput" name="email" inputmode="email" autocomplete="email" placeholder="<?= lang('Auth.email') ?>" value="<?= old('email') ?>" required>
-                    <label for="floatingEmailInput"><i class="fas fa-envelope"></i><?= lang('Auth.email') ?></label>
+                    <label for="floatingEmailInput"><i class="fas fa-envelope"></i> <?= lang('Auth.email') ?></label>
                 </div>
 
-                <!-- Password Input -->
+                <!-- Password Input with Toggle Visibility Icon -->
                 <div class="form-floating mb-3 position-relative">
                     <input type="password" class="form-control" id="floatingPasswordInput" name="password" inputmode="text" autocomplete="current-password" placeholder="<?= lang('Auth.password') ?>" required>
-                    <label for="floatingPasswordInput"><i class="fas fa-lock"></i><?= lang('Auth.password') ?></label>
-                    <i class="fas fa-eye position-absolute top-50 end-0 translate-middle-y me-3" id="togglePassword" style="cursor: pointer;"></i>
+                    <label for="floatingPasswordInput"><i class="fas fa-lock"></i> <?= lang('Auth.password') ?></label>
+                    <i class="fas fa-eye position-absolute top-50 end-0 translate-middle-y pe-2" onclick="togglePassword('floatingPasswordInput')" style="cursor: pointer;"></i>
                 </div>
 
                 <!-- Remember Me Checkbox -->
@@ -71,10 +69,6 @@
                 </div>
 
                 <!-- Additional Links -->
-                <?php if (setting('Auth.allowMagicLinkLogins')) : ?>
-                    <p class="text-center"><?= lang('Auth.forgotPassword') ?> <a href="<?= url_to('magic-link') ?>"><?= lang('Auth.useMagicLink') ?></a></p>
-                <?php endif ?>
-
                 <p class="text-center">
                     <?= lang('Auth.forgotPassword') ?> 
                     <a href="<?= url_to('forgot-password') ?>">Reset it here</a>
@@ -92,19 +86,22 @@
 <!-- Include FontAwesome and Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+
+<!-- Toggle Password Visibility Script -->
 <script>
-    const togglePassword = document.querySelector("#togglePassword");
-    const passwordField = document.querySelector("#floatingPasswordInput");
-
-    togglePassword.addEventListener("click", function () {
-        // Toggle the password field type
-        const type = passwordField.getAttribute("type") === "password" ? "text" : "password";
-        passwordField.setAttribute("type", type);
-
-        // Toggle the eye icon class
-        this.classList.toggle("fa-eye");
-        this.classList.toggle("fa-eye-slash");
-    });
+function togglePassword(id) {
+    var passwordField = document.getElementById(id);
+    var icon = passwordField.nextElementSibling;
+    if (passwordField.type === "password") {
+        passwordField.type = "text";
+        icon.classList.remove("fa-eye");
+        icon.classList.add("fa-eye-slash");
+    } else {
+        passwordField.type = "password";
+        icon.classList.remove("fa-eye-slash");
+        icon.classList.add("fa-eye");
+    }
+}
 </script>
 
 </body>
