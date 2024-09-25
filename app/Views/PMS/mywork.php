@@ -10,6 +10,18 @@
         padding: 10px; /* Add some padding for better spacing */
         text-align: left; /* Align text to the left */
     }
+    .badge-success {
+        background-color: #28a745; /* Green for 'In Progress' */
+        color: #fff; /* White text */
+    }
+    .badge-primary {
+        background-color: #007bff; /* Blue for 'Completed' */
+        color: #fff; /* White text */
+    }
+    .badge-warning {
+        background-color: #ffc107; /* Yellow for 'Cancelled' or 'Postponed' */
+        color: #212529; /* Dark text */
+    }
 </style>
 <!-- Header content -->
 <div id="header">
@@ -121,7 +133,7 @@
                             </a>
                         </td>
                         <td>
-                            <span class="badge <?= esc($work['statusName']) ?> rounded-pill d-inline">
+                            <span class="badge <?= $work['statusName'] == 'In Progress' ? 'badge-success' : ($work['statusName'] == 'Completed' ? 'badge-primary' : 'badge-warning'); ?> rounded-pill">
                                 <?= esc($work['statusName']) ?>
                             </span>
                         </td>
