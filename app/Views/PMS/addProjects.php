@@ -59,7 +59,9 @@
                                     <label for="country" class="form-label">Country</label>
                                     <select class="form-select" id="country" name="countryID" required>
                                         <?php foreach ($countries as $country): ?>
-                                            <option value="<?php echo $country['countryID']; ?>"><?php echo $country['countryName']; ?></option>
+                                            <option value="<?php echo $country['countryID']; ?>" <?php echo ($country['countryID'] == 8) ? 'selected' : ''; ?>>
+                                                <?php echo $country['countryName']; ?>
+                                            </option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
