@@ -1,23 +1,21 @@
 <?php $pageTitle = "Login" ?>
+
+<!-- Include Bootstrap CSS and FontAwesome -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="<?= base_url('/assets/css/login.css') ?>">
+<!-- Custom Font from Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 <!-- Header -->
 <div id="header">
     <header>
         <?php include 'header.php' ?>
     </header>
 </div>
-<style>
-    body {
-        font-family: 'Roboto', sans-serif;
-        background-color: #f0f2f5;
-        color: #333;
-    }
-</style>
-<!-- Style sheet -->
-<link rel="stylesheet" href="<?= base_url('/assets/css/login.css') ?>">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
 <!-- Body content -->
 <div class="container d-flex justify-content-center p-5">
-    <div class="card col-12 col-md-5 shadow-sm">
+    <div class="card col-12 col-md-5 shadow-sm login-container">
         <div class="card-body">
             <h5 class="card-title mb-5"><?= lang('Auth.login') ?></h5>
 
@@ -27,8 +25,7 @@
                 <div class="alert alert-danger" role="alert">
                     <?php if (is_array(session('errors'))) : ?>
                         <?php foreach (session('errors') as $error) : ?>
-                            <?= $error ?>
-                            <br>
+                            <?= $error ?><br>
                         <?php endforeach ?>
                     <?php else : ?>
                         <?= session('errors') ?>
@@ -40,34 +37,22 @@
                 <div class="alert alert-success" role="alert"><?= session('message') ?></div>
             <?php endif ?>
 
-            <!-- Resend Verification Email Form -->
-            <?php if (session('resend_verification')) : ?>
-                <div class="alert alert-info" role="alert">
-                    <?= lang('Auth.verificationPending') ?>
-                    <form action="<?= url_to('resend_verification') ?>" method="post" class="mt-2">
-                        <?= csrf_field() ?>
-                        <input type="hidden" name="email" value="<?= session('email') ?>">
-                        <button type="submit" class="btn btn-warning"><?= lang('Auth.resendVerificationEmail') ?></button>
-                    </form>
-                </div>
-            <?php endif ?>
-
             <form action="<?= url_to('login') ?>" method="post">
                 <?= csrf_field() ?>
 
-                <!-- Email -->
+                <!-- Email Input -->
                 <div class="form-floating mb-3">
                     <input type="email" class="form-control" id="floatingEmailInput" name="email" inputmode="email" autocomplete="email" placeholder="<?= lang('Auth.email') ?>" value="<?= old('email') ?>" required>
                     <label for="floatingEmailInput"><?= lang('Auth.email') ?></label>
                 </div>
 
-                <!-- Password -->
+                <!-- Password Input -->
                 <div class="form-floating mb-3">
                     <input type="password" class="form-control" id="floatingPasswordInput" name="password" inputmode="text" autocomplete="current-password" placeholder="<?= lang('Auth.password') ?>" required>
                     <label for="floatingPasswordInput"><?= lang('Auth.password') ?></label>
                 </div>
 
-                <!-- Remember me -->
+                <!-- Remember Me Checkbox -->
                 <?php if (setting('Auth.sessionConfig')['allowRemembering']): ?>
                     <div class="form-check">
                         <label class="form-check-label">
@@ -77,10 +62,14 @@
                     </div>
                 <?php endif; ?>
 
+                <!-- Submit Button with Icon -->
                 <div class="d-grid col-12 col-md-8 mx-auto m-3">
-                    <button type="submit" class="btn btn-primary btn-block"><?= lang('Auth.login') ?></button>
+                    <button type="submit" class="btn btn-primary btn-block">
+                        <i class="fas fa-sign-in-alt"></i> <?= lang('Auth.login') ?>
+                    </button>
                 </div>
 
+                <!-- Additional Links -->
                 <?php if (setting('Auth.allowMagicLinkLogins')) : ?>
                     <p class="text-center"><?= lang('Auth.forgotPassword') ?> <a href="<?= url_to('magic-link') ?>"><?= lang('Auth.useMagicLink') ?></a></p>
                 <?php endif ?>
@@ -98,6 +87,10 @@
         </div>
     </div>
 </div>
+
+<!-- Include FontAwesome and Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
 
 </body>
 </html>
