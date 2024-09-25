@@ -90,8 +90,8 @@
 <!-- Projects Table with scrollable container -->
 <div class="container" id="project_table" style="margin-top: 20px;">
     <div class="table-responsive">
-        <table class="table table-striped table-blue">
-            <thead>
+        <table class="table align-middle mb-0 bg-white">
+            <thead class="bg-light">
                 <tr>
                     <th>Project Number
                         <span class="sort-arrow">
@@ -104,6 +104,7 @@
                     <th>Category</th>
                     <th>Date Accepted</th>
                     <th>Assigned Users</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody id="project_list">
@@ -119,12 +120,16 @@
                                 <?= esc($work['projectName']) ?>
                             </a>
                         </td>
-                        <td><?= esc($work['statusName']) ?></td>
+                        <td>
+                            <span class="badge <?= esc($work['statusClass']) ?> rounded-pill d-inline">
+                                <?= esc($work['statusName']) ?>
+                            </span>
+                        </td>
                         <td><?= esc(str_replace(',', ', ', $work['categoryNames'])) ?></td>
                         <td><?= esc($work['dateAccepted']) ?></td>
                         <td>
                             <?php if (!empty($work['assignedUsers']) && is_array($work['assignedUsers'])): ?>
-                                <ul>
+                                <ul class="list-unstyled mb-0">
                                     <?php foreach ($work['assignedUsers'] as $user): ?>
                                         <li><?= esc($user['username']) ?></li>
                                     <?php endforeach; ?>
@@ -133,12 +138,18 @@
                                 No users assigned.
                             <?php endif; ?>
                         </td>
+                        <td>
+                            <button type="button" class="btn btn-link btn-sm btn-rounded" onclick="window.location='<?= base_url('projects/edit/' . $work['projectID']) ?>'">
+                                Edit
+                            </button>
+                        </td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>
     </div>
 </div>
+
 
 <!-- Scripts -->
 <script src="<?php echo base_url('/assets/js/mywork.js') ?>"></script>
