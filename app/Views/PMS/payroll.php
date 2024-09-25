@@ -7,95 +7,101 @@
 <header>
 <style>
     body {
-        font-family: 'Roboto', sans-serif;
-        background-color: #f0f2f5;
-        color: #333;
+    font-family: 'Roboto', sans-serif;
+    background-color: #f0f2f5;
+    color: #333;
+}
+
+#timesheet-container {
+    margin-bottom: 50px;
+}
+
+.view-timesheets-card {
+    margin-bottom: 20px;
+}
+
+.timesheet-table input {
+    width: 100%;
+}
+
+.button-container {
+    margin-top: 20px;
+}
+
+.table th, .table td {
+    vertical-align: middle;
+}
+
+.table th {
+    background-color: #007bff;
+    color: white;
+    text-align: center;
+}
+
+.table td {
+    background-color: white;
+}
+
+.logo {
+    width: 100px; /* Adjust logo size */
+}
+
+.btn-icon {
+    display: flex;
+    align-items: center;
+}
+
+.btn-icon img {
+    width: 20px; /* Adjust icon size */
+    margin-right: 5px;
+}
+
+.small-btn {
+    font-size: 12px; /* Adjust font size */
+    padding: 5px 10px; /* Adjust padding */
+    margin: 0; /* Optional: Remove margin if not needed */
+}
+
+@media (max-width: 767px) {
+    .container {
+        padding-left: 15px;
+        padding-right: 15px;
     }
 
-    #timesheet-container {
-        margin-bottom: 50px;
+    .card-body {
+        padding: 15px;
     }
 
-    .view-timesheets-card {
-        margin-bottom: 20px;
-    }
-
-    .timesheet-table input {
+    .table-responsive {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
         width: 100%;
     }
 
-    .button-container {
-        margin-top: 20px;
-    }
-
     .table th, .table td {
-        vertical-align: middle;
+        padding: 8px;
+        text-align: left;
+        font-size: 14px;
     }
 
-    .table th {
-        background-color: #007bff;
-        color: white;
+    .table input {
+        font-size: 14px;
+        padding: 5px;
+    }
+
+    .form-control {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .btn {
+        font-size: 14px;
+        padding: 10px;
+        margin-top: 10px;
+        width: 100%;
         text-align: center;
     }
-
-    .table td {
-        background-color: white;
-    }
-
-    .logo {
-        width: 100px; /* Adjust logo size */
-    }
-
-    .btn-icon {
-        display: flex;
-        align-items: center;
-    }
-
-    .btn-icon img {
-        width: 20px; /* Adjust icon size */
-        margin-right: 5px;
-    }
-
-    @media (max-width: 767px) {
-        .container {
-            padding-left: 15px;
-            padding-right: 15px;
-        }
-
-        .card-body {
-            padding: 15px;
-        }
-
-        .table-responsive {
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            width: 100%;
-        }
-
-        .table th, .table td {
-            padding: 8px;
-            text-align: left;
-            font-size: 14px;
-        }
-
-        .table input {
-            font-size: 14px;
-            padding: 5px;
-        }
-
-        .form-control {
-            font-size: 14px;
-            padding: 10px;
-        }
-
-        .btn {
-            font-size: 14px;
-            padding: 10px;
-            margin-top: 10px;
-            width: 100%;
-            text-align: center;
-        }
-    }
+}
 </style>
 
 <header>
@@ -160,7 +166,7 @@
                     <td><input type="number" class="form-control day-input" name="sunday[]" step="0.01"></td>
                     <td><input type="text" class="form-control total-hours" name="totalHours[]" readonly></td>
                     <td>
-                        <button type="button" class="btn btn-danger remove-row">
+                        <button type="button" class="btn btn-danger remove-row small-btn">
                             <i class="fas fa-trash-alt"></i> Remove
                         </button>
                     </td>
@@ -178,7 +184,7 @@
                     <td><input type="number" class="form-control day-input" name="sunday[]" step="0.01"></td>
                     <td><input type="text" class="form-control total-hours" name="totalHours[]" readonly></td>
                     <td>
-                        <button type="button" class="btn btn-danger remove-row">
+                        <button type="button" class="btn btn-danger remove-row small-btn">
                             <i class="fas fa-trash-alt"></i> Remove
                         </button>
                     </td>
@@ -196,7 +202,7 @@
                     <td><input type="number" class="form-control day-input" name="sunday[]" step="0.01"></td>
                     <td><input type="text" class="form-control total-hours" name="totalHours[]" readonly></td>
                     <td>
-                        <button type="button" class="btn btn-danger remove-row">
+                        <button type="button" class="btn btn-danger remove-row small-btn">
                             <i class="fas fa-trash-alt"></i> Remove
                         </button>
                     </td>
@@ -214,7 +220,7 @@
                     <td><input type="number" class="form-control day-input" name="sunday[]" step="0.01"></td>
                     <td><input type="text" class="form-control total-hours" name="totalHours[]" readonly></td>
                     <td>
-                        <button type="button" class="btn btn-danger remove-row">
+                        <button type="button" class="btn btn-danger remove-row small-btn">
                             <i class="fas fa-trash-alt"></i> Remove
                         </button>
                     </td>
@@ -232,7 +238,7 @@
                     <td><input type="number" class="form-control day-input" name="sunday[]" step="0.01"></td>
                     <td><input type="text" class="form-control total-hours" name="totalHours[]" readonly></td>
                     <td>
-                        <button type="button" class="btn btn-danger remove-row">
+                        <button type="button" class="btn btn-danger remove-row small-btn">
                             <i class="fas fa-trash-alt"></i> Remove
                         </button>
                     </td>
@@ -250,7 +256,7 @@
                     <td><input type="number" class="form-control day-input" name="sunday[]" step="0.01"></td>
                     <td><input type="text" class="form-control total-hours" name="totalHours[]" readonly></td>
                     <td>
-                        <button type="button" class="btn btn-danger remove-row">
+                        <button type="button" class="btn btn-danger remove-row small-btn">
                             <i class="fas fa-trash-alt"></i> Remove
                         </button>
                     </td>
@@ -268,7 +274,7 @@
                     <td><input type="number" class="form-control day-input" name="sunday[]" step="0.01"></td>
                     <td><input type="text" class="form-control total-hours" name="totalHours[]" readonly></td>
                     <td>
-                        <button type="button" class="btn btn-danger remove-row">
+                        <button type="button" class="btn btn-danger remove-row small-btn">
                             <i class="fas fa-trash-alt"></i> Remove
                         </button>
                     </td>
@@ -286,7 +292,7 @@
                     <td><input type="number" class="form-control day-input" name="sunday[]" step="0.01"></td>
                     <td><input type="text" class="form-control total-hours" name="totalHours[]" readonly></td>
                     <td>
-                        <button type="button" class="btn btn-danger remove-row">
+                        <button type="button" class="btn btn-danger remove-row small-btn">
                             <i class="fas fa-trash-alt"></i> Remove
                         </button>
                     </td>
