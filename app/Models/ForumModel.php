@@ -11,13 +11,14 @@ class ForumModel extends Model {
 
     public function getAllPosts() {
         return $this->db->table('posts')
-            ->select('posts.*, users.username, categories.name as category_name')
+            ->select('posts.*, users.username, categories.name as category_name, 
+                (SELECT COUNT(*) FROM replies WHERE replies.post_id = posts.id) as reply_count')
             ->join('users', 'users.id = posts.user_id')
             ->join('categories', 'categories.id = posts.category_id')
             ->get()
             ->getResultArray();
     }
-
+    
     public function createPost($data) {
         return $this->insert($data);
     }
@@ -53,5 +54,11 @@ class ForumModel extends Model {
             ->get()
             ->getResultArray();
     }
+
+    public function getReplyCount($postId) {
+        return $this->db->table('replies')
+            ->where('post_id', $postId)
+            ->countAllResults();
+    }    
 
 }

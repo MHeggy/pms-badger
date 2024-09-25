@@ -19,21 +19,27 @@ class ForumController extends Controller {
     public function index() {
         $userID = auth()->id();
         $categoryId = $this->request->getGet('category_id');
-
+    
         if (!$userID) {
             return redirect()->to('/login')->with('error', 'You must login to access this page.');
         }
-
+    
         if ($categoryId) {
+            // Fetch posts by category, including reply count
             $data['posts'] = $this->forumModel->getPostsByCategory($categoryId);
+            
+            // Append reply count for each post
+            foreach ($data['posts'] as &$post) {
+                $post['reply_count'] = $this->forumModel->getReplyCount($post['id']);
+            }
         } else {
+            // Fetch all posts, including reply count
             $data['posts'] = $this->forumModel->getAllPosts();
         }
-
+    
         $data['categories'] = $this->forumModel->db->table('categories')->get()->getResultArray();
         return view('PMS/forums.php', $data);
-    }
-
+    }    
 
     public function createPost() {
         $userID = auth()->id();

@@ -72,8 +72,7 @@
                                 <p class="text-muted">Category: <?= $post['category_name']; ?></p>
                             </div>
                             <div class="text-muted small text-center align-self-center">
-                                <span class="d-none d-sm-inline-block"><i class="far fa-eye"></i> 19</span>
-                                <span><i class="far fa-comment ml-2"></i> 3</span>
+                                <span><i class="far fa-comment ml-2"></i> <?= $post['reply_count']; ?></span>
                             </div>
                         </div>
                     </div>
