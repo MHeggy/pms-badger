@@ -100,7 +100,12 @@
         <table class="table align-middle mb-0 bg-white">
             <thead class="bg-light">
                 <tr>
-                    <th>Project Number</th>
+                    <th>Project Number
+                        <span class="sort-arrow">
+                            <i class="bi bi-arrow-up" id="sortAsc"></i>
+                            <i class="bi bi-arrow-down" id="sortDesc"></i>
+                        </span>
+                    </th>
                     <th>Project Name</th>
                     <th>Project Status</th>
                     <th>Category</th>
