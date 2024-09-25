@@ -56,6 +56,9 @@
                         <a class="nav-link <?= $pageTitle == 'Projects' ? 'active' : '' ?>" href="<?php echo base_url('/projects') ?>">Projects</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link <?= $pageTitle == 'Forums' ? 'active' : '' ?>" href="<?php echo base_url('/forums') ?>">Projects</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link <?= $pageTitle == 'My Work' ? 'active' : '' ?>" href="<?php echo base_url('/my_work') ?>">My Work</a>
                     </li>
                     <li class="nav-item">
