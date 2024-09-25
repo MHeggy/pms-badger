@@ -47,9 +47,10 @@
                 </div>
 
                 <!-- Password Input -->
-                <div class="form-floating mb-3">
+                <div class="form-floating mb-3 position-relative">
                     <input type="password" class="form-control" id="floatingPasswordInput" name="password" inputmode="text" autocomplete="current-password" placeholder="<?= lang('Auth.password') ?>" required>
                     <label for="floatingPasswordInput"><i class="fas fa-lock"></i><?= lang('Auth.password') ?></label>
+                    <i class="fas fa-eye position-absolute top-50 end-0 translate-middle-y me-3" id="togglePassword" style="cursor: pointer;"></i>
                 </div>
 
                 <!-- Remember Me Checkbox -->
@@ -91,6 +92,20 @@
 <!-- Include FontAwesome and Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+<script>
+    const togglePassword = document.querySelector("#togglePassword");
+    const passwordField = document.querySelector("#floatingPasswordInput");
+
+    togglePassword.addEventListener("click", function () {
+        // Toggle the password field type
+        const type = passwordField.getAttribute("type") === "password" ? "text" : "password";
+        passwordField.setAttribute("type", type);
+
+        // Toggle the eye icon class
+        this.classList.toggle("fa-eye");
+        this.classList.toggle("fa-eye-slash");
+    });
+</script>
 
 </body>
 </html>
