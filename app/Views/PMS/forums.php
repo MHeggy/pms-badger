@@ -66,7 +66,7 @@
                         <div class="media forum-item">
                             <div class="media-body">
                                 <h6><a href="<?= base_url('/forums/post/' . $post['id']) ?>" class="text-body"><?= $post['title'] ?></a></h6>
-                                <p class="text-secondary"><?= $post['excerpt'] ?></p>
+                                <p class="text-secondary"><?= $post['content'] ?></p>
                                 <p class="text-muted">
                                     <a href="javascript:void(0)"><?= $post['username'] ?></a> 
                                     posted in 
