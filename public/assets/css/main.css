@@ -108,6 +108,7 @@ body {
 
 /* Modal Styles */
 .modal {
+    max-width: 400px;
     display: none;
     position: fixed;
     z-index: 1;
