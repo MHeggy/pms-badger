@@ -32,21 +32,26 @@ class TimesheetsModel extends Model {
                     ->findAll();
     }
 
-    public function insertTimesheet($data) {
+    public function insertTimesheetEntry($data) {
         if (empty($data) || !is_array($data)) {
-            throw new \Exception('Invalid data provided for insert.');
+            throw new \Exception('Invalid data provided for timesheet entry.');
         }
     
-        // Log the data being inserted
-        log_message('debug', 'Insert data: ' . print_r($data, true));
+        $builder = $this->db->table('timesheetEntries');
+        $builder->insert($data);
     
-        $builder = $this->db->table('timesheets');
-        $result = $builder->insert($data);
+        // Check if projectName indicates PTO
+        if (stripos($data['projectName'], 'PTO') !== false) {
+            // Get the related timesheetID
+            $timesheetId = $data['timesheetID'];
     
-        if (!$result) {
-            throw new \Exception('Insert failed: ' . $this->db->getLastQuery());
+            // Update the timesheet's ptoHours
+            $this->db->table('timesheets')
+                     ->where('timesheetID', $timesheetId)
+                     ->set('ptoHours', 'ptoHours + ' . $data['totalHours'], false) // Add hours
+                     ->update();
         }
-    
+        
         return $this->db->insertID();
     }
 
@@ -85,15 +90,13 @@ class TimesheetsModel extends Model {
     }
 
     public function getTimesheetWithEntries($timesheetId) {
-        $builder = $this->db->table('timesheets');
-        $builder->select('timesheets.*, timesheetEntries.*');
-        $builder->join('timesheetEntries', 'timesheets.timesheetID = timesheetEntries.timesheetID', 'left');
-        $builder->where('timesheets.timesheetID', $timesheetId);
-    
-        log_message('debug', 'SQL Query: ' . $builder->getCompiledSelect());
-    
-        $query = $builder->get();
-        return $query->getResultArray();
+        return $this->db->table('timesheets')
+                        ->select('timesheets.*, SUM(timesheetEntries.totalHours) AS totalHours, timesheets.ptoHours')
+                        ->join('timesheetEntries', 'timesheets.timesheetID = timesheetEntries.timesheetID', 'left')
+                        ->where('timesheets.timesheetID', $timesheetId)
+                        ->groupBy('timesheets.timesheetID')
+                        ->get()
+                        ->getRowArray();
     }
 
     public function updateTimesheet($timesheetId, $data) {
