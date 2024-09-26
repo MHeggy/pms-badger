@@ -453,7 +453,6 @@ function setMondayRestriction() {
 
 // Initialize the restriction on page load
 document.addEventListener('DOMContentLoaded', function() {
-    setMondayRestriction();
     calculateAllTotals(); // Initial calculation
 });
 </script>
