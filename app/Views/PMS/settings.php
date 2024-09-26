@@ -9,9 +9,11 @@
 <link rel="stylesheet" href="<?php echo base_url('/assets/css/main.css') ?>">
 
     <style>
+
         body {
             font-family: 'Roboto', sans-serif;
-            padding-top: 15px;
+            background-color: #f0f2f5;
+            color: #333;
         }
 
         .settings-container {
