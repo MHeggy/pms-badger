@@ -75,7 +75,6 @@
                                 </p>
                             </div>
                             <div class="text-muted small text-center align-self-center">
-                                <span class="d-none d-sm-inline-block"><i class="far fa-eye"></i> <?= $post['views'] ?></span>
                                 <span><i class="far fa-comment ml-2"></i> <?= $post['replies_count'] ?></span>
                             </div>
                         </div>
