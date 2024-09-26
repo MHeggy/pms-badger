@@ -36,7 +36,7 @@
     }
     .button-container {
         margin-top: 20px;
-        text-align: right; /* Align buttons to the right */
+        text-align: left; /* Align buttons to the right */
     }
     .btn-icon {
         margin-right: 5px; /* Space between icon and text */
