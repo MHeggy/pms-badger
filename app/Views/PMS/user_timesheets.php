@@ -53,7 +53,7 @@
                     <td><?= esc($timesheet['totalHours']) ?></td>
                     <td>
                         <a href="/timesheets/edit/<?= $timesheet['timesheetID'] ?>" class="btn btn-primary">Edit</a>
-                        <button class="btn btn-danger" onclick="confirmDelete(<?= $timesheet['timesheetID'] ?>)">Delete</button>
+                        <button class="btn btn-danger" data-backdrop="false" onclick="confirmDelete(<?= $timesheet['timesheetID'] ?>)">Delete</button>
                     </td>
                 </tr>
             <?php endforeach; ?>
