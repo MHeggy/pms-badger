@@ -5,22 +5,31 @@
 </header>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            padding-top: 80px;
-        }
-        .container {
-            max-width: 600px;
-            border-top: 80px;
-        }
-        .remove-row.disabled {
-            pointer-events: none;
-            opacity: 0.5;
-        }
-        .button-container {
-            margin-top: 20px;
-        }
-    </style>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+<style>
+    body {
+        padding-top: 0; /* Remove padding at the top */
+    }
+    .container {
+        max-width: 800px; /* Increased width for better spacing */
+        margin: 0 auto; /* Center the container */
+        padding-top: 20px; /* Space above content */
+    }
+    .table th, .table td {
+        text-align: center; /* Center table content */
+    }
+    .remove-row.disabled {
+        pointer-events: none;
+        opacity: 0.5;
+    }
+    .button-container {
+        margin-top: 20px;
+        text-align: center; /* Center buttons */
+    }
+    .btn-icon {
+        margin-right: 5px; /* Space between icon and text */
+    }
+</style>
 
 <div class="container mt-5">
     <?php if ($info_message = session()->get('info_message')): ?>
@@ -29,7 +38,9 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     <?php endif; ?>
-    <button onclick="goBack()" class="btn btn-primary btn-back">Go Back</button><br><br>
+    <button onclick="goBack()" class="btn btn-primary btn-back">
+        <i class="fas fa-arrow-left btn-icon"></i> Go Back
+    </button><br><br>
     <form id="timesheet-form" action="/timesheets/update" method="post">
         <input type="hidden" name="id" value="<?= esc($timesheet['timesheetID']) ?>">
 
@@ -41,7 +52,7 @@
         </div>
 
         <!-- Timesheet table -->
-        <table class="table">
+        <table class="table table-bordered">
             <thead>
                 <tr>
                     <th>Project Number</th>
@@ -62,7 +73,6 @@
                 <?php if (!empty($entries)): ?>
                     <?php foreach ($entries as $entry): ?>
                         <tr>
-                            
                             <td><input type="text" class="form-control" name="projectNumber[]" value="<?= esc($entry['projectNumber']) ?>"></td>
                             <td><input type="text" class="form-control" name="projectName[]" value="<?= esc($entry['projectName']) ?>"></td>
                             <td><input type="text" class="form-control" name="description[]" value="<?= esc($entry['activityDescription']) ?>"></td>
@@ -74,7 +84,7 @@
                             <td><input type="number" class="form-control day-input" name="saturday[]" step="0.01" value="<?= esc($entry['saturdayHours']) ?>"></td>
                             <td><input type="number" class="form-control day-input" name="sunday[]" step="0.01" value="<?= esc($entry['sundayHours']) ?>"></td>
                             <td><input type="text" class="form-control total-hours" name="totalHours[]" readonly value="<?= esc($entry['totalHours']) ?>"></td>
-                            <td><button type="button" class="btn btn-danger remove-row">Remove</button></td>
+                            <td><button type="button" class="btn btn-danger remove-row"><i class="fas fa-trash-alt"></i> Remove</button></td>
                         </tr>
                     <?php endforeach; ?>
                 <?php else: ?>
@@ -91,7 +101,7 @@
                         <td><input type="number" class="form-control day-input" name="saturday[]" step="0.01"></td>
                         <td><input type="number" class="form-control day-input" name="sunday[]" step="0.01"></td>
                         <td><input type="text" class="form-control total-hours" name="totalHours[]" readonly></td>
-                        <td><button type="button" class="btn btn-danger remove-row disabled">Remove</button></td>
+                        <td><button type="button" class="btn btn-danger remove-row disabled"><i class="fas fa-trash-alt"></i> Remove</button></td>
                     </tr>
                 <?php endif; ?>
             </tbody>
@@ -106,12 +116,16 @@
 
         <!-- Add Row Button -->
         <div class="button-container">
-            <button type="button" id="add-row" class="btn btn-secondary">Add Row</button>
+            <button type="button" id="add-row" class="btn btn-secondary">
+                <i class="fas fa-plus"></i> Add Row
+            </button>
         </div>
 
         <!-- Submit Button -->
         <div class="button-container">
-            <button type="submit" class="btn btn-primary">Update Timesheet</button>
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-save"></i> Update Timesheet
+            </button>
         </div>
     </form>
 </div>
@@ -154,30 +168,36 @@
         });
     }
 
-    document.querySelectorAll('.day-input').forEach(input => {
-        addEventListenersToRow(input.closest('tr'));
-    });
-
-    document.querySelectorAll('#timesheet-rows .remove-row').forEach(button => {
-        addEventListenersToRow(button.closest('tr'));
-    });
-
     document.getElementById('add-row').addEventListener('click', () => {
-        const newRow = document.querySelector('#timesheet-rows tr:last-child').cloneNode(true);
-        newRow.querySelectorAll('input').forEach(input => input.value = '');
-        newRow.querySelector('.remove-row').classList.remove('disabled');
+        const newRow = document.createElement('tr');
+        newRow.innerHTML = `
+            <td><input type="text" class="form-control" name="projectNumber[]"></td>
+            <td><input type="text" class="form-control" name="projectName[]"></td>
+            <td><input type="text" class="form-control" name="description[]"></td>
+            <td><input type="number" class="form-control day-input" name="monday[]" step="0.01"></td>
+            <td><input type="number" class="form-control day-input" name="tuesday[]" step="0.01"></td>
+            <td><input type="number" class="form-control day-input" name="wednesday[]" step="0.01"></td>
+            <td><input type="number" class="form-control day-input" name="thursday[]" step="0.01"></td>
+            <td><input type="number" class="form-control day-input" name="friday[]" step="0.01"></td>
+            <td><input type="number" class="form-control day-input" name="saturday[]" step="0.01"></td>
+            <td><input type="number" class="form-control day-input" name="sunday[]" step="0.01"></td>
+            <td><input type="text" class="form-control total-hours" name="totalHours[]" readonly></td>
+            <td><button type="button" class="btn btn-danger remove-row"><i class="fas fa-trash-alt"></i> Remove</button></td>
+        `;
         document.getElementById('timesheet-rows').appendChild(newRow);
         addEventListenersToRow(newRow);
         calculateAllTotals();
     });
 
+    // Initialize existing rows
+    document.querySelectorAll('#timesheet-rows tr').forEach(row => {
+        addEventListenersToRow(row);
+    });
+
+    // Calculate totals on page load
+    calculateAllTotals();
+
     function goBack() {
         window.history.back();
     }
-
-    // Initial calculation
-    calculateAllTotals();
 </script>
-
-</body>
-</html>
