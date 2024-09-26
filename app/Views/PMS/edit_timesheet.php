@@ -198,4 +198,8 @@
     document.querySelectorAll('#timesheet-rows tr').forEach(row => {
         addEventListenersToRow(row);
     });
+
+    function goBack() {
+        window.history.back();
+    }
 </script>
