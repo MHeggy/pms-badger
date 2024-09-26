@@ -12,7 +12,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
 </head>
 <body>
-<?php $user = auth()->user(); ?>
+<?php $user = auth()->user();
+header('X-Content-Type-Options: nosniff');
+header('X-XSS-Protection: 1; mode=block');
+header('X-Frame-Options: DENY');
+header('Content-Security-Policy: default-src \'self\'');
+?>
 
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
