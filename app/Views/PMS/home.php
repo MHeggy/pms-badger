@@ -126,7 +126,7 @@
         <i class="fas fa-user"></i>
         <h5 class="card-title">My Profile</h5>
         <p class="card-text">Manage your profile settings</p>
-        <a href="<?php echo base_url('/profile') ?>" class="btn btn-primary">View</a>
+        <a href="<?php echo base_url('/settings') ?>" class="btn btn-primary">View</a>
     </div>
 </div>
 </body>

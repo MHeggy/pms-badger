@@ -9,15 +9,8 @@
 <link rel="stylesheet" href="<?php echo base_url('/assets/css/main.css') ?>">
 
     <style>
-        .navbar {
-            position: fixed;
-            top: 8%;
-            width: 95%;
-            left: 7.5%;
-        }
-
         body {
-            margin-top: 100px;
+            font-family: 'Roboto', sans-serif;
             padding-top: 15px;
         }
 
