@@ -63,11 +63,11 @@
 </div>
 
 <!-- Confirmation Modal -->
-<div class="modal" tabindex="-1" id="confirmDeleteModal">
+<div class="modal fade" tabindex="-1" id="confirmDeleteModal" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Confirm Deletion</h5>
+                <h5 class="modal-title" id="confirmDeleteModalLabel">Confirm Deletion</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -80,6 +80,7 @@
         </div>
     </div>
 </div>
+
 
 
 <!-- Script to handle confirmation modal -->
