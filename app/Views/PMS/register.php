@@ -1,15 +1,18 @@
 <?php $pageTitle = "Register"; ?>
-<!-- Link to external CSS file -->
-<link rel="stylesheet" href="<?php echo base_url('/assets/css/register.css') ?>">
-<!-- Link to Bootstrap CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
 <!-- Header -->
 <div id="header">
     <header>
         <?php include 'header.php' ?>
     </header>
 </div>
+
+<!-- Link to external CSS file -->
+<link rel="stylesheet" href="<?php echo base_url('/assets/css/register.css') ?>">
+<!-- Link to Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
 <style>
     body {
         font-family: 'Roboto', sans-serif;

@@ -1,8 +1,4 @@
 <?php $pageTitle = "Edit Project"; ?>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="<?php echo base_url('/assets/css/main.css') ?>">
-<link rel="stylesheet" href="<?php echo base_url('/assets/css/edit_project.css') ?>">
-<link rel="stylesheet" href="<?php echo base_url('/assets/css/projects.css') ?>">
 
 <!-- Header content -->
 <div id="header">
@@ -10,6 +6,11 @@
         <?php include 'header.php' ?>
     </header>
 </div>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="<?php echo base_url('/assets/css/main.css') ?>">
+<link rel="stylesheet" href="<?php echo base_url('/assets/css/edit_project.css') ?>">
+<link rel="stylesheet" href="<?php echo base_url('/assets/css/projects.css') ?>">
 
 <br><br><br>
 

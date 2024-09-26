@@ -1,8 +1,4 @@
 <?php $pageTitle = "Forums"; ?>
-<link rel="stylesheet" href="<?php echo base_url('/assets/css/forums.css') ?>">
-<!-- Link to Bootstrap CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css" integrity="sha256-46r060N2LrChLLb5zowXQ72/iKKNiw/lAmygmHExk/o=" crossorigin="anonymous" />
 
 <!-- Header content -->
 <div id="header">
@@ -10,6 +6,13 @@
         <?php include 'header.php' ?>
     </header>
 </div>
+
+<link rel="stylesheet" href="<?php echo base_url('/assets/css/forums.css') ?>">
+<!-- Link to Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css" integrity="sha256-46r060N2LrChLLb5zowXQ72/iKKNiw/lAmygmHExk/o=" crossorigin="anonymous" />
+
+
 
 <style>
     body {

@@ -1,6 +1,13 @@
 <!-- Set page title -->
 <?php $pageTitle = "My Work"; ?>
 
+<!-- Header content -->
+<div id="header">
+    <header>
+        <?php include 'header.php' ?>
+    </header>
+</div>
+
 <!-- Include CSS for styling -->
 <link rel="stylesheet" href="<?php echo base_url('/assets/css/mywork.css') ?>">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -23,12 +30,7 @@
         color: #212529; /* Dark text */
     }
 </style>
-<!-- Header content -->
-<div id="header">
-    <header>
-        <?php include 'header.php' ?>
-    </header>
-</div>
+
 
 <!-- Success Message Section -->
 <?php if (session()->getFlashdata('success')): ?>

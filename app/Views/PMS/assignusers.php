@@ -1,10 +1,12 @@
 <?php $pageTitle = '[Admin Page] Assign Users to Projects' ?>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="<?php echo base_url('/assets/css/assignusers.css')?>">
 <!-- Header content -->
 <header>
     <?php include 'header.php' ?>
 </header>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="<?php echo base_url('/assets/css/assignusers.css')?>">
+
 <style>
     body {
         font-family: 'Roboto', sans-serif;

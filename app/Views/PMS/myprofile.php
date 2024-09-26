@@ -1,4 +1,9 @@
 <?php $pageTitle = 'My Profile' ?>
+
+<header>
+    <?php include 'header.php' ?>
+</header>
+
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="<?php echo base_url('/assets/css/main.css') ?>">
 
@@ -35,10 +40,6 @@
     </style>
 
 <?php $user = auth()->user(); ?>
-
-<header>
-    <?php include 'header.php' ?>
-</header>
 
 <div class="container">
     <h1>User Profile</h1>

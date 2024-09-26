@@ -1,5 +1,9 @@
 <?php $pageTitle = $post['title']; ?>
 
+<header>
+    <?php include 'header.php' ?>
+</header>
+
 <!-- Link to Bootstrap CSS and FontAwesome -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -56,10 +60,6 @@
         justify-content: space-between;
     }
 </style>
-
-<header>
-    <?php include 'header.php' ?>
-</header>
 
 <br><br><br><br>
 <!-- Main content -->

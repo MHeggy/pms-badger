@@ -1,4 +1,10 @@
 <?php $pageTitle = 'Update Profile' ?>
+
+<!-- Header content -->
+<header>
+    <?php include 'header.php' ?>
+</header>
+
 <!-- Link to Bootstrap CSS -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="<?php echo base_url('/assets/css/main.css') ?>">
@@ -13,10 +19,6 @@
 
 <?php $user = auth()->user(); ?>
 
-<!-- Header content -->
-<header>
-    <?php include 'header.php' ?>
-</header>
 <br><br><br>
 <div class="container">
     <h1>Update Profile</h1>

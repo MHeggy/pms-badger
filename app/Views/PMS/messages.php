@@ -1,7 +1,4 @@
 <?= $pageTitle = "Messages"; ?>
-<link rel="stylesheet" href="<?php echo base_url('/assets/css/messages.css') ?>">
-<!-- Link to Bootstrap CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
 <!-- Header content -->
 <div id="header">
@@ -9,6 +6,12 @@
         <?php include 'header.php' ?>
     </header>
 </div>
+
+<link rel="stylesheet" href="<?php echo base_url('/assets/css/messages.css') ?>">
+<!-- Link to Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+
 
 <main>
     <!-- Message container -->

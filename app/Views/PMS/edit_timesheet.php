@@ -1,4 +1,9 @@
 <?php esc($pageTitle = "Edit Timesheet") ?>
+
+<header>
+    <?php include 'header.php'; ?>
+</header>
+
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
@@ -16,10 +21,6 @@
             margin-top: 20px;
         }
     </style>
-
-<header>
-    <?php include 'header.php'; ?>
-</header>
 
 <div class="container mt-5">
     <?php if ($info_message = session()->get('info_message')): ?>

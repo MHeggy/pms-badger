@@ -1,5 +1,12 @@
 <?php $pageTitle = "Login"; ?>
 
+<!-- Header -->
+<div id="header">
+    <header>
+        <?php include 'header.php' ?>
+    </header>
+</div>
+
 <!-- Include Bootstrap CSS and FontAwesome -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
@@ -8,12 +15,6 @@
 <!-- Custom Font from Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 
-<!-- Header -->
-<div id="header">
-    <header>
-        <?php include 'header.php' ?>
-    </header>
-</div>
 
 <!-- Body content -->
 <div class="container d-flex justify-content-center p-5">

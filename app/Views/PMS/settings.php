@@ -1,4 +1,10 @@
 <?php $pageTitle = 'Settings' ?>
+
+<!-- header content -->
+<header>
+    <?php include 'header.php' ?>
+</header>
+
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="<?php echo base_url('/assets/css/main.css') ?>">
 
@@ -38,12 +44,6 @@
             border-color: #007bff;
         }
     </style>
-
-<!-- header content -->
-<header>
-    <?php include 'header.php' ?>
-</header>
-
 
 <br><br><br><br><br>
 <div class="container settings-container mt-5">

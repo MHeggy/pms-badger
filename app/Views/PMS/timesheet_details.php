@@ -1,4 +1,10 @@
 <?php esc($pageTitle = 'Timesheet Details') ?>
+
+<!-- header content -->
+<header>
+    <?php include 'header.php'; ?>
+</header>
+
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
@@ -46,11 +52,6 @@
         font-size: 1.1em;
     }
 </style>
-
-<!-- header content -->
-<header>
-    <?php include 'header.php'; ?>
-</header>
 
 <div class="container">
     <button onclick="goBack()" class="btn btn-back">

@@ -1,8 +1,4 @@
 <?php $pageTitle = "Projects"; ?>
-<link rel="stylesheet" href="<?php echo base_url('/assets/css/projects.css') ?>">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="<?php echo base_url('/assets/css/main.css') ?>">
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 
 <!-- Header content -->
 <div id="header">
@@ -10,6 +6,12 @@
         <?php include 'header.php' ?>
     </header>
 </div>
+
+<link rel="stylesheet" href="<?php echo base_url('/assets/css/projects.css') ?>">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="<?php echo base_url('/assets/css/main.css') ?>">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
 <style>
     body {
         font-family: 'Roboto', sans-serif;

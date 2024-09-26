@@ -1,5 +1,9 @@
 <?php $pageTitle = '[Admin] Add Projects' ?>
 
+<header>
+    <?php include 'header.php' ?>
+</header>
+
 <!-- Bootstrap CSS -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -8,9 +12,7 @@
 <!-- Custom CSS -->
 <link rel="stylesheet" href="<?php echo base_url('/assets/css/main.css') ?>">
 
-<header>
-    <?php include 'header.php' ?>
-</header>
+
 
 <style>
     body {
