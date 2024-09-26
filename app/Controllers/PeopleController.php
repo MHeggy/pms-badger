@@ -185,4 +185,34 @@ class PeopleController extends BaseController {
     {
         return view('PMS/change_password.php');
     }
+
+    public function update_password() {
+        $userModel = new UserModel();
+
+        $user = auth()->user();
+        $userID = $user->id;
+
+        // Validate the form inputs
+        $currentPassword = $this->request->getPost('currentPassword');
+        $newPassword = $this->request->getPost('newPassword');
+        $confirmPassword = $this->request->getPost('confirmPassword');
+        
+        if ($newPassword !== $confirmPassword) {
+            session()->setFlashdata('error', 'New passwords do not match.');
+            return redirect()->to('/change_password');
+        }
+
+        // Verify the current password
+        if (!password_verify($currentPassword, $user['password'])) {
+            session()->setFlashdata('error', 'Current password is incorrect.');
+            return redirect()->to('/change_password');
+        }
+
+        // Update password
+        $hashedPassword = password_hash($newPassword, PASSWORD_BCRYPT);
+        $userModel->update($userId, ['password' => $hashedPassword]);
+
+        session()->setFlashdata('success', 'Password changed successfully.');
+        return redirect()->to('/change_password'); // Redirect to the same page or a success page
+    }
 }
