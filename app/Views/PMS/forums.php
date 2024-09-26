@@ -74,9 +74,6 @@
                                     <span class="text-secondary font-weight-bold"><?= date('F j, Y', strtotime($post['created_at'])) ?></span>
                                 </p>
                             </div>
-                            <div class="text-muted small text-center align-self-center">
-                                <span><i class="far fa-comment ml-2"></i> <?= $post['replies_count'] ?></span>
-                            </div>
                         </div>
                     </div>
                 </div>
