@@ -154,3 +154,5 @@ $routes->post('/reset-password', 'AuthController::resetPassword');
 $routes->get('/categories_tasks', 'CategoryTaskController::index');
 $routes->post('/add_category', 'CategoryTaskController::addCategory');
 $routes->post('/add_task', 'CategoryTaskController::addTask');
+// route for changing the password of a user who is logged in.
+$routes->get('/change_password', 'PeopleController::changePasswordView');

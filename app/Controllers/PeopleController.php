@@ -180,4 +180,9 @@ class PeopleController extends BaseController {
     {
         return view('PMS/settings.php');
     }
+
+    public function changePasswordView()
+    {
+        return view('PMS/change_password.php');
+    }
 }
