@@ -16,7 +16,6 @@
         color: #333;
     }
     .container {
-        max-width: 800px; /* Adjusted width */
         margin: 0 auto; /* Center the container */
         padding-top: 20px; /* Space above content */
     }
