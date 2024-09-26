@@ -126,6 +126,13 @@
             </table>
         </div>
 
+        <!-- Add Row Button -->
+        <div class="button-container">
+            <button type="button" id="add-row" class="btn btn-secondary">
+                <i class="fas fa-plus"></i> Add Row
+            </button>
+        </div>
+
         <div class="button-container">
             <button type="submit" class="btn btn-success">Update Timesheet</button>
         </div>
