@@ -117,7 +117,7 @@
     <div class="card">
         <i class="fas fa-clock"></i>
         <h5 class="card-title">My Timesheets</h5>
-        <p class="card-text"><?= $totalTimesheets ?></p> <!-- Assuming you have this variable available -->
+        <p class="card-text"><?= count($totalTimesheets) ?></p> <!-- Assuming you have this variable available -->
         <a href="<?php echo base_url('/timesheets') ?>" class="btn btn-primary">View</a>
     </div>
 
