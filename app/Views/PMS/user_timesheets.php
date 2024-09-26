@@ -5,6 +5,7 @@
 </header>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 <style>
     body {
@@ -33,9 +34,6 @@
     }
 </style>
 
-<!-- Header content -->
-
-
 <div class="container">
     <button onclick="goBack()" class="btn btn-primary btn-back">
         <i class="bi bi-arrow-left"></i> Go Back
@@ -55,8 +53,12 @@
                     <td><a href="/timesheets/view/<?= $timesheet['timesheetID'] ?>" class="text-decoration-none"><?= esc($timesheet['weekOf']) ?></a></td>
                     <td><?= esc($timesheet['totalHours']) ?></td>
                     <td>
-                        <a href="/timesheets/edit/<?= $timesheet['timesheetID'] ?>" class="btn btn-primary">Edit</a>
-                        <button class="btn btn-danger" data-backdrop="false" onclick="confirmDelete(<?= $timesheet['timesheetID'] ?>)">Delete</button>
+                        <a href="/timesheets/edit/<?= $timesheet['timesheetID'] ?>" class="btn btn-primary">
+                            <i class="bi bi-pencil"></i> Edit
+                        </a>
+                        <button class="btn btn-danger" data-backdrop="false" onclick="confirmDelete(<?= $timesheet['timesheetID'] ?>)">
+                            <i class="bi bi-trash"></i> Delete
+                        </button>
                     </td>
                 </tr>
             <?php endforeach; ?>
@@ -76,23 +78,22 @@
                 Are you sure you want to delete this timesheet?
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <a href="#" id="confirmDeleteButton" class="btn btn-danger">Delete</a>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <i class="bi bi-x-circle"></i> Cancel
+                </button>
+                <a href="#" id="confirmDeleteButton" class="btn btn-danger">
+                    <i class="bi bi-check-circle"></i> Delete
+                </a>
             </div>
         </div>
     </div>
 </div>
 
-
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-<!-- Script to handle confirmation modal -->
 <script>
     function confirmDelete(timesheetId) {
-        // Set the href attribute of the delete button in the modal
         var deleteButton = document.getElementById('confirmDeleteButton');
         deleteButton.setAttribute('href', '/timesheets/delete/' + timesheetId);
-        // Show the modal
         var myModal = new bootstrap.Modal(document.getElementById('confirmDeleteModal'));
         myModal.show();
     }
