@@ -94,13 +94,22 @@
 </nav>
 
 <!-- Logout modal -->
-<div id="logoutModal" class="modal">
-    <div class="modal-content">
-        <h1>Logout</h1>
-        <p>Are you sure you want to logout?</p>
-        <div class="buttons">
-            <button class="button" onclick="logout()" id="yesBtn">Yes</button>
-            <button class="button" onclick="closeModal()" id="noBtn">No</button>
+<div id="logoutModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="logoutModalLabel">Logout</h5>
+                <button type="button" class="close" onclick="closeModal()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to logout?</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" onclick="logout()" id="yesBtn">Yes</button>
+                <button class="btn btn-secondary" onclick="closeModal()" id="noBtn">No</button>
+            </div>
         </div>
     </div>
 </div>
