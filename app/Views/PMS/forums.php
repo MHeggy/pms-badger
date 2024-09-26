@@ -71,7 +71,7 @@
                                     <a href="javascript:void(0)"><?= $post['username'] ?></a> 
                                     posted in 
                                     <a href="<?= base_url('/forums/category/' . $post['category_id']) ?>"><?= $post['category_name'] ?></a>
-                                    <span class="text-secondary font-weight-bold"><?= time_elapsed_string($post['created_at']) ?></span>
+                                    <span class="text-secondary font-weight-bold"><?= date('F j, Y', strtotime($post['created_at'])) ?></span>
                                 </p>
                             </div>
                             <div class="text-muted small text-center align-self-center">
