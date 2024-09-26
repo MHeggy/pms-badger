@@ -5,18 +5,31 @@
 </header>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<link rel="stylesheet" href="<?php echo base_url('/assets/css/main.css') ?>">
+
 <style>
     body {
-        padding-top: 0; /* Remove padding at the top */
+        font-family: 'Roboto', sans-serif;
+        background-color: #f0f2f5;
+        color: #333;
     }
     .container {
-        max-width: 800px; /* Increased width for better spacing */
+        max-width: 800px; /* Adjusted width */
         margin: 0 auto; /* Center the container */
         padding-top: 20px; /* Space above content */
     }
     .table th, .table td {
+        vertical-align: middle;
         text-align: center; /* Center table content */
+    }
+    .table th {
+        background-color: #007bff; /* Header background color */
+        color: white; /* Header text color */
+    }
+    .table td {
+        background-color: white; /* Row background color */
     }
     .remove-row.disabled {
         pointer-events: none;
@@ -38,94 +51,83 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     <?php endif; ?>
+
     <button onclick="goBack()" class="btn btn-primary btn-back">
         <i class="fas fa-arrow-left btn-icon"></i> Go Back
-    </button><br><br>
+    </button>
+    <br><br>
+
     <form id="timesheet-form" action="/timesheets/update" method="post">
         <input type="hidden" name="id" value="<?= esc($timesheet['timesheetID']) ?>">
 
         <div class="row mb-3">
             <label for="week" class="col-sm-2 col-form-label">Week</label>
             <div class="col-sm-10">
-                <input type="date" class="form-control" id="week" name="week" value="<?= esc($timesheet['weekOf'])?>" required>
+                <input type="date" class="form-control" id="week" name="week" value="<?= esc($timesheet['weekOf']) ?>" required>
+                <small id="date-error" class="text-danger"></small>
             </div>
         </div>
 
         <!-- Timesheet table -->
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>Project Number</th>
-                    <th>Project Name</th>
-                    <th>Description</th>
-                    <th>Monday</th>
-                    <th>Tuesday</th>
-                    <th>Wednesday</th>
-                    <th>Thursday</th>
-                    <th>Friday</th>
-                    <th>Saturday</th>
-                    <th>Sunday</th>
-                    <th>Total Hours</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody id="timesheet-rows">
-                <?php if (!empty($entries)): ?>
-                    <?php foreach ($entries as $entry): ?>
-                        <tr>
-                            <td><input type="text" class="form-control" name="projectNumber[]" value="<?= esc($entry['projectNumber']) ?>"></td>
-                            <td><input type="text" class="form-control" name="projectName[]" value="<?= esc($entry['projectName']) ?>"></td>
-                            <td><input type="text" class="form-control" name="description[]" value="<?= esc($entry['activityDescription']) ?>"></td>
-                            <td><input type="number" class="form-control day-input" name="monday[]" step="0.01" value="<?= esc($entry['mondayHours']) ?>"></td>
-                            <td><input type="number" class="form-control day-input" name="tuesday[]" step="0.01" value="<?= esc($entry['tuesdayHours']) ?>"></td>
-                            <td><input type="number" class="form-control day-input" name="wednesday[]" step="0.01" value="<?= esc($entry['wednesdayHours']) ?>"></td>
-                            <td><input type="number" class="form-control day-input" name="thursday[]" step="0.01" value="<?= esc($entry['thursdayHours']) ?>"></td>
-                            <td><input type="number" class="form-control day-input" name="friday[]" step="0.01" value="<?= esc($entry['fridayHours']) ?>"></td>
-                            <td><input type="number" class="form-control day-input" name="saturday[]" step="0.01" value="<?= esc($entry['saturdayHours']) ?>"></td>
-                            <td><input type="number" class="form-control day-input" name="sunday[]" step="0.01" value="<?= esc($entry['sundayHours']) ?>"></td>
-                            <td><input type="text" class="form-control total-hours" name="totalHours[]" readonly value="<?= esc($entry['totalHours']) ?>"></td>
-                            <td><button type="button" class="btn btn-danger remove-row"><i class="fas fa-trash-alt"></i> Remove</button></td>
-                        </tr>
-                    <?php endforeach; ?>
-                <?php else: ?>
-                    <!-- Initial Row -->
+        <div class="table-responsive">
+            <table class="table timesheet-table">
+                <thead>
                     <tr>
-                        <td><input type="text" class="form-control" name="projectNumber[]"></td>
-                        <td><input type="text" class="form-control" name="projectName[]"></td>
-                        <td><input type="text" class="form-control" name="description[]"></td>
-                        <td><input type="number" class="form-control day-input" name="monday[]" step="0.01"></td>
-                        <td><input type="number" class="form-control day-input" name="tuesday[]" step="0.01"></td>
-                        <td><input type="number" class="form-control day-input" name="wednesday[]" step="0.01"></td>
-                        <td><input type="number" class="form-control day-input" name="thursday[]" step="0.01"></td>
-                        <td><input type="number" class="form-control day-input" name="friday[]" step="0.01"></td>
-                        <td><input type="number" class="form-control day-input" name="saturday[]" step="0.01"></td>
-                        <td><input type="number" class="form-control day-input" name="sunday[]" step="0.01"></td>
-                        <td><input type="text" class="form-control total-hours" name="totalHours[]" readonly></td>
-                        <td><button type="button" class="btn btn-danger remove-row disabled"><i class="fas fa-trash-alt"></i> Remove</button></td>
+                        <th>Project Number</th>
+                        <th>Project Name</th>
+                        <th>Description</th>
+                        <th>Monday</th>
+                        <th>Tuesday</th>
+                        <th>Wednesday</th>
+                        <th>Thursday</th>
+                        <th>Friday</th>
+                        <th>Saturday</th>
+                        <th>Sunday</th>
+                        <th>Total Hours</th>
+                        <th>Action</th>
                     </tr>
-                <?php endif; ?>
-            </tbody>
-            <tfoot>
-                <tr>
-                    <td colspan="10" class="text-end"><strong>Total Hours for the Week:</strong></td>
-                    <td><input type="text" id="weekly-total" class="form-control" readonly></td>
-                    <td></td>
-                </tr>
-            </tfoot>
-        </table>
-
-        <!-- Add Row Button -->
-        <div class="button-container">
-            <button type="button" id="add-row" class="btn btn-secondary">
-                <i class="fas fa-plus"></i> Add Row
-            </button>
+                </thead>
+                <tbody id="timesheet-rows">
+                    <?php if (!empty($entries)): ?>
+                        <?php foreach ($entries as $entry): ?>
+                            <tr>
+                                <td><input type="text" class="form-control" name="projectNumber[]" value="<?= esc($entry['projectNumber']) ?>"></td>
+                                <td><input type="text" class="form-control" name="projectName[]" value="<?= esc($entry['projectName']) ?>"></td>
+                                <td><input type="text" class="form-control" name="activityDescription[]" value="<?= esc($entry['activityDescription']) ?>"></td>
+                                <td><input type="number" class="form-control day-input" name="monday[]" step="0.01" value="<?= esc($entry['mondayHours']) ?>"></td>
+                                <td><input type="number" class="form-control day-input" name="tuesday[]" step="0.01" value="<?= esc($entry['tuesdayHours']) ?>"></td>
+                                <td><input type="number" class="form-control day-input" name="wednesday[]" step="0.01" value="<?= esc($entry['wednesdayHours']) ?>"></td>
+                                <td><input type="number" class="form-control day-input" name="thursday[]" step="0.01" value="<?= esc($entry['thursdayHours']) ?>"></td>
+                                <td><input type="number" class="form-control day-input" name="friday[]" step="0.01" value="<?= esc($entry['fridayHours']) ?>"></td>
+                                <td><input type="number" class="form-control day-input" name="saturday[]" step="0.01" value="<?= esc($entry['saturdayHours']) ?>"></td>
+                                <td><input type="number" class="form-control day-input" name="sunday[]" step="0.01" value="<?= esc($entry['sundayHours']) ?>"></td>
+                                <td><input type="text" class="form-control total-hours" name="totalHours[]" readonly value="<?= esc($entry['totalHours']) ?>"></td>
+                                <td><button type="button" class="btn btn-danger remove-row"><i class="fas fa-trash-alt"></i> Remove</button></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <!-- Initial Row -->
+                        <tr>
+                            <td><input type="text" class="form-control" name="projectNumber[]"></td>
+                            <td><input type="text" class="form-control" name="projectName[]"></td>
+                            <td><input type="text" class="form-control" name="activityDescription[]"></td>
+                            <td><input type="number" class="form-control day-input" name="monday[]" step="0.01"></td>
+                            <td><input type="number" class="form-control day-input" name="tuesday[]" step="0.01"></td>
+                            <td><input type="number" class="form-control day-input" name="wednesday[]" step="0.01"></td>
+                            <td><input type="number" class="form-control day-input" name="thursday[]" step="0.01"></td>
+                            <td><input type="number" class="form-control day-input" name="friday[]" step="0.01"></td>
+                            <td><input type="number" class="form-control day-input" name="saturday[]" step="0.01"></td>
+                            <td><input type="number" class="form-control day-input" name="sunday[]" step="0.01"></td>
+                            <td><input type="text" class="form-control total-hours" name="totalHours[]" readonly></td>
+                            <td><button type="button" class="btn btn-danger remove-row disabled"><i class="fas fa-trash-alt"></i> Remove</button></td>
+                        </tr>
+                    <?php endif; ?>
+                </tbody>
+            </table>
         </div>
 
-        <!-- Submit Button -->
         <div class="button-container">
-            <button type="submit" class="btn btn-primary">
-                <i class="fas fa-save"></i> Update Timesheet
-            </button>
+            <button type="submit" class="btn btn-success">Update Timesheet</button>
         </div>
     </form>
 </div>
