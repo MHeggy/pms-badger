@@ -37,6 +37,7 @@ class TimesheetsModel extends Model {
             throw new \Exception('Invalid data provided for timesheet entry.');
         }
     
+        // Insert the new timesheet entry
         $builder = $this->db->table('timesheetEntries');
         $builder->insert($data);
     
@@ -44,17 +45,18 @@ class TimesheetsModel extends Model {
         if (stripos($data['projectName'], 'PTO') !== false) {
             // Get the related timesheetID
             $timesheetId = $data['timesheetID'];
+            $totalHours = $data['totalHours'];
     
             // Update the timesheet's ptoHours
             $this->db->table('timesheets')
                      ->where('timesheetID', $timesheetId)
-                     ->set('ptoHours', 'ptoHours + ' . $data['totalHours'], false) // Add hours
+                     ->set('ptoHours', 'ptoHours + ' . $totalHours, false) // Add hours
                      ->update();
         }
         
         return $this->db->insertID();
     }
-
+    
     public function insertTimesheetEntries($timesheetId, $entries) {
         $builder = $this->db->table('timesheetEntries');
 
@@ -97,7 +99,7 @@ class TimesheetsModel extends Model {
                         ->groupBy('timesheets.timesheetID')
                         ->get()
                         ->getRowArray();
-    }
+    }    
 
     public function updateTimesheet($timesheetId, $data) {
         return $this->update($timesheetId, $data);
