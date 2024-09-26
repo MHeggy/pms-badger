@@ -36,7 +36,7 @@
     }
     .button-container {
         margin-top: 20px;
-        text-align: center; /* Center buttons */
+        text-align: right; /* Align buttons to the right */
     }
     .btn-icon {
         margin-right: 5px; /* Space between icon and text */
@@ -125,15 +125,12 @@
             </table>
         </div>
 
-        <!-- Add Row Button -->
+        <!-- Add Row and Update Button -->
         <div class="button-container">
             <button type="button" id="add-row" class="btn btn-secondary">
                 <i class="fas fa-plus"></i> Add Row
             </button>
-        </div>
-
-        <div class="button-container">
-            <button type="submit" class="btn btn-success">Update Timesheet</button>
+            <button type="submit" class="btn btn-success ms-2">Update Timesheet</button>
         </div>
     </form>
 </div>
@@ -176,12 +173,12 @@
         });
     }
 
-    document.getElementById('add-row').addEventListener('click', () => {
+    document.getElementById('add-row').addEventListener('click', function () {
         const newRow = document.createElement('tr');
         newRow.innerHTML = `
             <td><input type="text" class="form-control" name="projectNumber[]"></td>
             <td><input type="text" class="form-control" name="projectName[]"></td>
-            <td><input type="text" class="form-control" name="description[]"></td>
+            <td><input type="text" class="form-control" name="activityDescription[]"></td>
             <td><input type="number" class="form-control day-input" name="monday[]" step="0.01"></td>
             <td><input type="number" class="form-control day-input" name="tuesday[]" step="0.01"></td>
             <td><input type="number" class="form-control day-input" name="wednesday[]" step="0.01"></td>
@@ -192,20 +189,13 @@
             <td><input type="text" class="form-control total-hours" name="totalHours[]" readonly></td>
             <td><button type="button" class="btn btn-danger remove-row"><i class="fas fa-trash-alt"></i> Remove</button></td>
         `;
-        document.getElementById('timesheet-rows').appendChild(newRow);
+        document.getElementById('timesheet-rows').insertBefore(newRow, document.getElementById('timesheet-rows').lastElementChild);
         addEventListenersToRow(newRow);
         calculateAllTotals();
     });
 
-    // Initialize existing rows
+    // Initialize existing rows with event listeners
     document.querySelectorAll('#timesheet-rows tr').forEach(row => {
         addEventListenersToRow(row);
     });
-
-    // Calculate totals on page load
-    calculateAllTotals();
-
-    function goBack() {
-        window.history.back();
-    }
 </script>
