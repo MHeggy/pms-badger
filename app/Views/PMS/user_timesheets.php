@@ -35,7 +35,7 @@
 </style>
 
 <div class="container">
-    <h2 class="text-center mb-4"><?= esc($user['firstName']) . ' ' . esc($user['lastName']) ?>'s Timesheets</h2> <!-- Added title -->
+    <h2 class="text-center mb-4"><?= esc($user->firstName) . ' ' . esc($user->lastName) ?>'s Timesheets</h2> <!-- Added title -->
 
     <button onclick="goBack()" class="btn btn-primary btn-back">
         <i class="bi bi-arrow-left"></i> Go Back
