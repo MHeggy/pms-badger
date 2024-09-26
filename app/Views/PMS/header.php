@@ -56,13 +56,13 @@
                         <a class="nav-link <?= $pageTitle == 'Projects' ? 'active' : '' ?>" href="<?php echo base_url('/projects') ?>">Projects</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link <?= $pageTitle == 'Forums' ? 'active' : '' ?>" href="<?php echo base_url('/forums') ?>">Forums</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link <?= $pageTitle == 'My Work' ? 'active' : '' ?>" href="<?php echo base_url('/my_work') ?>">My Work</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link <?= $pageTitle == 'Calendar' ? 'active' : '' ?>" href="<?php echo base_url('/calendar') ?>">Calendar</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link <?= $pageTitle == 'Forums' ? 'active' : '' ?>" href="<?php echo base_url('/forums') ?>">Forums</a>
                     </li>
                 <?php else : ?>
                     <li class="nav-item">
