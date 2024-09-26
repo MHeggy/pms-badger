@@ -83,8 +83,6 @@ class TimesheetsModel extends Model {
         }
         return $this->$db->affectedRows() > 0;
     }
-    
-    
 
     public function getTimesheetWithEntries($timesheetId) {
         $builder = $this->db->table('timesheets');
