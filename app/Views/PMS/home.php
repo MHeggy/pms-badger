@@ -112,6 +112,22 @@
         <p class="card-text"><?= $upcomingEventsCount ?></p>
         <a href="<?php echo base_url('/calendar') ?>" class="btn btn-primary">View</a>
     </div>
+
+    <!-- New Timesheets Box -->
+    <div class="card">
+        <i class="fas fa-clock"></i>
+        <h5 class="card-title">My Timesheets</h5>
+        <p class="card-text"><?= $totalTimesheets ?></p> <!-- Assuming you have this variable available -->
+        <a href="<?php echo base_url('/timesheets') ?>" class="btn btn-primary">View</a>
+    </div>
+
+    <!-- New Profile Box -->
+    <div class="card">
+        <i class="fas fa-user"></i>
+        <h5 class="card-title">My Profile</h5>
+        <p class="card-text">Manage your profile settings</p>
+        <a href="<?php echo base_url('/profile') ?>" class="btn btn-primary">View</a>
+    </div>
 </div>
 </body>
 </html>

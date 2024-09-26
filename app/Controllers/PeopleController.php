@@ -6,6 +6,7 @@ use App\Models\ProjectModel;
 use CodeIgniter\Shield\Models\UserModel;
 use App\Models\ForumModel;
 use App\Models\CalendarModel;
+use App\Models\TimesheetsModel;
 
 
 class PeopleController extends BaseController {
@@ -13,12 +14,14 @@ class PeopleController extends BaseController {
     protected $projectModel;
     protected $forumModel;
     protected $calendarModel;
+    protected $timesheetsModel;
 
     public function __construct() {
         $this->userModel = new UserModel();
         $this->projectModel = new ProjectModel();
         $this->forumModel = new ForumModel();
         $this->calendarModel = new CalendarModel();
+        $this->timesheetsModel = new TimesheetsModel();
     }
 
     public function index() {
@@ -58,6 +61,7 @@ class PeopleController extends BaseController {
             $upcomingEventsCount = count($upcomingEvents); // Count the number of upcoming events
         
             $forumPosts = $this->forumModel->getAllPosts();
+            $totalTimesheets = $this->timesheetsModel->getUserTimesheets($userID);
         
             return view('PMS/home.php', [
                 'totalProjects' => $totalProjects,
@@ -66,6 +70,7 @@ class PeopleController extends BaseController {
                 'ongoingProjects' => $ongoingProjects,
                 'upcomingEventsCount' => $upcomingEventsCount,
                 'forumPosts' => $forumPosts,
+                'totalTimesheets' => $totalTimesheets,
                 'errorMessage' => session()->getFlashdata('error')
             ]);
         }
