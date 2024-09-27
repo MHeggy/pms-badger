@@ -462,5 +462,14 @@ class TimesheetsController extends BaseController {
     
         return $entries;
     }
+
+    // Method to calculate total hours
+    private function calculateTotalHours($entries) {
+        $totalHours = 0;
+        foreach ($entries as $entry) {
+            $totalHours += $entry['totalHours'];
+        }
+        return $totalHours;
+    }
     
 }
