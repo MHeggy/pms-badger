@@ -5,15 +5,25 @@
     <?php include 'header.php'; ?>
 </header>
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="<?php echo base_url('/assets/css/payroll.css') ?>">
 <link rel="stylesheet" href="<?php echo base_url('/assets/css/main.css') ?>">
+<!-- Bootstrap Icons CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 
 <style>
     body {
         font-family: 'Roboto', sans-serif;
         background-color: #f0f2f5;
         color: #333;
+    }
+    .btn-icon {
+        display: flex;
+        align-items: center;
+    }
+    .btn-icon i {
+        margin-right: 5px; /* Space between icon and text */
     }
 </style>
 
@@ -25,9 +35,9 @@
     <?php endif; ?>
 
     <!-- Filter Form -->
-    <div class="card p-3 mb-4 shadow"> <!-- Adjust padding -->
+    <div class="card p-3 mb-4 shadow">
         <h5 class="card-title text-center">Filter Timesheets</h5>
-        <form method="get" action="" class="row g-2"> <!-- Adjust gap -->
+        <form method="get" action="" class="row g-2">
             <div class="col-md-5">
                 <label for="userID" class="form-label">User Name:</label>
                 <select name="userID" id="userID" class="form-select">
@@ -50,13 +60,16 @@
                     <?php endforeach; ?>
                 </select>
             </div>
-            <div class="col-md-2 d-flex align-items-end justify-content-center"> <!-- Align buttons -->
-                <button type="submit" class="btn btn-primary">Filter</button>
-                <a href="<?= current_url(); ?>" class="btn btn-secondary ms-2">Reset</a>
+            <div class="col-md-2 d-flex align-items-end justify-content-center">
+                <button type="submit" class="btn btn-primary btn-icon">
+                    <i class="bi bi-filter"></i> Filter
+                </button>
+                <a href="<?= current_url(); ?>" class="btn btn-secondary ms-2 btn-icon">
+                    <i class="bi bi-arrow-clockwise"></i> Reset
+                </a>
             </div>
         </form>
     </div>
-
 
     <!-- Display Filtered Timesheets -->
     <?php if (!empty($filteredTimesheets)): ?>
@@ -101,10 +114,10 @@
                                         <i class="bi bi-three-dots"></i>
                                     </button>
                                     <ul class="dropdown-menu" aria-labelledby="actionsDropdown">
-                                        <li><a class="dropdown-item" href="/timesheets/view/<?= esc($timesheet['timesheetID']); ?>">View Details</a></li>
-                                        <li><a class="dropdown-item" href="/timesheets/export/<?= esc($timesheet['timesheetID']); ?>">Export</a></li>
-                                        <li><a class="dropdown-item" href="/timesheets/edit/<?= esc($timesheet['timesheetID']); ?>">Edit</a></li>
-                                        <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="<?= esc($timesheet['timesheetID']); ?>">Delete</a></li>
+                                        <li><a class="dropdown-item" href="/timesheets/view/<?= esc($timesheet['timesheetID']); ?>"><i class="bi bi-eye"></i> View Details</a></li>
+                                        <li><a class="dropdown-item" href="/timesheets/export/<?= esc($timesheet['timesheetID']); ?>"><i class="bi bi-file-earmark-arrow-down"></i> Export</a></li>
+                                        <li><a class="dropdown-item" href="/timesheets/edit/<?= esc($timesheet['timesheetID']); ?>"><i class="bi bi-pencil"></i> Edit</a></li>
+                                        <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="<?= esc($timesheet['timesheetID']); ?>"><i class="bi bi-trash"></i> Delete</a></li>
                                     </ul>
                                 </div>
                             </td>
@@ -113,7 +126,9 @@
                 </tbody>
             </table>
             <div class="text-center mt-3">
-                <button type="submit" class="btn btn-success" id="exportButton" style="display: none;">Export <span id="exportCount">0</span> Timesheet(s)</button>
+                <button type="submit" class="btn btn-success" id="exportButton" style="display: none;">
+                    <i class="bi bi-file-earmark-arrow-down"></i> Export <span id="exportCount">0</span> Timesheet(s)
+                </button>
             </div>
         </form>
     <?php else: ?>
