@@ -35,6 +35,23 @@
 </style>
 
 <div class="container">
+<?php if (session()->get('success_message') || !empty($errorMessage)): ?>
+        <div class="container">
+            <?php if (session()->get('success_message')): ?>
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <?= session()->get('success_message') ?>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            <?php endif; ?>
+
+            <?php if (!empty($errorMessage)): ?>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <?= $errorMessage ?>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            <?php endif; ?>
+        </div>
+    <?php endif; ?>
     <h2 class="text-center mb-4"><?= esc($user->firstName) . ' ' . esc($user->lastName) ?>'s Timesheets</h2> <!-- Added title -->
 
     <button onclick="goBack()" class="btn btn-primary btn-back">
