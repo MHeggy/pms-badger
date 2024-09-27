@@ -132,7 +132,7 @@ class TimesheetsController extends BaseController {
     public function viewTimesheet($timesheetId) {
         $timesheet = $this->timesheetsModel->find($timesheetId);
         $entries = $this->timesheetsModel->getTimesheetEntriesByTimesheetId($timesheetId);
-
+        $user = $this->timesheetsModel->getUserInfo($timesheet['userID']);
         $totalHours = array_sum(array_column($entries, 'totalHours'));
 
         if (!$timesheet) {
@@ -143,6 +143,7 @@ class TimesheetsController extends BaseController {
             'timesheet' => $timesheet,
             'timesheetEntries' => $entries,
             'totalHours' => $totalHours,
+            'user' => $user,
         ]);
     }
 
