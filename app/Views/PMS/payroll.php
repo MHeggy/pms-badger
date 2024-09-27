@@ -67,6 +67,26 @@
         margin: 0; /* Optional: Remove margin if not needed */
     }
 
+    .alert {
+        padding: 10px 20px; /* Reduce padding */
+        margin-bottom: 10px; /* Space between alerts */
+        font-size: 14px; /* Smaller font size */
+    }
+    
+    .alert i {
+        font-size: 20px; /* Icon size */
+    }
+
+    .alert .btn-close {
+        margin-left: 10px; /* Space between message and close button */
+    }
+
+    /* Make sure the alerts do not shift other content */
+    .alert-container {
+        position: relative;
+        z-index: 1000; /* Make sure alerts appear above other elements */
+    }
+
     @media (max-width: 767px) {
         .container {
             padding-left: 15px;
@@ -110,6 +130,29 @@
 </style>
 
 <br><br>
+<?php if (session()->get('success_message') || !empty($errorMessage)): ?>
+    <div class="container">
+        <?php if (session()->get('success_message')): ?>
+            <div class="alert alert-success alert-dismissible fade show d-flex align-items-center" role="alert">
+                <i class="fas fa-check-circle me-2"></i>
+                <div>
+                    <?= session()->get('success_message') ?>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        <?php endif; ?>
+
+        <?php if (!empty($errorMessage)): ?>
+            <div class="alert alert-danger alert-dismissible fade show d-flex align-items-center" role="alert">
+                <i class="fas fa-exclamation-circle me-2"></i>
+                <div>
+                    <?= $errorMessage ?>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        <?php endif; ?>
+    </div>
+<?php endif; ?>
 <!-- Section to allow user to view their own timesheets -->
 <div class="container mt-3">
     <div class="card view-timesheets-card">
