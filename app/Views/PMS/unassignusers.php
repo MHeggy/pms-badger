@@ -78,7 +78,7 @@
                 </div>
             </div>
             <div class="text-center">
-                <button type="submit" class="btn btn-danger">
+                <button type="submit" class="btn btn-primary">
                     <i class="bi bi-x-circle icon"></i> Unassign User from Project(s)
                 </button>
             </div>
