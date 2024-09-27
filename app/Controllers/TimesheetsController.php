@@ -35,11 +35,15 @@ class TimesheetsController extends BaseController {
                         ->where('userID', $userId)
                         ->where('weekOf', $weekStart)
                         ->first();
+        
+        // Initializing the weekOf variable.
+        $weekOf = $weekStart;
     
         // If a timesheet exists for this week, fetch its entries
         $entries = [];
         if ($timesheet) {
             $entries = $timesheetModel->getTimesheetEntriesByTimesheetId($timesheet['timesheetID']);
+            $weekOf = $timesheet['weekOf']; // Update weekOf to the existing timesheet's weekOf
         }
     
         // Pass the timesheet and its entries to the view
@@ -47,7 +51,7 @@ class TimesheetsController extends BaseController {
             'userId' => $userId,
             'timesheet' => $timesheet,
             'entries' => $entries,
-            'weekStart' => $weekStart
+            'weekOf' => $weekOf
         ]);
     }
 

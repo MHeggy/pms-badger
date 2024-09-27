@@ -128,7 +128,7 @@
         <div class="row mb-3">
             <label for="week" class="col-sm-2 col-form-label">Week</label>
             <div class="col-sm-10">
-                <input type="date" class="form-control" id="week" name="week" required>
+                <input type="date" class="form-control" id="week" name="week" value="<?= esc($weekOf) ?>" required>
                 <small id="date-error" class="text-danger"></small>
             </div>
         </div>
