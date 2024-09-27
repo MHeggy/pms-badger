@@ -29,6 +29,12 @@
         background-color: #ffc107; /* Yellow for 'Cancelled' or 'Postponed' */
         color: #212529; /* Dark text */
     }
+    .project-card {
+        border: 1px solid #e0e0e0;
+        border-radius: 10px;
+        background-color: #f9f9f9;
+        padding: 20px;
+    }
 </style>
 
 
@@ -41,62 +47,74 @@
 <?php endif; ?>
 <br><br>
 
-<!-- Search and Filter Container -->
-<div class="container" id="filter-container">
-    <div class="row mb-4 search-filter-container">
-        <!-- Search Form -->
-        <form id="searchForm" action="<?= base_url('my_work/search') ?>" method="get" class="position-relative">
-            <input type="text" id="search" name="search" class="form-control" placeholder="Search your Assigned Projects">
-            <button type="submit" id="searchButton" class="btn">
-                <i class="bi bi-search"></i>
-            </button>
-            <button type="button" id="clearSearchButton" class="btn btn-clear">
-                <i class="bi bi-x-circle"></i>
-            </button>
-        </form>
-
-        <!-- Filter Dropdown -->
-        <div class="dropdown">
-            <button id="filterToggle" class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                <i class="bi bi-filter"></i> Filter
-            </button>
-            <ul id="filterOptions" class="dropdown-menu p-3 collapse">
-                <!-- Filter form -->
-                <form id="filterForm" action="<?= base_url('my_work/filter') ?>" method="get">
-                    <div class="mb-3">
-                        <label for="status" class="form-label">Project Status</label>
-                        <select name="status" id="status" class="form-select">
-                            <option value="">All Projects</option>
-                            <option value="1" <?= isset($filters['status']) && $filters['status'] == '1' ? 'selected' : '' ?>>In Progress</option>
-                            <option value="2" <?= isset($filters['status']) && $filters['status'] == '2' ? 'selected' : '' ?>>Completed</option>
-                            <option value="3" <?= isset($filters['status']) && $filters['status'] == '3' ? 'selected' : '' ?>>Cancelled</option>
-                            <option value="4" <?= isset($filters['status']) && $filters['status'] == '4' ? 'selected' : '' ?>>Postponed</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="category" class="form-label">Project Category</label>
-                        <select name="category" id="category" class="form-select">
-                            <option value="">All Categories</option>
-                            <?php foreach ($categories as $cat): ?>
-                                <option value="<?= esc($cat['categoryID']) ?>" <?= isset($filters['category']) && $filters['category'] == $cat['categoryID'] ? 'selected' : '' ?>>
-                                    <?= esc($cat['categoryName']) ?>
-                                </option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Apply Filters</button>
-                </form>
-            </ul>
+<!-- Card for Title and Search/Filter -->
+<div class="card project-card mb-4">
+    <div class="card-body">
+        <!-- Logo Section -->
+        <div class="text-center mb-4">
+            <div class="d-flex align-items-center justify-content-center">
+                <!-- Example icon, you can customize the icon or logo -->
+                <i class="bi bi-folder-fill" style="font-size: 50px; color: #007bff; margin-right: 10px;"></i> 
+                <h1 class="mb-0">My Assigned Projects</h1>
+            </div>
         </div>
 
-        <!-- Active Filters Display -->
-        <div id="activeFilters" class="mt-4">
-            <span id="statusFilter" class="badge bg-secondary me-2 d-none">
-                Status: <span id="statusName"></span> <i class="bi bi-x" id="clearStatus"></i>
-            </span>
-            <span id="categoryFilter" class="badge bg-secondary me-2 d-none">
-                Category: <span id="categoryName"></span> <i class="bi bi-x" id="clearCategory"></i>
-            </span>
+        <!-- Search and Filter Container -->
+        <div class="row mb-4 search-filter-container">
+            <!-- Search Form -->
+            <form id="searchForm" action="<?= base_url('my_work/search') ?>" method="get" class="position-relative">
+                <input type="text" id="search" name="search" class="form-control" placeholder="Search your Assigned Projects" value="<?= esc($searchTerm ?? '') ?>">
+                <button type="submit" id="searchButton" class="btn">
+                    <i class="bi bi-search"></i>
+                </button>
+                <button type="button" id="clearSearchButton" class="btn btn-clear">
+                    <i class="bi bi-x-circle"></i>
+                </button>
+            </form>
+
+            <!-- Filter Dropdown -->
+            <div class="dropdown">
+                <button id="filterToggle" class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                    <i class="bi bi-filter"></i> Filter
+                </button>
+                <ul id="filterOptions" class="dropdown-menu p-3 collapse">
+                    <!-- Filter Form -->
+                    <form id="filterForm" action="<?= base_url('my_work/filter') ?>" method="get">
+                        <div class="mb-3">
+                            <label for="status" class="form-label">Project Status</label>
+                            <select name="status" id="status" class="form-select">
+                                <option value="">All Projects</option>
+                                <option value="1" <?= isset($filters['status']) && $filters['status'] == '1' ? 'selected' : '' ?>>In Progress</option>
+                                <option value="2" <?= isset($filters['status']) && $filters['status'] == '2' ? 'selected' : '' ?>>Completed</option>
+                                <option value="3" <?= isset($filters['status']) && $filters['status'] == '3' ? 'selected' : '' ?>>Cancelled</option>
+                                <option value="4" <?= isset($filters['status']) && $filters['status'] == '4' ? 'selected' : '' ?>>Postponed</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="category" class="form-label">Project Category</label>
+                            <select name="category" id="category" class="form-select">
+                                <option value="">All Categories</option>
+                                <?php foreach ($categories as $cat): ?>
+                                    <option value="<?= esc($cat['categoryID']) ?>" <?= isset($filters['category']) && $filters['category'] == $cat['categoryID'] ? 'selected' : '' ?>>
+                                        <?= esc($cat['categoryName']) ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Apply Filters</button>
+                    </form>
+                </ul>
+            </div>
+
+            <!-- Active Filters Display -->
+            <div id="activeFilters" class="mt-4">
+                <span id="statusFilter" class="badge bg-secondary me-2 d-none">
+                    Status: <span id="statusName"></span> <i class="bi bi-x" id="clearStatus"></i>
+                </span>
+                <span id="categoryFilter" class="badge bg-secondary me-2 d-none">
+                    Category: <span id="categoryName"></span> <i class="bi bi-x" id="clearCategory"></i>
+                </span>
+            </div>
         </div>
     </div>
 </div>
