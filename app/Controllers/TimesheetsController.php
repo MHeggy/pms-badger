@@ -132,20 +132,25 @@ class TimesheetsController extends BaseController {
     public function viewTimesheet($timesheetId) {
         $timesheet = $this->timesheetsModel->find($timesheetId);
         $entries = $this->timesheetsModel->getTimesheetEntriesByTimesheetId($timesheetId);
-        $user = $this->timesheetsModel->getUserInfo($timesheet['userID']);
-        $totalHours = array_sum(array_column($entries, 'totalHours'));
-
+        
         if (!$timesheet) {
             return redirect()->back()->with('error_message', 'Timesheet not found.');
         }
-
+    
+        // Get the user info based on the userID from the timesheet
+        $user = $this->timesheetsModel->getUserInfo($timesheet['userID']);
+        $totalHours = array_sum(array_column($entries, 'totalHours'));
+    
+        // Debugging output
+        log_message('debug', 'User ID from timesheet: ' . $timesheet['userID']);
+    
         return view('PMS/timesheet_details', [
             'timesheet' => $timesheet,
             'timesheetEntries' => $entries,
             'totalHours' => $totalHours,
             'user' => $user,
         ]);
-    }
+    }    
 
     public function editTimesheet($timesheetId) {
         $timesheet = $this->timesheetsModel->find($timesheetId);
