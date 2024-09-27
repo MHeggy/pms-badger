@@ -51,7 +51,8 @@ class PayrollController extends BaseController {
             $query->where('timesheets.weekOf', $selectedWeek);
         }
     
-        $filteredTimesheets = $query->findAll();
+        // Order by weekOf descending
+        $filteredTimesheets = $query->orderBy('timesheets.weekOf', 'DESC')->findAll();
     
         return view('PMS/accountantpayroll', [
             'users' => $users,
