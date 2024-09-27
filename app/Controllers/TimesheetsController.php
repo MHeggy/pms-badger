@@ -54,27 +54,38 @@ class TimesheetsController extends BaseController {
     public function submit() {
         $userId = auth()->id();
         $weekOf = $this->request->getPost('week');
-        $totalHours = $this->request->getPost('totalHours');
         $entries = $this->getTimesheetEntriesFromRequest();
-
-        // Calculating the totalHours from each of the entries.
-        $totalHours = 0;
-        foreach ($entries as $entry) {
-            $totalHours += $entry['totalHours'];
-        }
-
+    
         // Check if a timesheet already exists for the user and the week.
         $existingTimesheet = $this->timesheetsModel
             ->where('userID', $userId)
             ->where('weekOf', $weekOf)
             ->first();
-        
+    
         if ($existingTimesheet) {
-            // Redirect to edit the existing timesheet.
-            $this->session->setFlashdata('info_message', 'You have already submitted a timesheet for this week, please edit it instead.');
-            return redirect()->to('/timesheets/edit/' . $existingTimesheet['timesheetID']);
+            // Calculate total hours from entries
+            $totalHours = $this->calculateTotalHours($entries);
+            
+            // Prepare data for updating the existing timesheet
+            $timesheetData = [
+                'totalHours' => $totalHours,
+                'updatedAt' => date('Y-m-d H:i:s')
+            ];
+    
+            try {
+                $this->timesheetsModel->updateTimesheet($existingTimesheet['timesheetID'], $timesheetData);
+                $this->timesheetsModel->updateTimesheetEntries($existingTimesheet['timesheetID'], $entries);
+                $this->session->setFlashdata('success_message', 'Timesheet updated successfully.');
+            } catch (\Exception $e) {
+                $this->session->setFlashdata('error_message', 'Failed to update timesheet: ' . $e->getMessage());
+                return redirect()->to('/dashboard');
+            }
+    
+            return redirect()->to('/dashboard');
         }
-
+    
+        // Create a new timesheet if it doesn't exist
+        $totalHours = $this->calculateTotalHours($entries);
         $timesheetData = [
             'userID' => $userId,
             'weekOf' => $weekOf,
@@ -82,27 +93,19 @@ class TimesheetsController extends BaseController {
             'createdAt' => date('Y-m-d H:i:s'),
             'updatedAt' => date('Y-m-d H:i:s')
         ];
-
+    
         try {
             $timesheetId = $this->timesheetsModel->insertTimesheet($timesheetData);
-        } catch (\Exception $e) {
-            $this->session->setFlashdata('error_message', 'Timesheet could not be submitted successfully, please try again.');
-            return redirect()->to('/dashboard');
-        }
-
-        try {
-            $result = $this->timesheetsModel->insertTimesheetEntries($timesheetId, $entries);
-            if (!$result) {
-                throw new \Exception('Failed to insert timesheet entries.');
-            }
+            $this->timesheetsModel->insertTimesheetEntries($timesheetId, $entries);
             $this->session->setFlashdata('success_message', 'Timesheet submitted successfully.');
         } catch (\Exception $e) {
-            $this->session->setFlashdata('error_message', 'Failed to insert timesheet entries: ' . $e->getMessage());
+            $this->session->setFlashdata('error_message', 'Timesheet could not be submitted: ' . $e->getMessage());
             return redirect()->to('/dashboard');
         }
     
         return redirect()->to('/dashboard');
     }
+    
 
     public function viewTimesheets($userId) {
         $user = $this->timesheetsModel->getUserInfo($userId);

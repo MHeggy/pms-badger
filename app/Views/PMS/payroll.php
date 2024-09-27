@@ -175,7 +175,6 @@
                     </tr>
                 <?php endforeach; ?>
                 <?php else: ?>
-                <!-- No existing entries, load default rows -->
                 <!-- Existing rows with unique identifiers -->
                 <tr>
                     <td><input type="text" class="form-control" name="projectNumber[]"></td>
