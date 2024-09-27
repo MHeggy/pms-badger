@@ -74,17 +74,22 @@
     }
     
     .alert i {
-        font-size: 20px; /* Icon size */
+        font-size: 18px; /* Icon size */
     }
 
     .alert .btn-close {
         margin-left: 10px; /* Space between message and close button */
     }
 
-    /* Make sure the alerts do not shift other content */
-    .alert-container {
-        position: relative;
-        z-index: 1000; /* Make sure alerts appear above other elements */
+    .custom-alert {
+        width: 300px; /* Set a fixed width for the alert */
+        padding: 5px 15px; /* Reduce padding for a smaller box */
+        margin: 10px; /* Space between alerts */
+        font-size: 14px; /* Smaller font size */
+        position: fixed; /* Fix position to prevent shifting */
+        top: 20px; /* Position from the top */
+        right: 20px; /* Position from the right */
+        z-index: 1050; /* Make sure alerts appear above other elements */
     }
 
     @media (max-width: 767px) {
@@ -133,7 +138,7 @@
 <?php if (session()->get('success_message') || !empty($errorMessage)): ?>
     <div class="container">
         <?php if (session()->get('success_message')): ?>
-            <div class="alert alert-success alert-dismissible fade show d-flex align-items-center" role="alert">
+            <div class="alert alert-success alert-dismissible fade show d-flex align-items-center custom-alert" role="alert">
                 <i class="fas fa-check-circle me-2"></i>
                 <div>
                     <?= session()->get('success_message') ?>
@@ -143,7 +148,7 @@
         <?php endif; ?>
 
         <?php if (!empty($errorMessage)): ?>
-            <div class="alert alert-danger alert-dismissible fade show d-flex align-items-center" role="alert">
+            <div class="alert alert-danger alert-dismissible fade show d-flex align-items-center custom-alert" role="alert">
                 <i class="fas fa-exclamation-circle me-2"></i>
                 <div>
                     <?= $errorMessage ?>
