@@ -79,13 +79,13 @@ class TimesheetsController extends BaseController {
             try {
                 $this->timesheetsModel->updateTimesheet($existingTimesheet['timesheetID'], $timesheetData);
                 $this->timesheetsModel->updateTimesheetEntries($existingTimesheet['timesheetID'], $entries);
-                $this->session->setFlashdata('success_message', 'Timesheet updated successfully.');
+                $this->session->setFlashdata('success_message', 'Timesheet saved successfully.');
             } catch (\Exception $e) {
-                $this->session->setFlashdata('error_message', 'Failed to update timesheet: ' . $e->getMessage());
-                return redirect()->to('/dashboard');
+                $this->session->setFlashdata('error_message', 'Failed to save timesheet: ' . $e->getMessage());
+                return redirect()->to('/timesheets');
             }
     
-            return redirect()->to('/dashboard');
+            return redirect()->to('/timesheets');
         }
     
         // Create a new timesheet if it doesn't exist
@@ -104,10 +104,10 @@ class TimesheetsController extends BaseController {
             $this->session->setFlashdata('success_message', 'Timesheet submitted successfully.');
         } catch (\Exception $e) {
             $this->session->setFlashdata('error_message', 'Timesheet could not be submitted: ' . $e->getMessage());
-            return redirect()->to('/dashboard');
+            return redirect()->to('/timesheets');
         }
     
-        return redirect()->to('/dashboard');
+        return redirect()->to('/timesheets');
     }
     
 
