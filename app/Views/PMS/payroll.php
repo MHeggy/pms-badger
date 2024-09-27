@@ -425,7 +425,7 @@ document.querySelectorAll('#timesheet-rows tr').forEach(row => {
 calculateAllTotals(); // Initial calculation
 
 function isMonday(date) {
-    return date.getDay() === 1;
+    return date.getDay() === 0;
 }
 
 function setMondayRestriction() {
