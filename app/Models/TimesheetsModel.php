@@ -32,6 +32,15 @@ class TimesheetsModel extends Model {
                     ->findAll();
     }
 
+    public function getTimesheetWithUserInfo($timesheetId) {
+        return $this->db->table('timesheets')
+                        ->select('timesheets.*, users.username, users.firstName, users.lastName')
+                        ->join('users', 'users.id = timesheets.userID', 'left')
+                        ->where('timesheets.timesheetID', $timesheetId)
+                        ->get()
+                        ->getRowArray();
+    }    
+
     public function insertTimesheet($data) {
         if (empty($data) || !is_array($data)) {
             throw new \Exception('Invalid data provided for insert.');
