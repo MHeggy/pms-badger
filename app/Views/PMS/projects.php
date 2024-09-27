@@ -33,6 +33,16 @@
     .btn-clear {
         display: none; /* Initially hidden */
     }
+    .project-card {
+        background-color: white;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    .project-logo {
+        max-width: 100px; /* Adjust as needed */
+        margin-bottom: 20px;
+    }
 </style>
 
 <!-- Success Message Section -->
@@ -45,60 +55,68 @@
 <br><br><br>
 
 <div class="container" id="project_table" style="margin-top: 20px;">
-    <!-- Title -->
-    <h1 class="text-center mb-4">All Projects</h1>
+    <!-- Card for Title and Search/Filter -->
+    <div class="card project-card mb-4">
+        <div class="card-body">
+            <!-- Logo Section -->
+            <div class="text-center">
+                <img src="<?php echo base_url('/assets/images/project-logo.png'); ?>" alt="Project Logo" class="project-logo">
+                <h1 class="text-center mb-4">All Projects</h1>
+            </div>
 
-    <!-- Search and Filter Container Above the Table -->
-    <div class="row mb-4 search-filter-container">
-        <form id="searchForm" action="<?= base_url('projects/search') ?>" method="get" class="position-relative">
-            <input type="text" id="search" name="search" class="form-control" placeholder="Search Projects" value="<?= esc($searchTerm ?? '') ?>">
-            <button type="submit" id="searchButton" class="btn">
-                <i class="bi bi-search"></i>
-            </button>
-            <button type="button" id="clearSearchButton" class="btn btn-clear">
-                <i class="bi bi-x-circle"></i>
-            </button>
-        </form>
-
-        <div class="dropdown">
-            <button id="filterToggle" class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                <i class="bi bi-filter"></i> Filter
-            </button>
-            <ul id="filterOptions" class="dropdown-menu p-3 collapse">
-                <form id="filterForm" action="<?= base_url('projects/filter') ?>" method="get">
-                    <div class="mb-3">
-                        <label for="status" class="form-label">Project Status</label>
-                        <select name="status" id="status" class="form-select">
-                            <option value="">All Projects</option>
-                            <option value="1" <?= (isset($selectedFilters['status']) && $selectedFilters['status'] == '1') ? 'selected' : '' ?>>In Progress</option>
-                            <option value="2" <?= (isset($selectedFilters['status']) && $selectedFilters['status'] == '2') ? 'selected' : '' ?>>Completed</option>
-                            <option value="3" <?= (isset($selectedFilters['status']) && $selectedFilters['status'] == '3') ? 'selected' : '' ?>>Cancelled</option>
-                            <option value="4" <?= (isset($selectedFilters['status']) && $selectedFilters['status'] == '4') ? 'selected' : '' ?>>Postponed</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="category" class="form-label">Category</label>
-                        <select name="category" id="category" class="form-select">
-                            <option value="">All Categories</option>
-                            <?php foreach ($categories as $cat): ?>
-                                <option value="<?= $cat['categoryID'] ?>" <?= (isset($selectedFilters['category']) && $selectedFilters['category'] == $cat['categoryID']) ? 'selected' : '' ?>>
-                                    <?= $cat['categoryName'] ?>
-                                </option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Apply Filters</button>
+            <!-- Search and Filter Container -->
+            <div class="row mb-4 search-filter-container">
+                <form id="searchForm" action="<?= base_url('projects/search') ?>" method="get" class="position-relative">
+                    <input type="text" id="search" name="search" class="form-control" placeholder="Search Projects" value="<?= esc($searchTerm ?? '') ?>">
+                    <button type="submit" id="searchButton" class="btn">
+                        <i class="bi bi-search"></i>
+                    </button>
+                    <button type="button" id="clearSearchButton" class="btn btn-clear">
+                        <i class="bi bi-x-circle"></i>
+                    </button>
                 </form>
-            </ul>
-        </div>
 
-        <div id="activeFilters" class="d-none mt-4">
-            <span id="statusFilter" class="badge bg-secondary me-2 d-none">
-                Status: <span id="statusName"></span> <i class="bi bi-x" id="clearStatus"></i>
-            </span>
-            <span id="categoryFilter" class="badge bg-secondary me-2 d-none">
-                Category: <span id="categoryName"></span> <i class="bi bi-x" id="clearCategory"></i>
-            </span>
+                <div class="dropdown">
+                    <button id="filterToggle" class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                        <i class="bi bi-filter"></i> Filter
+                    </button>
+                    <ul id="filterOptions" class="dropdown-menu p-3 collapse">
+                        <form id="filterForm" action="<?= base_url('projects/filter') ?>" method="get">
+                            <div class="mb-3">
+                                <label for="status" class="form-label">Project Status</label>
+                                <select name="status" id="status" class="form-select">
+                                    <option value="">All Projects</option>
+                                    <option value="1" <?= (isset($selectedFilters['status']) && $selectedFilters['status'] == '1') ? 'selected' : '' ?>>In Progress</option>
+                                    <option value="2" <?= (isset($selectedFilters['status']) && $selectedFilters['status'] == '2') ? 'selected' : '' ?>>Completed</option>
+                                    <option value="3" <?= (isset($selectedFilters['status']) && $selectedFilters['status'] == '3') ? 'selected' : '' ?>>Cancelled</option>
+                                    <option value="4" <?= (isset($selectedFilters['status']) && $selectedFilters['status'] == '4') ? 'selected' : '' ?>>Postponed</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="category" class="form-label">Category</label>
+                                <select name="category" id="category" class="form-select">
+                                    <option value="">All Categories</option>
+                                    <?php foreach ($categories as $cat): ?>
+                                        <option value="<?= $cat['categoryID'] ?>" <?= (isset($selectedFilters['category']) && $selectedFilters['category'] == $cat['categoryID']) ? 'selected' : '' ?>>
+                                            <?= $cat['categoryName'] ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Apply Filters</button>
+                        </form>
+                    </ul>
+                </div>
+
+                <div id="activeFilters" class="d-none mt-4">
+                    <span id="statusFilter" class="badge bg-secondary me-2 d-none">
+                        Status: <span id="statusName"></span> <i class="bi bi-x" id="clearStatus"></i>
+                    </span>
+                    <span id="categoryFilter" class="badge bg-secondary me-2 d-none">
+                        Category: <span id="categoryName"></span> <i class="bi bi-x" id="clearCategory"></i>
+                    </span>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -164,7 +182,7 @@
                                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton-<?= $project['projectID'] ?>">
                                             <li><a class="dropdown-item" href="<?= base_url('projects/edit/' . $project['projectID']) ?>">
                                                 <i class="bi bi-pencil"></i> Edit</a></li>
-                                            <li><a class="dropdown-item text-danger" href="<?= base_url('projects/delete/' . $project['projectID']) ?>" onclick="return confirm('Are you sure you want to delete this project?');">
+                                            <li><a class="dropdown-item text-danger" href="<?= base_url('projects/delete/' . $project['projectID']) ?>">
                                                 <i class="bi bi-trash"></i> Delete</a></li>
                                         </ul>
                                     </div>
@@ -174,7 +192,7 @@
                     <?php endforeach; ?>
                 <?php else: ?>
                     <tr>
-                        <td colspan="7">No projects found.</td>
+                        <td colspan="7" class="text-center">No projects found.</td>
                     </tr>
                 <?php endif; ?>
             </tbody>
