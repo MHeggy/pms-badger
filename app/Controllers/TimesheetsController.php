@@ -20,13 +20,34 @@ class TimesheetsController extends BaseController {
 
     public function index() {
         $userId = auth()->id();
-
+    
+        // Ensure the user is authenticated
         if (!$userId) {
             return redirect()->to('/login')->with('error', 'You must login to access this page.');
         }
-
+    
+        // Get the start of the current week (Monday)
+        $weekStart = (new \DateTime())->setISODate((new \DateTime())->format('o'), (new \DateTime())->format('W'))->format('Y-m-d');
+        
+        // Query for the timesheet of the current week
+        $timesheetModel = new TimesheetsModel();
+        $timesheet = $timesheetModel
+                        ->where('userID', $userId)
+                        ->where('weekOf', $weekStart)
+                        ->first();
+    
+        // If a timesheet exists for this week, fetch its entries
+        $entries = [];
+        if ($timesheet) {
+            $entries = $timesheetModel->getTimesheetEntriesByTimesheetId($timesheet['timesheetID']);
+        }
+    
+        // Pass the timesheet and its entries to the view
         return view('PMS/payroll', [
-            'userId' => $userId
+            'userId' => $userId,
+            'timesheet' => $timesheet,
+            'entries' => $entries,
+            'weekStart' => $weekStart
         ]);
     }
 

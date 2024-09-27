@@ -153,6 +153,29 @@
                 </tr>
             </thead>
             <tbody id="timesheet-rows">
+            <?php if (isset($entries) && count($entries) > 0): ?>
+                <?php foreach ($entries as $entry): ?>
+                    <tr>
+                        <td><input type="text" class="form-control" name="projectNumber[]" value="<?= $entry['projectNumber'] ?>"></td>
+                        <td><input type="text" class="form-control" name="projectName[]" value="<?= $entry['projectName'] ?>"></td>
+                        <td><input type="text" class="form-control" name="activityDescription[]" value="<?= $entry['activityDescription'] ?>"></td>
+                        <td><input type="number" class="form-control day-input" name="monday[]" value="<?= $entry['mondayHours'] ?>" step="0.01"></td>
+                        <td><input type="number" class="form-control day-input" name="tuesday[]" value="<?= $entry['tuesdayHours'] ?>" step="0.01"></td>
+                        <td><input type="number" class="form-control day-input" name="wednesday[]" value="<?= $entry['wednesdayHours'] ?>" step="0.01"></td>
+                        <td><input type="number" class="form-control day-input" name="thursday[]" value="<?= $entry['thursdayHours'] ?>" step="0.01"></td>
+                        <td><input type="number" class="form-control day-input" name="friday[]" value="<?= $entry['fridayHours'] ?>" step="0.01"></td>
+                        <td><input type="number" class="form-control day-input" name="saturday[]" value="<?= $entry['saturdayHours'] ?>" step="0.01"></td>
+                        <td><input type="number" class="form-control day-input" name="sunday[]" value="<?= $entry['sundayHours'] ?>" step="0.01"></td>
+                        <td><input type="text" class="form-control total-hours" name="totalHours[]" value="<?= $entry['totalHours'] ?>" readonly></td>
+                        <td>
+                            <button type="button" class="btn btn-danger remove-row small-btn">
+                                <i class="fas fa-trash-alt"></i> Remove
+                            </button>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+                <?php else: ?>
+                <!-- No existing entries, load default rows -->
                 <!-- Existing rows with unique identifiers -->
                 <tr>
                     <td><input type="text" class="form-control" name="projectNumber[]"></td>
@@ -313,6 +336,7 @@
                     <td></td>
             </tr>
             </tbody>
+            <?php endif; ?>
             <tfoot>
                 <tr>
                     <td colspan="10" class="text-end"><strong>Total Hours for the Week:</strong></td>
