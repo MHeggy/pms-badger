@@ -33,6 +33,8 @@
     .btn-primary {
         background-color: #007bff;
         border: none;
+        text-align: center;
+        align-items: center;
     }
 
     .btn-primary:hover {
