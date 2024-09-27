@@ -45,6 +45,9 @@
 <br><br><br>
 
 <div class="container" id="project_table" style="margin-top: 20px;">
+    <!-- Title -->
+    <h1 class="text-center mb-4">All Projects</h1>
+
     <!-- Search and Filter Container Above the Table -->
     <div class="row mb-4 search-filter-container">
         <form id="searchForm" action="<?= base_url('projects/search') ?>" method="get" class="position-relative">
@@ -159,8 +162,10 @@
                                             <i class="bi bi-three-dots"></i>
                                         </button>
                                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton-<?= $project['projectID'] ?>">
-                                            <li><a class="dropdown-item" href="<?= base_url('projects/edit/' . $project['projectID']) ?>">Edit</a></li>
-                                            <li><a class="dropdown-item text-danger" href="<?= base_url('projects/delete/' . $project['projectID']) ?>" onclick="return confirm('Are you sure you want to delete this project?');">Delete</a></li>
+                                            <li><a class="dropdown-item" href="<?= base_url('projects/edit/' . $project['projectID']) ?>">
+                                                <i class="bi bi-pencil"></i> Edit</a></li>
+                                            <li><a class="dropdown-item text-danger" href="<?= base_url('projects/delete/' . $project['projectID']) ?>" onclick="return confirm('Are you sure you want to delete this project?');">
+                                                <i class="bi bi-trash"></i> Delete</a></li>
                                         </ul>
                                     </div>
                                 </td>
@@ -179,18 +184,4 @@
 
 <script src="<?php echo base_url('/assets/js/main.js') ?>"></script>
 <script src="<?php echo base_url('/assets/js/projects.js') ?>"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var successMessage = document.getElementById('success-message');
-        if (successMessage) {
-            setTimeout(function () {
-                successMessage.classList.add('fade');
-                successMessage.addEventListener('transitionend', function () {
-                    successMessage.remove();
-                });
-            }, 3000);
-        }
-    });
-</script>
-</body>
-</html>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
