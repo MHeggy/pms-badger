@@ -6,27 +6,54 @@
 </header>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
 <link rel="stylesheet" href="<?php echo base_url('/assets/css/assignusers.css') ?>">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
 <style>
     body {
         font-family: 'Roboto', sans-serif;
         background-color: #f0f2f5;
         color: #333;
     }
+
     .form-label {
         font-weight: bold;
     }
+
+    .container {
+        margin-top: 50px;
+    }
+
+    .card {
+        border: none;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border: none;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+
+    .alert {
+        margin-bottom: 20px;
+    }
+
+    .icon {
+        margin-right: 5px;
+    }
+
     .btn-custom {
         display: flex;
         align-items: center;
     }
-    .btn-custom i {
-        margin-right: 5px;
-    }
 </style>
 
-<div class="container mt-5">
+<div class="container">
     <!-- Display flash message if available -->
     <?php if (session()->has('success')): ?>
         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -35,10 +62,11 @@
         </div>
     <?php endif; ?>
 
-    <div class="row">
-        <div class="col-md-6">
-            <form action="<?php echo base_url('/projects/assign') ?>" method="post" id="userSelectionForm">
-                <div class="mb-3" id="assignSelection">
+    <div class="card">
+        <h2 class="text-center mb-4"><i class="bi bi-person-plus icon"></i> Assign Users to Projects</h2>
+        <form action="<?php echo base_url('/projects/assign') ?>" method="post" id="userSelectionForm">
+            <div class="row">
+                <div class="col-md-6 mb-3">
                     <label for="user" class="form-label">Select User:</label>
                     <select class="form-select" name="user" id="user">
                         <option value="">Select User</option>
@@ -47,23 +75,19 @@
                         <?php endforeach; ?>
                     </select>
                 </div>
-        </div>
-        <div class="col-md-6">
-            <div class="mb-3" id="projectSelection" style="display: none;">
-                <label for="projects" class="form-label">Select Projects:</label>
-                <select class="form-select" name="projects[]" id="projects" multiple>
-                    <?php foreach ($projects as $project): ?>
-                        <option value="<?= $project['projectID'] ?>">
-                            <?= esc($project['projectNumber'] . ' - ' . $project['projectName']); ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
+                <div class="col-md-6 mb-3" id="projectSelection" style="display: none;">
+                    <label for="projects" class="form-label">Select Projects:</label>
+                    <select class="form-select" name="projects[]" id="projects" multiple>
+                        <!-- Options will be populated dynamically -->
+                    </select>
+                </div>
+            </div>
+            <div class="text-center">
                 <button type="submit" class="btn btn-primary btn-custom mt-2">
                     <i class="bi bi-check-circle"></i> Assign User to Project(s)
                 </button>
             </div>
-            </form>
-        </div>
+        </form>
     </div>
 </div>
 
@@ -72,7 +96,7 @@
     document.getElementById('user').addEventListener('change', function() {
         var projectSelection = document.getElementById('projectSelection');
         var selectedUserId = this.value;
-        
+
         if (selectedUserId !== '') {
             projectSelection.style.display = 'block';
             // Fetch and display unassigned projects associated with the selected user
