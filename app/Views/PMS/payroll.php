@@ -7,6 +7,8 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/flatpickr.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/themes/dark.css">
 <link rel="stylesheet" href="<?php echo base_url('/assets/css/main.css') ?>">
 <style>
     body {
@@ -15,96 +17,96 @@
         color: #333;
     }
 
-#timesheet-container {
-    margin-bottom: 50px;
-}
-
-.view-timesheets-card {
-    margin-bottom: 20px;
-}
-
-.timesheet-table input {
-    width: 100%;
-}
-
-.button-container {
-    margin-top: 20px;
-}
-
-.table th, .table td {
-    vertical-align: middle;
-}
-
-.table th {
-    background-color: #007bff;
-    color: white;
-    text-align: center;
-}
-
-.table td {
-    background-color: white;
-}
-
-.logo {
-    width: 100px; /* Adjust logo size */
-}
-
-.btn-icon {
-    display: flex;
-    align-items: center;
-}
-
-.btn-icon img {
-    width: 20px; /* Adjust icon size */
-    margin-right: 5px;
-}
-
-.small-btn {
-    font-size: 12px; /* Adjust font size */
-    padding: 5px 10px; /* Adjust padding */
-    margin: 0; /* Optional: Remove margin if not needed */
-}
-
-@media (max-width: 767px) {
-    .container {
-        padding-left: 15px;
-        padding-right: 15px;
+    #timesheet-container {
+        margin-bottom: 50px;
     }
 
-    .card-body {
-        padding: 15px;
+    .view-timesheets-card {
+        margin-bottom: 20px;
     }
 
-    .table-responsive {
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
+    .timesheet-table input {
         width: 100%;
+    }
+
+    .button-container {
+        margin-top: 20px;
     }
 
     .table th, .table td {
-        padding: 8px;
-        text-align: left;
-        font-size: 14px;
+        vertical-align: middle;
     }
 
-    .table input {
-        font-size: 14px;
-        padding: 5px;
-    }
-
-    .form-control {
-        font-size: 14px;
-        padding: 10px;
-    }
-
-    .btn {
-        font-size: 14px;
-        padding: 10px;
-        margin-top: 10px;
-        width: 100%;
+    .table th {
+        background-color: #007bff;
+        color: white;
         text-align: center;
     }
-}
+
+    .table td {
+        background-color: white;
+    }
+
+    .logo {
+        width: 100px; /* Adjust logo size */
+    }
+
+    .btn-icon {
+        display: flex;
+        align-items: center;
+    }
+
+    .btn-icon img {
+        width: 20px; /* Adjust icon size */
+        margin-right: 5px;
+    }
+
+    .small-btn {
+        font-size: 12px; /* Adjust font size */
+        padding: 5px 10px; /* Adjust padding */
+        margin: 0; /* Optional: Remove margin if not needed */
+    }
+
+    @media (max-width: 767px) {
+        .container {
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+
+        .card-body {
+            padding: 15px;
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            width: 100%;
+        }
+
+        .table th, .table td {
+            padding: 8px;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        .table input {
+            font-size: 14px;
+            padding: 5px;
+        }
+
+        .form-control {
+            font-size: 14px;
+            padding: 10px;
+        }
+
+        .btn {
+            font-size: 14px;
+            padding: 10px;
+            margin-top: 10px;
+            width: 100%;
+            text-align: center;
+        }
+    }
 </style>
 
 <br><br>
@@ -327,8 +329,10 @@
         </div>
     </form>
 </div>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- Scripts -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/flatpickr.js"></script>
+
 <script>
 let rowCount = 8; // Adjusting row count for existing rows
 
@@ -435,11 +439,12 @@ function setMondayRestriction() {
     const minDate = today.toISOString().split('T')[0];
     weekInput.setAttribute('min', minDate);
     
-    // Set the maximum date to 1 year from the current Monday (if you want to restrict future dates)
+    // Set the maximum date to 1 year from the current Monday (optional)
     const maxDate = new Date(today);
     maxDate.setFullYear(maxDate.getFullYear() + 1);
     weekInput.setAttribute('max', maxDate.toISOString().split('T')[0]);
 
+    // Listen for the user to change the date input
     weekInput.addEventListener('change', function () {
         const selectedDate = new Date(weekInput.value);
         if (!isMonday(selectedDate)) {
