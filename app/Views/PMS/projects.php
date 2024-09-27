@@ -59,12 +59,13 @@
     <div class="card project-card mb-4">
         <div class="card-body">
             <!-- Logo Section -->
-            <div class="text-center">
-                <!-- Add your chosen icon here -->
-                <i class="bi bi-folder-fill" style="font-size: 50px; color: #007bff;"></i> <!-- Example icon -->
-                <h1 class="text-center mb-4">All Projects</h1>
+            <div class="text-center mb-4">
+                <div class="d-flex align-items-center justify-content-center">
+                    <!-- Add your chosen icon here -->
+                    <i class="bi bi-folder-fill" style="font-size: 50px; color: #007bff; margin-right: 10px;"></i> <!-- Example icon -->
+                    <h1 class="mb-0">All Projects</h1>
+                </div>
             </div>
-
             <!-- Search and Filter Container -->
             <div class="row mb-4 search-filter-container">
                 <form id="searchForm" action="<?= base_url('projects/search') ?>" method="get" class="position-relative">
@@ -197,7 +198,7 @@
             </tbody>
         </table>
     </div>
-    
+
 <script src="<?php echo base_url('/assets/js/main.js') ?>"></script>
 <script src="<?php echo base_url('/assets/js/projects.js') ?>"></script>
 <script>
