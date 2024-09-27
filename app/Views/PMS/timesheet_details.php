@@ -57,7 +57,7 @@
     <button onclick="goBack()" class="btn btn-back">
         <i class="fas fa-arrow-left"></i> Go Back
     </button>
-    <h2><?= $user['firstName'] . ' ' . $user['lastName'] ?> timesheet for the week of <?= esc($timesheet['weekOf']) ?></h2>
+    <h2><?= esc($user->firstName) . ' ' . esc($user->lastName) ?> timesheet for the week of <?= esc($timesheet['weekOf']) ?></h2>
     <table class="table table-bordered table-striped">
         <thead>
         <tr>
