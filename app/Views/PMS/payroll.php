@@ -82,7 +82,7 @@
     }
 
     .custom-alert {
-        height: 45px; /* Reduce height for a smaller box */
+        height: 55px; /* Reduce height for a smaller box */
         padding: 5px 15px; /* Reduce padding for a smaller box */
         margin: 10px; /* Space between alerts */
         font-size: 14px; /* Smaller font size */
