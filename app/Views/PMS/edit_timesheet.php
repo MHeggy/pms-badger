@@ -122,6 +122,13 @@
                         </tr>
                     <?php endif; ?>
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="10" class="text-end"><strong>Total Hours for the Week:</strong></td>
+                        <td><input type="text" id="weekly-total" class="form-control" readonly></td>
+                        <td></td>
+                    </tr>
+                </tfoot>
             </table>
         </div>
 
