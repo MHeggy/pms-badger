@@ -86,9 +86,7 @@
         padding: 5px 15px; /* Reduce padding for a smaller box */
         margin: 10px; /* Space between alerts */
         font-size: 14px; /* Smaller font size */
-        position: fixed; /* Fix position to prevent shifting */
-        top: 20px; /* Position from the top */
-        right: 20px; /* Position from the right */
+        position: relative; /* Fix position to prevent shifting */
         z-index: 1050; /* Make sure alerts appear above other elements */
     }
 
