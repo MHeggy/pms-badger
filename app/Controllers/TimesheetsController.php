@@ -113,7 +113,15 @@ class TimesheetsController extends BaseController {
 
     public function viewTimesheets($userId) {
         $user = $this->timesheetsModel->getUserInfo($userId);
+        if (!$user) {
+            return redirect()->to('/login')->with('error', 'You must login to access this page.');
+        }
         $timesheets = $this->timesheetsModel->getUserTimesheets($userId);
+
+        // Order timesheets by weekOf in descending order
+        usort($timesheets, function($a, $b) {
+            return strtotime($b['weekOf']) - strtotime($a['weekOf']);
+        });
 
         return view('PMS/user_timesheets', [
             'user' => $user,
