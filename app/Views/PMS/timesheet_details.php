@@ -25,7 +25,7 @@
     }
     table th {
         background-color: #0056b3; /* Blue for table header */
-        color: white;
+        color: black;
     }
     th, td {
         text-align: center;
