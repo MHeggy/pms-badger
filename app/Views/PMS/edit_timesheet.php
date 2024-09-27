@@ -143,43 +143,47 @@
 </div>
 
 <script>
+    // Function to calculate total hours for a specific row
     function calculateRowTotal(row) {
         let totalHours = 0;
         const daysOfWeek = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
         daysOfWeek.forEach(day => {
             const input = row.querySelector(`[name="${day}[]"]`);
-            if (input.value !== '') {
+            if (input.value) {
                 totalHours += parseFloat(input.value);
             }
         });
-        row.querySelector('.total-hours').value = totalHours.toFixed(2);
+        row.querySelector('.total-hours').value = totalHours.toFixed(2); // Update row's total hours
     }
 
+    // Function to calculate the overall weekly total
     function calculateAllTotals() {
         let weeklyTotal = 0;
         document.querySelectorAll('#timesheet-rows tr').forEach(row => {
-            calculateRowTotal(row);
+            calculateRowTotal(row); // Calculate total for the current row
             const rowTotal = parseFloat(row.querySelector('.total-hours').value) || 0;
-            weeklyTotal += rowTotal;
+            weeklyTotal += rowTotal; // Accumulate to weekly total
         });
-        document.getElementById('weekly-total').value = weeklyTotal.toFixed(2);
+        document.getElementById('weekly-total').value = weeklyTotal.toFixed(2); // Update the weekly total input
     }
 
+    // Function to add event listeners for row inputs
     function addEventListenersToRow(row) {
         row.querySelectorAll('.day-input').forEach(input => {
             input.addEventListener('input', () => {
-                calculateRowTotal(row);
-                calculateAllTotals();
+                calculateRowTotal(row); // Calculate total for this row on input
+                calculateAllTotals(); // Recalculate the weekly total
             });
         });
         row.querySelector('.remove-row').addEventListener('click', () => {
             if (!row.querySelector('.remove-row').classList.contains('disabled')) {
-                row.remove();
-                calculateAllTotals();
+                row.remove(); // Remove the row
+                calculateAllTotals(); // Recalculate totals after removing
             }
         });
     }
 
+    // Event listener for adding new rows
     document.getElementById('add-row').addEventListener('click', function () {
         const newRow = document.createElement('tr');
         newRow.innerHTML = `
@@ -197,15 +201,16 @@
             <td><button type="button" class="btn btn-danger remove-row"><i class="fas fa-trash-alt"></i> Remove</button></td>
         `;
         document.getElementById('timesheet-rows').insertBefore(newRow, document.getElementById('timesheet-rows').lastElementChild);
-        addEventListenersToRow(newRow);
-        calculateAllTotals();
+        addEventListenersToRow(newRow); // Add event listeners to the new row
+        calculateAllTotals(); // Recalculate totals after adding
     });
 
-    // Initialize existing rows with event listeners
+    // Initialize event listeners for existing rows
     document.querySelectorAll('#timesheet-rows tr').forEach(row => {
         addEventListenersToRow(row);
     });
 
+    // Back button functionality
     function goBack() {
         window.history.back();
     }
