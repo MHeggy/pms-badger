@@ -82,7 +82,6 @@
     }
 
     .custom-alert {
-        width: 300px; /* Set a fixed width for the alert */
         height: auto; /* Auto height */
         padding: 5px 15px; /* Reduce padding for a smaller box */
         margin: 10px; /* Space between alerts */
