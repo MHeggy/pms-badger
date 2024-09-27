@@ -60,7 +60,8 @@
         <div class="card-body">
             <!-- Logo Section -->
             <div class="text-center">
-                <img src="<?php echo base_url('/assets/images/project-logo.png'); ?>" alt="Project Logo" class="project-logo">
+                <!-- Add your chosen icon here -->
+                <i class="bi bi-folder-fill" style="font-size: 50px; color: #007bff;"></i> <!-- Example icon -->
                 <h1 class="text-center mb-4">All Projects</h1>
             </div>
 
@@ -177,13 +178,11 @@
                                 <td>
                                     <div class="dropdown">
                                         <button class="btn btn-light btn-sm dropdown-toggle" type="button" id="dropdownMenuButton-<?= $project['projectID'] ?>" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i class="bi bi-three-dots"></i>
+                                            Actions
                                         </button>
                                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton-<?= $project['projectID'] ?>">
-                                            <li><a class="dropdown-item" href="<?= base_url('projects/edit/' . $project['projectID']) ?>">
-                                                <i class="bi bi-pencil"></i> Edit</a></li>
-                                            <li><a class="dropdown-item text-danger" href="<?= base_url('projects/delete/' . $project['projectID']) ?>">
-                                                <i class="bi bi-trash"></i> Delete</a></li>
+                                            <li><a class="dropdown-item" href="<?= base_url('projects/edit/' . $project['projectID']) ?>">Edit</a></li>
+                                            <li><a class="dropdown-item" href="<?= base_url('projects/delete/' . $project['projectID']) ?>" onclick="return confirm('Are you sure you want to delete this project?');">Delete</a></li>
                                         </ul>
                                     </div>
                                 </td>
@@ -192,14 +191,13 @@
                     <?php endforeach; ?>
                 <?php else: ?>
                     <tr>
-                        <td colspan="7" class="text-center">No projects found.</td>
+                        <td colspan="6" class="text-center">No projects found.</td>
                     </tr>
                 <?php endif; ?>
             </tbody>
         </table>
     </div>
-</div>
-
+    
 <script src="<?php echo base_url('/assets/js/main.js') ?>"></script>
 <script src="<?php echo base_url('/assets/js/projects.js') ?>"></script>
 <script>
