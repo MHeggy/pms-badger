@@ -52,7 +52,7 @@
         <button type="button" class="btn btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 <?php endif; ?>
-<br><br><br>
+<br><br>
 
 <div class="container" id="project_table" style="margin-top: 20px;">
     <!-- Card for Title and Search/Filter -->
