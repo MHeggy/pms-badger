@@ -214,4 +214,8 @@
     function goBack() {
         window.history.back();
     }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        calculateAllTotals(); // Calculate totals on page load
+    });
 </script>
