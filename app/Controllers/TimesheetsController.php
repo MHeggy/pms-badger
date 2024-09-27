@@ -142,7 +142,9 @@ class TimesheetsController extends BaseController {
         $totalHours = array_sum(array_column($entries, 'totalHours'));
     
         // Debugging output
-        log_message('debug', 'User ID from timesheet: ' . $timesheet['userID']);
+        echo "<pre>";
+        print_r('User ID from timesheet: ' . $timesheet['userID']);
+        echo "</pre>";
     
         return view('PMS/timesheet_details', [
             'timesheet' => $timesheet,
@@ -150,7 +152,8 @@ class TimesheetsController extends BaseController {
             'totalHours' => $totalHours,
             'user' => $user,
         ]);
-    }    
+    }
+    
 
     public function editTimesheet($timesheetId) {
         $timesheet = $this->timesheetsModel->find($timesheetId);
