@@ -7,5 +7,5 @@ use CodeIgniter\Model;
 class SupportTicketModel extends Model {
     protected $table = 'support_tickets';
     protected $primaryKey = 'ticketID';
-    protected $allowedFields = ['userID', 'issue_title', 'issue_description', 'status', 'created_at'];
+    protected $allowedFields = ['userID', 'issue_title', 'issue_description', 'priority', 'attachment', 'status', 'created_at'];
 }

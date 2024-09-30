@@ -9,6 +9,12 @@
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 
 <div class="container mt-5">
+    <?php if (session()->getFlashdata('message')): ?>
+        <div class="alert alert-success">
+            <?= session()->getFlashdata('message'); ?>
+        </div>
+    <?php endif; ?>
+
     <h1 class="mb-4">Report a Problem</h1>
     <form action="<?php echo base_url('/submit_problem') ?>" method="post" enctype="multipart/form-data">
         <div class="mb-3">
