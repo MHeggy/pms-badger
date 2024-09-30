@@ -53,7 +53,6 @@ class SupportController extends BaseController
     public function viewSupportTickets()
     {
         $supportModel = new SupportTicketModel();
-        $userModel = new UserModel();
 
         // Perform a join to get user details along with the support tickets
         $tickets = $supportModel
