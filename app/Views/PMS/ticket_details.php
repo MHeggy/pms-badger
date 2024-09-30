@@ -37,6 +37,39 @@
         </div>
     </div>
 
+    <!-- Replies Section (Visible to both Admin and Regular Users) -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5>Replies</h5>
+        </div>
+        <div class="card-body">
+            <?php if (!empty($replies)): ?>
+                <ul class="list-group mb-4">
+                    <?php foreach ($replies as $reply): ?>
+                        <li class="list-group-item">
+                            <strong><?= esc($reply['userID'] == auth()->id() ? 'You' : 'Support Staff') ?>:</strong> <?= esc($reply['reply_text']) ?>
+                            <br>
+                            <small class="text-muted"><?= date('M d, Y h:i A', strtotime($reply['created_at'])) ?></small>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            <?php else: ?>
+                <p>No replies yet.</p>
+            <?php endif; ?>
+
+            <!-- Reply form (Visible to all users) -->
+            <form action="<?= base_url('/support/ticket/' . $ticket['ticketID'] . '/reply') ?>" method="post">
+                <?= csrf_field() ?>
+                <div class="mb-3">
+                    <textarea class="form-control" name="reply_text" rows="3" placeholder="Enter your reply here..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit Reply</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Update Ticket Status Section (Visible only to Admins) -->
+    <?php if (auth()->user()->inGroup('superadmin')): ?>
     <div class="card">
         <div class="card-header">
             <h5>Update Ticket Status</h5>
@@ -58,6 +91,8 @@
             </form>
         </div>
     </div>
+    <?php endif; ?>
+
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>

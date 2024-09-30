@@ -3,10 +3,18 @@
 namespace App\Controllers;
 
 use App\Models\SupportTicketModel;
+use App\Models\TicketRepliesModel;
 use App\Controllers\BaseController;
 
 class SupportController extends BaseController
 {
+
+    public function __construct()
+    {
+        $this->supportModel = new SupportTicketModel();
+        $this->repliesModel = new TicketRepliesModel();
+    }
+    
     public function reportProblem()
     {
         $userID = auth()->id();
@@ -78,20 +86,28 @@ class SupportController extends BaseController
     // View individual ticket details
     public function viewTicket($ticketID)
     {
-        $supportModel = new SupportTicketModel();
-        
-        // Find ticket by ID and join with the users table to get the submitter's details
-        $ticket = $supportModel
-            ->select('support_tickets.*, users.firstName, users.lastName')
-            ->join('users', 'users.id = support_tickets.userID')
-            ->where('support_tickets.ticketID', $ticketID)
+        $user = auth()->user();
+        $userID = auth()->id();
+
+        // Check if the ticket belongs to the user or if the user is superadmin
+        $ticket = $this->supportModel->where('ticketID', $ticketID)
+            ->where('userID', $userID)
+            ->orWhere('superadmin', $user->inGroup('superadmin'))
             ->first();
 
         if (!$ticket) {
-            return redirect()->to('/support_tickets')->with('error_message', 'Ticket not found.');
+            return redirect()->to('/view_user_tickets')->with('error', 'You do not have permission to view this ticket.');
         }
 
-        return view('PMS/ticket_details', ['ticket' => $ticket]);
+        // Fetch replies associated with this ticket
+        $replies = $this->repliesModel->where('ticketID', $ticketID)
+            ->orderBy('created_at', 'ASC')
+            ->findAll();
+
+        return view('PMS/ticket_details', [
+            'ticket' => $ticket,
+            'replies' => $replies
+        ]);
     }
 
     // Update the ticket's status
@@ -145,5 +161,24 @@ class SupportController extends BaseController
         }
 
         return view('PMS/user_tickets', ['tickets' => $tickets]);
+    }
+
+    public function addReply($ticketID)
+    {
+        $userID = auth()->id();
+        
+        $replyText = $this->request->getPost('reply_text');
+        
+        if (!$replyText) {
+            return redirect()->back()->with('error', 'Reply text cannot be empty.');
+        }
+
+        $this->repliesModel->save([
+            'ticketID' => $ticketID,
+            'userID' => $userID,
+            'reply_text' => $replyText
+        ]);
+
+        return redirect()->to('/support/ticket/' . $ticketID)->with('success', 'Reply added successfully.');
     }
 }
