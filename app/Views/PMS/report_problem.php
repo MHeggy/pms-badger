@@ -16,7 +16,7 @@
     <?php endif; ?>
 
     <h1 class="mb-4">Report a Problem</h1>
-    <form action="<?php echo base_url('/submit_problem') ?>" method="post" enctype="multipart/form-data">
+    <form action="<?php echo base_url('/report_problem') ?>" method="post" enctype="multipart/form-data">
         <div class="mb-3">
             <label for="problemTitle" class="form-label">Problem Title</label>
             <input type="text" class="form-control" id="problemTitle" name="problemTitle" placeholder="Brief title of the issue" required>
