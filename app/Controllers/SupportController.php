@@ -101,7 +101,7 @@ class SupportController extends BaseController
             ->first();
 
         // Check if the ticket exists and if the user has permission to view it
-        if (!$ticket || ($ticket['userID'] !== $userID && !$user->inGroup('superadmin'))) {
+        if (!$ticket || ($ticket['userID'] !== $userID)) {
             return redirect()->to('/view_user_tickets')->with('error', 'You do not have permission to view this ticket.');
         }
 
