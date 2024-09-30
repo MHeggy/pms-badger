@@ -157,3 +157,7 @@ $routes->post('/add_task', 'CategoryTaskController::addTask');
 // route for changing the password of a user who is logged in.
 $routes->get('/change_password', 'PeopleController::changePasswordView');
 $routes->post('/change_password', 'UserController::update_password');
+// routes for support tickets and related actions.
+$routes->get('/report_problem', 'SupportController::reportProblem');
+$routes->post('/report_problem', 'SupportController::submitProblem');
+$routes->get('/contact', 'SupportController::contact');
