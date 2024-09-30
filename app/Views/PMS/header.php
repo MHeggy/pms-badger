@@ -77,7 +77,7 @@
                                 <li><a class="dropdown-item" href="<?php echo base_url('/view_support_tickets') ?>">View Support Tickets</a></li>
                             <?php else : ?>
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="<?php echo base_url('/my_tickets') ?>">View Support Tickets</a></li>
+                                <li><a class="dropdown-item" href="<?php echo base_url('/my_tickets') ?>">My Tickets</a></li>
                             <?php endif; ?>
                         </ul>
                     </li>
