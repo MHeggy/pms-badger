@@ -52,6 +52,16 @@ class SupportController extends BaseController
     // Method to display all support tickets
     public function viewSupportTickets()
     {
+        $user = auth()->user();
+        $userID = auth()->id();
+
+        if (!$userID) {
+            return redirect()->to('/login')->with('error', 'You must login to access this page.');
+        }
+
+        if (!$user->inGroup('superadmin')) {
+            return redirect()->to('/dashboard')->with('error_message', 'You do not have permission to access this page.');
+        }
         $supportModel = new SupportTicketModel();
 
         // Perform a join to get user details along with the support tickets

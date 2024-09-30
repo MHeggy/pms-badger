@@ -15,7 +15,7 @@
         <thead class="table-dark">
             <tr>
                 <th scope="col">#</th>
-                <th scope="col"><i class="bi bi-person-fill"></i> User Name</th>
+                <th scope="col"><i class="bi bi-person-fill"></i> Name</th>
                 <th scope="col"><i class="bi bi-calendar3"></i> Date Submitted</th>
                 <th scope="col"><i class="bi bi-ticket-fill"></i> Title</th>
                 <th scope="col"><i class="bi bi-exclamation-triangle-fill"></i> Status</th>
