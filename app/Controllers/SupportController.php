@@ -93,8 +93,12 @@ class SupportController extends BaseController
             return redirect()->to('/login')->with('error', 'You must login to access this page.');
         }
 
-        // Fetch the ticket
-        $ticket = $this->supportModel->where('ticketID', $ticketID)->first();
+        // Fetch the ticket with the user's details
+        $ticket = $this->supportModel
+            ->select('tickets.*, users.firstName, users.lastName') // Select ticket fields and user details
+            ->join('users', 'users.id = tickets.userID') // Join with users table
+            ->where('tickets.ticketID', $ticketID)
+            ->first();
 
         // Check if the ticket exists and if the user has permission to view it
         if (!$ticket || ($ticket['userID'] !== $userID && !$user->inGroup('superadmin'))) {
