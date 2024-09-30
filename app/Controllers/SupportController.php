@@ -83,19 +83,21 @@ class SupportController extends BaseController
         return view('PMS/view_tickets', ['tickets' => $tickets]);
     }
 
-    // View individual ticket details
     public function viewTicket($ticketID)
     {
         $user = auth()->user();
         $userID = auth()->id();
 
-        // Check if the ticket belongs to the user or if the user is superadmin
-        $ticket = $this->supportModel->where('ticketID', $ticketID)
-            ->where('userID', $userID)
-            ->orWhere('superadmin', $user->inGroup('superadmin'))
-            ->first();
+        // Check if the user is authenticated
+        if (!$userID) {
+            return redirect()->to('/login')->with('error', 'You must login to access this page.');
+        }
 
-        if (!$ticket) {
+        // Fetch the ticket
+        $ticket = $this->supportModel->where('ticketID', $ticketID)->first();
+
+        // Check if the ticket exists and if the user has permission to view it
+        if (!$ticket || ($ticket['userID'] !== $userID && !$user->inGroup('superadmin'))) {
             return redirect()->to('/view_user_tickets')->with('error', 'You do not have permission to view this ticket.');
         }
 
@@ -109,6 +111,7 @@ class SupportController extends BaseController
             'replies' => $replies
         ]);
     }
+
 
     // Update the ticket's status
     public function updateTicketStatus($ticketID)
