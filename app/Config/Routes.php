@@ -161,3 +161,4 @@ $routes->post('/change_password', 'UserController::update_password');
 $routes->get('/report_problem', 'SupportController::reportProblem');
 $routes->post('/report_problem', 'SupportController::submitProblem');
 $routes->get('/contact', 'SupportController::contact');
+$routes->get('/view_support_tickets', 'SupportController::viewSupportTickets');

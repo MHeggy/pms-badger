@@ -48,4 +48,21 @@ class SupportController extends BaseController
         // Redirect back with success message
         return redirect()->to('/report_problem')->with('message', 'Problem reported successfully.');
     }
+
+    // Method to display all support tickets
+    public function viewSupportTickets()
+    {
+        $supportModel = new SupportTicketModel();
+        $userModel = new UserModel();
+
+        // Perform a join to get user details along with the support tickets
+        $tickets = $supportModel
+            ->select('support_tickets.*, users.firstName, users.lastName')
+            ->join('users', 'users.id = support_tickets.userID')
+            ->orderBy('support_tickets.created_at', 'DESC')
+            ->findAll();
+
+        // Pass the tickets data to the view
+        return view('support/view_support_tickets', ['tickets' => $tickets]);
+    }
 }
