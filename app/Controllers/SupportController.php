@@ -100,9 +100,9 @@ class SupportController extends BaseController
             ->where('support_tickets.ticketID', $ticketID)
             ->first();
 
-        // Check if the ticket exists and if the user has permission to view it
-        if (!$ticket || ($ticket['userID'] !== $userID)) {
-            return redirect()->to('/view_user_tickets')->with('error', 'You do not have permission to view this ticket.');
+        // Check if the ticket exists
+        if (!$ticket) {
+            return redirect()->to('/view_user_tickets')->with('error', 'Ticket not found.');
         }
 
         // Fetch replies associated with this ticket
@@ -115,7 +115,6 @@ class SupportController extends BaseController
             'replies' => $replies
         ]);
     }
-
 
     // Update the ticket's status
     public function updateTicketStatus($ticketID)
