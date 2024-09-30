@@ -165,4 +165,4 @@ $routes->get('/view_support_tickets', 'SupportController::viewSupportTickets');
 $routes->get('/support_ticket/(:num)', 'SupportController::viewTicket/$1');
 $routes->post('/support_ticket/update/(:num)', 'SupportController::updateTicketStatus/$1');
 $routes->get('/my_tickets', 'SupportController::viewUserTickets');
-$routes->post('/support_ticket/reply/(:num)', 'SupportController::addReply/$1');
+$routes->post('/support_ticket/(:num)/reply', 'SupportController::addReply/$1');
