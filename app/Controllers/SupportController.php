@@ -62,6 +62,6 @@ class SupportController extends BaseController
             ->findAll();
 
         // Pass the tickets data to the view
-        return view('PMS/view_support_tickets', ['tickets' => $tickets]);
+        return view('PMS/view_tickets', ['tickets' => $tickets]);
     }
 }
