@@ -70,7 +70,6 @@
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="supportDropdown">
                             <li><a class="dropdown-item" href="<?php echo base_url('/report_problem') ?>">Report a Problem</a></li>
-                            <li><a class="dropdown-item" href="<?php echo base_url('/contact') ?>">Contact</a></li>
                             <!-- Show 'View Support Tickets' only for superadmin group -->
                             <?php if ($user->inGroup('superadmin')): ?>
                                 <li><hr class="dropdown-divider"></li>
