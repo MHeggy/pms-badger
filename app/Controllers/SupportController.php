@@ -95,9 +95,9 @@ class SupportController extends BaseController
 
         // Fetch the ticket with the user's details
         $ticket = $this->supportModel
-            ->select('tickets.*, users.firstName, users.lastName') // Select ticket fields and user details
-            ->join('users', 'users.id = tickets.userID') // Join with users table
-            ->where('tickets.ticketID', $ticketID)
+            ->select('support_tickets.*, users.firstName, users.lastName') // Select ticket fields and user details
+            ->join('users', 'users.id = support_tickets.userID') // Join with users table
+            ->where('support_tickets.ticketID', $ticketID)
             ->first();
 
         // Check if the ticket exists and if the user has permission to view it
