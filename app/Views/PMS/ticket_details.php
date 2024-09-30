@@ -58,7 +58,7 @@
             <?php endif; ?>
 
             <!-- Reply form (Visible to all users) -->
-            <form action="<?= base_url('/support/ticket/' . $ticket['ticketID'] . '/reply') ?>" method="post">
+            <form action="<?= base_url('/support_ticket/' . $ticket['ticketID'] . '/reply') ?>" method="post">
                 <?= csrf_field() ?>
                 <div class="mb-3">
                     <textarea class="form-control" name="reply_text" rows="3" placeholder="Enter your reply here..."></textarea>
