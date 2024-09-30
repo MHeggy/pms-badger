@@ -185,6 +185,6 @@ class SupportController extends BaseController
             'reply_text' => $replyText
         ]);
 
-        return redirect()->to('/support/ticket/' . $ticketID)->with('success', 'Reply added successfully.');
+        return redirect()->to('/support_ticket/' . $ticketID)->with('success', 'Reply added successfully.');
     }
 }

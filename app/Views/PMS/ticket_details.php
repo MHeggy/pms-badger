@@ -75,7 +75,7 @@
             <h5>Update Ticket Status</h5>
         </div>
         <div class="card-body">
-            <form action="<?= site_url('support/ticket/' . $ticket['ticketID'] . '/reply') ?>" method="post">
+            <form action="<?= site_url('support_ticket/reply/' . $ticket['ticketID']) ?>" method="post">
                 <?= csrf_field() ?>
                 
                 <div class="mb-3">
