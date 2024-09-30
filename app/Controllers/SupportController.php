@@ -19,6 +19,7 @@ class SupportController extends BaseController
 
     public function submitProblem()
     {
+        $user = auth()->user();
         $supportModel = new SupportTicketModel();
 
         // Handle the file upload
@@ -32,7 +33,7 @@ class SupportController extends BaseController
         }
 
         $data = [
-            'userID' => user()->id,  // Assuming user is logged in
+            'userID' => $user->id,  // Assuming user is logged in
             'issue_title' => $this->request->getPost('problemTitle'),
             'issue_description' => $this->request->getPost('problemDescription'),
             'priority' => $this->request->getPost('priority'),
