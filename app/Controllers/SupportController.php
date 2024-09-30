@@ -114,4 +114,36 @@ class SupportController extends BaseController
 
         return redirect()->to('/support_ticket/' . $ticketID)->with('message', 'Ticket status updated successfully.');
     }
+
+    public function viewUserTickets()
+    {
+        $user = auth()->user();
+        $userID = auth()->id();
+
+        if (!$userID) {
+            return redirect()->to('/login')->with('error', 'You must login to access this page.');
+        }
+
+        $supportModel = new SupportTicketModel();
+
+        // Check if the user is a superadmin
+        if ($user->inGroup('superadmin')) {
+            // Superadmins can view all tickets
+            $tickets = $supportModel
+                ->select('support_tickets.*, users.firstName, users.lastName')
+                ->join('users', 'users.id = support_tickets.userID')
+                ->orderBy('support_tickets.created_at', 'DESC')
+                ->findAll();
+        } else {
+            // Regular users can only view their own tickets
+            $tickets = $supportModel
+                ->select('support_tickets.*, users.firstName, users.lastName')
+                ->join('users', 'users.id = support_tickets.userID')
+                ->where('support_tickets.userID', $userID)
+                ->orderBy('support_tickets.created_at', 'DESC')
+                ->findAll();
+        }
+
+        return view('PMS/user_tickets', ['tickets' => $tickets]);
+    }
 }
