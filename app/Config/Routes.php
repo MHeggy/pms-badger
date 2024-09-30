@@ -162,3 +162,5 @@ $routes->get('/report_problem', 'SupportController::reportProblem');
 $routes->post('/report_problem', 'SupportController::submitProblem');
 $routes->get('/contact', 'SupportController::contact');
 $routes->get('/view_support_tickets', 'SupportController::viewSupportTickets');
+$routes->get('/support_ticket/(:num)', 'SupportController::viewTicket/$1');
+$routes->post('/support_ticket/update/(:num)', 'SupportController::updateTicketStatus/$1');

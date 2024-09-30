@@ -28,7 +28,9 @@
                         <th scope="row"><?= $index + 1 ?></th>
                         <td><?= esc($ticket['firstName'] . ' ' . $ticket['lastName']) ?></td>
                         <td><?= date('M d, Y', strtotime($ticket['created_at'])) ?></td>
-                        <td><?= esc($ticket['issue_title']) ?></td>
+                        <td>
+                            <a href="<?= site_url('support_ticket/' . $ticket['ticketID']) ?>" class="text-decoration-none"><?= esc($ticket['issue_title']) ?></a>
+                        </td>
                         <td>
                             <?php if ($ticket['status'] == 'open'): ?>
                                 <span class="badge bg-warning text-dark"><i class="bi bi-hourglass-split"></i> Open</span>

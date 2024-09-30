@@ -74,4 +74,44 @@ class SupportController extends BaseController
         // Pass the tickets data to the view
         return view('PMS/view_tickets', ['tickets' => $tickets]);
     }
+
+    // View individual ticket details
+    public function viewTicket($ticketID)
+    {
+        $supportModel = new SupportTicketModel();
+        
+        // Find ticket by ID and join with the users table to get the submitter's details
+        $ticket = $supportModel
+            ->select('support_tickets.*, users.firstName, users.lastName')
+            ->join('users', 'users.id = support_tickets.userID')
+            ->where('support_tickets.ticketID', $ticketID)
+            ->first();
+
+        if (!$ticket) {
+            return redirect()->to('/support_tickets')->with('error_message', 'Ticket not found.');
+        }
+
+        return view('PMS/ticket_details', ['ticket' => $ticket]);
+    }
+
+    // Update the ticket's status
+    public function updateTicketStatus($ticketID)
+    {
+        $supportModel = new SupportTicketModel();
+
+        // Check if the ticket exists
+        $ticket = $supportModel->find($ticketID);
+
+        if (!$ticket) {
+            return redirect()->to('/support_tickets')->with('error_message', 'Ticket not found.');
+        }
+
+        // Get the new status from the form submission
+        $newStatus = $this->request->getPost('status');
+
+        // Update the ticket's status
+        $supportModel->update($ticketID, ['status' => $newStatus]);
+
+        return redirect()->to('/support_ticket/' . $ticketID)->with('message', 'Ticket status updated successfully.');
+    }
 }
