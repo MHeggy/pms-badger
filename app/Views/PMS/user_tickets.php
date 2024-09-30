@@ -40,7 +40,7 @@
                             <?php endif; ?>
                         </td>
                         <td>
-                            <a href="/support/ticket/<?= esc($ticket['ticketID']) ?>" class="btn btn-sm btn-primary">
+                            <a href="/support_ticket/<?= esc($ticket['ticketID']) ?>" class="btn btn-sm btn-primary">
                                 <i class="bi bi-eye-fill"></i> View
                             </a>
                         </td>
