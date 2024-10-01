@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="<?php echo base_url('/assets/css/main.css') ?>">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <link href="<?php echo base_url('/assets/img/BE Logo - New transparent.png') ?>" rel="image/ico">
 </head>
 <body>
 <?php $user = auth()->user(); ?>
