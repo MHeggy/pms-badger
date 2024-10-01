@@ -128,3 +128,4 @@ nb-configuration.xml
 
 # Configuration files
 app/Config/Database.php
+app/Config/Email.php
