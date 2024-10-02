@@ -189,7 +189,7 @@ class PeopleController extends BaseController {
         if (!$user) {
             return redirect()->to('/login')->with('error', 'You must login to access this page.');
         }
-        
+
         return view('PMS/change_password.php');
     }
 
@@ -220,6 +220,6 @@ class PeopleController extends BaseController {
         $userModel->update($userId, ['password' => $hashedPassword]);
 
         session()->setFlashdata('success', 'Password changed successfully.');
-        return redirect()->to('/change_password'); // Redirect to the same page or a success page
+        return redirect()->to('/dashboard'); // Redirect to the same page or a success page
     }
 }
