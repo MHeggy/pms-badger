@@ -274,6 +274,16 @@
         const replyBox = document.getElementById("replyBox");
         replyBox.style.display = replyBox.style.display === "none" ? "block" : "none";
     });
+
+    // Show edit reply modal
+    document.querySelectorAll('.edit-reply').forEach(button => {
+        button.addEventListener('click', function() {
+            const replyId = this.getAttribute('data-reply-id');
+            const modal = document.getElementById(`editReplyModal${replyId}`);
+            const modalInstance = new bootstrap.Modal(modal);
+            modalInstance.show();
+        });
+    });
 </script>
 </body>
 </html>
