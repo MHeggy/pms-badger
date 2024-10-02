@@ -177,6 +177,27 @@
                                 </form>
                             </div>
                         </div>
+
+                        <!-- Edit Reply Modal -->
+                        <div class="modal fade" id="editReplyModal<?= $reply['id']; ?>" tabindex="-1" aria-labelledby="editReplyModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="editReplyModalLabel">Edit Reply</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="/forums/update_reply/<?= $reply['id']; ?>" method="post">
+                                            <input type="hidden" name="post_id" value="<?= $post['id']; ?>">
+                                            <div class="mb-3">
+                                                <textarea class="form-control" name="content" rows="4"><?= esc($reply['content']); ?></textarea>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     <?php endforeach; ?>
                 </div>
             <?php else: ?>
@@ -236,27 +257,8 @@
     </div>
 </div>
 
-<!-- Edit Reply Modal -->
-    <div class="modal fade" id="editReplyModal<?= $reply['id']; ?>" tabindex="-1" aria-labelledby="editReplyModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editReplyModalLabel">Edit Reply</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form action="/forums/update_reply/<?= $reply['id']; ?>" method="post">
-                        <input type="hidden" name="post_id" value="<?= $post['id']; ?>">
-                        <div class="mb-3">
-                            <textarea class="form-control" name="content" rows="4"><?= esc($reply['content']); ?></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Save Changes</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 <!-- TinyMCE initialization -->
 <script src="https://cdn.tiny.cloud/1/eectismo1492cjcg16e1j17geuwjywoji6ldcnpay2cqxlay/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 <script>
