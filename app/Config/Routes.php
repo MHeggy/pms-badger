@@ -16,7 +16,7 @@ $routes->post('/forums/createPost','ForumController::createPost');
 // route for replying to forum post.
 $routes->post('/forums/replyToPost/(:num)', 'ForumController::replyToPost/$1');
 // route for getting to specific forums details page.
-$routes->get('/forums/view/(:num)', 'ForumController::viewPost/$1');
+$routes->get('/forums/post/(:num)', 'ForumController::viewPost/$1');
 // route for editing forum post.
 $routes->post('/forums/updatePost/(:num)', 'ForumController::updatePost/$1');
 // route for deleting posts from forum
