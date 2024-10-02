@@ -239,7 +239,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                <form id="deleteReplyForm" action="" method="post" class="d-inline">
+                <form action="/forums/deleteReply/<?= $reply['id']; ?>" method="post" class="d-inline">
                     <input type="hidden" name="_method" value="DELETE">
                     <button type="submit" class="btn btn-danger">Yes</button>
                 </form>
