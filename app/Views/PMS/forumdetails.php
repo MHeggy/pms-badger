@@ -169,12 +169,9 @@
                                 <button type="button" class="btn btn-edit edit-reply" data-reply-id="<?= $reply['id']; ?>" data-bs-toggle="modal" data-bs-target="#editReplyModal">
                                     <i class="fas fa-edit"></i>
                                 </button>
-                                <form action="/forums/deleteReply/<?= $reply['id']; ?>" method="post" class="d-inline-block">
-                                    <input type="hidden" name="_method" value="DELETE">
-                                    <button type="submit" class="btn btn-delete">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </form>
+                                <button type="button" class="btn btn-delete delete-reply" data-reply-id="<?= $reply['id']; ?>" data-bs-toggle="modal" data-bs-target="#deleteReplyModal">
+                                    <i class="fas fa-trash"></i>
+                                </button>
                             </div>
                         </div>
 
@@ -221,6 +218,28 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
                 <form action="/forums/deletePost/<?= $post['id']; ?>" method="post" class="d-inline">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <button type="submit" class="btn btn-danger">Yes</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Reply Modal -->
+<div class="modal fade" id="deleteReplyModal" tabindex="-1" aria-labelledby="deleteReplyModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteReplyModalLabel">Confirm Deletion</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete this reply?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                <form id="deleteReplyForm" action="" method="post" class="d-inline">
                     <input type="hidden" name="_method" value="DELETE">
                     <button type="submit" class="btn btn-danger">Yes</button>
                 </form>
@@ -284,6 +303,18 @@
             modalInstance.show();
         });
     });
+
+    // Show delete reply modal
+    document.querySelectorAll('.delete-reply').forEach(button => {
+        button.addEventListener('click', function() {
+            const replyId = this.getAttribute('data-reply-id');
+            const deleteForm = document.getElementById('deleteReplyForm');
+            deleteForm.action = `/forums/deleteReply/${replyId}`; // Update action URL
+            const modal = new bootstrap.Modal(document.getElementById('deleteReplyModal'));
+            modal.show();
+        });
+    });
+
 </script>
 </body>
 </html>
