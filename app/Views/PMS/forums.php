@@ -59,7 +59,7 @@
                 </select>
 
                 <!-- Create Post Button -->
-                <button id="createPostBtn" class="btn btn-primary">
+                <button id="createPostBtn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createDiscussionModal">
                     <i class="fas fa-plus"></i> Create Project Discussion
                 </button>
             </div>
@@ -88,3 +88,52 @@
         </div>
     </div>
 </main>
+
+<!-- Create Project Discussion Modal -->
+<div class="modal fade" id="createDiscussionModal" tabindex="-1" aria-labelledby="createDiscussionModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="<?= base_url('/forums/create') ?>" method="POST">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createDiscussionModalLabel">
+                        <i class="fas fa-comments"></i> Create New Project Discussion
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Title input -->
+                    <div class="mb-3">
+                        <label for="title" class="form-label"><i class="fas fa-heading"></i> Title</label>
+                        <input type="text" class="form-control" id="title" name="title" placeholder="Enter discussion title" required>
+                    </div>
+                    <!-- Content input -->
+                    <div class="mb-3">
+                        <label for="content" class="form-label"><i class="fas fa-align-left"></i> Content</label>
+                        <textarea class="form-control" id="content" name="content" rows="5" placeholder="Write your content here..." required></textarea>
+                    </div>
+                    <!-- Category select -->
+                    <div class="mb-3">
+                        <label for="category_id" class="form-label"><i class="fas fa-list-ul"></i> Category</label>
+                        <select class="form-select" id="category_id" name="category_id" required>
+                            <option value="">Select Category</option>
+                            <?php foreach ($categories as $category): ?>
+                                <option value="<?= $category['id'] ?>"><?= $category['name'] ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="fas fa-times"></i> Cancel
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-check"></i> Create Discussion
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap and jQuery JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
