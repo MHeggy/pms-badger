@@ -73,7 +73,7 @@ class ForumController extends Controller {
         $this->replyModel->insert($replyData);
 
         // Redirect back to the view post page
-        return redirect()->to("/forums/view/{$postId}");
+        return redirect()->to("/forums/post/{$postId}");
     }
 
     public function updatePost($postId) {
