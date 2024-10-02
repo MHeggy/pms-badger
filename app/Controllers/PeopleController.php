@@ -183,6 +183,13 @@ class PeopleController extends BaseController {
 
     public function changePasswordView()
     {
+        $user = auth()->user();
+
+        // if user not logged in redirect to the login page with message telling them to login.
+        if (!$user) {
+            return redirect()->to('/login')->with('error', 'You must login to access this page.');
+        }
+        
         return view('PMS/change_password.php');
     }
 

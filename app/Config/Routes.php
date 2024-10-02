@@ -124,7 +124,7 @@ $routes->get('/reports', 'PeopleController::reportsView');
 // route for displaying the activity page.
 $routes->get('/activity', 'PeopleController::activityView');
 // route for displaying the change password page.
-$routes->get('/user/change_password', 'UserController::changePasswordView');
+// $routes->get('/user/change_password', 'UserController::changePasswordView');
 // route for viewing timesheets by the week
 $routes->get('/accountantpayroll/week/(:segment)', 'PayrollController::viewWeek/$1');
 // route for actually changing the user's password in the database.
@@ -156,7 +156,7 @@ $routes->post('/add_category', 'CategoryTaskController::addCategory');
 $routes->post('/add_task', 'CategoryTaskController::addTask');
 // route for changing the password of a user who is logged in.
 $routes->get('/change_password', 'PeopleController::changePasswordView');
-$routes->post('/change_password', 'UserController::update_password');
+$routes->post('/change_password', 'PeopleController::update_password');
 // routes for support tickets and related actions.
 $routes->get('/report_problem', 'SupportController::reportProblem');
 $routes->post('/report_problem', 'SupportController::submitProblem');
