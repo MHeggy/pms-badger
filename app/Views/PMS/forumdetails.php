@@ -13,18 +13,29 @@
         font-size: 0.9rem;
     }
 
-    /* Consistent styling for buttons */
+    /* Consistent styling for action buttons */
     .action-buttons .btn {
-        font-size: 0.875rem; 
-        padding: 0.375rem 0.75rem;
-        margin: 0.2rem;
+        padding: 0.25rem 0.5rem;
+        border-radius: 50%;
         display: inline-flex;
         align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        margin-right: 0.5rem;
+        color: white;
+        transition: background-color 0.3s ease;
     }
 
-    .action-buttons .btn i {
-        margin-right: 0.5rem; /* Spacing between icon and text */
-    }
+    /* Specific colors for action buttons */
+    .action-buttons .btn-reply { background-color: #6c757d; }
+    .action-buttons .btn-reply:hover { background-color: #5a6268; }
+
+    .action-buttons .btn-edit { background-color: #17a2b8; }
+    .action-buttons .btn-edit:hover { background-color: #138496; }
+
+    .action-buttons .btn-delete { background-color: #dc3545; }
+    .action-buttons .btn-delete:hover { background-color: #c82333; }
 
     .post-card, .reply-card {
         background-color: #f9f9f9;
@@ -83,16 +94,16 @@
                     <h5 class="mb-1"><?= $post['title']; ?></h5>
                     <p class="mb-0"><?= $post['content']; ?></p>
                 </div>
-                <!-- Action Buttons -->
+                <!-- Action Buttons with Icons Only -->
                 <div class="action-buttons mt-3">
-                    <button type="button" class="btn btn-success btn-sm" id="replybtn">
-                        <i class="fas fa-reply"></i> Reply
+                    <button type="button" class="btn btn-reply" id="replybtn">
+                        <i class="fas fa-reply"></i>
                     </button>
-                    <button type="button" class="btn btn-info btn-sm btn-edit" id="editbtn" data-bs-toggle="modal" data-bs-target="#editModal">
-                        <i class="fas fa-edit"></i> Edit
+                    <button type="button" class="btn btn-edit" id="editbtn" data-bs-toggle="modal" data-bs-target="#editModal">
+                        <i class="fas fa-edit"></i>
                     </button>
-                    <button type="button" class="btn btn-danger btn-sm" id="deletebtn" data-bs-toggle="modal" data-bs-target="#deleteModal">
-                        <i class="fas fa-trash"></i> Delete
+                    <button type="button" class="btn btn-delete" id="deletebtn" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                        <i class="fas fa-trash"></i>
                     </button>
                 </div>
                 <!-- Reply Box -->
@@ -113,26 +124,20 @@
                     <?php foreach ($replies as $reply): ?>
                         <div class="reply-card border rounded mb-3 p-3">
                             <!-- Reply Author and Timestamp -->
-                            <?php
-                            $replyAuthor = ""; 
-                            if (isset($reply['user_id'])) {
-                                $replyAuthor = auth()->user()->username;
-                            }
-                            ?>
                             <div class="reply-author-info text-muted mb-2">
-                                Reply by: <?= $replyAuthor; ?> <br> <?= date('F j, Y, g:i a', strtotime($reply['created_at'])); ?>
+                                Reply by: <?= auth()->user()->username; ?> <br> <?= date('F j, Y, g:i a', strtotime($reply['created_at'])); ?>
                             </div>
                             <!-- Reply Content -->
                             <p class="mb-0"><?= $reply['content']; ?></p>
                             <!-- Action Buttons for Replies -->
                             <div class="action-buttons mt-2">
-                                <button type="button" class="btn btn-primary btn-sm btn-edit edit-reply" data-reply-id="<?= $reply['id']; ?>" data-bs-toggle="modal" data-bs-target="#editReplyModal">
-                                    <i class="fas fa-edit"></i> Edit
+                                <button type="button" class="btn btn-edit edit-reply" data-reply-id="<?= $reply['id']; ?>" data-bs-toggle="modal" data-bs-target="#editReplyModal">
+                                    <i class="fas fa-edit"></i>
                                 </button>
                                 <form action="/forums/deleteReply/<?= $reply['id']; ?>" method="post" class="d-inline-block">
                                     <input type="hidden" name="_method" value="DELETE">
-                                    <button type="submit" class="btn btn-danger btn-sm">
-                                        <i class="fas fa-trash"></i> Delete
+                                    <button type="submit" class="btn btn-delete">
+                                        <i class="fas fa-trash"></i>
                                     </button>
                                 </form>
                             </div>
