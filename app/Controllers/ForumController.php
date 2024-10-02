@@ -98,4 +98,19 @@ class ForumController extends Controller {
         return redirect()->to('/forums')->with('success', 'Post and its replies have been deleted.');
     }
 
+    public function updateReply($replyId) {
+        $replyData = [
+            'content' => $this->request->getPost('content'),
+        ];
+
+        $this->replyModel->update($replyId, $replyData);
+
+        return redirect()->to("/forums/post/{$this->request->getPost('post_id')}");
+    }
+    
+    public function deleteReply($replyId) {
+        $this->replyModel->delete($replyId);
+        return redirect()->to("/forums/post/{$this->request->getGet('post_id')}")->with('success', 'Reply has been deleted.');
+    }
+
 }

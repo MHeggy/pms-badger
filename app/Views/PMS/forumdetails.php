@@ -237,34 +237,25 @@
 </div>
 
 <!-- Edit Reply Modal -->
-<div class="modal fade" id="editReplyModal" tabindex="-1" aria-labelledby="editReplyModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editReplyModalLabel">
-                    <i class="fas fa-edit"></i> Edit Reply
-                </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="editReplyForm" action="/forums/updateReply/<?= $reply['id']; ?>" method="post">
-                    <div class="mb-3">
-                        <label for="editReplyContent" class="form-label">Reply Content</label>
-                        <textarea class="form-control tinymce" id="editReplyContent" name="reply_content" rows="4"><?= $reply['content']; ?></textarea>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                    <i class="fas fa-times"></i> Close
-                </button>
-                <button type="submit" class="btn btn-primary" form="editReplyForm">
-                    <i class="fas fa-save"></i> Save changes
-                </button>
+    <div class="modal fade" id="editReplyModal<?= $reply['id']; ?>" tabindex="-1" aria-labelledby="editReplyModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editReplyModalLabel">Edit Reply</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="/forums/update_reply/<?= $reply['id']; ?>" method="post">
+                        <input type="hidden" name="post_id" value="<?= $post['id']; ?>">
+                        <div class="mb-3">
+                            <textarea class="form-control" name="content" rows="4"><?= esc($reply['content']); ?></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 <!-- TinyMCE initialization -->
 <script src="https://cdn.tiny.cloud/1/eectismo1492cjcg16e1j17geuwjywoji6ldcnpay2cqxlay/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>

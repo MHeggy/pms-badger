@@ -21,6 +21,8 @@ $routes->get('/forums/post/(:num)', 'ForumController::viewPost/$1');
 $routes->post('/forums/updatePost/(:num)', 'ForumController::updatePost/$1');
 // route for deleting posts from forum
 $routes->delete('/forums/deletePost/(:num)', 'ForumController::deletePost/$1');
+// route for updating a reply to a post.
+$routes->post('/forums/update_reply/(:num)', 'ForumController::updateReply/$1');
 // route for personal messages page
 $routes->get('/personalmessages', 'PersonalMessagesController::index');
 // route for getting messages
