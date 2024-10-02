@@ -19,55 +19,47 @@
         color: #333;
     }
 
-    /* Additional Styles */
-    .inner-main-header-container {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 20px;
-    }
-
-    .inner-main-header {
-        display: flex;
-        align-items: center;
-    }
-
-    .inner-main-header select {
-        margin-left: 10px;
-    }
-
-    #createPostBtn {
-        margin-left: auto;
-        white-space: nowrap;
+    /* Styles for the sidebar and forum content */
+    .forum-sidebar {
+        width: 20%;
+        margin-right: 5%;
     }
 
     .forum-content {
-        margin-left: 15%;
+        width: 75%;
+    }
+
+    .inner-main-header-container {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    #createPostBtn {
+        white-space: nowrap;
+        width: 100%;
+    }
+
+    .forum-content .card {
+        margin-bottom: 15px;
     }
 </style>
 
 <main>
-    <div class="container mt-4">
-        <div class="d-flex">
-            <!-- Inner main header section (side content) -->
+    <div class="container mt-4 d-flex">
+        <!-- Sidebar: Sorting dropdown and Create Project Discussion button -->
+        <div class="forum-sidebar">
             <div class="inner-main-header-container">
-                <div class="inner-main-header">
-                    <!-- Sorting Dropdown -->
-                    <select name="category_id" id="sort-category" class="form-select" onchange="document.getElementById('sort-form').submit();">
-                        <option value="">All Categories</option>
-                        <?php foreach ($categories as $category): ?>
-                            <option value="<?= $category['id'] ?>"><?= $category['name'] ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                    
-                    <!-- Search Bar -->
-                    <span class="input-icon input-icon-sm ml-3">
-                        <input type="text" class="form-control form-control-sm bg-gray-200 border-gray-200 shadow-none" placeholder="Search forum" />
-                    </span>
-                </div>
+                <!-- Sorting Dropdown -->
+                <select name="category_id" id="sort-category" class="form-select" onchange="document.getElementById('sort-form').submit();">
+                    <option value="">All Categories</option>
+                    <?php foreach ($categories as $category): ?>
+                        <option value="<?= $category['id'] ?>"><?= $category['name'] ?></option>
+                    <?php endforeach; ?>
+                </select>
 
                 <!-- Create Post Button -->
-                <button id="createPostBtn" class="btn btn-primary ml-3">
+                <button id="createPostBtn" class="btn btn-primary">
                     <i class="fas fa-plus"></i> Create Project Discussion
                 </button>
             </div>
@@ -76,7 +68,7 @@
         <!-- Forum Posts Section -->
         <div class="forum-content">
             <?php foreach ($posts as $post): ?>
-                <div class="card mb-2">
+                <div class="card">
                     <div class="card-body p-2 p-sm-3">
                         <div class="media forum-item">
                             <div class="media-body">
