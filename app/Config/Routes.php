@@ -12,7 +12,7 @@ $routes->get('/dashboard', 'PeopleController::home');
 // route for messaging page.
 $routes->get('/forums', 'ForumController::index');
 // route for creating forum post.
-$routes->post('/forums/createPost','ForumController::createPost');
+$routes->post('/forums/create','ForumController::createPost');
 // route for replying to forum post.
 $routes->post('/forums/replyToPost/(:num)', 'ForumController::replyToPost/$1');
 // route for getting to specific forums details page.
