@@ -61,14 +61,49 @@
         margin-top: 1rem;
     }
 
-    /* Modal content styling */
-    .modal-body {
-        padding: 20px;
-    }
-
     .modal-footer {
         display: flex;
         justify-content: space-between;
+    }
+
+    .modal-header {
+        padding: 1rem 1.5rem;
+    }
+
+    .modal-body {
+        padding: 1.5rem;
+    }
+
+    .modal-footer {
+        padding: 1rem 1.5rem;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .modal-title {
+        display: flex;
+        align-items: center;
+    }
+
+    .modal-title i {
+        margin-right: 0.5rem;
+    }
+
+    .btn-primary, .btn-danger, .btn-secondary {
+        display: inline-flex;
+        align-items: center;
+    }
+
+    .btn-primary i, .btn-danger i, .btn-secondary i {
+        margin-right: 0.5rem;
+    }
+
+    .modal-header.bg-danger {
+        background-color: #dc3545;
+    }
+
+    .modal-header.bg-info {
+        background-color: #17a2b8;
     }
 </style>
 
@@ -196,6 +231,36 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 <button type="submit" class="btn btn-primary" form="editForm">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Reply Modal -->
+<div class="modal fade" id="editReplyModal" tabindex="-1" aria-labelledby="editReplyModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editReplyModalLabel">
+                    <i class="fas fa-edit"></i> Edit Reply
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editReplyForm" action="/forums/updateReply/<?= $reply['id']; ?>" method="post">
+                    <div class="mb-3">
+                        <label for="editReplyContent" class="form-label">Reply Content</label>
+                        <textarea class="form-control tinymce" id="editReplyContent" name="reply_content" rows="4"><?= $reply['content']; ?></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <i class="fas fa-times"></i> Close
+                </button>
+                <button type="submit" class="btn btn-primary" form="editReplyForm">
+                    <i class="fas fa-save"></i> Save changes
+                </button>
             </div>
         </div>
     </div>
