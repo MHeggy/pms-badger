@@ -96,7 +96,6 @@
     </div>
 </div>
 <!-- Script for showing the current password typed into the bar --> 
-<script src="https://www.google.com/recaptcha/api.js"></script>
 <script>
 function togglePassword(id) {
     var passwordField = document.getElementById(id);
