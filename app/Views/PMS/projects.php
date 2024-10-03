@@ -27,7 +27,7 @@
         color: #fff; /* White text */
     }
     .badge-warning {
-        background-color: #ffc107; /* Yellow for 'Cancelled' or 'Postponed' */
+        background-color: #dc3545; /* Red for 'Cancelled' or 'Postponed' */
         color: #212529; /* Dark text */
     }
     .btn-clear {
