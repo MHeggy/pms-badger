@@ -113,6 +113,10 @@ body {
     vertical-align: middle;
 }
 
+.table td a {
+    text-decoration: none;
+}
+
 .sort-arrow {
     display: inline-block;
     margin-left: 5px;
