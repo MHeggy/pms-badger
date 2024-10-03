@@ -82,6 +82,7 @@
             </div>
 
             <div class="g-recaptcha" data-sitekey="6LfE21YqAAAAAEoXv_de7Qq58dcgt2OY_AAvCwOE"></div>
+            <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
             <!-- Submit Button -->
             <div class="d-grid col-12 col-md-8 mx-auto m-3">
