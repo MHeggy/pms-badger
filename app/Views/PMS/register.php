@@ -81,10 +81,7 @@
                 <i class="fas fa-eye position-absolute top-50 end-0 translate-middle-y pe-2" onclick="togglePassword('floatingPasswordConfirmInput')" style="cursor: pointer;"></i>
             </div>
 
-            <button class="g-recaptcha" 
-                data-sitekey="6LfE21YqAAAAAEoXv_de7Qq58dcgt2OY_AAvCwOE" 
-                data-callback='onSubmit' 
-                data-action='submit'>Submit</button>
+            <div class="g-recaptcha" data-sitekey="6LfE21YqAAAAAEoXv_de7Qq58dcgt2OY_AAvCwOE" ></div>
 
             <!-- Submit Button -->
             <div class="d-grid col-12 col-md-8 mx-auto m-3">
@@ -113,6 +110,16 @@ function togglePassword(id) {
         icon.classList.add("fa-eye");
     }
 }
+document.getElementById('registerForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent form submission until reCAPTCHA is validated
+
+        grecaptcha.execute(); // Manually trigger reCAPTCHA validation
+    });
+
+    function onSubmit(token) {
+        // Once reCAPTCHA is successful, submit the form
+        document.getElementById('registerForm').submit();
+    }
 </script>
 
 </body>
