@@ -85,7 +85,13 @@
 
             <!-- Submit Button -->
             <div class="d-grid col-12 col-md-8 mx-auto m-3">
-                <button type="submit" class="btn btn-primary btn-block"><i class="fas fa-user-plus"></i> <?= lang('Auth.register') ?></button>
+                <!-- reCAPTCHA v3 Button -->
+                <button class="g-recaptcha btn btn-primary btn-block"
+                    data-sitekey="6LfE21YqAAAAAEoXv_de7Qq58dcgt2OY_AAvCwOE"
+                    data-callback='onSubmit'
+                    data-action='submit'>
+                    <i class="fas fa-user-plus"></i> <?= lang('Auth.register') ?>
+                </button>
             </div>
 
             <p class="text-center"><?= lang('Auth.haveAccount') ?> <a href="<?= url_to('login') ?>"><i class="fas fa-sign-in-alt"></i> <?= lang('Auth.login') ?></a></p>
@@ -110,11 +116,6 @@ function togglePassword(id) {
         icon.classList.add("fa-eye");
     }
 }
-document.getElementById('registerForm').addEventListener('submit', function(event) {
-        event.preventDefault(); // Prevent form submission until reCAPTCHA is validated
-
-        grecaptcha.execute(); // Manually trigger reCAPTCHA validation
-    });
 
     function onSubmit(token) {
         // Once reCAPTCHA is successful, submit the form
