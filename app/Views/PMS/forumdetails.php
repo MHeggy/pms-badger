@@ -107,7 +107,7 @@
     }
 </style>
 
-<br><br><br><br>
+<br>
 <!-- Main content -->
 <div class="container mt-4">
     <div class="row justify-content-center align-items-center">
