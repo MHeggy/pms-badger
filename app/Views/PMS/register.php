@@ -81,8 +81,6 @@
                 <i class="fas fa-eye position-absolute top-50 end-0 translate-middle-y pe-2" onclick="togglePassword('floatingPasswordConfirmInput')" style="cursor: pointer;"></i>
             </div>
 
-            <div class="g-recaptcha" data-sitekey="6LfE21YqAAAAAEoXv_de7Qq58dcgt2OY_AAvCwOE" ></div>
-
             <!-- Submit Button -->
             <div class="d-grid col-12 col-md-8 mx-auto m-3">
                 <!-- reCAPTCHA v3 Button -->
