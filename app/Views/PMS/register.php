@@ -81,8 +81,10 @@
                 <i class="fas fa-eye position-absolute top-50 end-0 translate-middle-y pe-2" onclick="togglePassword('floatingPasswordConfirmInput')" style="cursor: pointer;"></i>
             </div>
 
-            <div class="g-recaptcha" data-sitekey="6LfE21YqAAAAAEoXv_de7Qq58dcgt2OY_AAvCwOE"></div>
-            <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+            <button class="g-recaptcha" 
+                data-sitekey="6LfE21YqAAAAAEoXv_de7Qq58dcgt2OY_AAvCwOE" 
+                data-callback='onSubmit' 
+                data-action='submit'>Submit</button>
 
             <!-- Submit Button -->
             <div class="d-grid col-12 col-md-8 mx-auto m-3">
@@ -96,6 +98,7 @@
     </div>
 </div>
 <!-- Script for showing the current password typed into the bar --> 
+<script src="https://www.google.com/recaptcha/api.js"></script>
 <script>
 function togglePassword(id) {
     var passwordField = document.getElementById(id);
