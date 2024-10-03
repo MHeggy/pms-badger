@@ -40,7 +40,7 @@
                 </div>
             <?php endif ?>
 
-            <form action="<?= url_to('register') ?>" method="post">
+            <form id="registerForm" action="<?= url_to('register') ?>" method="post">
                 <?= csrf_field() ?>
 
                 <!-- Email -->
