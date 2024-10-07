@@ -76,6 +76,10 @@
                             <input type="text" class="form-control" id="project_name" name="project_name" placeholder="Enter Project Name" required>
                         </div>
                         <div class="mb-3">
+                            <label for="project_description" class="form-label">Project Description</label>
+                            <textarea class="form-control" id="project_description" name="project_description" placeholder="Enter Project Description" rows="4"></textarea>
+                        </div>
+                        <div class="mb-3">
                             <label for="date_accepted" class="form-label">Date Accepted</label>
                             <input type="date" class="form-control" id="date_accepted" name="date_accepted" required>
                         </div>

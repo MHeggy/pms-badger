@@ -61,6 +61,12 @@
                 <td><?= esc($project['projectName']) ?></td>
             </tr>
             <tr>
+                <th>Project Description</th>
+                <td>
+                    <p><?= esc($project['projectDescription']) ?></p>
+                </td>
+            </tr>
+            <tr>
                 <th>Status</th>
                 <td><?= esc($project['statusName']) ?></td>
             </tr>

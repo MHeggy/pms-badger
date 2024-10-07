@@ -464,6 +464,7 @@ class ProjectsController extends BaseController {
             $projectData = [
                 'projectName' => $this->request->getPost('project_name'),
                 'projectNumber' => $this->request->getPost('project_number'),
+                'projectDescription' => $this->request->getPost('project_description'),
                 'dateAccepted' => $this->request->getPost('date_accepted'),
                 'statusID' => $this->request->getPost('status'),
                 'addressID' => $addressID
