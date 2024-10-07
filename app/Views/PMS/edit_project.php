@@ -27,6 +27,11 @@
             <input type="text" class="form-control" id="projectName" name="projectName" value="<?= esc($project['projectName']) ?>" required>
         </div>
 
+        <div class="mb-3">
+            <label for="projectDescription" class="form-label">Project Description</label>
+            <input type="text" class="form-control" id="projectDescription" name="projectDescription" value="<?= esc($project['projectDescription']) ?>" required>
+        </div>
+
         <!-- Project Number -->
         <div class="mb-3">
             <label for="projectNumber" class="form-label">Project Number</label>
