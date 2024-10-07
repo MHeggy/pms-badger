@@ -398,6 +398,7 @@ class ProjectsController extends BaseController {
     public function updateProject() {
         $projectID = $this->request->getPost('projectID');
         $projectName = $this->request->getPost('projectName');
+        $projectDescription = $this->request->getPost('projectDescription');
         $projectNumber = $this->request->getPost('projectNumber');
         $statusID = $this->request->getPost('statusID');
         $dateAccepted = $this->request->getPost('dateAccepted');
@@ -413,6 +414,7 @@ class ProjectsController extends BaseController {
             // Update project details
             $projectModel->update($projectID, [
                 'projectName' => $projectName,
+                'projectDescription' => $projectDescription,
                 'projectNumber' => $projectNumber,
                 'statusID' => $statusID,
                 'dateAccepted' => $dateAccepted,
