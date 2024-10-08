@@ -156,7 +156,7 @@
             selectedTasks.forEach(function(taskID) {
                 $('#task-deadlines').append(`
                     <div class="mb-3">
-                        <label for="deadline-${taskID}" class="form-label">Deadline for Task ${taskID}</label>
+                        <label for="deadline-${taskID}" class="form-label">Deadline for Task ${taskName}</label>
                         <input type="date" class="form-control" id="deadline-${taskID}" name="deadlines[${taskID}]">
                     </div>
                 `);
