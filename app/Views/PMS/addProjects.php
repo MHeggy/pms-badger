@@ -149,20 +149,24 @@
 <script src="<?php echo base_url('/assets/js/main.js')?>"></script>
 <script>
     $(document).ready(function() {
-        $('#tasks').on('change', function() {
-            let selectedTasks = $(this).val();
-            $('#task-deadlines').empty();
+    $('#tasks').on('change', function() {
+        let selectedTasks = $(this).val();
+        $('#task-deadlines').empty();
+        
+        selectedTasks.forEach(function(taskID) {
+            // Get the task name by selecting the option text based on the taskID
+            let taskName = $('#tasks option[value="'+taskID+'"]').text();
             
-            selectedTasks.forEach(function(taskID) {
-                $('#task-deadlines').append(`
-                    <div class="mb-3">
-                        <label for="deadline-${taskID}" class="form-label">Deadline for Task ${taskID}</label>
-                        <input type="date" class="form-control" id="deadline-${taskID}" name="deadlines[${taskID}]">
-                    </div>
-                `);
-            });
+            // Append the input field with the dynamic task name
+            $('#task-deadlines').append(`
+                <div class="mb-3">
+                    <label for="deadline-${taskID}" class="form-label">Deadline for ${taskName}</label>
+                    <input type="date" class="form-control" id="deadline-${taskID}" name="deadlines[${taskID}]">
+                </div>
+            `);
         });
     });
+});
 </script>
 
 <!-- Font Awesome for Icons -->
