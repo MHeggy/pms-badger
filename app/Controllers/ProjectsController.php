@@ -172,6 +172,7 @@ class ProjectsController extends BaseController {
     }    
 
     public function assignUsersView() {
+        $users = auth()->getProvider();
         $user = auth()->user();
         $userID = auth()->id();
         $userModel = new UserModel();
