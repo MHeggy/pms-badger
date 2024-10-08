@@ -30,6 +30,7 @@ class PayrollController extends BaseController {
         // Fetch user data (including first and last names)
         $users = $this->userModel->asArray()
             ->select('id, firstName, lastName')
+            ->where('active', 1)
             ->findAll();
     
         $weeks = $this->timesheetsModel->distinct()

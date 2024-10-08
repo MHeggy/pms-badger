@@ -178,7 +178,8 @@ class ProjectsController extends BaseController {
         if (!$user->inGroup('superadmin')) {
             return redirect()->to('/dashboard')->with('error', 'You do not have proper permissions to view this page.');
         }
-        $data['users'] = $userModel->findAll();
+        // Retrieve only active users
+        $data['users'] = $users->where('active', 1)->findAll();
     
         // Get all projects and the projects the user is already assigned to.
         $allProjects = $this->projectModel->findAll();
