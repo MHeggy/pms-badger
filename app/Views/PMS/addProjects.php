@@ -136,7 +136,7 @@
                         <!-- Submit Button -->
                         <div class="d-grid mt-4">
                             <button type="submit" class="btn btn-primary btn-block">
-                                <i class="fas fa-plus"></i> Submit
+                                <i class="fas fa-plus"></i> Add Project
                             </button>
                         </div>
                     </form>
