@@ -273,7 +273,8 @@ class ProjectsController extends BaseController {
             return redirect()->to('/dashboard')->with('error', 'You do not have proper permissions to view this page.');
         }
     
-        $data['users'] = $users->findAll();
+        // Retrieve only active users
+        $data['users'] = $users->where('active', 1)->findAll();
     
         return view('PMS/unassignusers', $data);
     }
