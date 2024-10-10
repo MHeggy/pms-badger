@@ -68,20 +68,36 @@
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($timesheets as $timesheet): ?>
-                <tr>
-                    <td><a href="/timesheets/view/<?= $timesheet['timesheetID'] ?>" class="text-decoration-none"><?= esc($timesheet['weekOf']) ?></a></td>
-                    <td><?= esc($timesheet['totalHours']) ?></td>
-                    <td>
-                        <a href="/timesheets/edit/<?= $timesheet['timesheetID'] ?>" class="btn btn-primary">
-                            <i class="bi bi-pencil"></i> Edit
-                        </a>
-                        <button class="btn btn-danger" data-backdrop="false" onclick="confirmDelete(<?= $timesheet['timesheetID'] ?>)">
-                            <i class="bi bi-trash"></i> Delete
-                        </button>
-                    </td>
-                </tr>
-            <?php endforeach; ?>
+        <?php if (empty($timesheets)): ?>
+        <p class="text-center text-muted">No timesheets found.</p>
+            <?php else: ?>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Week Of</th>
+                            <th scope="col">Hours Worked</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($timesheets as $timesheet): ?>
+                            <tr>
+                                <td><a href="/timesheets/view/<?= $timesheet['timesheetID'] ?>" class="text-decoration-none"><?= esc($timesheet['weekOf']) ?></a></td>
+                                <td><?= esc($timesheet['totalHours']) ?></td>
+                                <td>
+                                    <a href="/timesheets/edit/<?= $timesheet['timesheetID'] ?>" class="btn btn-primary">
+                                        <i class="bi bi-pencil"></i> Edit
+                                    </a>
+                                    <button class="btn btn-danger" data-backdrop="false" onclick="confirmDelete(<?= $timesheet['timesheetID'] ?>)">
+                                        <i class="bi bi-trash"></i> Delete
+                                    </button>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            <?php endif; ?>
+        </div>
         </tbody>
     </table>
 </div>
