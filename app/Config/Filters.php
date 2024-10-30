@@ -56,7 +56,9 @@ class Filters extends BaseConfig
      * permits any HTTP method to access a controller. Accessing the controller
      * with a method you don't expect could bypass the filter.
      */
-    public array $methods = [];
+    public array $methods = [
+        'post' => ['honeypot'],
+    ];
 
     /**
      * List of filter aliases that should run on any
@@ -65,5 +67,7 @@ class Filters extends BaseConfig
      * Example:
      * 'isLoggedIn' => ['before' => ['account/*', 'profiles/*']]
      */
-    public array $filters = [];
+    public array $filters = [
+        'honeypot' => ['before' => ['register']],
+    ];
 }

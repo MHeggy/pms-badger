@@ -55,6 +55,10 @@
                 <label for="floatingUsernameInput"><i class="fas fa-user"></i> <?= lang('Auth.username') ?></label>
             </div>
 
+            <div style="display:none;">
+                <input type="text" name="username_confirm" id="username_confirm" value="">
+            </div>
+
             <!-- First Name -->
             <div class="form-floating mb-2">
                 <input type="text" class="form-control" id="floatingFirstnameInput" name="firstName" inputmode="text" autocomplete="first_name" placeholder="First Name" required>
