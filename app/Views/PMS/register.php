@@ -56,7 +56,7 @@
             </div>
 
             <div style="display:none;">
-                <input type="text" name="username_confirm" id="username_confirm" value="">
+            <label>Fill This Field</label><input type="text" name="honeypot" value="">
             </div>
 
             <!-- First Name -->
