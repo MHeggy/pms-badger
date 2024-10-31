@@ -29,6 +29,7 @@
             </div>
             <button type="submit" class="btn btn-primary">Upload to MEGA</button>
         </form>
+        <iframe width="250" height="54" frameborder="0" src="https://mega.nz/filerequest#!DXDjCVSNT0A!l!en"></iframe>
     </div>
     
 </body>
