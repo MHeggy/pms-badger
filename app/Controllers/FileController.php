@@ -33,8 +33,9 @@ class FileController extends BaseController {
     
         if ($file && $file->isValid() && !$file->hasMoved()) {
             // Save temporarily to the server
-            $filePath = WRITEPATH . 'uploads/' . $file->getRandomName();
-            $file->move(WRITEPATH . 'uploads/', $file->getName());
+            $originalName = $file->getName(); // Get the original file name
+            $filePath = WRITEPATH . 'uploads/' . $originalName; // Use original name for storage
+            $file->move(WRITEPATH . 'uploads/', $originalName); // Move the file with its original name
     
             // Prepare the MEGA upload command
             $megaCommand = "megaput --path / '$filePath'";  // Upload to MEGA's root directory
@@ -61,6 +62,6 @@ class FileController extends BaseController {
         }
     
         return redirect()->to('file/upload');
-    }
+    }    
         
 }
