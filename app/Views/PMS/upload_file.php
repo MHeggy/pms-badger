@@ -32,8 +32,9 @@
     
     <div class="mt-4">
         <h4 class="text-center">Or upload directly via MEGA:</h4>
-        <iframe width="250" height="54" frameborder="0" src="https://mega.nz/filerequest#!DXDjCVSNT0A!l!en">Click here</iframe>
+        <a href="https://mega.nz/filerequest#!DXDjCVSNT0A!l!en" target="_blank" class="btn btn-secondary">Upload to MEGA</a>
     </div>
+
 </div>
 
 </body>
