@@ -21,18 +21,11 @@
         <div class="alert alert-danger"><?= session()->getFlashdata('error') ?></div>
     <?php endif; ?>
 
-    <form action="<?= site_url('file/upload') ?>" method="post" enctype="multipart/form-data">
-        <?= csrf_field() ?>
-        <div class="mb-3">
-            <label for="file" class="form-label">Choose File</label>
-            <input type="file" class="form-control" id="file" name="file" required>
-        </div>
-        <button type="submit" class="btn btn-primary">Upload to MEGA</button>
-    </form>
-    
-    <div class="mt-4">
-        <h4 class="text-center">Or upload directly via MEGA:</h4>
-        <a href="https://mega.nz/filerequest/65HLDsIkxY0">Click here</a>
+    <div class="mt-4 text-center">
+        <h4>Upload directly via MEGA:</h4>
+        <a href="https://mega.nz/filerequest/65HLDsIkxY0" class="btn btn-primary" target="_blank">
+            <i class="fas fa-cloud-upload-alt"></i> Click here to upload
+        </a>
     </div>
 </div>
 
