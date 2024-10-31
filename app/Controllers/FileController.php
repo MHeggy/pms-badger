@@ -37,8 +37,8 @@ class FileController extends BaseController {
             $filePath = WRITEPATH . 'uploads/' . $originalName; // Use original name for storage
             $file->move(WRITEPATH . 'uploads/', $originalName); // Move the file with its original name
     
-            // Prepare the MEGA upload command
-            $megaCommand = "megaput --path / '$filePath'";  // Upload to MEGA's root directory
+            // Prepare the MEGA upload command for the "projects" directory
+            $megaCommand = "megaput --path /Projects '$filePath'";  // Upload to the "projects" directory
             exec($megaCommand . ' 2>&1', $output, $status);  // Capture error output
     
             if ($status === 0) {
@@ -62,6 +62,6 @@ class FileController extends BaseController {
         }
     
         return redirect()->to('file/upload');
-    }    
+    }      
         
 }
