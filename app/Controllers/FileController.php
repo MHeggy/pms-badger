@@ -24,30 +24,25 @@ class FileController extends BaseController {
     public function upload() {
         $session = session();
         $userID = auth()->id();
-    
+
         if (!$userID) {
             return redirect()->to('/login')->with('error', 'You must login to access this page.');
         }
-    
+
         $file = $this->request->getFile('file');
-    
+
         if ($file && $file->isValid() && !$file->hasMoved()) {
             // Save temporarily to the server
-            $filePath = WRITEPATH . 'uploads/' . $file->getRandomName();
-            $file->move(WRITEPATH . 'uploads/', $file->getName());
-    
-            // Log in to MEGA
-            $loginCommand = "mega-login mhegeduis@gmail.com Podpod345";  // Replace with your MEGA credentials
-            exec($loginCommand . ' 2>&1', $output, $status);  // Capture error output
-            if ($status !== 0) {
-                $session->setFlashdata('error', 'Failed to log in to MEGA: ' . implode("\n", $output));
-                return redirect()->to('file/upload');
-            }
-    
+            $filePath = WRITEPATH . 'uploads/' . $file->getName(); // Changed to getName() for original file name
+            $file->move(WRITEPATH . 'uploads/'); // Move file without generating a random name
+
+            // Check if MEGA is already logged in (optional, depending on your use case)
+            // If not, you can login here or handle it separately
+
             // Prepare and execute MEGAcmd upload command
-            $megaCommand = "mega-put '$filePath' /";  // Uploads to MEGA's root directory
-            exec($megaCommand, $output, $status);
-    
+            $megaCommand = "mega-put '$filePath' /"; // Uploads to MEGA's root directory
+            exec($megaCommand . ' 2>&1', $output, $status); // Capture output for error handling
+
             if ($status === 0) {
                 // Success, notify user
                 $session->setFlashdata('success', 'File uploaded successfully to MEGA.');
@@ -55,7 +50,7 @@ class FileController extends BaseController {
                 // Error with MEGA upload
                 $session->setFlashdata('error', 'File could not be uploaded to MEGA. Command output: ' . implode("\n", $output));
             }
-    
+
             // Clean up local copy
             if (file_exists($filePath)) {
                 if (!unlink($filePath)) {
@@ -65,9 +60,9 @@ class FileController extends BaseController {
                 log_message('error', 'File not found for deletion: ' . $filePath);
             }
         } else {
-            $session->setFlashdata('error', 'Failed to upload file.');
+            $session->setFlashdata('error', 'Failed to upload file. The file may not be valid or may have already been moved.');
         }
-    
+
         return redirect()->to('file/upload');
     }    
 }
