@@ -13,24 +13,28 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 
 <div class="container mt-5">
-        <h2 class="text-center">Upload File to MEGA Cloud</h2>
+    <h2 class="text-center">Upload File to MEGA Cloud</h2>
 
-        <?php if (session()->getFlashdata('success')) : ?>
-            <div class="alert alert-success"><?= session()->getFlashdata('success') ?></div>
-        <?php elseif (session()->getFlashdata('error')) : ?>
-            <div class="alert alert-danger"><?= session()->getFlashdata('error') ?></div>
-        <?php endif; ?>
+    <?php if (session()->getFlashdata('success')) : ?>
+        <div class="alert alert-success"><?= session()->getFlashdata('success') ?></div>
+    <?php elseif (session()->getFlashdata('error')) : ?>
+        <div class="alert alert-danger"><?= session()->getFlashdata('error') ?></div>
+    <?php endif; ?>
 
-        <form action="<?= site_url('file/upload') ?>" method="post" enctype="multipart/form-data">
-            <?= csrf_field() ?>
-            <div class="mb-3">
-                <label for="file" class="form-label">Choose File</label>
-                <input type="file" class="form-control" id="file" name="file" required>
-            </div>
-            <button type="submit" class="btn btn-primary">Upload to MEGA</button>
-        </form>
+    <form action="<?= site_url('file/upload') ?>" method="post" enctype="multipart/form-data">
+        <?= csrf_field() ?>
+        <div class="mb-3">
+            <label for="file" class="form-label">Choose File</label>
+            <input type="file" class="form-control" id="file" name="file" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Upload to MEGA</button>
+    </form>
+    
+    <div class="mt-4">
+        <h4 class="text-center">Or upload directly via MEGA:</h4>
         <iframe width="250" height="54" frameborder="0" src="https://mega.nz/filerequest#!DXDjCVSNT0A!l!en"></iframe>
     </div>
-    
+</div>
+
 </body>
 </html>
