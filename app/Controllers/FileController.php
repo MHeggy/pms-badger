@@ -11,5 +11,50 @@ use App\Models\CategoryModel;
 use App\Models\UpdatesModel;
 
 class FileController extends BaseController {
-    
+    public function index() {
+        $userID = auth()->id();
+
+        if (!$userID) {
+            return redirect()->to('/login')->with('error', 'You must login to access this page.');
+        }
+
+        return view('PMS/upload_file.php');
+    }
+
+    public function upload() {
+        $session = session();
+
+        $userID = auth()->id();
+
+        if (!$userID) {
+            return redirect()->to('/login')->with('error', 'You must login to access this page.');
+        }
+
+        $file = $this->request->getFile('file');
+
+        if ($file && $file->isValid() && !$file->hasMoved()) {
+            // Save temporarily to the server
+            $filePath = WRITEPATH . 'uploads/' . $file->getRandomName();
+            $file->move(WRITEPATH . 'uploads/', $file->getName());
+
+            // Prepare and execute MEGAcmd upload command
+            $megaCommand = "mega-put '$filePath' /";  // Uploads to MEGA's root directory
+            exec($megaCommand, $output, $status);
+
+            if ($status === 0) {
+                // Success, notify user
+                $session->setFlashdata('success', 'File uploaded successfully to MEGA.');
+            } else {
+                // Error with MEGA upload
+                $session->setFlashdata('error', 'File could not be uploaded to MEGA.');
+            }
+
+            // Clean up local copy
+            unlink($filePath);
+        } else {
+            $session->setFlashdata('error', 'Failed to upload file.');
+        }
+
+        return redirect()->to('file/upload');
+    }
 }

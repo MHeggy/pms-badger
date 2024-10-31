@@ -170,3 +170,6 @@ $routes->get('/support_ticket/(:num)', 'SupportController::viewTicket/$1');
 $routes->post('/support_ticket/update/(:num)', 'SupportController::updateTicketStatus/$1');
 $routes->get('/my_tickets', 'SupportController::viewUserTickets');
 $routes->post('/support_ticket/(:num)/reply', 'SupportController::addReply/$1');
+// routes for file uploads to the MEGA cloud.
+$routes->get('/file/upload', 'FileController::index');
+$routes->post('/file/upload', 'FileController::upload');
