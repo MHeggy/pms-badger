@@ -32,7 +32,7 @@
     
     <div class="mt-4">
         <h4 class="text-center">Or upload directly via MEGA:</h4>
-        <a href="https://mega.nz/filerequest#!DXDjCVSNT0A!l!en" target="_blank" class="btn btn-secondary">Upload to MEGA</a>
+        <a href="https://mega.nz/filerequest/DXDjCVSNT0A" target="_blank" class="btn btn-secondary">Upload to MEGA</a>
     </div>
 
 </div>
