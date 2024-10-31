@@ -38,9 +38,9 @@ class FileController extends BaseController {
     
             // Log in to MEGA
             $loginCommand = "mega-login mhegeduis@gmail.com Podpod345";  // Replace with your MEGA credentials
-            exec($loginCommand, $output, $status);
+            exec($loginCommand . ' 2>&1', $output, $status);  // Capture error output
             if ($status !== 0) {
-                $session->setFlashdata('error', 'Failed to log in to MEGA.');
+                $session->setFlashdata('error', 'Failed to log in to MEGA: ' . implode("\n", $output));
                 return redirect()->to('file/upload');
             }
     
