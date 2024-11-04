@@ -39,26 +39,30 @@ class FileController extends BaseController {
         $file = $this->request->getFile('file');
     
         if ($file && $file->isValid() && !$file->hasMoved()) {
-            // Save temporarily to the server
             $originalName = $file->getName();
             $filePath = WRITEPATH . 'uploads/' . $originalName;
             $file->move(WRITEPATH . 'uploads/', $originalName);
     
-            // Define the project directory path in MEGA
-            $megaPath = "/FL Projects/$projectID";
+            // Define paths for each directory level
+            $baseDir = '/FL Projects';
+            $projectDir = "$baseDir/$projectID";
     
-            // Ensure the directory exists in MEGA
-            $mkdirCommand = "megamkdir '$megaPath'";
-            exec($mkdirCommand . ' 2>&1', $mkdirOutput, $mkdirStatus);
-    
-            if ($mkdirStatus !== 0) {
-                // Handle directory creation error if necessary
-                $session->setFlashdata('error', 'Failed to create directory in MEGA: ' . implode("\n", $mkdirOutput));
+            // Check and create the base directory if needed
+            exec("megamkdir '$baseDir' 2>&1", $baseOutput, $baseStatus);
+            if ($baseStatus !== 0) {
+                $session->setFlashdata('error', 'Failed to create base directory in MEGA: ' . implode("\n", $baseOutput));
                 return redirect()->to('file/upload');
             }
     
-            // Upload file to the specified project directory
-            $megaCommand = "megaput --path '$megaPath' '$filePath'";
+            // Create project directory
+            exec("megamkdir '$projectDir' 2>&1", $projectOutput, $projectStatus);
+            if ($projectStatus !== 0) {
+                $session->setFlashdata('error', 'Failed to create project directory in MEGA: ' . implode("\n", $projectOutput));
+                return redirect()->to('file/upload');
+            }
+    
+            // Upload the file
+            $megaCommand = "megaput --path '$projectDir' '$filePath'";
             exec($megaCommand . ' 2>&1', $output, $status);
     
             if ($status === 0) {
@@ -67,7 +71,7 @@ class FileController extends BaseController {
                 $session->setFlashdata('error', 'File could not be uploaded to MEGA. Command output: ' . implode("\n", $output));
             }
     
-            // Clean up local copy
+            // Clean up
             if (file_exists($filePath)) {
                 unlink($filePath);
             }
@@ -77,6 +81,5 @@ class FileController extends BaseController {
     
         return redirect()->to('file/upload');
     }
-            
-        
+    
 }
