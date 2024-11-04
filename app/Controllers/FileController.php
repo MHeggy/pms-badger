@@ -44,7 +44,7 @@ class FileController extends BaseController {
             $file->move(WRITEPATH . 'uploads/', $originalName);
     
             // Define paths for each directory level
-            $baseDir = 'Cloud Drive/FL Projects';
+            $baseDir = '/FL Projects';
             $projectDir = "$baseDir/$projectID";
     
             // Check and create the base directory if needed
@@ -82,4 +82,5 @@ class FileController extends BaseController {
         return redirect()->to('file/upload');
     }
     
+
 }
