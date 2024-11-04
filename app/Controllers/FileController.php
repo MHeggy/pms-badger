@@ -11,14 +11,20 @@ use App\Models\CategoryModel;
 use App\Models\UpdatesModel;
 
 class FileController extends BaseController {
+    
     public function index() {
         $userID = auth()->id();
-
+    
         if (!$userID) {
             return redirect()->to('/login')->with('error', 'You must login to access this page.');
         }
-
-        return view('PMS/upload_file.php');
+    
+        // Load the ProjectModel to retrieve projects
+        $projectModel = new ProjectModel();
+        $projects = $projectModel->findAll(); // Retrieve all projects
+    
+        // Pass the projects to the view
+        return view('PMS/upload_file', ['projects' => $projects]);
     }
 
     public function upload() {

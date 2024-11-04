@@ -20,22 +20,22 @@
     <?php endif; ?>
 
     <div class="mt-4 text-center">
-        <h4>Select Category:</h4>
+        <h4>Select Project:</h4>
         <form action="<?= base_url('file/upload') ?>" method="post" enctype="multipart/form-data">
-            <!-- Category Dropdown -->
-            <select class="form-select mb-3" id="category-select" name="category">
-                <option selected>Select a category</option>
-                <option value="projects">Projects</option>
-                <option value="tasks">Tasks</option>
-                <!-- Add more options as needed -->
+            <!-- Project Dropdown -->
+            <select class="form-select mb-3" id="project-select" name="project_id" required>
+                <option selected disabled>Select a project</option>
+                <?php foreach ($projects as $project): ?>
+                    <option value="<?= $project['projectID'] ?>"><?= $project['projectName'] ?></option>
+                <?php endforeach; ?>
             </select>
-            
+
             <!-- File Input -->
             <input type="file" name="file" class="form-control mb-3" required>
 
             <!-- Submit Button -->
             <button type="submit" class="btn btn-primary">
-                <i class="fas fa-cloud-upload-alt"></i> Upload to Selected Category on MEGA
+                <i class="fas fa-cloud-upload-alt"></i> Upload to Selected Project on MEGA
             </button>
         </form>
     </div>
