@@ -30,39 +30,53 @@ class FileController extends BaseController {
     public function upload() {
         $session = session();
         $userID = auth()->id();
-        
+    
         if (!$userID) {
             return redirect()->to('/login')->with('error', 'You must login to access this page.');
         }
-        
+    
         $projectID = $this->request->getPost('project_id'); // Get the selected project ID
         $file = $this->request->getFile('file');
-        
+    
         if ($file && $file->isValid() && !$file->hasMoved()) {
             // Save temporarily to the server
             $originalName = $file->getName();
             $filePath = WRITEPATH . 'uploads/' . $originalName;
             $file->move(WRITEPATH . 'uploads/', $originalName);
-        
-            // Prepare the MEGA upload command with the project path
+    
+            // Define the project directory path in MEGA
             $megaPath = "/Projects/$projectID";
+    
+            // Ensure the directory exists in MEGA
+            $mkdirCommand = "megamkdir '$megaPath'";
+            exec($mkdirCommand . ' 2>&1', $mkdirOutput, $mkdirStatus);
+    
+            if ($mkdirStatus !== 0) {
+                // Handle directory creation error if necessary
+                $session->setFlashdata('error', 'Failed to create directory in MEGA: ' . implode("\n", $mkdirOutput));
+                return redirect()->to('file/upload');
+            }
+    
+            // Upload file to the specified project directory
             $megaCommand = "megaput --path '$megaPath' '$filePath'";
             exec($megaCommand . ' 2>&1', $output, $status);
-        
+    
             if ($status === 0) {
                 $session->setFlashdata('success', 'File uploaded successfully to MEGA.');
             } else {
                 $session->setFlashdata('error', 'File could not be uploaded to MEGA. Command output: ' . implode("\n", $output));
             }
-        
+    
+            // Clean up local copy
             if (file_exists($filePath)) {
                 unlink($filePath);
             }
         } else {
             $session->setFlashdata('error', 'Failed to upload file.');
         }
-        
+    
         return redirect()->to('file/upload');
-    }          
+    }
+            
         
 }
