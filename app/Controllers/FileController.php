@@ -30,44 +30,39 @@ class FileController extends BaseController {
     public function upload() {
         $session = session();
         $userID = auth()->id();
-    
+        
         if (!$userID) {
             return redirect()->to('/login')->with('error', 'You must login to access this page.');
         }
-    
+        
+        $projectID = $this->request->getPost('project_id'); // Get the selected project ID
         $file = $this->request->getFile('file');
-    
+        
         if ($file && $file->isValid() && !$file->hasMoved()) {
             // Save temporarily to the server
-            $originalName = $file->getName(); // Get the original file name
-            $filePath = WRITEPATH . 'uploads/' . $originalName; // Use original name for storage
-            $file->move(WRITEPATH . 'uploads/', $originalName); // Move the file with its original name
-    
-            // Prepare the MEGA upload command for the "projects" directory
-            $megaCommand = "megaput --path /Projects '$filePath'";  // Upload to the "projects" directory
-            exec($megaCommand . ' 2>&1', $output, $status);  // Capture error output
-    
+            $originalName = $file->getName();
+            $filePath = WRITEPATH . 'uploads/' . $originalName;
+            $file->move(WRITEPATH . 'uploads/', $originalName);
+        
+            // Prepare the MEGA upload command with the project path
+            $megaPath = "/Projects/$projectID";
+            $megaCommand = "megaput --path '$megaPath' '$filePath'";
+            exec($megaCommand . ' 2>&1', $output, $status);
+        
             if ($status === 0) {
-                // Success, notify user
                 $session->setFlashdata('success', 'File uploaded successfully to MEGA.');
             } else {
-                // Error with MEGA upload
                 $session->setFlashdata('error', 'File could not be uploaded to MEGA. Command output: ' . implode("\n", $output));
             }
-    
-            // Clean up local copy
+        
             if (file_exists($filePath)) {
-                if (!unlink($filePath)) {
-                    log_message('error', 'Failed to delete local file: ' . $filePath);
-                }
-            } else {
-                log_message('error', 'File not found for deletion: ' . $filePath);
+                unlink($filePath);
             }
         } else {
             $session->setFlashdata('error', 'Failed to upload file.');
         }
-    
+        
         return redirect()->to('file/upload');
-    }      
+    }          
         
 }
