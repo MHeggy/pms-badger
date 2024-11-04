@@ -45,7 +45,7 @@ class FileController extends BaseController {
             $file->move(WRITEPATH . 'uploads/', $originalName);
     
             // Define the project directory path in MEGA
-            $megaPath = "/Projects/$projectID";
+            $megaPath = "/FL Projects/$projectID";
     
             // Ensure the directory exists in MEGA
             $mkdirCommand = "megamkdir '$megaPath'";
