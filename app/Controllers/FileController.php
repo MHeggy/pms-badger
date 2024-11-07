@@ -37,6 +37,16 @@ class FileController extends BaseController {
     
         $projectID = $this->request->getPost('project_id'); // Get the selected project ID
         $file = $this->request->getFile('file');
+        
+        // Fetch the project name from the database based on projectID
+        $projectModel = new ProjectModel();
+        $project = $projectModel->find($projectID);
+        $projectName = $project ? $project['projectName'] : null;
+    
+        if (!$projectName) {
+            $session->setFlashdata('error', 'Project not found.');
+            return redirect()->to('file/upload');
+        }
     
         if ($file && $file->isValid() && !$file->hasMoved()) {
             $originalName = $file->getName();
@@ -49,16 +59,31 @@ class FileController extends BaseController {
     
             // Define paths for each directory level
             $baseDir = '/Root/Projects'; // The remote MEGA directory path
-            $projectDir = "$baseDir/$projectID";
+            $projectDir = "$baseDir/$projectName"; // Use projectName for directory name
     
-            // Upload the file directly to the project directory
+            // Check if the project directory exists on MEGA
+            $checkDirCommand = "megals -u $megaUsername -p $megaPassword '$baseDir'";
+            exec($checkDirCommand, $output, $status);
+    
+            if ($status === 0 && !in_array($projectName, $output)) {
+                // If the directory does not exist, create it
+                $createDirCommand = "megamkdir -u $megaUsername -p $megaPassword '$projectDir'";
+                exec($createDirCommand, $dirOutput, $dirStatus);
+    
+                if ($dirStatus !== 0) {
+                    $session->setFlashdata('error', 'Failed to create project directory in MEGA: ' . implode("\n", $dirOutput));
+                    return redirect()->to('file/upload');
+                }
+            }
+    
+            // Upload the file to the project directory
             $megaCommand = "megaput -u $megaUsername -p $megaPassword --path '$projectDir' '$filePath'";
-            exec($megaCommand . ' 2>&1', $output, $status);
+            exec($megaCommand . ' 2>&1', $uploadOutput, $uploadStatus);
     
-            if ($status === 0) {
+            if ($uploadStatus === 0) {
                 $session->setFlashdata('success', 'File uploaded successfully to MEGA.');
             } else {
-                $session->setFlashdata('error', 'File could not be uploaded to MEGA. Command output: ' . implode("\n", $output));
+                $session->setFlashdata('error', 'File could not be uploaded to MEGA. Command output: ' . implode("\n", $uploadOutput));
             }
     
             // Clean up the file after upload
@@ -70,6 +95,6 @@ class FileController extends BaseController {
         }
     
         return redirect()->to('file/upload');
-    }       
+    }           
     
 }
