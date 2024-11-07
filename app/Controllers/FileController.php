@@ -43,26 +43,30 @@ class FileController extends BaseController {
             $filePath = WRITEPATH . 'uploads/' . $originalName;
             $file->move(WRITEPATH . 'uploads/', $originalName);
     
+            // Define MEGA username and password (to be set or fetched securely)
+            $megaUsername = 'mhegeduis@gmail.com';  // Replace with your MEGA username
+            $megaPassword = 'Podpod345';            // Replace with your MEGA password
+    
             // Define paths for each directory level
-            $baseDir = '/FL Projects';
+            $baseDir = '/Root/Projects'; // The remote MEGA directory path
             $projectDir = "$baseDir/$projectID";
     
             // Check and create the base directory if needed
-            exec("megamkdir '$baseDir' 2>&1", $baseOutput, $baseStatus);
+            exec("megamkdir -u $megaUsername -p $megaPassword '$baseDir' 2>&1", $baseOutput, $baseStatus);
             if ($baseStatus !== 0) {
                 $session->setFlashdata('error', 'Failed to create base directory in MEGA: ' . implode("\n", $baseOutput));
                 return redirect()->to('file/upload');
             }
     
             // Create project directory
-            exec("megamkdir '$projectDir' 2>&1", $projectOutput, $projectStatus);
+            exec("megamkdir -u $megaUsername -p $megaPassword '$projectDir' 2>&1", $projectOutput, $projectStatus);
             if ($projectStatus !== 0) {
                 $session->setFlashdata('error', 'Failed to create project directory in MEGA: ' . implode("\n", $projectOutput));
                 return redirect()->to('file/upload');
             }
     
             // Upload the file
-            $megaCommand = "megaput --path '$projectDir' '$filePath'";
+            $megaCommand = "megaput -u $megaUsername -p $megaPassword --path '$projectDir' '$filePath'";
             exec($megaCommand . ' 2>&1', $output, $status);
     
             if ($status === 0) {
@@ -80,7 +84,6 @@ class FileController extends BaseController {
         }
     
         return redirect()->to('file/upload');
-    }
+    }    
     
-
 }
