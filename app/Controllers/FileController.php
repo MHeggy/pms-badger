@@ -59,7 +59,7 @@ class FileController extends BaseController {
             }
     
             // Create project directory
-            exec("megamkdir -u $megaUsername -p $megaPassword '$projectDir' 2>&1", $projectOutput, $projectStatus);
+            //exec("megamkdir -u $megaUsername -p $megaPassword '$projectDir' 2>&1", $projectOutput, $projectStatus);
             if ($projectStatus !== 0) {
                 $session->setFlashdata('error', 'Failed to create project directory in MEGA: ' . implode("\n", $projectOutput));
                 return redirect()->to('file/upload');
