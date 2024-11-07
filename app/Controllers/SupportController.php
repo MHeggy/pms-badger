@@ -128,11 +128,17 @@ class SupportController extends BaseController
             return redirect()->to('/support_tickets')->with('error_message', 'Ticket not found.');
         }
 
-        // Get the new status from the form submission
         $newStatus = $this->request->getPost('status');
+        log_message('debug', "Attempting to update status for ticket ID $ticketID to $newStatus");
 
-        // Update the ticket's status
         $supportModel->update($ticketID, ['status' => $newStatus]);
+
+        if ($supportModel->db->affectedRows() === 0) {
+            log_message('error', 'Update failed: No rows affected.');
+        } else {
+            log_message('debug', 'Ticket status updated successfully.');
+        }
+
 
         return redirect()->to('/support_ticket/' . $ticketID)->with('message', 'Ticket status updated successfully.');
     }
