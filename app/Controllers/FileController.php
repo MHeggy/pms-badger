@@ -30,14 +30,14 @@ class FileController extends BaseController {
     public function upload() {
         $session = session();
         $userID = auth()->id();
-        
+    
         if (!$userID) {
             return redirect()->to('/login')->with('error', 'You must login to access this page.');
         }
     
         $projectID = $this->request->getPost('project_id'); // Get the selected project ID
         $file = $this->request->getFile('file');
-        
+    
         // Fetch the project name from the database based on projectID
         $projectModel = new ProjectModel();
         $project = $projectModel->find($projectID);
@@ -53,27 +53,41 @@ class FileController extends BaseController {
             $filePath = WRITEPATH . 'uploads/' . $originalName;
             $file->move(WRITEPATH . 'uploads/', $originalName);
     
-            // Define MEGA username and password (to be set or fetched securely)
+            // MEGA credentials
             $megaUsername = 'mhegeduis@gmail.com';  // Replace with your MEGA username
             $megaPassword = 'Podpod345';            // Replace with your MEGA password
     
-            // Define paths for each directory level
-            $baseDir = '/Root/Projects'; // The remote MEGA directory path
-            $projectDir = "$baseDir/$projectName"; // Use projectName for directory name
+            // Paths for MEGA directories
+            $baseDir = '/Root/Projects'; 
+            $projectDir = "$baseDir/$projectName"; 
     
             // Check if the project directory exists on MEGA
             $checkDirCommand = "megals -u $megaUsername -p $megaPassword '$baseDir'";
             exec($checkDirCommand, $output, $status);
     
-            if ($status === 0 && !in_array($projectName, $output)) {
-                // If the directory does not exist, create it
-                $createDirCommand = "megamkdir -u $megaUsername -p $megaPassword '$projectDir'";
-                exec($createDirCommand, $dirOutput, $dirStatus);
+            if ($status === 0) {
+                $dirExists = false;
     
-                if ($dirStatus !== 0) {
-                    $session->setFlashdata('error', 'Failed to create project directory in MEGA: ' . implode("\n", $dirOutput));
-                    return redirect()->to('file/upload');
+                foreach ($output as $line) {
+                    if (trim($line) === $projectName) {
+                        $dirExists = true;
+                        break;
+                    }
                 }
+    
+                if (!$dirExists) {
+                    // Create the directory if it does not exist
+                    $createDirCommand = "megamkdir -u $megaUsername -p $megaPassword '$projectDir'";
+                    exec($createDirCommand, $dirOutput, $dirStatus);
+    
+                    if ($dirStatus !== 0) {
+                        $session->setFlashdata('error', 'Failed to create project directory in MEGA: ' . implode("\n", $dirOutput));
+                        return redirect()->to('file/upload');
+                    }
+                }
+            } else {
+                $session->setFlashdata('error', 'Failed to check MEGA directories. Command output: ' . implode("\n", $output));
+                return redirect()->to('file/upload');
             }
     
             // Upload the file to the project directory
@@ -95,6 +109,6 @@ class FileController extends BaseController {
         }
     
         return redirect()->to('file/upload');
-    }           
+    }               
     
 }
