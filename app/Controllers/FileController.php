@@ -61,34 +61,38 @@ class FileController extends BaseController {
             $baseDir = '/Root/Projects'; 
             $projectDir = "$baseDir/$projectName"; 
     
-            // Check if the project directory exists on MEGA
+            // Check if directory exists
             $checkDirCommand = "megals -u $megaUsername -p $megaPassword '$baseDir'";
-            exec($checkDirCommand, $output, $status);
-    
+            exec($checkDirCommand . ' 2>&1', $output, $status);
+
+            file_put_contents(WRITEPATH . 'logs/mega.log', "Check Dir Output:\n" . implode("\n", $output) . "\n", FILE_APPEND);
+
+            $dirExists = false;
+            $projectPath = "$baseDir/$projectName"; // Construct the expected full path
+
             if ($status === 0) {
-                $dirExists = false;
-    
                 foreach ($output as $line) {
-                    if (trim($line) === $projectName) {
+                    if (trim($line) === $projectPath) {
                         $dirExists = true;
                         break;
                     }
                 }
-    
+
                 if (!$dirExists) {
-                    // Create the directory if it does not exist
-                    $createDirCommand = "megamkdir -u $megaUsername -p $megaPassword '$projectDir'";
-                    exec($createDirCommand, $dirOutput, $dirStatus);
-    
+                    $createDirCommand = "megamkdir -u $megaUsername -p $megaPassword '$projectPath'";
+                    exec($createDirCommand . ' 2>&1', $dirOutput, $dirStatus);
+                    file_put_contents(WRITEPATH . 'logs/mega.log', "Create Dir Output:\n" . implode("\n", $dirOutput) . "\n", FILE_APPEND);
+
                     if ($dirStatus !== 0) {
-                        $session->setFlashdata('error', 'Failed to create project directory in MEGA: ' . implode("\n", $dirOutput));
+                        $session->setFlashdata('error', 'Failed to create project directory in MEGA.');
                         return redirect()->to('file/upload');
                     }
                 }
             } else {
-                $session->setFlashdata('error', 'Failed to check MEGA directories. Command output: ' . implode("\n", $output));
+                $session->setFlashdata('error', 'Failed to check MEGA directories.');
                 return redirect()->to('file/upload');
             }
+
     
             // Upload the file to the project directory
             $megaCommand = "megaput -u $megaUsername -p $megaPassword --path '$projectDir' '$filePath'";
