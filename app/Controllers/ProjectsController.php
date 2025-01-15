@@ -118,6 +118,9 @@ class ProjectsController extends BaseController {
             // Delete related entries in updates
             $this->db->table('updates')->where('projectID', $projectID)->delete();
 
+            // Delete related entries in user_project
+            $this->db->table('user_project')->where('project_id', $projectID)->delete();
+
             // Delete the project
             $this->projectModel->delete($projectID);
 
@@ -127,6 +130,7 @@ class ProjectsController extends BaseController {
             return redirect()->to('/projects')->with('error', 'An error occurred while deleting the project.');
         }
     }
+
 
 
     // function to filter projects based on status.
