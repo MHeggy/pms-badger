@@ -93,6 +93,18 @@ class ProjectsController extends BaseController {
         }
     }
 
+    public function delete($projectID) {
+        $projectID = $this->request->getGet('projectID');
+
+        try {
+            $this->projectModel->delete($projectID);
+            return redirect()->to('/projects')->with('success', 'Project deleted successfully.');
+        } catch (\Exception $e) {
+            log_message('error', 'Error in delete: ' . $e->getMessage());
+            return redirect()->to('/projects')->with('error', 'An error occurred while deleting the project.');
+        }
+    }
+
     // function to filter projects based on status.
     public function filter()
     {
