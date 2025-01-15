@@ -55,6 +55,14 @@ body {
     color: #ffdd57; /* Yellow color for active item */
 }
 
+.navbar {
+    display: flex;
+    flex-wrap: wrap; /* Allow wrapping for smaller screens */
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+
 /* Dropdown Menu */
 .taskbar-item.dropdown button {
     background: none;
