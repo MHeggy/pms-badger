@@ -19,8 +19,11 @@ class ProjectsController extends BaseController {
     protected $taskModel;
     protected $categoryModel;
     protected $updatesModel;
+    protected $db;
 
     public function __construct() {
+        // Load the database
+        $this->db = \Config\Database::connect();
         $this->projectModel = new ProjectModel();
         $this->authGroups = new \Config\AuthGroups();
         $this->stateModel = new StateModel();
