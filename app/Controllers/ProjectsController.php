@@ -94,32 +94,35 @@ class ProjectsController extends BaseController {
     }
 
     public function delete($projectID)
-{
-    if (empty($projectID) || !is_numeric($projectID)) {
-        return redirect()->to('/projects')->with('error', 'Invalid project ID.');
-    }
-
-    try {
-        // Check if the project exists
-        $project = $this->projectModel->find($projectID);
-        if (!$project) {
-            return redirect()->to('/projects')->with('error', 'Project not found.');
+    {
+        if (empty($projectID) || !is_numeric($projectID)) {
+            return redirect()->to('/projects')->with('error', 'Invalid project ID.');
         }
 
-        // Delete related entries in project_categories
-        $this->db->table('project_categories')->where('projectID', $projectID)->delete();
+        try {
+            // Check if the project exists
+            $project = $this->projectModel->find($projectID);
+            if (!$project) {
+                return redirect()->to('/projects')->with('error', 'Project not found.');
+            }
 
-        // Delete the project
-        $this->projectModel->delete($projectID);
+            // Manually delete related entries in project_categories
+            $related = $this->db->table('project_categories')->where('projectID', $projectID)->delete();
+            if (!$related) {
+                throw new \Exception('Failed to delete related categories.');
+            }
 
-        return redirect()->to('/projects')->with('success', 'Project deleted successfully.');
-    } catch (\Exception $e) {
-        log_message('error', 'Error in delete: ' . $e->getMessage());
-        return redirect()->to('/projects')->with('error', 'An error occurred while deleting the project.');
+            // Delete the project
+            if (!$this->projectModel->delete($projectID)) {
+                throw new \Exception('Failed to delete the project.');
+            }
+
+            return redirect()->to('/projects')->with('success', 'Project deleted successfully.');
+        } catch (\Exception $e) {
+            log_message('error', 'Error in delete: ' . $e->getMessage());
+            return redirect()->to('/projects')->with('error', 'An error occurred while deleting the project.');
+        }
     }
-}
-
-
 
     // function to filter projects based on status.
     public function filter()
