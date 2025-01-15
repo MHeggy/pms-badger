@@ -109,16 +109,14 @@ class ProjectsController extends BaseController {
                 return redirect()->to('/projects')->with('error', 'Project not found.');
             }
 
-            // Manually delete related entries in project_categories
-            $related = $this->db->table('project_categories')->where('projectID', $projectID)->delete();
-            if (!$related) {
-                throw new \Exception('Failed to delete related categories.');
-            }
+            // Delete related entries in project_categories
+            $this->db->table('project_categories')->where('projectID', $projectID)->delete();
+
+            // Delete related entries in project_tasks
+            $this->db->table('project_tasks')->where('projectID', $projectID)->delete();
 
             // Delete the project
-            if (!$this->projectModel->delete($projectID)) {
-                throw new \Exception('Failed to delete the project.');
-            }
+            $this->projectModel->delete($projectID);
 
             return redirect()->to('/projects')->with('success', 'Project deleted successfully.');
         } catch (\Exception $e) {
