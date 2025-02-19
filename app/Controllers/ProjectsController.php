@@ -131,8 +131,6 @@ class ProjectsController extends BaseController {
         }
     }
 
-
-
     // function to filter projects based on status.
     public function filter()
     {
