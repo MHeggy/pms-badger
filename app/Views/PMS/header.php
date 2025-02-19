@@ -65,9 +65,6 @@
                     <li class="nav-item">
                         <a class="nav-link <?= $pageTitle == 'Forums' ? 'active' : '' ?>" href="<?php echo base_url('/forums') ?>">Forums</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link <?= $pageTitle == 'Upload File(s)' ? 'active' : '' ?>" href="<?php echo base_url('/file/upload') ?>">Upload File(s)</a>
-                    </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle <?= $pageTitle == 'Support' ? 'active' : '' ?>" href="#" id="supportDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Support
