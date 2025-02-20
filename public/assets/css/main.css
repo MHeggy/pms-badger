@@ -25,9 +25,11 @@ body {
 }
 
 .header-logo {
-    height: 50px;
-    margin-right: 20px; /* Adjusted spacing for better alignment */
+    max-height: 60px;
+    height: auto;
+    margin-right: 10px;
 }
+
 
 /* Taskbar (Navbar items) */
 #taskbarItems {
@@ -36,14 +38,14 @@ body {
     justify-content: flex-end; /* Align items to the right */
     flex-wrap: wrap; /* Wrap items on smaller screens */
     width: 100%;
+    gap: 20px;
 }
 
 #taskbarItems li {
-    list-style: none;
-    padding: 8px 12px; /* Reduced padding for cleaner look */
-    font-size: 16px;
-    color: white; /* White text */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 12px 0;
 }
+
 
 #taskbarItems a {
     text-decoration: none;
@@ -137,6 +139,13 @@ body {
         font-size: 14px; /* Adjust text size for medium screens */
     }
 }
+
+@media (min-width: 1200px) {
+    #headerContainer {
+        padding: 20px 40px;
+    }
+}
+
 
 /* Modal Styles */
 .modal {
