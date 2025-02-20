@@ -15,22 +15,26 @@
 <body>
 <?php $user = auth()->user(); ?>
 
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="<?php echo base_url('/dashboard') ?>">
-            <img src="<?php echo base_url('assets/img/BE Logo - New transparent.png') ?>" alt="Logo" class="header-logo" />
-            PMSBadger
+<!-- Header -->
+<header id="headerContainer">
+    <!-- Top Section: Logo and PMSBadger -->
+    <div id="logoContainer">
+        <a href="<?php echo base_url('/dashboard') ?>">
+            <img src="<?php echo base_url('assets/img/BE Logo - New transparent.png') ?>" alt="Logo" class="header-logo">
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav me-auto">
-                <?php if (auth()->loggedIn()) : ?>
+        <span class="header-title">PMSBadger</span>
+    </div>
+    
+    <!-- Bottom Section: Taskbar Items and Profile -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid" id="taskbar">
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <!-- Taskbar items -->
                     <li class="nav-item">
                         <a class="nav-link <?= $pageTitle == 'Dashboard' ? 'active' : '' ?>" href="<?php echo base_url('/dashboard') ?>">Dashboard</a>
                     </li>
+                    <!-- Add other menu items here -->
                     <?php if ($user->inGroup('accountant') || $user->inGroup('superadmin')): ?>
                         <li class="nav-item">
                             <a class="nav-link <?= $pageTitle == 'Payroll [Accountant]' ? 'active' : '' ?>" href="<?php echo base_url('/accountant_payroll') ?>">Payroll</a>
@@ -71,6 +75,7 @@
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="supportDropdown">
                             <li><a class="dropdown-item" href="<?php echo base_url('/report_problem') ?>">Report a Problem</a></li>
+                            <!-- Show 'View Support Tickets' only for superadmin group -->
                             <?php if ($user->inGroup('superadmin')): ?>
                                 <li><hr class="dropdown-divider"></li>
                                 <li><a class="dropdown-item" href="<?php echo base_url('/view_support_tickets') ?>">View Support Tickets</a></li>
@@ -90,6 +95,9 @@
                 <?php endif; ?>
             </ul>
             <ul class="navbar-nav ms-auto">
+                </ul>
+            </div>
+            <ul class="navbar-nav ms-auto">
                 <?php if (auth()->loggedIn()) : ?>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -106,10 +114,9 @@
                 <?php endif; ?>
             </ul>
         </div>
-    </div>
-</nav>
-
-<!-- Logout Modal -->
+    </nav>
+</header>
+<!-- Logout modal -->
 <div id="logoutModal" class="modal">
     <div class="modal-content">
         <h1>Logout</h1>
